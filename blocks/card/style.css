@@ -1,0 +1,39 @@
+.cagov-stack * + * {
+  margin-top: 1.5rem;
+}
+
+.no-deco {
+  text-decoration: none;
+}
+
+.cagov-card {
+  border: 1px solid;
+  padding: 1rem;
+  border-bottom: 0.3rem solid #33705B;
+  border-radius: 0.3rem;
+  min-width: 250px;
+  min-height: 50px;
+  margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cagov-card h3 {
+  color: #33705B !important;
+}
+.cagov-card svg {
+  min-width: 24px;
+  fill: #33705B;
+}
+
+.cagov-card:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.block-editor-url-input__button {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+}
