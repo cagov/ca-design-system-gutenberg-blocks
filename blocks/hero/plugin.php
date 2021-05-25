@@ -41,6 +41,13 @@ function cagov_design_system_register_hero() {
 	);
 
 	wp_register_style(
+		'california-design-system-hero-style-editor',
+		plugins_url( 'editor.css', __FILE__ ),
+		array( 'wp-edit-blocks' ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
+	);
+
+	wp_register_style(
 		'california-design-system-hero-style',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
@@ -49,6 +56,7 @@ function cagov_design_system_register_hero() {
 
 	register_block_type( 'cagov/hero', array(
 		'style' => 'california-design-system-hero-style',
+		'editor_style' => 'california-design-system-hero-style-editor',
 		'editor_script' => 'california-design-system-hero-block',
 	) );
 

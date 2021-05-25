@@ -10,6 +10,9 @@
 	var __ = i18n.__;
 	var el = element.createElement;
 	var RichText = editor.RichText;
+	var URLInputButton = editor.URLInputButton;
+	var BlockControls = editor.BlockControls;
+	
 
 	blocks.registerBlockType( 'cagov/card', {
 		title: __( 'CAGov: Card', 'cagov-design-system' ),
@@ -34,28 +37,40 @@
 		edit: function( props ) {
 			var attributes = props.attributes;
 
-			return el( 'div',
-				{ className: 'cagov-card cagov-stack' },
-				el( editor.URLInputButton, {
-					url: attributes.url,
-					onChange: function( url, post ) {
-						console.log(url)
-						props.setAttributes( { url: url, text: (post && post.title) || 'Click here' } );
-					}
-				}),
-				el( RichText, {
-					tagName: 'h3',
-					inline: true,
-					placeholder: __(
-						'Write card title…',
-						'cagov-design-system'
-					),
-					value: attributes.title,
-					onChange: function( value ) {
-						props.setAttributes( { title: value } );
-					},
-				} )
-			);
+			return [
+				el(
+					BlockControls,
+					{ key: 'controls' },
+					el( components.ToolbarGroup, {},
+						el( components.ToolbarButton, {},
+							el(URLInputButton, {
+								label: "Enter card link URL",
+								onClick: function() { console.log('pressed button')},
+								url: attributes.url,
+								onChange: function( url, post ) {
+									props.setAttributes( { url: url, text: (post && post.title) || 'Click here' } );
+								}
+							} )
+						)
+					)
+				),
+				el( 'div',
+					{ className: 'cagov-card cagov-stack' },
+					el( RichText, {
+						tagName: 'h3',
+						inline: true,
+						withoutInteractiveFormatting: true,
+						placeholder: __(
+							'Write card title…',
+							'cagov-design-system'
+						),
+						value: attributes.title,
+						onChange: function( value ) {
+							props.setAttributes( { title: value } );
+						},
+					} )
+				)
+			]
 		},
 		save: function(props) {
 			var attributes = props.attributes;
