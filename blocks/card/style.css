@@ -24,16 +24,10 @@
 .cagov-card svg {
   min-width: 24px;
   fill: #33705B;
+  margin-top: .5em;
 }
 
 .cagov-card:hover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
-
-.block-editor-url-input__button {
-  position: absolute;
-  z-index: 99;
-  top: 0;
-  left: 0;
 }

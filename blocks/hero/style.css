@@ -8,57 +8,22 @@
   border: solid 1px;
 }
 
-/* homepage specific rules */
 .cagov-featured-sidebar {
   max-width: 360px;
 }
-.cagov-featured-section {
-  max-height: 360px;
-  margin-bottom: 1rem;
-}
-.cagov-featured-image {
-  object-fit: cover;
-  width: 100%;
-  display: block;
-  height: 100%;
-}
-/* editor override */
-.editor-styles-wrapper img.cagov-featured-image, .block-editor__container img.cagov-featured-image {
-  height: 100%;
-}
-/* editor override */
-.editor-styles-wrapper .wp-block a.cagov-action-link {
-  color: #fff;
-}
-
 .cagov-featured-section .components-button.image-button {
   display: block;
   height: 100%;
   margin: 0;
   padding: 0;
 }
-
-/* editor override */
-.cagov-hero-body-content .wp-block-button.block-editor-block-list__block {
-  background-color: #33705B;
-  color: white;
-  border-radius: .3rem;
-  font-weight: bold;
-  display: inline-block;
-}
-/* editor override */
-.editor-styles-wrapper .cagov-hero-body-content .block-editor-rich-text__editable.wp-block-button__link {  
-  background-color: transparent;
-  padding: 0;
-}
-/* editor override */
-.editor-styles-wrapper .cagov-hero-body-content .block-editor-rich-text__editable.wp-block-button__link:not(:hover):not(:active) {
-  background-color: transparent;
-  padding: 0;
-}
-/* editor override */
-.editor-styles-wrapper .cagov-hero-body-content .wp-block-button:not(.is-style-outline) .wp-block-button__link:not(:hover):not(:active):not(.has-background) {
-  background-color: transparent;
+.cagov-featured-image {
+  object-fit: cover;
+  width: 100%;
+  display: block;
+  height: 100%;
+  min-width: 18rem;
+  min-height: 20rem;
 }
 
 /* this is some hacky css, need to figure out how to control the applied classes in the generated InnerBlocks */
@@ -104,3 +69,10 @@
   flex-grow: 999;
   min-width: calc(30% - 0px);
 }
+
+/* hero sidebar swap image on left to go on top when it wraps */
+@media (max-width: 719px) {
+  .cagov-with-sidebar > * {
+    flex-direction: column-reverse;
+  }
+} 

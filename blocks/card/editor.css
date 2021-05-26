@@ -5,6 +5,15 @@
 .no-deco {
   text-decoration: none;
 }
+div[data-type="cagov/card"] .cagov-card {
+  border: none;
+  padding: 0;
+  display: block;
+  justify-content: space-between;
+}
+div[data-type="cagov/card"] .cagov-card:hover {
+  box-shadow: none;
+}
 div[data-type="cagov/card"] {
   border: 1px solid;
   padding: 1rem;
@@ -23,6 +32,7 @@ div[data-type="cagov/card"]:hover {
 
 .cagov-card h3 {
   color: #33705B !important;
+  margin-bottom: 0 !important;
 }
 .cagov-card svg {
   min-width: 24px;
@@ -33,10 +43,10 @@ div[data-type="cagov/card"]:hover {
   background: none;
 }
 
-
+/*
 .block-editor-url-input__button {
   position: absolute;
   z-index: 99;
   top: 0;
   left: 0;
-}
+}*/
