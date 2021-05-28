@@ -40,8 +40,16 @@ class CAGOVDesignSystem {
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/recent-news/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/twitter-embed/plugin.php';
 
+        // Load patterns
+        require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/patterns/standard-page/plugin.php';
+
     }
 
+    // Patterns, Blocks & Categories
+    // @TODO 
+    // - Add Pattern context + categories
+    // Update block & pattern categories
+    
     private function load_web_component_dependencies(){
         // Global dependencies
         wp_enqueue_script(
@@ -53,13 +61,12 @@ class CAGOVDesignSystem {
             'california-design-system-news-list-web-component',
             plugins_url( '/blocks/news-list/web-component.js', dirname( __FILE__ ) ),
             array( ),
-            // Version?
         );
-        wp_enqueue_style(
-            'california-design-system-news-list',
-            plugins_url( '/blocks/news-list/style.css', dirname( __FILE__ ) ),
-            array( )
-            
-        );
+        // @TODO this is acting strangely, figure out why.
+        // wp_enqueue_style(
+        //     'california-design-system-news-list',
+        //     plugins_url( '/blocks/news-list/style.css', dirname( __FILE__ ) ),
+        //     array( )
+        // );
     }
 }

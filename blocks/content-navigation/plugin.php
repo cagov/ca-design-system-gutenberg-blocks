@@ -33,21 +33,29 @@ function cagov_design_system_register_content_navigation() {
 		return;
 	}
 
+	// Register custom web component
+	wp_register_script(
+		'california-design-system-content-navigation-web-component',
+		plugins_url( 'web-component.js', __FILE__ ),
+		array( ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
+	);
+
 	wp_register_script(
 		'california-design-system-content-navigation',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' )
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-content-navigation-web-component' ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'cagov-content-navigation',
+		'california-design-system-content-navigation',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'cagov/news-block', array(
+	register_block_type( 'cagov/content-navigation', array(
 		'style' => 'cagov-content-navigation',
 		'editor_script' => 'california-design-system-content-navigation',
 	) );
