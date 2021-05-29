@@ -1,0 +1,24 @@
+{
+  "name": "ca-design-system-gutenberg-blocks",
+  "version": "1.0.0",
+  "description": "Gutenberg blocks to be used in WordPress that are compatible with the California's design system",
+  "main": "index.js",
+  "scripts": {
+    "lint": "semistandard",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cagov/ca-design-system-gutenberg-blocks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cagov/ca-design-system-gutenberg-blocks/issues"
+  },
+  "homepage": "https://github.com/cagov/ca-design-system-gutenberg-blocks#readme",
+  "devDependencies": {
+    "semistandard": "^16.0.0"
+  }
+}
