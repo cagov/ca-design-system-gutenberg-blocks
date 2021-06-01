@@ -42,6 +42,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+vendor/
+composer.lock
 
 # TypeScript v1 declaration files
 typings/
