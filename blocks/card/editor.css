@@ -50,3 +50,12 @@ div[data-type="cagov/card"]:hover {
   top: 0;
   left: 0;
 }*/
+.components-button.has-icon .dashicon {
+  margin-right: 2px;
+}
+.disp-none {
+  display: none;
+}
+.url-input-form {
+  padding: 8px 8px 0 8px;
+}
