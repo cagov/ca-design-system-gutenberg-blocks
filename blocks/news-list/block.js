@@ -4,7 +4,6 @@
 
 (function (blocks, blockEditor, i18n, element, components, _, moment) {
 
-  console.log("moment", moment);
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md

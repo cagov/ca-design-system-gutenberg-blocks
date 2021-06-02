@@ -20,7 +20,7 @@ class CAGOVDesignSystem {
     private function __construct(){
         // Load All Block Files
         $this->load_block_dependencies();
-        $this->load_web_component_dependencies();
+        $this->load_block_pattern_categories();
     }
 
     private function load_block_dependencies(){
@@ -45,28 +45,16 @@ class CAGOVDesignSystem {
 
     }
 
-    // Patterns, Blocks & Categories
-    // @TODO 
-    // - Add Pattern context + categories
-    // Update block & pattern categories
-    
-    private function load_web_component_dependencies(){
-        // Global dependencies
-        wp_enqueue_script(
-            'moment'
-        );
+    /**
+     * Register Block Pattern Category.
+     */
+    private function load_block_pattern_categories(){
+        if ( function_exists( 'register_block_pattern_category' ) ) {
 
-        // Custom web components javascript and css
-        wp_enqueue_script(
-            'california-design-system-news-list-web-component',
-            plugins_url( '/blocks/news-list/web-component.js', dirname( __FILE__ ) ),
-            array( ),
-        );
-        // @TODO this is acting strangely, figure out why.
-        // wp_enqueue_style(
-        //     'california-design-system-news-list',
-        //     plugins_url( '/blocks/news-list/style.css', dirname( __FILE__ ) ),
-        //     array( )
-        // );
-    }
+            register_block_pattern_category(
+                'cagov',
+                array( 'label' => esc_html__( 'CA Design System', 'cagov' ) )
+            );
+        }
+}
 }
