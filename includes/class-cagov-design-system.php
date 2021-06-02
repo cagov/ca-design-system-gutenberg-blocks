@@ -37,7 +37,7 @@ class CAGOVDesignSystem {
 
         // Load blocks
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/accordion/plugin.php';
-        // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/alert/plugin.php';
+        require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/alert/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/button/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/breadcrumb/plugin.php';
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/card/plugin.php';
