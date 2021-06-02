@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Standard Page Pattern
+ * Plugin Name: Event Post Pattern
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_custom_wp_block_patterns() {
+function cagov_design_system_event_post_custom_wp_block_patterns() {
 
 	if ( ! function_exists( 'register_block_pattern' ) ) {
 		// Gutenberg is not active.
@@ -29,18 +29,18 @@ function cagov_design_system_custom_wp_block_patterns() {
      * Register Block Pattern
      */
     register_block_pattern(
-        'cagov/standard-page',
+        'cagov/event-post',
         // @TODO Update div & markup
         // @TODO Add css style (enqueue)
         // Add field reference
 
         // Great reference: https://fullsiteediting.com/lessons/introduction-to-block-patterns/
         array(
-            'title'       => __( 'Standard Page', 'cagov' ),
-            'description' => _x( 'Page layout with dynamic content navigation sidebar', 'Block pattern description', 'cagov' ),
-            'content' => '<!-- wp:columns --><div class="wp-block-columns has-2-columns"><!-- wp:column {"width":"33.33%"} -->
+            'title'       => __( 'Event Post', 'cagov' ),
+            'description' => _x( 'Page layout with event detail', 'Block pattern description', 'cagov' ),
+            'content' => '<!-- wp:columns --><div class="wp-block-columns"><!-- wp:column {"width":"33.33%"} -->
             <div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:html -->
-            <cagov-content-navigation></cagov-content-navigation>
+            
             <!-- /wp:html --></div>
             <!-- /wp:column -->
             
@@ -54,10 +54,10 @@ function cagov_design_system_custom_wp_block_patterns() {
     );
 }
 
-add_action( 'init', 'cagov_design_system_custom_wp_block_patterns' );
+add_action( 'init', 'cagov_design_system_event_post_custom_wp_block_patterns' );
 
 
-function cagov_design_system_web_component_scripts() {
+function cagov_design_system_event_post_web_component_scripts() {
     // Global dependencies
     wp_enqueue_script(
         'moment'
@@ -84,4 +84,4 @@ function cagov_design_system_web_component_scripts() {
 }
 
 
-add_action('wp_enqueue_scripts', 'cagov_design_system_web_component_scripts');
+add_action('wp_enqueue_scripts', 'cagov_design_system_event_post_web_component_scripts');
