@@ -49,8 +49,8 @@ class CAGOVDesignSystem {
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/header-image/plugin.php';
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/hero/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/highlight-box/plugin.php';
-        // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/mailchimp/plugin.php';
-        // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
+        require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/mailchimp/plugin.php';
+        require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/news-list/plugin.php';
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/news-archive/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/process-list/plugin.php';
