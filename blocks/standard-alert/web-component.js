@@ -1,13 +1,11 @@
 /**
- * Twitter Feed web component
+ * Standard Alert web component
  * Supported endpoints: Wordpress v2
- * Wordpress Dependencies: window.wp.moment.
  */
- class CAGovTwitterFeed extends window.HTMLElement {
-    connectedCallback() {
-      console.log("twitter feed loaded");
-    }
+ class CAGovStandardAlert extends window.HTMLElement {
+  connectedCallback() {
+    console.log("standard-alert loaded");
   }
-  
-  window.customElements.define("cagov-twitter-feed", CAGovTwitterFeed);
-  
+}
+
+window.customElements.define("cagov-standard-alert", CAGovStandardAlert);

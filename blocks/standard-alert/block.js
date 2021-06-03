@@ -1,5 +1,5 @@
 /**
- * CAGov Twitter Feed
+ * CAGov Standard Alert
  *
  */
  ( function( blocks, editor, i18n, element, components, _ ) {
@@ -7,8 +7,8 @@
 	var el = element.createElement;
 	var RichText = editor.RichText;
 
-	blocks.registerBlockType( 'cagov/twitter-feed', {
-		title: __( 'CAGov: Twitter Feed', 'cagov-design-system' ),
+	blocks.registerBlockType( 'cagov/standard-alert', {
+		title: __( 'CAGov: Standard Alert', 'cagov-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'layout',
 		attributes: {
@@ -34,12 +34,12 @@
 
 			return el(
 				'div',
-				{ className: 'cagov-twitter-feed cagov-stack' },
+				{ className: 'cagov-standard-alert cagov-stack' },
 				el( RichText, {
 					tagName: 'h3',
 					inline: true,
 					placeholder: __(
-						'Write twitter-feed title…',
+						'Write standard-alert title…',
 						'cagov-design-system'
 					),
 					value: attributes.title,
@@ -51,7 +51,7 @@
 					tagName: 'p',
 					inline: true,
 					placeholder: __(
-						'Write twitter-feed body',
+						'Write standard-alert body',
 						'cagov-design-system'
 					),
 					value: attributes.body,
@@ -65,7 +65,7 @@
 			var attributes = props.attributes;
 			return el(
 				'div',
-				{ className: 'cagov-twitter-feed cagov-stack' },
+				{ className: 'cagov-standard-alert cagov-stack' },
 				el( RichText.Content, {
 					tagName: 'h3',
 					value: attributes.title,

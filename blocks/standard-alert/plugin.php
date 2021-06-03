@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Twitter Feed
+ * Plugin Name: Standard Alert
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_design_system_gutenberg_block_twitter_feed' );
+add_action( 'init', 'cagov_design_system_gutenberg_block_standard_alert' );
 
-function cagov_design_system_gutenberg_block_twitter_feed() {
+function cagov_design_system_gutenberg_block_standard_alert() {
 	load_plugin_textdomain( 'cagov-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function cagov_design_system_gutenberg_block_twitter_feed() {
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_register_twitter_feed() {
+function cagov_design_system_register_standard_alert() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -35,30 +35,30 @@ function cagov_design_system_register_twitter_feed() {
 
 	// Register custom web component
 	wp_register_script(
-		'california-design-system-twitter-feed-web-component',
+		'california-design-system-standard-alert-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'california-design-system-twitter-feed',
+		'california-design-system-standard-alert',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-twitter-feed-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-standard-alert-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'california-design-system-twitter-feed',
+		'california-design-system-standard-alert',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'cagov/twitter-feed', array(
-		'style' => 'cagov-twitter-feed',
-		'editor_script' => 'california-design-system-twitter-feed',
+	register_block_type( 'cagov/standard-alert', array(
+		'style' => 'cagov-standard-alert',
+		'editor_script' => 'california-design-system-standard-alert',
 	) );
 
 }
-add_action( 'init', 'cagov_design_system_register_twitter_feed' );
+add_action( 'init', 'cagov_design_system_register_standard_alert' );

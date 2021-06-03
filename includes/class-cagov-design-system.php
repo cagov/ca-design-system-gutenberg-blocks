@@ -52,10 +52,10 @@ class CAGOVDesignSystem {
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/mailchimp/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/news-list/plugin.php';
-        // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/news-archive/plugin.php';
+        require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/news-archive/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/process-list/plugin.php';
         // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/social-media-links/plugin.php';
-        // require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/standard-alert/plugin.php';
+        require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/standard-alert/plugin.php';
         require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/blocks/twitter-feed/plugin.php';
     }
 
