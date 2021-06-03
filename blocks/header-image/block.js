@@ -1,5 +1,5 @@
 /**
- * CAGov Breadcrumb
+ * CAGov Header Image
  *
  */
  ( function( blocks, editor, i18n, element, components, _ ) {
@@ -7,8 +7,8 @@
 	var el = element.createElement;
 	var RichText = editor.RichText;
 
-	blocks.registerBlockType( 'cagov/breadcrumb', {
-		title: __( 'CAGov: Breadcrumb', 'cagov-design-system' ),
+	blocks.registerBlockType( 'cagov/header-image', {
+		title: __( 'CAGov: Header Image', 'cagov-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'layout',
 		attributes: {
@@ -34,12 +34,12 @@
 
 			return el(
 				'div',
-				{ className: 'cagov-breadcrumb cagov-stack' },
+				{ className: 'cagov-header-image cagov-stack' },
 				el( RichText, {
 					tagName: 'h3',
 					inline: true,
 					placeholder: __(
-						'Write breadcrumb title…',
+						'Write header-image title…',
 						'cagov-design-system'
 					),
 					value: attributes.title,
@@ -51,7 +51,7 @@
 					tagName: 'p',
 					inline: true,
 					placeholder: __(
-						'Write breadcrumb body',
+						'Write header-image body',
 						'cagov-design-system'
 					),
 					value: attributes.body,
@@ -65,7 +65,7 @@
 			var attributes = props.attributes;
 			return el(
 				'div',
-				{ className: 'cagov-breadcrumb cagov-stack' },
+				{ className: 'cagov-header-image cagov-stack' },
 				el( RichText.Content, {
 					tagName: 'h3',
 					value: attributes.title,

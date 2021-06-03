@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Breadcrumb
+ * Plugin Name: Button
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_design_system_gutenberg_block_breadcrumb' );
+add_action( 'init', 'cagov_design_system_gutenberg_block_button' );
 
-function cagov_design_system_gutenberg_block_breadcrumb() {
+function cagov_design_system_gutenberg_block_button() {
 	load_plugin_textdomain( 'cagov-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function cagov_design_system_gutenberg_block_breadcrumb() {
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_register_breadcrumb() {
+function cagov_design_system_register_button() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -35,30 +35,30 @@ function cagov_design_system_register_breadcrumb() {
 
 	// Register custom web component
 	wp_register_script(
-		'california-design-system-breadcrumb-web-component',
+		'california-design-system-button-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'california-design-system-breadcrumb',
+		'california-design-system-button',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-breadcrumb-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-button-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'california-design-system-breadcrumb',
+		'california-design-system-button',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'cagov/breadcrumb', array(
-		'style' => 'cagov-breadcrumb',
-		'editor_script' => 'california-design-system-breadcrumb',
+	register_block_type( 'cagov/button', array(
+		'style' => 'cagov-button',
+		'editor_script' => 'california-design-system-button',
 	) );
 
 }
-add_action( 'init', 'cagov_design_system_register_breadcrumb' );
+add_action( 'init', 'cagov_design_system_register_button' );
