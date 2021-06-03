@@ -1,9 +1,9 @@
 /**
- * News List web component
+ * News Archive web component
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment.
  */
-class CAGovNewsList extends window.HTMLElement {
+class CAGovNewsArchive extends window.HTMLElement {
   connectedCallback() {
     this.endpoint = this.dataset.endpoint;
     this.order = this.dataset.order || "desc";
@@ -107,4 +107,4 @@ class CAGovNewsList extends window.HTMLElement {
   }
 }
 
-window.customElements.define("cagov-news-list", CAGovNewsList);
+window.customElements.define("cagov-news-archive", CAGovNewsArchive);

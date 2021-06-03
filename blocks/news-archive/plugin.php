@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: News List
+ * Plugin Name: News Archive
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_design_system_gutenberg_block_news_list' );
+add_action( 'init', 'cagov_design_system_gutenberg_block_news_archive' );
 
-function cagov_design_system_gutenberg_block_news_list() {
+function cagov_design_system_gutenberg_block_news_archive() {
 	load_plugin_textdomain( 'cagov-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function cagov_design_system_gutenberg_block_news_list() {
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_register_news_list() {
+function cagov_design_system_register_news_archive() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -35,30 +35,30 @@ function cagov_design_system_register_news_list() {
 
 	// Register custom web component
 	wp_register_script(
-		'california-design-system-news-list-web-component',
+		'california-design-system-news-archive-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'california-design-system-news-list',
+		'california-design-system-news-archive',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-news-list-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-news-archive-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'california-design-system-news-list',
+		'california-design-system-news-archive',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'cagov/news-list', array(
-		'style' => 'cagov-news-list',
-		'editor_script' => 'california-design-system-news-list',
+	register_block_type( 'cagov/news-archive', array(
+		'style' => 'cagov-news-archive',
+		'editor_script' => 'california-design-system-news-archive',
 	) );
 
 }
-add_action( 'init', 'cagov_design_system_register_news_list' );
+add_action( 'init', 'cagov_design_system_register_news_archive' );
