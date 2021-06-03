@@ -22,6 +22,7 @@ define('CAGOV_DESIGN_SYSTEM_FILE', __FILE__);
 
 if( ! class_exists('CAGOVDesignSystem') ) {
     require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/includes/class-cagov-design-system.php';
+    require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/core/class-cagov-design-system-plugin-update.php';
 }
 
 CAGOVDesignSystem::get_instance();
