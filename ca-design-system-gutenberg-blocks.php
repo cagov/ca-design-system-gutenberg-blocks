@@ -40,4 +40,9 @@ if( ! class_exists('CADesignSystemGutenbergBlocks') ) {
     require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks.php';
 }
 
+if( ! class_exists('CADesignSystemGutenbergBlocks_AdminPage') ) {
+    require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-admin-page.php';
+}
+
 CADesignSystemGutenbergBlocks::get_instance();
+CADesignSystemGutenbergBlocks_AdminPage::get_instance();

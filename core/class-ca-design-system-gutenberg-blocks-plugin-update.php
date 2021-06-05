@@ -1,17 +1,17 @@
 <?php
 /**
- * CADesignSystem Plugin Updater
+ * CADesignSystemGutenbergBlocks Plugin Updater
  *
  * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/update.php
  * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/class-theme-upgrader.php
  * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/class-wp-upgrader.php
  *
- * @package CADesignSystem
+ * @package CADesignSystemGutenbergBlocks
  */
 
 if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 	/**
-	 * CADesignSystem Plugin Upgrader
+	 * CADesignSystemGutenbergBlocks Plugin Upgrader
 	 */
 	class CADesignSystemGutenbergBlocks_Plugin_Update {
 
