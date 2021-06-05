@@ -9,11 +9,11 @@
  * @package CADesignSystem
  */
 
-if ( ! class_exists( 'CADesignSystem_Plugin_Update' ) ) {
+if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 	/**
 	 * CADesignSystem Plugin Upgrader
 	 */
-	class CADesignSystem_Plugin_Update {
+	class CADesignSystemGutenbergBlocks_Plugin_Update {
 
 		/**
 		 * Member Variable
@@ -284,7 +284,7 @@ if ( ! class_exists( 'CADesignSystem_Plugin_Update' ) ) {
 			$view_details = array(
 				'slug'     => plugin_basename( plugin_dir_path( __DIR__ ) ),
 				'author'   => 'TBD',
-				'name'     => 'ca.gov Design System - Gutenberg Blocks',
+				'name'     => 'CA Design System Gutenberg Blocks',
 				'sections' => array(
 					'Description' => 'Gutenberg blocks to be used in WordPress that are compatible with the California\'s design system',
 				),
@@ -298,5 +298,5 @@ if ( ! class_exists( 'CADesignSystem_Plugin_Update' ) ) {
 	}
 }
 
-new CADesignSystem_Plugin_Update( plugin_basename( plugin_dir_path( __DIR__ ) ) );
+new CADesignSystemGutenbergBlocks_Plugin_Update( plugin_basename( plugin_dir_path( __DIR__ ) ) );
 
