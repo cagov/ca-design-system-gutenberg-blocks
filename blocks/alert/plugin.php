@@ -6,7 +6,7 @@
  * Description: TBD
  * Version: 1.1.0
  * Author: California Office of Digital Innovation
- * @package cagov-design-system
+ * @package ca-design-system
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -14,10 +14,10 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_design_system_gutenberg_block_alert' );
+add_action( 'init', 'ca_design_system_gutenberg_block_alert' );
 
-function cagov_design_system_gutenberg_block_alert() {
-	load_plugin_textdomain( 'cagov-design-system', false, basename( __DIR__ ) . '/languages' );
+function ca_design_system_gutenberg_block_alert() {
+	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
 /**
@@ -26,7 +26,7 @@ function cagov_design_system_gutenberg_block_alert() {
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_register_alert() {
+function ca_design_system_register_alert() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -47,10 +47,10 @@ function cagov_design_system_register_alert() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'cagov/alert', array(
+	register_block_type( 'ca-design-system/alert', array(
 		'style' => 'cagov-alert',
 		'editor_script' => 'california-design-system',
 	) );
 
 }
-add_action( 'init', 'cagov_design_system_register_alert' );
+add_action( 'init', 'ca_design_system_register_alert' );

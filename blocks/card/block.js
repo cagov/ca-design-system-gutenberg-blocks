@@ -11,10 +11,10 @@
   const BlockControls = editor.BlockControls;
   const URLPopover = editor.URLPopover;
 
-  blocks.registerBlockType('cagov/card', {
-    title: __('CAGov: Card', 'cagov-design-system'),
+  blocks.registerBlockType('ca-design-system/card', {
+    title: __('CAGov: Card', 'ca-design-system'),
     icon: 'universal-access-alt',
-    category: 'layout',
+    category: 'ca-design-system',
     attributes: {
       title: {
         type: 'array',
@@ -27,8 +27,8 @@
     },
     example: {
       attributes: {
-        title: __('Card title', 'cagov-design-system'),
-        body: __('Card body', 'cagov-design-system')
+        title: __('Card title', 'ca-design-system'),
+        body: __('Card body', 'ca-design-system')
       }
     },
     edit: function (props) {
@@ -105,7 +105,7 @@
             withoutInteractiveFormatting: true,
             placeholder: __(
               'Write card title…',
-              'cagov-design-system'
+              'ca-design-system'
             ),
             value: attributes.title,
             onChange: function (value) {

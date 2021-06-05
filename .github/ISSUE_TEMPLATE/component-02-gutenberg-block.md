@@ -1,7 +1,7 @@
 ---
 name: Gutenberg Block Development
 about: After a component is scoped out, metadata assigned, this issue template can be used to help track development issues.
-title: 'Development: Name'
+title: ''
 labels: Component, Development
 assignees: ''
 ---
@@ -10,9 +10,9 @@ assignees: ''
 
 Development tasks for a design system component.
 
-Component Name: 
-Original Issue, Design System: 
-Original Issue: 
+- [ ] Component Name: 
+- [ ] Original Issue, Design System: 
+- [ ] Original Issue: 
 
 ---
 

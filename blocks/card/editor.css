@@ -5,16 +5,16 @@
 .no-deco {
   text-decoration: none;
 }
-div[data-type="cagov/card"] .cagov-card {
+div[data-type="ca-design-system/card"] .cagov-card {
   border: none;
   padding: 0;
   display: block;
   justify-content: space-between;
 }
-div[data-type="cagov/card"] .cagov-card:hover {
+div[data-type="ca-design-system/card"] .cagov-card:hover {
   box-shadow: none;
 }
-div[data-type="cagov/card"] {
+div[data-type="ca-design-system/card"] {
   border: 1px solid;
   padding: 1rem;
   border-bottom: 0.3rem solid #33705B;
@@ -25,7 +25,7 @@ div[data-type="cagov/card"] {
   display: flex;
   justify-content: space-between;
 }
-div[data-type="cagov/card"]:hover {
+div[data-type="ca-design-system/card"]:hover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }

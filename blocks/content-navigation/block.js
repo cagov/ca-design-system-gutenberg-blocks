@@ -1,86 +1,74 @@
 /**
  * CAGov Content Navigation
  */
- ( function( blocks, editor, i18n, element, components, _ ) {
+
+ (function (blocks, blockEditor, i18n, element, components, _, moment) {
 	var __ = i18n.__;
 	var el = element.createElement;
-	var RichText = editor.RichText;
-
-	blocks.registerBlockType( 'cagov/card', {
-		title: __( 'CAGov: Card', 'cagov-design-system' ),
-		icon: 'universal-access-alt',
-		category: 'layout',
+	// https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md  
+	//http://wordpress.test:8888/wp-json/wp/v2/tags?per_page=10&orderby=count&order=desc&_fields=id%2Cname%2Ccount&context=edit&_locale=user".
+	// var RichText = blockEditor.RichText;
+	// var PlainText = blockEditor.PlainText;
+	
+	blocks.registerBlockType("ca-design-system/content-navigation", {
+	  title: __("CAGov: Content Navigation", "ca-design-system"),
+	  icon: "universal-access-alt",
+	  category: 'ca-design-system',
+	  attributes: {
+	  },
+	  example: {
 		attributes: {
-			title: {
-				type: 'array',
-				source: 'children',
-				selector: 'h3',
+		},
+	  },
+	  edit: function (props) {
+		var attributes = props.attributes;
+		return el(
+		  "div",
+		  {
+			className: "cagov-content-navigation cagov-stack",
+		  },
+		  el(
+			"div",
+			{},
+			// Visual display of content
+			el("cagov-content-navigation", {
+			  className: "content-navigation",
+			  'data-selector': "#main-content",
+			  'data-editor': "textarea.block-editor-plain-text",
+			  'data-callback': "(content) => unescape(content)"
+			}),
+		  )
+		);
+	  },
+	  // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/
+	  save: function (props) {
+		var attributes = props.attributes;
+		return el(
+			"div",
+			{
+			  className: "cagov-content-navigation cagov-stack",
 			},
-			body: {
-				type: 'array',
-				source: 'children',
-				selector: 'p',
-			}
-		},
-		example: {
-			attributes: {
-				title: __( 'Card title', 'cagov-design-system' ),
-				body: __( 'Card body', 'cagov-design-system' )
-			}
-		},
-		edit: function( props ) {
-			var attributes = props.attributes;
-
-			return el(
-				'div',
-				{ className: 'cagov-card cagov-stack' },
-				el( RichText, {
-					tagName: 'h3',
-					inline: true,
-					placeholder: __(
-						'Write card title…',
-						'gutenberg-examples'
-					),
-					value: attributes.title,
-					onChange: function( value ) {
-						props.setAttributes( { title: value } );
-					},
-				} ),
-				el( RichText, {
-					tagName: 'p',
-					inline: true,
-					placeholder: __(
-						'Write card body',
-						'cagov-design-system'
-					),
-					value: attributes.body,
-					onChange: function( value ) {
-						props.setAttributes( { body: value } );
-					},
-				} )
-			);
-		},
-		save: function(props) {
-			var attributes = props.attributes;
-			return el(
-				'div',
-				{ className: 'cagov-card cagov-stack' },
-				el( RichText.Content, {
-					tagName: 'h3',
-					value: attributes.title,
-				} ),
-				el( RichText.Content, {
-					tagName: 'p',
-					value: attributes.body,
-				} )
-			);
-		},
-	} );
-} )(
+			el(
+			  "div",
+			  {},
+			  // Visual display of content
+			  el("cagov-content-navigation", {
+				className: "content-navigation",
+				'data-selector': "#main-content",
+				'data-editor': "textarea.block-editor-plain-text",
+				'data-callback': "(content) => content"
+			  }),
+			)
+		  );
+	  },
+	});
+  })(
 	window.wp.blocks,
-	window.wp.editor,
+	window.wp.blockEditor,
 	window.wp.i18n,
 	window.wp.element,
 	window.wp.components,
-	window._
-);
+	window._,
+	window.moment
+  );
+  

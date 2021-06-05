@@ -1,7 +1,7 @@
 ---
 name: New Gutenberg Block, Initial proposal
 about: Define a Gutenberg Block
-title: 'Define: Name'
+title: ''
 labels: Gutenberg Block, New proposal
 assignees: ''
 ---
@@ -14,7 +14,6 @@ Here is a proposal for a Gutenberg block to include in this WordPress plugin.
 - [ ] Name
 - [ ] Location in CA Design System
 - [ ] About this block
-- [ ] Description
 - [ ] Examples
 - [ ] Features
 - [ ] Requesting agency
@@ -30,9 +29,6 @@ Original Issue in @cagov/design-system repo:
 
 ## About this block
 *Please tell us more about the block.*
-
-### Description
-*Describe how this component will be used.*
 
 ### Examples
 *(Can be screenshots, a few examples is great. Please include URLs if the examples are live.) This helps everyone understand what you are referring to.*

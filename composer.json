@@ -1,5 +1,5 @@
 {
-    "name": "cagov/design-system",
+    "name": "ca-design-system/ca-design-system-gutenberg-blocks",
     "description": "Packages to help enforce WordPress Coding Standards",
     "require-dev": {
         "wp-coding-standards/wpcs": "^2.2.0",
