@@ -90,46 +90,197 @@
 /*!**************************************!*\
   !*** ./blocks/event-detail/block.js ***!
   \**************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 /**
  * CAGov Event Detail
  *
  */
+// This doesn't seem to be necessary if we enqueue all the dependencies.
+//  import { InspectorControls, RichText } from '@wordpress/block-editor';
+//  import { Fragment, useState, useEffect  } from '@wordpress/element';
+//  import { dateI18n  } from '@wordpress/date';
+//  import { DateTimePicker, Popover, Button, PanelRow, TextControl, Panel, PanelBody  } from '@wordpress/components';
+//  import i18n from '@wordpress/i18n';
+//  import { registerBlockType  } from '@wordpress/blocks';
 const {
   blocks,
   blockEditor,
   i18n,
   element,
-  components
-} = window.wp;
+  components,
+  date,
+  data
+} = wp;
 const {
   moment,
   _
 } = window;
-console.log("TEST wp", wp);
+const {
+  dateI18n
+} = date;
+const {
+  DateTimePicker,
+  Popover,
+  Button,
+  PanelRow,
+  TextControl,
+  Panel,
+  PanelBody
+} = components;
+const {
+  Fragment,
+  useState,
+  useEffect,
+  createElement
+} = element;
+const {
+  InspectorControls,
+  RichText
+} = blockEditor;
+const {
+  useSelect,
+  useDispatch
+} = data; //   plugins: { registerPlugin },
+//   editPost: { PluginDocumentSettingPanel },
+
 var __ = i18n.__;
-var el = element.createElement;
+var el = createElement;
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("CAGov: Event Detail", "ca-design-system"),
   icon: "universal-access-alt",
   category: "layout",
-  attributes: {},
+  attributes: {
+    startDate: {
+      type: "array",
+      source: "children",
+      selector: "div.start-date"
+    },
+    endDate: {
+      type: "array",
+      source: "children",
+      selector: "div.end-date"
+    },
+    location: {
+      type: "array",
+      source: "children",
+      selector: "div.location"
+    },
+    cost: {
+      type: "array",
+      source: "children",
+      selector: "div.cost"
+    }
+  },
   example: {
-    attributes: {}
+    startDate: __("Start Data & Time", "ca-design-system")
   },
   edit: function (props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, "TEST1");
+    const [openDatePopup, setOpenDatePopup] = useState(false);
+    const {
+      startDate,
+      endDate,
+      location,
+      cost
+    } = props.attributes;
+
+    const onUpdateDate = dateTime => {
+      var newDateTime = moment(dateTime).format("YYYY-MM-DD HH:mm");
+      props.setAttributes({
+        datetime: newDateTime
+      });
+    };
+
+    return createElement("div", {
+      className: "cagov-event-detail cagov-stack"
+    }, createElement(Fragment, null, "//   ", createElement(InspectorControls, null, "//     ", createElement(PanelBody, {
+      title: "Panel",
+      icon: "",
+      initialOpen: false
+    }, "//       ", createElement(PanelRow, null, "//         ", createElement(DateTimePicker, null, "//           currentDate=", startDate, "//           onChange=", val => onUpdateDate(val), "//           is12Hour=", true, "//         "), "//       "), "//     "), "//   "), "// ")); // <div className="start-date">{attributes.startDate}</div>
+    //     <div className="end-date">{attributes.endDate}</div>
+    //     <div className="location">{attributes.location}</div>
+    //     <div className="cost">{attributes.cost}</div>
+    //   return el(
+    //     "div",
+    //     { className: "cagov-event-detail cagov-stack" },
+    //     el(RichText, {
+    //       tagName: "div",
+    //       className: "start-date",
+    //       inline: true,
+    //       placeholder: __("Start Date", "ca-design-system"),
+    //       value: attributes.startDate,
+    //       onChange: function (value) {
+    //         props.setAttributes({ startDate: value });
+    //       },
+    //     },
+    //     //   el(InspectorControls, {}),
+    //     //   el(PanelBody, { title: "panel", icon: "", initialOpen: false }),
+    //     //   el(PanelRow),
+    //     //   el(DateTimePicker, {
+    //     //     currentDate: startDate,
+    //     //     onChange: (val) => onUpdateDate(val),
+    //     //     is12Hour: true,
+    //     //   })
+    //     ),
+    //     el(RichText, {
+    //       tagName: "div",
+    //       className: "end-date",
+    //       inline: true,
+    //       placeholder: __("End Date", "ca-design-system"),
+    //       value: attributes.endDate,
+    //       onChange: function (value) {
+    //         props.setAttributes({ endDate: value });
+    //       },
+    //     }),
+    //     el(RichText, {
+    //       tagName: "div",
+    //       className: "location",
+    //       inline: true,
+    //       placeholder: __("Location", "ca-design-system"),
+    //       value: attributes.location,
+    //       onChange: function (value) {
+    //         props.setAttributes({ location: value });
+    //       },
+    //     }),
+    //     el(RichText, {
+    //       tagName: "div",
+    //       className: "cost",
+    //       inline: true,
+    //       placeholder: __("Cost", "ca-design-system"),
+    //       value: attributes.cost,
+    //       onChange: function (value) {
+    //         props.setAttributes({ cost: value });
+    //       },
+    //     })
+    //     // el( RichText, {
+    //     // 	tagName: 'p',
+    //     // 	inline: true,
+    //     // 	placeholder: __(
+    //     // 		'Write event-detail body',
+    //     // 		'ca-design-system'
+    //     // 	),
+    //     // 	value: attributes.body,
+    //     // 	onChange: function( value ) {
+    //     // 		props.setAttributes( { body: value } );
+    //     // 	},
+    //     // } )
+    //   );
   },
   save: function (props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, "TEST2");
+    var attributes = props.attributes;
+    return createElement("div", {
+      className: "cagov-event-detail cagov-stack"
+    }, createElement("div", {
+      className: "start-date"
+    }, attributes.startDate), createElement("div", {
+      className: "end-date"
+    }, attributes.endDate), createElement("div", {
+      className: "location"
+    }, attributes.location), createElement("div", {
+      className: "cost"
+    }, attributes.cost));
   }
 });
 
@@ -145,19 +296,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../blocks/event-detail/block.js */ "./blocks/event-detail/block.js");
+/* harmony import */ var _blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0__);
 // Build ES-Next Gutenberg Blocks
  // @TODO try keeping blocks and patterns at root and just mess around with imports here until have it worked out, then consider moving src
-
-/***/ }),
-
-/***/ "@wordpress/element":
-/*!*********************************!*\
-  !*** external ["wp","element"] ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["element"]; }());
 
 /***/ })
 

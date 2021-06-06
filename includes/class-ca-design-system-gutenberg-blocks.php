@@ -69,16 +69,13 @@ class CADesignSystemGutenbergBlocks {
 
 
     public function ca_design_system_build_scripts() {
-        // Global dependencies
-        wp_enqueue_script(
-            'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'date'
-        );
+        
     
         // Custom web components javascript and css
         wp_enqueue_script(
             'ca-design-system-blocks',
             plugins_url( '/build/index.js', dirname( __FILE__ ) ),
-            array( ),
+            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'underscore', 'moment', 'wp-data' ),
         );
     
         wp_enqueue_script(
