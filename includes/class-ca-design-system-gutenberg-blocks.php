@@ -75,7 +75,7 @@ class CADesignSystemGutenbergBlocks {
         wp_enqueue_script(
             'ca-design-system-blocks',
             plugins_url( '/build/index.js', dirname( __FILE__ ) ),
-            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'underscore', 'moment', 'wp-data' ),
+            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),
         );
     
         wp_enqueue_script(
@@ -83,6 +83,20 @@ class CADesignSystemGutenbergBlocks {
             plugins_url( '/build/index.js', dirname( __FILE__ ) ),
             array( ),
         );
+
+        // https://stackoverflow.com/questions/54600455/how-to-register-styles-scripts-blocks-for-wordpress-gutenberg-block-editor
+
+        // wp_register_style(
+        //     'ca-design-system-blocks',
+        //      plugins_url( '/blocks/build/blocks.style.build.css', __FILE__ ),
+        //      array( 'wp-blocks' )
+        // );
+
+        // wp_register_style(
+        //     'ca-design-system-blocks-edit-style',
+        //     plugins_url('/blocks/build/blocks.editor.build.css', __FILE__),
+        //      array( 'wp-edit-blocks' )
+        // );
     }
 
 

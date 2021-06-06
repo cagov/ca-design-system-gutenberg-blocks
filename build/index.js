@@ -97,13 +97,6 @@
  * CAGov Event Detail
  *
  */
-// This doesn't seem to be necessary if we enqueue all the dependencies.
-//  import { InspectorControls, RichText } from '@wordpress/block-editor';
-//  import { Fragment, useState, useEffect  } from '@wordpress/element';
-//  import { dateI18n  } from '@wordpress/date';
-//  import { DateTimePicker, Popover, Button, PanelRow, TextControl, Panel, PanelBody  } from '@wordpress/components';
-//  import i18n from '@wordpress/i18n';
-//  import { registerBlockType  } from '@wordpress/blocks';
 const {
   blocks,
   blockEditor,
@@ -111,7 +104,8 @@ const {
   element,
   components,
   date,
-  data
+  data,
+  compose
 } = wp;
 const {
   moment,
@@ -122,6 +116,7 @@ const {
 } = date;
 const {
   DateTimePicker,
+  DatePicker,
   Popover,
   Button,
   PanelRow,
@@ -137,14 +132,16 @@ const {
 } = element;
 const {
   InspectorControls,
-  RichText
+  RichText,
+  InnerBlocks
 } = blockEditor;
 const {
   useSelect,
   useDispatch
-} = data; //   plugins: { registerPlugin },
-//   editPost: { PluginDocumentSettingPanel },
-
+} = data;
+const {
+  withState
+} = compose;
 var __ = i18n.__;
 var el = createElement;
 blocks.registerBlockType("ca-design-system/event-detail", {
@@ -178,95 +175,51 @@ blocks.registerBlockType("ca-design-system/event-detail", {
   },
   edit: function (props) {
     const [openDatePopup, setOpenDatePopup] = useState(false);
+    var attributes = props.attributes;
     const {
       startDate,
       endDate,
       location,
       cost
-    } = props.attributes;
-
-    const onUpdateDate = dateTime => {
-      var newDateTime = moment(dateTime).format("YYYY-MM-DD HH:mm");
-      props.setAttributes({
-        datetime: newDateTime
-      });
-    };
+    } = props.attributes; // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
 
     return createElement("div", {
       className: "cagov-event-detail cagov-stack"
-    }, createElement(Fragment, null, "//   ", createElement(InspectorControls, null, "//     ", createElement(PanelBody, {
-      title: "Panel",
-      icon: "",
-      initialOpen: false
-    }, "//       ", createElement(PanelRow, null, "//         ", createElement(DateTimePicker, null, "//           currentDate=", startDate, "//           onChange=", val => onUpdateDate(val), "//           is12Hour=", true, "//         "), "//       "), "//     "), "//   "), "// ")); // <div className="start-date">{attributes.startDate}</div>
-    //     <div className="end-date">{attributes.endDate}</div>
-    //     <div className="location">{attributes.location}</div>
-    //     <div className="cost">{attributes.cost}</div>
-    //   return el(
-    //     "div",
-    //     { className: "cagov-event-detail cagov-stack" },
-    //     el(RichText, {
-    //       tagName: "div",
-    //       className: "start-date",
-    //       inline: true,
-    //       placeholder: __("Start Date", "ca-design-system"),
-    //       value: attributes.startDate,
-    //       onChange: function (value) {
-    //         props.setAttributes({ startDate: value });
-    //       },
-    //     },
-    //     //   el(InspectorControls, {}),
-    //     //   el(PanelBody, { title: "panel", icon: "", initialOpen: false }),
-    //     //   el(PanelRow),
-    //     //   el(DateTimePicker, {
-    //     //     currentDate: startDate,
-    //     //     onChange: (val) => onUpdateDate(val),
-    //     //     is12Hour: true,
-    //     //   })
-    //     ),
-    //     el(RichText, {
-    //       tagName: "div",
-    //       className: "end-date",
-    //       inline: true,
-    //       placeholder: __("End Date", "ca-design-system"),
-    //       value: attributes.endDate,
-    //       onChange: function (value) {
-    //         props.setAttributes({ endDate: value });
-    //       },
-    //     }),
-    //     el(RichText, {
-    //       tagName: "div",
-    //       className: "location",
-    //       inline: true,
-    //       placeholder: __("Location", "ca-design-system"),
-    //       value: attributes.location,
-    //       onChange: function (value) {
-    //         props.setAttributes({ location: value });
-    //       },
-    //     }),
-    //     el(RichText, {
-    //       tagName: "div",
-    //       className: "cost",
-    //       inline: true,
-    //       placeholder: __("Cost", "ca-design-system"),
-    //       value: attributes.cost,
-    //       onChange: function (value) {
-    //         props.setAttributes({ cost: value });
-    //       },
-    //     })
-    //     // el( RichText, {
-    //     // 	tagName: 'p',
-    //     // 	inline: true,
-    //     // 	placeholder: __(
-    //     // 		'Write event-detail body',
-    //     // 		'ca-design-system'
-    //     // 	),
-    //     // 	value: attributes.body,
-    //     // 	onChange: function( value ) {
-    //     // 		props.setAttributes( { body: value } );
-    //     // 	},
-    //     // } )
-    //   );
+    }, createElement("div", {
+      className: "start-date"
+    }, "START: ", moment(startDate).format("MMMM Do YYYY, h:mm:ss a"), " "), createElement("div", {
+      className: "end-date"
+    }, "End: ", moment(endDate).format("MMMM Do YYYY, h:mm:ss a"), " "), createElement("hr", null), "REWORKING THESE:", createElement(DateTimePicker, {
+      currentDate: props.attributes.startDate,
+      onChange: val => props.setAttributes({
+        startDate: val
+      }),
+      is12Hour: false
+    }), createElement(DateTimePicker, {
+      currentDate: props.attributes.endDate,
+      onChange: val => props.setAttributes({
+        endDate: val
+      }),
+      is12Hour: false
+    }), createElement("hr", null), createElement("h4", null, "Location"), createElement(RichText.Content, {
+      value: attributes.location,
+      tagName: "div",
+      className: "location",
+      value: attributes.location,
+      onChange: location => props.setAttributes({
+        location
+      }),
+      placeholder: __("Enter text...", "ca-design-system")
+    }), createElement(RichText.Content, {
+      value: props.attributes.cost,
+      tagName: "div",
+      className: "cost",
+      value: attributes.location,
+      onChange: cost => props.setAttributes({
+        cost
+      }),
+      placeholder: __("Enter text...", "ca-design-system")
+    }));
   },
   save: function (props) {
     var attributes = props.attributes;
@@ -276,12 +229,13 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       className: "start-date"
     }, attributes.startDate), createElement("div", {
       className: "end-date"
-    }, attributes.endDate), createElement("div", {
-      className: "location"
-    }, attributes.location), createElement("div", {
-      className: "cost"
-    }, attributes.cost));
-  }
+    }, attributes.endDate), createElement(RichText.Content, {
+      tagName: "div",
+      className: "location",
+      value: attributes.location
+    }));
+  } // <div className="cost">{attributes.cost}</div>
+
 });
 
 /***/ }),
