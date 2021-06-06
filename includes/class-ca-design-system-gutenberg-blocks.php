@@ -22,7 +22,9 @@ class CADesignSystemGutenbergBlocks {
         $this->load_block_dependencies();
         $this->load_block_pattern_categories();
         $this->load_block_category();
+        $this->ca_design_system_build_scripts();
     }
+    
 
     /**
      * Load all patterns and blocks.
@@ -60,6 +62,32 @@ class CADesignSystemGutenbergBlocks {
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/standard-alert/plugin.php';
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/twitter-feed/plugin.php';
     }
+
+    private function load_component_block_script() {
+        add_action('wp_enqueue_scripts', array($this, 'ca_design_system_build_scripts'));
+    }
+
+
+    public function ca_design_system_build_scripts() {
+        // Global dependencies
+        wp_enqueue_script(
+            'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'date'
+        );
+    
+        // Custom web components javascript and css
+        wp_enqueue_script(
+            'ca-design-system-blocks',
+            plugins_url( '/build/index.js', dirname( __FILE__ ) ),
+            array( ),
+        );
+    
+        wp_enqueue_script(
+            'ca-design-system-blocks',
+            plugins_url( '/build/index.js', dirname( __FILE__ ) ),
+            array( ),
+        );
+    }
+
 
     /**
      * Register Custom Block Pattern Category.
