@@ -27,19 +27,14 @@ function ca_design_system_gutenberg_block_category_label() {
  * Passes translations to JavaScript.
  */
 function ca_design_system_register_category_label() {
-
+	
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
 		return;
 	}
-
-	// Register custom web component
-	// wp_register_script(
-	// 	'ca-design-system-category-label-web-component',
-	// 	plugins_url( 'web-component.js', __FILE__ ),
-	// 	array( ),
-	// 	filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
-	// );
+	
+	global $post;
+	echo($post);
 
 	wp_register_script(
 		'ca-design-system-category-label',
@@ -48,9 +43,15 @@ function ca_design_system_register_category_label() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
+	$taxonomy_name = "category"; // @TODO This can be a CONST set in the plugin initializer
+
+	$terms = get_terms( array( 
+		'taxonomy' => $taxonomy_name,
+		'hide_empty' => false,
+	));
 	
-	wp_localize_script('ca-design-system-category-label', 'ca_design_system_gutenberg_blocks_vars', array(
-			'postID' => $post->ID
+	wp_localize_script('ca-design-system-category-label', 'ca_design_system_gutenberg_blocks_category_label_vars', array(
+			'terms' => $terms
 		)
 	);
 
