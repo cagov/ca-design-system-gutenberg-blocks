@@ -2,86 +2,131 @@
  * CAGov Event Detail
  *
  */
- ( function( blocks, editor, i18n, element, components, _ ) {
-	var __ = i18n.__;
-	var el = element.createElement;
-	var RichText = editor.RichText;
 
-	blocks.registerBlockType( 'ca-design-system/event-detail', {
-		title: __( 'CAGov: Event Detail', 'ca-design-system' ),
-		icon: 'universal-access-alt',
-		category: 'ca-design-system',
-		attributes: {
-			title: {
-				type: 'array',
-				source: 'children',
-				selector: 'h3',
-			},
-			body: {
-				type: 'array',
-				source: 'children',
-				selector: 'p',
-			}
-		},
-		example: {
-			attributes: {
-				title: __( 'Card title', 'ca-design-system' ),
-				body: __( 'Card body', 'ca-design-system' )
-			}
-		},
-		edit: function( props ) {
-			var attributes = props.attributes;
+const {
+  blocks,
+  blockEditor,
+  i18n,
+  element,
+  components,
+  date,
+  data,
+  compose,
+} = wp;
+const { moment, _ } = window;
 
-			return el(
-				'div',
-				{ className: 'cagov-event-detail cagov-stack' },
-				el( RichText, {
-					tagName: 'h3',
-					inline: true,
-					placeholder: __(
-						'Write event-detail title…',
-						'ca-design-system'
-					),
-					value: attributes.title,
-					onChange: function( value ) {
-						props.setAttributes( { title: value } );
-					},
-				} ),
-				el( RichText, {
-					tagName: 'p',
-					inline: true,
-					placeholder: __(
-						'Write event-detail body',
-						'ca-design-system'
-					),
-					value: attributes.body,
-					onChange: function( value ) {
-						props.setAttributes( { body: value } );
-					},
-				} )
-			);
-		},
-		save: function(props) {
-			var attributes = props.attributes;
-			return el(
-				'div',
-				{ className: 'cagov-event-detail cagov-stack' },
-				el( RichText.Content, {
-					tagName: 'h3',
-					value: attributes.title,
-				} ),
-				el( RichText.Content, {
-					tagName: 'p',
-					value: attributes.body,
-				} )
-			);
-		},
-	} );
-} )(
-	window.wp.blocks,
-	window.wp.editor,
-	window.wp.i18n,
-	window.wp.element,
-	window.wp.components,
-	window._
-);
+const { dateI18n } = date;
+const {
+  DateTimePicker,
+  DatePicker,
+  Popover,
+  Button,
+  PanelRow,
+  TextControl,
+  Panel,
+  PanelBody,
+} = components;
+const { Fragment, useState, useEffect, createElement } = element;
+const { InspectorControls, RichText, InnerBlocks } = blockEditor;
+const { useSelect, useDispatch } = data;
+const { withState } = compose;
+
+var __ = i18n.__;
+var el = createElement;
+
+blocks.registerBlockType("ca-design-system/event-detail", {
+  title: __("CAGov: Event Detail", "ca-design-system"),
+  icon: "universal-access-alt",
+  category: "layout",
+  attributes: {
+    startDate: {
+      type: "array",
+      source: "children",
+      selector: "div.start-date",
+    },
+    endDate: {
+      type: "array",
+      source: "children",
+      selector: "div.end-date",
+    },
+    location: {
+      type: "array",
+      source: "children",
+      selector: "div.location",
+    },
+    cost: {
+      type: "array",
+      source: "children",
+      selector: "div.cost",
+    },
+  },
+  example: {
+    startDate: __("Start Data & Time", "ca-design-system"),
+  },
+  edit: function (props) {
+    const [openDatePopup, setOpenDatePopup] = useState(false);
+    var attributes = props.attributes;
+    const { startDate, endDate, location, cost } = props.attributes;
+
+    // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
+
+    return (
+      <div className="cagov-event-detail cagov-stack">
+        <div className="start-date">
+          START: {moment(startDate).format("MMMM Do YYYY, h:mm:ss a")}{" "}
+        </div>
+        <div className="end-date">
+          End: {moment(endDate).format("MMMM Do YYYY, h:mm:ss a")}{" "}
+        </div>
+        <hr />
+        REWORKING THESE:
+        <DateTimePicker
+          currentDate={props.attributes.startDate}
+          onChange={(val) => props.setAttributes({ startDate: val })}
+          is12Hour={false}
+        />
+        <DateTimePicker
+          currentDate={props.attributes.endDate}
+          onChange={(val) => props.setAttributes({ endDate: val })}
+          is12Hour={false}
+        />
+        <hr />
+        <h4>Location</h4>
+        <RichText.Content
+          value={attributes.location}
+          tagName="div"
+          className="location"
+          value={attributes.location}
+          onChange={(location) => props.setAttributes({ location })}
+          placeholder={__("Enter text...", "ca-design-system")}
+        />
+        {/* <InnerBlocks
+            allowedBlocks={["core/paragraph", "core/button"]}
+            onChange={(value) => {
+              props.setAttributes({ location: value });
+            }}
+          /> */}
+        <RichText.Content
+          value={props.attributes.cost}
+          tagName="div"
+          className="cost"
+          value={attributes.location}
+          onChange={(cost) => props.setAttributes({ cost })}
+          placeholder={__("Enter text...", "ca-design-system")}
+        />
+      </div>
+    );
+  },
+  save: function (props) {
+    var attributes = props.attributes;
+
+    return (
+      <div className="cagov-event-detail cagov-stack">
+        <div className="start-date">{attributes.startDate}</div>
+        <div className="end-date">{attributes.endDate}</div>
+        <RichText.Content tagName="div" className="location" value={ attributes.location } />
+      </div>
+    );
+  },
+  // <div className="cost">{attributes.cost}</div>
+});

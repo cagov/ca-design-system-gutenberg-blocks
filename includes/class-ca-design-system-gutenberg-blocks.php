@@ -22,7 +22,9 @@ class CADesignSystemGutenbergBlocks {
         $this->load_block_dependencies();
         $this->load_block_pattern_categories();
         $this->load_block_category();
+        $this->ca_design_system_build_scripts();
     }
+    
 
     /**
      * Load all patterns and blocks.
@@ -60,6 +62,43 @@ class CADesignSystemGutenbergBlocks {
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/standard-alert/plugin.php';
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/twitter-feed/plugin.php';
     }
+
+    private function load_component_block_script() {
+        add_action('wp_enqueue_scripts', array($this, 'ca_design_system_build_scripts'));
+    }
+
+
+    public function ca_design_system_build_scripts() {
+        
+    
+        // Custom web components javascript and css
+        wp_enqueue_script(
+            'ca-design-system-blocks',
+            plugins_url( '/build/index.js', dirname( __FILE__ ) ),
+            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),
+        );
+    
+        wp_enqueue_script(
+            'ca-design-system-blocks',
+            plugins_url( '/build/index.js', dirname( __FILE__ ) ),
+            array( ),
+        );
+
+        // https://stackoverflow.com/questions/54600455/how-to-register-styles-scripts-blocks-for-wordpress-gutenberg-block-editor
+
+        // wp_register_style(
+        //     'ca-design-system-blocks',
+        //      plugins_url( '/blocks/build/blocks.style.build.css', __FILE__ ),
+        //      array( 'wp-blocks' )
+        // );
+
+        // wp_register_style(
+        //     'ca-design-system-blocks-edit-style',
+        //     plugins_url('/blocks/build/blocks.editor.build.css', __FILE__),
+        //      array( 'wp-edit-blocks' )
+        // );
+    }
+
 
     /**
      * Register Custom Block Pattern Category.
