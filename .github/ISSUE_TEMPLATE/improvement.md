@@ -1,7 +1,7 @@
 ---
 name: Improvement
 about: Share a suggestion for improving this plugin
-title: 'Improvement:'
+title: ''
 labels: Improvement
 assignees: ''
 ---

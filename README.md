@@ -8,8 +8,9 @@ This folder contains:
 
 ## Organization
 
-* Plugin: `cagov-design-system.php` - Initial starting script for Wordpress plugin
+* Plugin: `ca-design-system.php` - Initial starting script for Wordpress plugin
 * `blocks` — Individual Gutenberg block code.
+* `patterns` - Page guides
 * `includes` — Code for the Wordpress plugin
 * `core` - WP updater scripts (not yet tested)
 
@@ -41,7 +42,7 @@ For an individual block:
         * Content design interface notes  
 
 * Set up the new block
-* Register new child GB plugin `includes/class-cagov-design-system.php`
+* Register new child GB plugin `includes/class-ca-design-system.php`
 * Create `block.js` and `style.css` and `languages` folders.
 * Define the inputs
 * Output the schema.org data

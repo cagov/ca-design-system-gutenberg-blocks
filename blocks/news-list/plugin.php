@@ -6,7 +6,7 @@
  * Description: TBD
  * Version: 1.1.0
  * Author: California Office of Digital Innovation
- * @package cagov-design-system
+ * @package ca-design-system
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -14,10 +14,10 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_design_system_gutenberg_block_news_list' );
+add_action( 'init', 'ca_design_system_gutenberg_block_news_list' );
 
-function cagov_design_system_gutenberg_block_news_list() {
-	load_plugin_textdomain( 'cagov-design-system', false, basename( __DIR__ ) . '/languages' );
+function ca_design_system_gutenberg_block_news_list() {
+	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
 /**
@@ -26,7 +26,7 @@ function cagov_design_system_gutenberg_block_news_list() {
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_register_news_list() {
+function ca_design_system_register_news_list() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -35,30 +35,30 @@ function cagov_design_system_register_news_list() {
 
 	// Register custom web component
 	wp_register_script(
-		'california-design-system-news-list-web-component',
+		'ca-design-system-news-list-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'california-design-system-news-list',
+		'ca-design-system-news-list',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'california-design-system-news-list-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-news-list-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'california-design-system-news-list',
+		'ca-design-system-news-list',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'cagov/news-list', array(
+	register_block_type( 'ca-design-system/news-list', array(
 		'style' => 'cagov-news-list',
-		'editor_script' => 'california-design-system-news-list',
+		'editor_script' => 'ca-design-system-news-list',
 	) );
 
 }
-add_action( 'init', 'cagov_design_system_register_news_list' );
+add_action( 'init', 'ca_design_system_register_news_list' );

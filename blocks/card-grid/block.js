@@ -5,10 +5,10 @@
 (function (blocks, element, blockEditor) {
   const el = element.createElement;
   const InnerBlocks = blockEditor.InnerBlocks;
-  const ALLOWED_BLOCKS = ['cagov/card'];
-  blocks.registerBlockType('cagov/card-grid', {
+  const ALLOWED_BLOCKS = ['ca-design-system/card'];
+  blocks.registerBlockType('ca-design-system/card-grid', {
     title: 'CAGov card grid',
-    category: 'layout',
+    category: 'ca-design-system',
     edit: function (props) {
       return el(
         'div',

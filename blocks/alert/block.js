@@ -6,10 +6,10 @@
 	var el = element.createElement;
 	var RichText = editor.RichText;
 
-	blocks.registerBlockType( 'cagov/alert', {
-		title: __( 'CAGov: Alert', 'cagov-design-system' ),
+	blocks.registerBlockType( 'ca-design-system/alert', {
+		title: __( 'CAGov: Alert', 'ca-design-system' ),
 		icon: 'universal-access-alt',
-		category: 'layout',
+		category: 'ca-design-system',
 		attributes: {
 			title: {
 				type: 'array',
@@ -29,9 +29,9 @@
 		},
 		example: {
 			attributes: {
-				title: __( 'Alert title', 'cagov-design-system' ),
-				body: __( 'Alert body', 'cagov-design-system' ),
-				body: __( 'Alert button', 'cagov-design-system' )
+				title: __( 'Alert title', 'ca-design-system' ),
+				body: __( 'Alert body', 'ca-design-system' ),
+				body: __( 'Alert button', 'ca-design-system' )
 			}
 		},
 		edit: function( props ) {
@@ -49,7 +49,7 @@
 					inline: true,
 					placeholder: __(
 						'Write alert title…',
-						'cagov-design-system'
+						'ca-design-system'
 					),
 					value: attributes.title,
 					onChange: function( value ) {
@@ -62,7 +62,7 @@
 					inline: true,
 					placeholder: __(
 						'Write alert body',
-						'cagov-design-system'
+						'ca-design-system'
 					),
 					value: attributes.body,
 					onChange: function( value ) {
@@ -75,7 +75,7 @@
 					inline: true,
 					placeholder: __(
 						'Write alert button text',
-						'cagov-design-system'
+						'ca-design-system'
 					),
 					value: attributes.button,
 					onChange: function( value ) {

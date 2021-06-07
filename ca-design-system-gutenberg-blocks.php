@@ -1,26 +1,26 @@
 <?php
 /**
- * Plugin Name: ca.gov Design System - Gutenberg Blocks
+ * Plugin Name: CA Design System Gutenberg Blocks
  * Plugin URI: TBD
  * Description: TBD
- * Author: 
+ * Author: TBD
  * Author URI: 
- * Version: 1.0.0
+ * Version: 1.0.1
  * License: TBD
  * License URI: TBD
- * Text Domain: cagov-design-system
- * @package cagov-design-system
+ * Text Domain: ca-design-system
+ * @package ca-design-system
  */
 if (!defined('ABSPATH')) {
     exit;
 }
 // Constants
-define('CAGOV_DESIGN_SYSTEM_VERSION', '1.0.0');
-define('CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH', plugin_dir_path(__FILE__));
-define('CAGOV_DESIGN_SYSTEM_ADMIN_URL', plugin_dir_url(__FILE__));
-define('CAGOV_DESIGN_SYSTEM_FILE', __FILE__);
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.1');
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH', plugin_dir_path(__FILE__));
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL', plugin_dir_url(__FILE__));
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__FILE', __FILE__);
 
-add_action( 'admin_init', 'cagov_design_system_admin_init' );
+add_action( 'admin_init', 'ca_design_system_gutenberg_blocks_admin_init' );
 
 /**
  * Admin Init
@@ -32,12 +32,17 @@ add_action( 'admin_init', 'cagov_design_system_admin_init' );
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/admin_init
  * @return void
  */
-function cagov_design_system_admin_init(){
-    include_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/core/class-cagov-design-system-plugin-update.php';
+function ca_design_system_gutenberg_blocks_admin_init(){
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/core/class-ca-design-system-gutenberg-blocks-plugin-update.php';
 }
 
-if( ! class_exists('CAGOVDesignSystem') ) {
-    require_once CAGOV_DESIGN_SYSTEM_BLOCKS_DIR_PATH . '/includes/class-cagov-design-system.php';
+if( ! class_exists('CADesignSystemGutenbergBlocks') ) {
+    require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks.php';
 }
 
-CAGOVDesignSystem::get_instance();
+if( ! class_exists('CADesignSystemGutenbergBlocks_AdminPage') ) {
+    require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-admin-page.php';
+}
+
+CADesignSystemGutenbergBlocks::get_instance();
+CADesignSystemGutenbergBlocks_AdminPage::get_instance();

@@ -4,7 +4,6 @@
 
 (function (blocks, blockEditor, i18n, element, components, _, moment) {
 
-  console.log("moment", moment);
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
@@ -21,10 +20,10 @@
   // - [ ] Figure out tab navigation inside Gutenberg block. Notes: tabIndex react prop doesn't help. aria-labels added automatically, may require accessibiliy add on plugin. Navigating between blocks works with the Block List. Q: Would PlainText work better?
   // - [ ] Figure out easiest localization options
 
-  blocks.registerBlockType("cagov/news-list", {
-    title: __("CAGov: News List", "cagov-design-system"),
+  blocks.registerBlockType("ca-design-system/news-list", {
+    title: __("CAGov: News List", "ca-design-system"),
     icon: "universal-access-alt",
-    category: "layout",
+    category: 'ca-design-system',
     attributes: {
       title: {
         type: "array",
@@ -70,13 +69,13 @@
     },
     example: {
       attributes: {
-        title: __("News List title", "cagov-design-system"),
-        description: __("News List description", "cagov-design-system"),
-        readMore: __("Link Text", "cagov-design-system"),
-        category: __("Category to include", "cagov-design-system"),
-        count: __("Number news items to display", "cagov-design-system"),
-        order: __("Order of news posts", "cagov-design-system"),
-        endpoint: __("Endpoint to fetch data from", "cagov-design-system"),
+        title: __("News List title", "ca-design-system"),
+        description: __("News List description", "ca-design-system"),
+        readMore: __("Link Text", "ca-design-system"),
+        category: __("Category to include", "ca-design-system"),
+        count: __("Number news items to display", "ca-design-system"),
+        order: __("Order of news posts", "ca-design-system"),
+        endpoint: __("Endpoint to fetch data from", "ca-design-system"),
       },
     },
     edit: function (props) {
@@ -92,7 +91,7 @@
           el(RichText, {
             tagName: "h3",
             inline: false,
-            placeholder: __("News list title", "cagov-design-system"),
+            placeholder: __("News list title", "ca-design-system"),
             value: attributes.title,
             onChange: function (value) {
               props.setAttributes({ title: value });
@@ -103,7 +102,7 @@
           //   inline: false,
           //   placeholder: __(
           //     "News list message (optional)",
-          //     "cagov-design-system"
+          //     "ca-design-system"
           //   ),
           //   value: attributes.description,
           //   onChange: function (value) {
@@ -124,7 +123,7 @@
             tagName: "div",
             className: "read-more",
             inline: false,
-            placeholder: __("Link to news page", "cagov-design-system"),
+            placeholder: __("Link to news page", "ca-design-system"),
             value: attributes.readMore,
             onChange: function (value) {
               props.setAttributes({ readMore: value });
@@ -140,7 +139,7 @@
                         tagName: "input",
                         className: "news-list-category",
                         inline: false,
-                        placeholder: __("Category", "cagov-design-system"),
+                        placeholder: __("Category", "ca-design-system"),
                         value: attributes.category,
                         onChange: function (value) {
                           props.setAttributes({ category: value });
@@ -150,7 +149,7 @@
                       //   tagName: "input",
                       //   className: "news-list-count",
                       //   inline: false,
-                      //   placeholder: __("Count", "cagov-design-system"),
+                      //   placeholder: __("Count", "ca-design-system"),
                       //   value: attributes.count,
                       //   onChange: function (value) {
                       //     props.setAttributes({ count: value });
@@ -160,7 +159,7 @@
                       //   tagName: "div", // Checkbox desc/asc
                       //   className: "news-list-order",
                       //   inline: false,
-                      //   placeholder: __("Order", "cagov-design-system"),
+                      //   placeholder: __("Order", "ca-design-system"),
                       //   value: attributes.order,
                       //   onChange: function (value) {
                       //     props.setAttributes({ order: value });
@@ -170,7 +169,7 @@
                       //   tagName: "div", // select box + enter data
                       //   className: "news-list-endpoint",
                       //   inline: false,
-                      //   placeholder: __("Endpoint", "cagov-design-system"),
+                      //   placeholder: __("Endpoint", "ca-design-system"),
                       //   value: attributes.endpoint,
                       //   onChange: function (value) {
                       //     props.setAttributes({ endpoint: value });
