@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_custom_wp_block_patterns() {
+function ca_design_system_custom_wp_block_pattern_standard_page() {
 
 	if ( ! function_exists( 'register_block_pattern' ) ) {
 		// Gutenberg is not active.
@@ -37,25 +37,33 @@ function ca_design_system_custom_wp_block_patterns() {
         // Great reference: https://fullsiteediting.com/lessons/introduction-to-block-patterns/
         array(
             'title'       => __( 'Standard Page', 'ca-design-system' ),
-            'description' => _x( 'Page layout with dynamic content navigation sidebar', 'Block pattern description', 'ca-design-system' ),
-            'content' => '<!-- wp:columns --><div class="wp-block-columns has-2-columns"><!-- wp:column {"width":"33.33%"} -->
-            <div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:html -->
-            <cagov-content-navigation></cagov-content-navigation>
-            <!-- /wp:html --></div>
-            <!-- /wp:column -->
-            
-            <!-- wp:column {"width":"66.66%"} -->
-            <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:html -->
-            <!-- /wp:html --></div>
-            <!-- /wp:column --></div>
-            <!-- /wp:columns -->',
+            'description' => __( 'Page layout with dynamic content navigation sidebar', 'Block pattern description', 'ca-design-system' ),
+            'content' => '<!-- wp:columns -->
+                <div class="wp-block-columns has-2-columns">
+                    <!-- wp:column {"width":"33.33%"} -->
+                        <div class="wp-block-column" style="flex-basis:33.33%">
+                        <!-- wp:ca-design-system/content-navigation -->
+                        <div class="wp-block-ca-design-system-content-navigation cagov-content-navigation  cagov-stack">
+                        <div>
+                            <cagov-content-navigation class="content-navigation" data-selector="#main-content" data-editor="textarea.block-editor-plain-text" data-callback="(content) =&gt; content"></cagov-content-navigation>
+                        </div>
+                    </div>
+                        <!-- /wp:ca-design-system/content-navigation -->
+                        </div>
+                    <!-- /wp:column --> 
+                    <!-- wp:column {"width":"66.66%"} -->
+                    <div id="main-content" class="wp-block-column" style="flex-basis:66.66%">
+                   
+                    </div>
+                    <!-- /wp:column -->
+            </div><!-- /wp:columns -->',
             "categories" => array('ca-design-system'),
         )
     );
+
 }
 
-add_action( 'init', 'ca_design_system_custom_wp_block_patterns' );
-
+add_action( 'init', 'ca_design_system_custom_wp_block_pattern_standard_page' );
 
 function ca_design_system_web_component_scripts() {
     // Global dependencies
@@ -85,3 +93,46 @@ function ca_design_system_web_component_scripts() {
 
 
 add_action('wp_enqueue_scripts', 'ca_design_system_web_component_scripts');
+
+//             'content' => '<div class="ca-gov-columns">
+//                 <div class="ca-gov-column">
+//                     <cagov-content-navigation></cagov-content-navigation>
+//                 </div>
+
+//                 <div class="ca-gov-column">
+//                     <div id="main-content">
+//                         <!-- wp:html -->
+// <h2>Title 1</h2>
+// <p>Lorem 1</p>
+// <h3>Title 1</h3>
+// <p>Lorem 2</p>
+//                         <!-- /wp:html -->
+//                     </div>
+//                 </div>
+//             </div>',
+
+            
+// <!-- wp:columns --><div class="wp-block-columns has-2-columns">
+// 
+    
+//     <div class="wp-block-column" style="flex-basis:33.33%">
+        
+            
+//             <!-- wp:column {"width":"33.33%"} -->
+//             <!-- /wp:column -->
+//     </div>
+   
+
+//     <!-- wp:column {"width":"66.66%"} -->
+//     <div class="wp-block-column" style="flex-basis:66.66%">
+//         <div id="main-content">
+//             <!-- wp:html -->
+//                 <h2>Title 1</h2>
+//                 <p>Lorem 1</p>
+//                 <h3>Title 1</h3>
+//                 <p>Lorem 2</p>
+//             <!-- /wp:html -->
+//         </div>
+//     </div>
+//     <!-- /wp:column -->
+// </div> <!-- /wp:columns -->

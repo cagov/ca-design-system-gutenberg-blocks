@@ -2,86 +2,131 @@
  * CAGov Category Label
  *
  */
- ( function( blocks, editor, i18n, element, components, _ ) {
-	var __ = i18n.__;
-	var el = element.createElement;
-	var RichText = editor.RichText;
+(function (blocks, blockEditor, i18n, element, components, _, data, vars) {
+  var __ = i18n.__;
+  var el = element.createElement;
+  var RichText = blockEditor.RichText;
 
-	blocks.registerBlockType( 'ca-design-system/category-label', {
-		title: __( 'Category Label', 'ca-design-system' ),
-		icon: 'universal-access-alt',
-		category: 'ca-design-system',
-		attributes: {
-			title: {
-				type: 'array',
-				source: 'children',
-				selector: 'h3',
-			},
-			body: {
-				type: 'array',
-				source: 'children',
-				selector: 'p',
-			}
-		},
-		example: {
-			attributes: {
-				title: __( 'Card title', 'ca-design-system' ),
-				body: __( 'Card body', 'ca-design-system' )
-			}
-		},
-		edit: function( props ) {
-			var attributes = props.attributes;
+  const getSelectedCategory = function () {
+    var postSelectedCategories = data
+      .select("core/editor")
+      .getEditedPostAttribute("categories");
 
-			return el(
-				'div',
-				{ className: 'cagov-category-label cagov-stack' },
-				el( RichText, {
-					tagName: 'h3',
-					inline: true,
-					placeholder: __(
-						'Write category-label title…',
-						'ca-design-system'
-					),
-					value: attributes.title,
-					onChange: function( value ) {
-						props.setAttributes( { title: value } );
-					},
-				} ),
-				el( RichText, {
-					tagName: 'p',
-					inline: true,
-					placeholder: __(
-						'Write category-label body',
-						'ca-design-system'
-					),
-					value: attributes.body,
-					onChange: function( value ) {
-						props.setAttributes( { body: value } );
-					},
-				} )
-			);
-		},
-		save: function(props) {
-			var attributes = props.attributes;
-			return el(
-				'div',
-				{ className: 'cagov-category-label cagov-stack' },
-				el( RichText.Content, {
-					tagName: 'h3',
-					value: attributes.title,
-				} ),
-				el( RichText.Content, {
-					tagName: 'p',
-					value: attributes.body,
-				} )
-			);
-		},
-	} );
-} )(
-	window.wp.blocks,
-	window.wp.editor,
-	window.wp.i18n,
-	window.wp.element,
-	window.wp.components,
-	window._
+    let selectedCategory = null;
+
+    // Only one category supported.
+    if (
+      postSelectedCategories !== undefined &&
+      postSelectedCategories.length === 1
+    ) {
+      selectedCategory = vars.terms.filter((item) => {
+        return item.term_id === postSelectedCategories[0];
+      });
+    }
+    return selectedCategory;
+  };
+
+  blocks.registerBlockType("ca-design-system/category-label", {
+    title: __("CAGov: Category Label", "ca-design-system"),
+    icon: "universal-access-alt",
+    category: "ca-design-system",
+    // namespace: "CA Design System", // Version?
+
+	// <div class="wp-block-ca-design-system-category-label cagov-category-label cagov-stack" data-term-id="7">News</div>
+
+    attributes: {
+      label: {
+        type: "array",
+        source: "children",
+        selector: "div.cagov-category-label",
+      },
+    //   term_id: {
+    //     type: "string",
+    //     source: "attribute",
+    //     selector: "div.cagov-category-label[data-term-id]",
+    //   },
+    },
+    // keywords: [__("news"), __("labels")],
+    example: {
+      attributes: {
+        label: __("News", "ca-design-system"),
+        // term_id: __("4", "ca-design-system"),
+      },
+    },
+    edit: function (props) {
+      var attributes = props.attributes;
+      console.log("edit", attributes);
+
+
+      return el(RichText.Content, {
+		tagName: "div",
+		className: "cagov-category-label cagov-stack",
+		value: attributes.label,
+		// "data-term-id": attributes.term_id || "",
+	  });
+
+    },
+    save: function (props) {
+      var attributes = props.attributes;
+      console.log("save", attributes);
+
+      return el(RichText.Content, {
+          tagName: "div",
+		  className: "cagov-category-label cagov-stack",
+          value: attributes.label,
+		//   "data-term-id": attributes.term_id || "",
+        });
+    },
+  });
+
+  data.subscribe(function () {
+    var blocks = data.select("core/block-editor").getBlocks();
+
+    var isPostDirty = data.select("core/editor").isEditedPostDirty();
+    var isAutosavingPost = data.select("core/editor").isAutosavingPost();
+
+    if (isPostDirty && !isAutosavingPost) {
+      blocks.map((block) => {
+        if (block.name === "ca-design-system/category-label") {
+          let categoryLabelBlock = data
+            .select("core/block-editor")
+            .getBlocksByClientId(block.clientId);
+
+          let updatedSelectedCategory = getSelectedCategory();
+
+          categoryLabelBlock.map((localBlock) => {
+            if (
+              updatedSelectedCategory !== null &&
+              localBlock.attributes !== undefined &&
+              localBlock.attributes.label !== null &&
+              updatedSelectedCategory !== null &&
+              localBlock.attributes.label !== updatedSelectedCategory[0].name &&
+              typeof updatedSelectedCategory[0].name === "string"
+            ) {
+              console.log("updating", updatedSelectedCategory[0].name);
+              console.log(
+                "updatedSelectedCategory[0].term_id.toString()",
+                updatedSelectedCategory[0].term_id.toString()
+              );
+              wp.data
+                .dispatch("core/block-editor")
+                .updateBlockAttributes(localBlock.clientId, {
+                  label: updatedSelectedCategory[0].name,
+                //   term_id: updatedSelectedCategory[0].term_id.toString(),
+                });
+            }
+          });
+        }
+      });
+    }
+  });
+})(
+  window.wp.blocks,
+  window.wp.blockEditor,
+  window.wp.i18n,
+  window.wp.element,
+  window.wp.components,
+  window._,
+  window.wp.data,
+  window.ca_design_system_gutenberg_blocks_category_label_vars
 );

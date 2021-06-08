@@ -13,12 +13,19 @@
 	blocks.registerBlockType("ca-design-system/content-navigation", {
 	  title: __("Content Navigation", "ca-design-system"),
 	  icon: "universal-access-alt",
+	  description: __( 'TBD: Content navigation description here.' ),
 	  category: 'ca-design-system',
 	  attributes: {
 	  },
 	  example: {
 		attributes: {
 		},
+	  },
+	  supports: {
+		html: false,
+		// reusable: false,
+		// multiple: false,
+		// inserter: false
 	  },
 	  edit: function (props) {
 		var attributes = props.attributes;

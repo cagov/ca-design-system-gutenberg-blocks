@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "semistandard",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/ca-design-system/ca-design-system-gutenberg-blocks#readme",
   "devDependencies": {
+    "@wordpress/scripts": "^16.1.2",
     "semistandard": "^16.0.0"
   },
   "dependencies": {
@@ -29,7 +32,6 @@
     "@wordpress/date": "^4.1.1",
     "@wordpress/element": "^3.1.1",
     "@wordpress/i18n": "^4.1.1",
-    "@wordpress/scripts": "^16.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1"
   }
