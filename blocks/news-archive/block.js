@@ -23,7 +23,7 @@
   blocks.registerBlockType("ca-design-system/news-archive", {
     title: __("News Archive", "ca-design-system"),
     icon: "universal-access-alt",
-    category: 'ca-design-system',
+    category: 'ca-design-system-utilities',
     attributes: {
       title: {
         type: "array",

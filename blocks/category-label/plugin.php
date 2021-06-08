@@ -34,7 +34,6 @@ function ca_design_system_register_category_label() {
 	}
 	
 	global $post;
-	echo($post);
 
 	wp_register_script(
 		'ca-design-system-category-label',

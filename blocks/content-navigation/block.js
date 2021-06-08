@@ -14,7 +14,7 @@
 	  title: __("Content Navigation", "ca-design-system"),
 	  icon: "universal-access-alt",
 	  description: __( 'TBD: Content navigation description here.' ),
-	  category: 'ca-design-system',
+	  category: 'ca-design-system-utilities',
 	  attributes: {
 	  },
 	  example: {

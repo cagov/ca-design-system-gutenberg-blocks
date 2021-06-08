@@ -2,7 +2,7 @@
 /* @TODO Align with typography & styles: Font, px spacing, colors */
 /* @TODO Figure out editor theme styles & if it conflicts with the display of this block/web-component. */
 
-.cagov-news-list h3 {
+.cagov-announcement-list h3 {
     /* font-family: Public Sans; */
     font-style: normal;
     font-weight: bold;
@@ -11,7 +11,7 @@
     margin-bottom: 24px;
 }
 
-.cagov-news-list .read-more a {
+.cagov-announcement-list .read-more a {
     /* font-family: Public Sans; */
     font-style: normal;
     font-weight: normal;
@@ -21,23 +21,23 @@
     color: #000;
 }
 
-cagov-news-list {
+cagov-announcement-list {
     color: #004ABC;
 }
 
-cagov-news-list ul {
+cagov-announcement-list ul {
     margin: 0;
     padding: 0;
 }
 
-cagov-news-list ul li {
+cagov-announcement-list ul li {
     list-style: none;
     font-style: normal;
     font-weight: normal;
     margin-bottom: 24px;
 }
 
-cagov-news-list ul li a {
+cagov-announcement-list ul li a {
     /* font-family: Public Sans; */
     font-size: 18px;
     line-height: 30px;
@@ -45,7 +45,7 @@ cagov-news-list ul li a {
     color: #004ABC;
 }
 
-cagov-news-list ul li .date {
+cagov-announcement-list ul li .date {
     /* font-family: Public Sans; */
     font-size: 18px;
     line-height: 30px;

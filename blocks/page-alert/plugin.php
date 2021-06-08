@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Standard Alert
+ * Plugin Name: Page Alert
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_standard_alert' );
+add_action( 'init', 'ca_design_system_gutenberg_block_page_alert' );
 
-function ca_design_system_gutenberg_block_standard_alert() {
+function ca_design_system_gutenberg_block_page_alert() {
 	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function ca_design_system_gutenberg_block_standard_alert() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_standard_alert() {
+function ca_design_system_register_page_alert() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -35,30 +35,30 @@ function ca_design_system_register_standard_alert() {
 
 	// Register custom web component
 	wp_register_script(
-		'ca-design-system-standard-alert-web-component',
+		'ca-design-system-page-alert-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'ca-design-system-standard-alert',
+		'ca-design-system-page-alert',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-standard-alert-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-page-alert-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'ca-design-system-standard-alert',
+		'ca-design-system-page-alert',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'ca-design-system/standard-alert', array(
-		'style' => 'cagov-standard-alert',
-		'editor_script' => 'ca-design-system-standard-alert',
+	register_block_type( 'ca-design-system/page-alert', array(
+		'style' => 'cagov-page-alert',
+		'editor_script' => 'ca-design-system-page-alert',
 	) );
 
 }
-add_action( 'init', 'ca_design_system_register_standard_alert' );
+add_action( 'init', 'ca_design_system_register_page_alert' );

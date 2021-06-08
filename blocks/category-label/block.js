@@ -29,7 +29,7 @@
   blocks.registerBlockType("ca-design-system/category-label", {
     title: __("CAGov: Category Label", "ca-design-system"),
     icon: "universal-access-alt",
-    category: "ca-design-system",
+    category: 'ca-design-system-utilities',
     // namespace: "CA Design System", // Version?
 
 	// <div class="wp-block-ca-design-system-category-label cagov-category-label cagov-stack" data-term-id="7">News</div>
