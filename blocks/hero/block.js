@@ -14,8 +14,7 @@
 
   blocks.registerBlockType('cagov/hero', {
     title: __('Feature card', 'cagov-design-system'),
-    icon: "format-image",
-    category: 'ca-design-system',
+    category: 'layout',
     attributes: {
       title: {
         type: 'array',
