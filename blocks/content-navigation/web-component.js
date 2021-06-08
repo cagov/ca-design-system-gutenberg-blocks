@@ -25,7 +25,7 @@ class CAGovContentNavigation extends window.HTMLElement {
     if (data !== undefined && data !== null) {
       if (type === "wordpress") {
         // Rough sketch:
-        this.innerHTML = data.content;
+        this.innerHTML = "ON THIS PAGE" + data.content;
       }
     }
     return null;
