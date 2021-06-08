@@ -20,5 +20,10 @@
   "homepage": "https://github.com/ca-design-system/ca-design-system-gutenberg-blocks#readme",
   "devDependencies": {
     "semistandard": "^16.0.0"
+  },
+  "dependencies": {
+    "@wordpress/date": "^4.1.1",
+    "@wordpress/i18n": "^4.1.1",
+    "@wordpress/scripts": "^16.1.2"
   }
 }
