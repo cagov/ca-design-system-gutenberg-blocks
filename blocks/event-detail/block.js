@@ -44,7 +44,17 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       source: "children",
       selector: "div.start-date",
     },
-    endDate: {
+    // endDate: {
+    //   type: "array",
+    //   source: "children",
+    //   selector: "div.end-date",
+    // },
+    startTime: {
+      type: "array",
+      source: "children",
+      selector: "div.start-date",
+    },
+    endTime: {
       type: "array",
       source: "children",
       selector: "div.end-date",
@@ -72,27 +82,36 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
     return (
       <div className="cagov-event-detail cagov-stack">
-        <div className="start-date">
-          START: {moment(startDate).format("MMMM Do YYYY, h:mm:ss a")}{" "}
-        </div>
-        <div className="end-date">
-          End: {moment(endDate).format("MMMM Do YYYY, h:mm:ss a")}{" "}
-        </div>
-        <hr />
-        REWORKING THESE:
-        <DateTimePicker
-          currentDate={props.attributes.startDate}
-          onChange={(val) => props.setAttributes({ startDate: val })}
-          is12Hour={false}
+        <h4>Date &amp; time</h4>
+        <RichText
+          value={attributes.startDate}
+          tagName="div"
+          className="startDate"
+          value={attributes.startDate}
+          onChange={(startDate) => props.setAttributes({ startDate })}
+          placeholder={__("Month Day, Year", "ca-design-system")}
         />
-        <DateTimePicker
-          currentDate={props.attributes.endDate}
-          onChange={(val) => props.setAttributes({ endDate: val })}
-          is12Hour={false}
+
+        <RichText
+          value={attributes.startTime}
+          tagName="div"
+          className="startTime"
+          value={attributes.startTime}
+          onChange={(startTime) => props.setAttributes({ startTime })}
+          placeholder={__("HH:mm a", "ca-design-system")}
         />
-        <hr />
+
+        <RichText
+          value={attributes.endTime}
+          tagName="div"
+          className="endTime"
+          value={attributes.endTime}
+          onChange={(endTime) => props.setAttributes({ endTime })}
+          placeholder={__("HH:mm a", "ca-design-system")}
+        />
+
         <h4>Location</h4>
-        <RichText.Content
+        <RichText
           value={attributes.location}
           tagName="div"
           className="location"
@@ -100,17 +119,12 @@ blocks.registerBlockType("ca-design-system/event-detail", {
           onChange={(location) => props.setAttributes({ location })}
           placeholder={__("Enter text...", "ca-design-system")}
         />
-        {/* <InnerBlocks
-            allowedBlocks={["core/paragraph", "core/button"]}
-            onChange={(value) => {
-              props.setAttributes({ location: value });
-            }}
-          /> */}
-        <RichText.Content
+        <h4>Cost</h4>
+        <RichText
           value={props.attributes.cost}
           tagName="div"
           className="cost"
-          value={attributes.location}
+          value={attributes.cost}
           onChange={(cost) => props.setAttributes({ cost })}
           placeholder={__("Enter text...", "ca-design-system")}
         />
@@ -122,9 +136,32 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
     return (
       <div className="cagov-event-detail cagov-stack">
-        <div className="start-date">{attributes.startDate}</div>
-        <div className="end-date">{attributes.endDate}</div>
-        <RichText.Content tagName="div" className="location" value={ attributes.location } />
+
+        <RichText.Content
+          tagName="div"
+          className="startDate"
+          value={attributes.startDate}
+        />
+        <RichText.Content
+          tagName="div"
+          className="startTime"
+          value={attributes.startTime}
+        />
+        <RichText.Content
+          tagName="div"
+          className="endTime"
+          value={attributes.endTime}
+        />
+        <RichText.Content
+          tagName="div"
+          className="location"
+          value={attributes.location}
+        />
+        <RichText.Content
+          tagName="div"
+          className="cost"
+          value={attributes.cost}
+        />
       </div>
     );
   },

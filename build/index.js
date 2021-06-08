@@ -154,7 +154,17 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       source: "children",
       selector: "div.start-date"
     },
-    endDate: {
+    // endDate: {
+    //   type: "array",
+    //   source: "children",
+    //   selector: "div.end-date",
+    // },
+    startTime: {
+      type: "array",
+      source: "children",
+      selector: "div.start-date"
+    },
+    endTime: {
       type: "array",
       source: "children",
       selector: "div.end-date"
@@ -185,23 +195,34 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
     return createElement("div", {
       className: "cagov-event-detail cagov-stack"
-    }, createElement("div", {
-      className: "start-date"
-    }, "START: ", moment(startDate).format("MMMM Do YYYY, h:mm:ss a"), " "), createElement("div", {
-      className: "end-date"
-    }, "End: ", moment(endDate).format("MMMM Do YYYY, h:mm:ss a"), " "), createElement("hr", null), "REWORKING THESE:", createElement(DateTimePicker, {
-      currentDate: props.attributes.startDate,
-      onChange: val => props.setAttributes({
-        startDate: val
+    }, createElement("h4", null, "Date & time"), createElement(RichText, {
+      value: attributes.startDate,
+      tagName: "div",
+      className: "startDate",
+      value: attributes.startDate,
+      onChange: startDate => props.setAttributes({
+        startDate
       }),
-      is12Hour: false
-    }), createElement(DateTimePicker, {
-      currentDate: props.attributes.endDate,
-      onChange: val => props.setAttributes({
-        endDate: val
+      placeholder: __("Month Day, Year", "ca-design-system")
+    }), createElement(RichText, {
+      value: attributes.startTime,
+      tagName: "div",
+      className: "startTime",
+      value: attributes.startTime,
+      onChange: startTime => props.setAttributes({
+        startTime
       }),
-      is12Hour: false
-    }), createElement("hr", null), createElement("h4", null, "Location"), createElement(RichText.Content, {
+      placeholder: __("HH:mm a", "ca-design-system")
+    }), createElement(RichText, {
+      value: attributes.endTime,
+      tagName: "div",
+      className: "endTime",
+      value: attributes.endTime,
+      onChange: endTime => props.setAttributes({
+        endTime
+      }),
+      placeholder: __("HH:mm a", "ca-design-system")
+    }), createElement("h4", null, "Location"), createElement(RichText, {
       value: attributes.location,
       tagName: "div",
       className: "location",
@@ -210,11 +231,11 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         location
       }),
       placeholder: __("Enter text...", "ca-design-system")
-    }), createElement(RichText.Content, {
+    }), createElement("h4", null, "Cost"), createElement(RichText, {
       value: props.attributes.cost,
       tagName: "div",
       className: "cost",
-      value: attributes.location,
+      value: attributes.cost,
       onChange: cost => props.setAttributes({
         cost
       }),
@@ -225,14 +246,26 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     var attributes = props.attributes;
     return createElement("div", {
       className: "cagov-event-detail cagov-stack"
-    }, createElement("div", {
-      className: "start-date"
-    }, attributes.startDate), createElement("div", {
-      className: "end-date"
-    }, attributes.endDate), createElement(RichText.Content, {
+    }, createElement(RichText.Content, {
+      tagName: "div",
+      className: "startDate",
+      value: attributes.startDate
+    }), createElement(RichText.Content, {
+      tagName: "div",
+      className: "startTime",
+      value: attributes.startTime
+    }), createElement(RichText.Content, {
+      tagName: "div",
+      className: "endTime",
+      value: attributes.endTime
+    }), createElement(RichText.Content, {
       tagName: "div",
       className: "location",
       value: attributes.location
+    }), createElement(RichText.Content, {
+      tagName: "div",
+      className: "cost",
+      value: attributes.cost
     }));
   } // <div className="cost">{attributes.cost}</div>
 
