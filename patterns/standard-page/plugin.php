@@ -53,12 +53,7 @@ function ca_design_system_custom_wp_block_pattern_standard_page() {
                     <!-- /wp:column --> 
                     <!-- wp:column {"width":"66.66%"} -->
                     <div id="main-content" class="wp-block-column" style="flex-basis:66.66%">
-                    <!-- wp:html -->
-                        <h2>Title 1</h2>
-                        <p>Lorem 1</p>
-                        <h3>Title 1</h3>
-                        <p>Lorem 2</p>
-                        <!-- /wp:html -->
+                   
                     </div>
                     <!-- /wp:column -->
             </div><!-- /wp:columns -->',

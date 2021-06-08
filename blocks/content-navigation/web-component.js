@@ -25,7 +25,7 @@ class CAGovContentNavigation extends window.HTMLElement {
     if (data !== undefined && data !== null) {
       if (type === "wordpress") {
         // Rough sketch:
-        this.innerHTML = "ON THIS PAGE" + data.content;
+        this.innerHTML = "<h2>On this page</h2>" + data.content;
       }
     }
     return null;
@@ -64,13 +64,14 @@ class CAGovContentNavigation extends window.HTMLElement {
           }
         }
       } else if (display === "editor") {
+        console.log("EDITOR", editor);
         let editorContent = window.document.querySelector(`${editor}`);
         let editorInnerHTML = selectorContent.innerHTML;
         if (callback !== undefined && callback !== null) {
           editorInnerHTML = callback(editorInnerHTML);
         }
 
-        let outline = this.outliner(selectorContent);
+        let outline = this.outliner(editorContent);
         return outline;
       }
     }
