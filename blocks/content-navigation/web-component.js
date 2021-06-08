@@ -36,7 +36,6 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 
   getHeaderTags() {
-    console.log("GETTING HEADER TAGS", this.dataset);
     let selector = "#main-content";
     // let selector = this.dataset.selector;
     let editor = this.dataset.editor;
@@ -51,6 +50,8 @@ class CAGovContentNavigation extends window.HTMLElement {
       // Pull out the header tags, in order & render as links with anchor tags
       // auto convert h tags with tag names
       if (selector !== undefined && selector !== null) {
+        // Dynamic for editor
+        // @TODO update on save like category-label
         // data-selector="#main-content" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)" data-js-flip="true"
 
         if (display === "render") {
@@ -71,13 +72,8 @@ class CAGovContentNavigation extends window.HTMLElement {
 
         let outline = this.outliner(selectorContent);
         return outline;
-
-      } else {
-        console.log(h[i] + "doesn't exist");
-        return `Doesn't exist`;
       }
     }
-    return "may have headings";
   }
 
   outliner(content) {
@@ -94,10 +90,6 @@ class CAGovContentNavigation extends window.HTMLElement {
           tag.name = anchor;
         }
       });
-      // for (var i; i < headers.length; i++) {
-      //   console.log(header[i]);
-      //    output += `<a href="">${header[i].innerHTML}</a>`;
-      // }
     }
     return `<ul>${output}</ul>`;
   }
