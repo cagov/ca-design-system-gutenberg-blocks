@@ -11,7 +11,7 @@
 	// var PlainText = blockEditor.PlainText;
 	
 	blocks.registerBlockType("ca-design-system/content-navigation", {
-	  title: __("CAGov: Content Navigation", "ca-design-system"),
+	  title: __("Content Navigation", "ca-design-system"),
 	  icon: "universal-access-alt",
 	  category: 'ca-design-system',
 	  attributes: {

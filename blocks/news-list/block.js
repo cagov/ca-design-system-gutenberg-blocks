@@ -21,7 +21,7 @@
   // - [ ] Figure out easiest localization options
 
   blocks.registerBlockType("ca-design-system/news-list", {
-    title: __("CAGov: News List", "ca-design-system"),
+    title: __("News List", "ca-design-system"),
     icon: "universal-access-alt",
     category: 'ca-design-system',
     attributes: {

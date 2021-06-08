@@ -13,8 +13,9 @@
   const MediaUpload = editor.MediaUpload;
 
   blocks.registerBlockType('cagov/hero', {
-    title: __('CAGov: hero', 'cagov-design-system'),
-    category: 'layout',
+    title: __('Feature card', 'cagov-design-system'),
+    icon: "format-image",
+    category: 'ca-design-system',
     attributes: {
       title: {
         type: 'array',

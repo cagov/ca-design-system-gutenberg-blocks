@@ -12,7 +12,7 @@
   const URLPopover = editor.URLPopover;
 
   blocks.registerBlockType('ca-design-system/card', {
-    title: __('CAGov: Card', 'ca-design-system'),
+    title: __('Card', 'ca-design-system'),
     icon: 'universal-access-alt',
     category: 'ca-design-system',
     attributes: {

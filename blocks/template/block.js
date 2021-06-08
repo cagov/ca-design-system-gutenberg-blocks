@@ -8,7 +8,7 @@
 	var RichText = editor.RichText;
 
 	blocks.registerBlockType( 'cagov/template', {
-		title: __( 'CAGov: Card', 'cagov-design-system' ),
+		title: __( 'Card', 'cagov-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'layout',
 		attributes: {

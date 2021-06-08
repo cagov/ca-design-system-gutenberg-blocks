@@ -8,7 +8,7 @@
 	var RichText = editor.RichText;
 
 	blocks.registerBlockType( 'ca-design-system/standard-alert', {
-		title: __( 'CAGov: Standard Alert', 'ca-design-system' ),
+		title: __( 'Standard Alert', 'ca-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'ca-design-system',
 		attributes: {

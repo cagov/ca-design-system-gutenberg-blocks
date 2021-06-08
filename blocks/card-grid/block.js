@@ -7,7 +7,7 @@
   const InnerBlocks = blockEditor.InnerBlocks;
   const ALLOWED_BLOCKS = ['ca-design-system/card'];
   blocks.registerBlockType('ca-design-system/card-grid', {
-    title: 'CAGov card grid',
+    title: 'Card grid',
     category: 'ca-design-system',
     edit: function (props) {
       return el(

@@ -8,7 +8,7 @@
 	var RichText = editor.RichText;
 
 	blocks.registerBlockType( 'ca-design-system/button', {
-		title: __( 'CAGov: Button', 'ca-design-system' ),
+		title: __( 'Button', 'ca-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'ca-design-system',
 		attributes: {
