@@ -27,7 +27,7 @@
   };
 
   blocks.registerBlockType("ca-design-system/category-label", {
-    title: __("CAGov: Category Label", "ca-design-system"),
+    title: __("Category Label", "ca-design-system"),
     icon: "universal-access-alt",
     category: 'ca-design-system-utilities',
     // namespace: "CA Design System", // Version?

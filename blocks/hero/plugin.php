@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Hero
+ * Plugin Name: Feature card
  * Plugin URI: TBD
- * Description: TBD
+ * Description: Featured content space. Appears on the homepage. Calls attention to a web page, announcement or event. Includes title text, brief description, image, and a button.
  * Version: 1.1.0
  * Author: California Office of Digital Innovation
  * @package cagov-design-system

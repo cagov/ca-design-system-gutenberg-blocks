@@ -1,7 +1,7 @@
 /**
- * CAGov card
+ * Call to action button
  *
- * Custom block, renders and saves the same content
+ * Button that highlights common user needs. Appears on the homepage. Provides a link to a webpage where people can take action with the department. Includes a text label and link.  Copy writing tip: Ideally starts with a verb.
  *
  */
 (function (blocks, editor, i18n, element, components, _) {
@@ -12,9 +12,10 @@
   const URLPopover = editor.URLPopover;
 
   blocks.registerBlockType('ca-design-system/card', {
-    title: __('Card', 'ca-design-system'),
+    title: __('Call to action button', 'ca-design-system'),
     icon: 'universal-access-alt',
     category: 'ca-design-system',
+    description: __("Button that highlights common user needs. Appears on the homepage. Provides a link to a webpage where people can take action with the department. Includes a text label and link.  Copy writing tip: Ideally starts with a verb.", "ca-design-system"),
     attributes: {
       title: {
         type: 'array',

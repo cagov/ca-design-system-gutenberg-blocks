@@ -1,5 +1,5 @@
 /**
- * CAGov News List
+ * CAGov Announcement list
  */
 
 (function (blocks, blockEditor, i18n, element, components, _, moment) {
@@ -21,7 +21,7 @@
   // - [ ] Figure out easiest localization options
 
   blocks.registerBlockType("ca-design-system/announcement-list", {
-    title: __("News List", "ca-design-system"),
+    title: __("Announcement list", "ca-design-system"),
     icon: "universal-access-alt",
     category: 'ca-design-system',
     description: __("List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the \"Announcement\" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.", "ca-design-system"),
@@ -30,7 +30,7 @@
         type: "array",
         source: "children",
         selector: "h3",
-        default: "News",
+        default: "Announcement",
       },
       description: {
         type: "array",
@@ -41,7 +41,7 @@
         type: "string",
         source: "attribute",
         selector: ".announcement-list[data-category]",
-        default: "News",
+        default: "Announcement",
       },
       order: {
         type: "string",

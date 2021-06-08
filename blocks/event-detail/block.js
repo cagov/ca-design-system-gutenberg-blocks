@@ -35,7 +35,7 @@ var __ = i18n.__;
 var el = createElement;
 
 blocks.registerBlockType("ca-design-system/event-detail", {
-  title: __("CAGov: Event Detail", "ca-design-system"),
+  title: __("Event Detail", "ca-design-system"),
   icon: "universal-access-alt",
   category: 'ca-design-system-utilities',
   attributes: {

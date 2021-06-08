@@ -2,7 +2,7 @@
 /* @TODO Align with typography & styles: Font, px spacing, colors */
 /* @TODO Figure out editor theme styles & if it conflicts with the display of this block/web-component. */
 
-.cagov-news-archive h3 {
+.cagov-post-list h3 {
     /* font-family: Public Sans; */
     font-style: normal;
     font-weight: bold;
@@ -11,7 +11,7 @@
     margin-bottom: 24px;
 }
 
-.cagov-news-archive .read-more a {
+.cagov-post-list .read-more a {
     /* font-family: Public Sans; */
     font-style: normal;
     font-weight: normal;
@@ -21,23 +21,23 @@
     color: #000;
 }
 
-cagov-news-archive {
+cagov-post-list {
     color: #004ABC;
 }
 
-cagov-news-archive ul {
+cagov-post-list ul {
     margin: 0;
     padding: 0;
 }
 
-cagov-news-archive ul li {
+cagov-post-list ul li {
     list-style: none;
     font-style: normal;
     font-weight: normal;
     margin-bottom: 24px;
 }
 
-cagov-news-archive ul li a {
+cagov-post-list ul li a {
     /* font-family: Public Sans; */
     font-size: 18px;
     line-height: 30px;
@@ -45,7 +45,7 @@ cagov-news-archive ul li a {
     color: #004ABC;
 }
 
-cagov-news-archive ul li .date {
+cagov-post-list ul li .date {
     /* font-family: Public Sans; */
     font-size: 18px;
     line-height: 30px;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: News Archive
+ * Plugin Name: Post list
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -35,29 +35,29 @@ function ca_design_system_register_news_archive() {
 
 	// Register custom web component
 	wp_register_script(
-		'ca-design-system-news-archive-web-component',
+		'ca-design-system-post-list-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'ca-design-system-news-archive',
+		'ca-design-system-post-list',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-news-archive-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-post-list-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'ca-design-system-news-archive',
+		'ca-design-system-post-list',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'ca-design-system/news-archive', array(
-		'style' => 'cagov-news-archive',
-		'editor_script' => 'ca-design-system-news-archive',
+	register_block_type( 'ca-design-system/post-list', array(
+		'style' => 'cagov-post-list',
+		'editor_script' => 'ca-design-system-post-list',
 	) );
 
 }

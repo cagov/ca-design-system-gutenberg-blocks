@@ -1,5 +1,5 @@
 /**
- * CAGov News Archive
+ * CAGov Post list
  */
 
 (function (blocks, blockEditor, i18n, element, components, _, moment) {
@@ -20,8 +20,8 @@
   // - [ ] Figure out tab navigation inside Gutenberg block. Notes: tabIndex react prop doesn't help. aria-labels added automatically, may require accessibiliy add on plugin. Navigating between blocks works with the Block List. Q: Would PlainText work better?
   // - [ ] Figure out easiest localization options
 
-  blocks.registerBlockType("ca-design-system/news-archive", {
-    title: __("News Archive", "ca-design-system"),
+  blocks.registerBlockType("ca-design-system/post-list", {
+    title: __("Post list", "ca-design-system"),
     icon: "universal-access-alt",
     category: 'ca-design-system-utilities',
     attributes: {
@@ -39,25 +39,25 @@
       category: {
         type: "string",
         source: "attribute",
-        selector: ".news-archive[data-category]",
+        selector: ".post-list[data-category]",
         default: "News",
       },
       order: {
         type: "string",
         source: "attribute",
-        selector: ".news-archive[data-order]",
+        selector: ".post-list[data-order]",
         default: "desc",
       },
       count: {
         type: "string",
         source: "attribute",
-        selector: ".news-archive[data-count]",
+        selector: ".post-list[data-count]",
         default: "5",
       },
       endpoint: {
         type: "string",
         source: "attribute",
-        selector: ".news-archive[data-endpoint]",
+        selector: ".post-list[data-endpoint]",
         default: `${siteUrl}/wp-json/wp/v2`,
       },
       readMore: {
@@ -69,8 +69,8 @@
     },
     example: {
       attributes: {
-        title: __("News Archive title", "ca-design-system"),
-        description: __("News Archive description", "ca-design-system"),
+        title: __("Post list title", "ca-design-system"),
+        description: __("Post list description", "ca-design-system"),
         readMore: __("Link Text", "ca-design-system"),
         category: __("Category to include", "ca-design-system"),
         count: __("Number news items to display", "ca-design-system"),
@@ -83,7 +83,7 @@
       return el(
         "div",
         {
-          className: "cagov-news-archive cagov-stack",
+          className: "cagov-post-list cagov-stack",
         },
         el(
           "div",
@@ -111,8 +111,8 @@
           // }),
           // el('hr'),
           // Visual display of endpoint
-          el("cagov-news-archive", {
-            className: "news-archive",
+          el("cagov-post-list", {
+            className: "post-list",
             "data-category": attributes.category,
             "data-count": attributes.count,
             "data-order": attributes.order,
@@ -137,7 +137,7 @@
                       el(TextControl, {
                         label: "Change news post category",
                         tagName: "input",
-                        className: "news-archive-category",
+                        className: "post-list-category",
                         inline: false,
                         placeholder: __("Category", "ca-design-system"),
                         value: attributes.category,
@@ -147,7 +147,7 @@
                       }),
                       // el(RichText, {
                       //   tagName: "input",
-                      //   className: "news-archive-count",
+                      //   className: "post-list-count",
                       //   inline: false,
                       //   placeholder: __("Count", "ca-design-system"),
                       //   value: attributes.count,
@@ -157,7 +157,7 @@
                       // }),
                       // el(RichText, {
                       //   tagName: "div", // Checkbox desc/asc
-                      //   className: "news-archive-order",
+                      //   className: "post-list-order",
                       //   inline: false,
                       //   placeholder: __("Order", "ca-design-system"),
                       //   value: attributes.order,
@@ -167,7 +167,7 @@
                       // }),
                       // el(RichText, {
                       //   tagName: "div", // select box + enter data
-                      //   className: "news-archive-endpoint",
+                      //   className: "post-list-endpoint",
                       //   inline: false,
                       //   placeholder: __("Endpoint", "ca-design-system"),
                       //   value: attributes.endpoint,
@@ -184,7 +184,7 @@
       var attributes = props.attributes;
       return el(
         "div",
-        { className: "cagov-news-archive cagov-stack" },
+        { className: "cagov-post-list cagov-stack" },
         el(
           "div",
           {},
@@ -196,8 +196,8 @@
             tagName: "p",
             value: attributes.description,
           }),
-          el("cagov-news-archive", {
-            className: "news-archive",
+          el("cagov-post-list", {
+            className: "post-list",
             "data-category": attributes.category || "News",
             "data-count": attributes.count || 5,
             "data-order": attributes.order || "desc",

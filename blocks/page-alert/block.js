@@ -10,7 +10,8 @@
 	blocks.registerBlockType( 'ca-design-system/page-alert', {
 		title: __( 'Page Alert', 'ca-design-system' ),
 		icon: 'universal-access-alt',
-		category: 'ca-design-system-utilities',
+		category: 'ca-design-system',
+		description: __("A departmental alert box. Appears on this website, beneath the site navigation on the homepage. Provides brief, important or time-sensitive information. It can include a hyperlink, but not a button or image.", "ca-design-system"),
 		attributes: {
 			title: {
 				type: 'array',
