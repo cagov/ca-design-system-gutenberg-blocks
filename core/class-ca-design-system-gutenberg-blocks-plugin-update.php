@@ -153,7 +153,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 					$obj->plugin         = $this->plugin_file;
 					$obj->new_version    = $payload->tag_name;
 					$obj->published_date = ( new DateTime( $payload->published_at ) )->format( 'm/d/Y' );
-					$obj->package        = $payload->zipball_url;
+					$obj->package        = str_replace( 'zipball', 'zipball/refs/tags', $payload->zipball_url );
 					$obj->tested         = '5.4.1';
 
 					$theme_response = array( $this->plugin_file => $obj );
