@@ -51,9 +51,16 @@ function ca_design_system_custom_wp_block_pattern_standard_page() {
                         <!-- /wp:ca-design-system/content-navigation -->
                         </div>
                     <!-- /wp:column --> 
-                <!-- wp:column {"width":"66.66%"} -->
-                    <div id="main-content" class="wp-block-column" style="flex-basis:66.66%"></div>
-                <!-- /wp:column -->
+                    <!-- wp:column {"width":"66.66%"} -->
+                    <div id="main-content" class="wp-block-column" style="flex-basis:66.66%">
+                    <!-- wp:html -->
+                        <h2>Title 1</h2>
+                        <p>Lorem 1</p>
+                        <h3>Title 1</h3>
+                        <p>Lorem 2</p>
+                        <!-- /wp:html -->
+                    </div>
+                    <!-- /wp:column -->
             </div><!-- /wp:columns -->',
             "categories" => array('ca-design-system'),
         )
@@ -62,6 +69,35 @@ function ca_design_system_custom_wp_block_pattern_standard_page() {
 }
 
 add_action( 'init', 'ca_design_system_custom_wp_block_pattern_standard_page' );
+
+function ca_design_system_web_component_scripts() {
+    // Global dependencies
+    wp_enqueue_script(
+        'moment'
+    );
+
+    // Custom web components javascript and css
+    wp_enqueue_script(
+        'ca-design-system-news-list-web-component',
+        plugins_url( '/blocks/news-list/web-component.js', dirname( __FILE__ ) ),
+        array( ),
+    );
+    // @TODO this is acting strangely, figure out why.
+    // wp_enqueue_style(
+    //     'ca-design-system-news-list',
+    //     plugins_url( '/blocks/news-list/style.css', dirname( __FILE__ ) ),
+    //     array( )
+    // );
+
+    wp_enqueue_script(
+        'ca-design-system-content-navigation-web-component',
+        plugins_url( '/blocks/content-navigation/web-component.js', dirname( __FILE__ ) ),
+        array( ),
+    );
+}
+
+
+add_action('wp_enqueue_scripts', 'ca_design_system_web_component_scripts');
 
 //             'content' => '<div class="ca-gov-columns">
 //                 <div class="ca-gov-column">
