@@ -26,7 +26,12 @@ function get_breadcrumb() {
     }
 }?>
 
-<?php require_once get_template_directory() . '/header.php'; ?>
+<?php 
+
+
+require_once get_stylesheet_directory() . '/header.php';
+require_once get_stylesheet_directory() . '/partials/header.php';
+ ?>
 
 	<div id="page-container" class="with-sidebar page-container-ds">
 	
