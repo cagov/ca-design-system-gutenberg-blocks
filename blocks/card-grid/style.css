@@ -1,6 +1,6 @@
 .cagov-grid, .cagov-grid .block-editor-block-list__layout {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 1.5rem;
 }
 /* editor override */
 .cagov-grid .block-editor-block-list__block {
