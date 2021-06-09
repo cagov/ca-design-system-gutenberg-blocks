@@ -20,6 +20,7 @@ class CADesignSystemGutenbergBlocks {
     private function __construct(){
         // Load all block dependencies and files.
         $this->load_block_dependencies();
+        $this->load_plugin_styles();
         $this->load_block_pattern_categories();
         $this->load_block_category();
         $this->ca_design_system_build_scripts();
@@ -72,6 +73,16 @@ class CADesignSystemGutenbergBlocks {
         add_action('wp_enqueue_scripts', array($this, 'ca_design_system_build_scripts'));
     }
 
+    private function load_plugin_styles() {
+         add_action('wp_enqueue_scripts', array($this, 'ca_design_system_gutenberg_blocks_default_page_template_styles'), 100);
+    }
+
+    public function ca_design_system_gutenberg_blocks_default_page_template_styles() {
+        wp_register_style( 'ca-design-system-gutenberg-blocks-page', plugins_url( 'styles/page.css', __DIR__ ), false, '1.0.3' );
+		wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page');
+
+    }
+
     private function override_ca_web_page_templates() {
         add_filter( 'add_meta_boxes', array($this, 'ca_design_system_gutenberg_blocks_default_page_template'), 1 );
     }
@@ -105,19 +116,20 @@ class CADesignSystemGutenbergBlocks {
             array( ),
         );
 
-        // https://stackoverflow.com/questions/54600455/how-to-register-styles-scripts-blocks-for-wordpress-gutenberg-block-editor
 
-        // wp_register_style(
-        //     'ca-design-system-blocks',
-        //      plugins_url( '/blocks/build/blocks.style.build.css', __FILE__ ),
-        //      array( 'wp-blocks' )
-        // );
-
-        // wp_register_style(
-        //     'ca-design-system-blocks-edit-style',
-        //     plugins_url('/blocks/build/blocks.editor.build.css', __FILE__),
-        //      array( 'wp-edit-blocks' )
-        // );
+             // https://stackoverflow.com/questions/54600455/how-to-register-styles-scripts-blocks-for-wordpress-gutenberg-block-editor
+             // wp_register_style(
+             //     'ca-design-system-blocks',
+             //      plugins_url( '/blocks/build/blocks.style.build.css', __FILE__ ),
+             //      array( 'wp-blocks' )
+             // );
+     
+             // wp_register_style(
+             //     'ca-design-system-blocks-edit-style',
+             //     plugins_url('/blocks/build/blocks.editor.build.css', __FILE__),
+             //      array( 'wp-edit-blocks' )
+             // );
+         
     }
 
 

@@ -17,13 +17,17 @@ class CAGovContentNavigation extends window.HTMLElement {
   buildContentNavigation() {
     // Parse header tags
     let markup = this.getHeaderTags();
-    this.template({ content: markup, label: this.dataset.label || "On this page" }, "wordpress");
+    let label = null;
+    if (markup !== null) { 
+      label = this.dataset.label || "On this page";
+    }
+    this.template({ content: `<div class="label">${label}</div> ${markup}`, }, "wordpress");
   }
 
   template(data, type) {
     if (data !== undefined && data !== null) {
       if (type === "wordpress") {
-        this.innerHTML = `<h2>${data.label}</h2>${data.content}`;
+        this.innerHTML = `${data.content}`;
       }
     }
     return null;
@@ -76,14 +80,24 @@ class CAGovContentNavigation extends window.HTMLElement {
     let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
     let output = ``;
     if (headers !== undefined && headers !== null && headers.length > 1) {
+      console.log(headers);
       headers.forEach((tag) => {
-        console.log(tag);
+        console.log(tag.getAttribute("id"));
+        let tagId = tag.getAttribute("id");
         let title = tag.innerHTML;
+
         let anchor = tag.innerHTML.toLowerCase().trim().replace(/ /g,"-");
+
+        // If id not set already, create an id to jump to.
+        if (tagId !== undefined && tagId !== null) {
+          anchor = tagId;
+        }
+
         output += `<li><a href="#${anchor}">${title}</a></li>`;
 
-        if (tag.name === undefined || tag.name === null) {
-          tag.name = anchor;
+        if (tagId === undefined || tagId === null) {
+          tagId = anchor;
+          tag.setAttribute("id", tagId);
         }
       });
     }
