@@ -1,0 +1,142 @@
+private function override_divi_enqueue_block_editor_assets () {
+
+// 		// Load script dependencies that is used by builder on top window. These dependencies
+// // happen to be the exact same scripts required by BFB top window's scripts.
+// et_bfb_enqueue_scripts_dependencies();
+
+// // Enqueue open sans.
+// et_builder_enqueue_open_sans();
+
+// // Enqueue integration & blocks scripts.
+// $deps = array(
+// 	'jquery',
+// 	'et_bfb_admin_date_addon_js',
+// 	'wp-hooks',
+// );
+// et_fb_enqueue_bundle( 'et-builder-gutenberg', 'gutenberg.js', $deps );
+
+// // Enqueue top window style.
+// wp_register_style(
+// 	'et-fb-top-window',
+// 	ET_BUILDER_URI . '/frontend-builder/assets/css/fb-top-window.css',
+// 	array(),
+// 	ET_BUILDER_VERSION
+// );
+
+// // Enqueue integration & blocks styles.
+// $deps = array(
+// 	'et-fb-top-window',
+// );
+// et_fb_enqueue_bundle( 'et-builder-gutenberg', 'gutenberg.css', $deps );
+
+// // this enqueue bundle.css.
+// et_builder_enqueue_assets_main();
+
+$post_id               = get_the_ID();
+$post_type             = get_post_type();
+// $enabled_for_post_type = et_builder_enabled_for_post_type( $post_type );
+// $updates_options       = get_site_option( 'et_automatic_updates_options', array() );
+// $et_account            = array(
+// 	'et_username' => et_()->array_get( $updates_options, 'username', '' ),
+// 	'et_api_key'  => et_()->array_get( $updates_options, 'api_key', '' ),
+// 	'status'      => get_site_option( 'et_account_status', 'not_active' ),
+// );
+
+// from public function enqueue_block_editor_assets() // BlockEditorIntegration.php
+
+    // Override Divi's Gutenberg settings
+    $gutenberg = array(
+        'helpers'       => array(
+            'postID'             => $post_id,
+            'postType'           => $post_type,
+            // 'is3rdPartyPostType' => et_builder_is_post_type_custom( $post_type ) ? 'yes' : 'no',
+            // 'vbUrl'              => et_fb_get_vb_url(),
+            // 'builderUsed'        => et_pb_is_pagebuilder_used( $post_id ),
+            // 'scriptDebug'        => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
+            // 'canToggle'          => et_pb_is_allowed( 'divi_builder_control' ) && $enabled_for_post_type,
+            // 'isEnabled'          => $enabled_for_post_type,
+        //     'i18n'               => array(
+        //         'placeholder' => array(
+        //             'block'  => array(
+        //                 'title'       => esc_html__( 'Divi Builder', 'et_builder' ),
+        //                 'description' => esc_html__( 'The Divi Builder is activated on this page. To edit your page using the builder, click the Edit With The Divi Builder button.', 'et_builder' ),
+        //             ),
+        //             'render' => array(
+        //                 'title'   => array(
+        //                     'new' => esc_html__( 'Build Your Layout Using Divi', 'et_builder' ),
+        //                     'old' => esc_html__( 'This Layout Is Built With Divi', 'et_builder' ),
+        //                 ),
+        //                 'divi'    => array(
+        //                     'new' => esc_html__( 'Use Divi Builder', 'et_builder' ),
+        //                     'old' => esc_html__( 'Edit With The Divi Builder', 'et_builder' ),
+        //                 ),
+        //                 'default' => esc_html__( 'Use Default Editor', 'et_builder' ),
+        //             ),
+        //         ),
+        //     ),
+        ),
+
+        // // Loaded into ETBlockUserStore.
+        // 'capabilities'  => $this->get_current_user_capabilities(),
+
+        // // Loaded into ETBlockLibraryStore.
+        // 'etAccount'     => $et_account,
+
+        // // Loaded into ETBlockSettingsStore.
+        // 'conditions'    => array(
+        //     'isRtl' => is_rtl(),
+        // ),
+        // 'constants'     => array(
+        //     'emptyLayout' => '[et_pb_section admin_label="section"][et_pb_row admin_label="row"][/et_pb_row][/et_pb_section]',
+        // ),
+        // 'nonces'        => array(
+        //     'et_builder_library_get_layouts_data' => wp_create_nonce( 'et_builder_library_get_layouts_data' ),
+        //     'et_builder_library_update_account'   => wp_create_nonce( 'et_builder_library_update_account' ),
+        //     'et_block_layout_preview'             => wp_create_nonce( 'et_block_layout_preview' ),
+        //     'et_rest_get_layout_content'          => wp_create_nonce( 'et_rest_get_layout_content' ),
+        //     'et_rest_process_builder_edit_data'   => wp_create_nonce( 'et_rest_process_builder_edit_data' ),
+        // ),
+        // 'urls'          => array(
+        //     'adminAjax'   => admin_url( 'admin-ajax.php' ),
+        //     'diviLibrary' => ET_BUILDER_DIVI_LIBRARY_URL,
+        //     'home'        => home_url( '/' ),
+        // ),
+        // /**
+        //  * Make DOM selectors list filterable so third party can modified it if needed
+        //  *
+        //  * @since 4.1.0
+        //  *
+        //  * @param array list of selectors
+        //  */
+        // 'selectors'     => apply_filters(
+        //     'et_gb_selectors',
+        //     array(
+        //         'pageLayoutSelect' => '#et_pb_page_layout',
+        //     )
+        // ),
+        // /**
+        //  * Make Content Widhts settings filterable so third party can modified it if needed
+        //  *
+        //  * @since 4.1.0
+        //  *
+        //  * @param array content width configurations
+        //  */
+        // 'contentWidths' => apply_filters(
+        //     'et_gb_content_widths',
+        //     array(
+        //         // Intentionally set null for default and undefined if no saved content width found
+        //         // unless `et_gb_content_widths` is being filtered to handle Divi Builder Plugin
+        //         // situation which might not have deifined content width.
+        //         'default' => null,
+        //         'current' => get_post_meta( $post_id, '_et_gb_content_width', true ),
+        //         'min'     => 320,  // Min content width (small smartphone width).
+        //         'max'     => 2880, // Max content width (15" laptop * 2).
+        //     )
+        // ),
+    );
+    
+    // // Override?
+    // wp_localize_script( 'et-builder-gutenberg', 'et_builder_gutenberg', $gutenberg );
+
+
+}

@@ -23,6 +23,7 @@ class CADesignSystemGutenbergBlocks {
         $this->load_block_pattern_categories();
         $this->load_block_category();
         $this->ca_design_system_build_scripts();
+        $this->override_ca_web_page_templates();
     }
     
 
@@ -71,6 +72,29 @@ class CADesignSystemGutenbergBlocks {
         add_action('wp_enqueue_scripts', array($this, 'ca_design_system_build_scripts'));
     }
 
+
+    private function override_ca_web_page_templates() {
+        add_filter( 'add_meta_boxes', array($this, 'ca_design_system_gutenberg_blocks_page_template'), 1 );
+        add_action('load-post-new.php', array($this, 'ca_design_system_gutenberg_blocks_load_post_new_php')); 
+        // add_action('load-page-new.php', 'ca_design_system_gutenberg_blocks_load_page_new_php'); 
+    }
+
+    function ca_design_system_gutenberg_blocks_load_post_new_php() { 
+        // add_filter('et_builder_always_enabled', '__return_false');
+    }; 
+
+    // function ca_design_system_gutenberg_blocks_load_page_new_php() { 
+    //     add_filter('et_builder_always_enabled', '__return_false');
+    // }; 
+
+    public function ca_design_system_gutenberg_blocks_page_template() {
+        global $post;
+        if ( 'page' == $post->post_type && 0 != count( get_page_templates( $post ) ) && get_option( 'page_for_posts' ) != $post->ID ) {
+            echo "Can change default page setting here";
+            
+                $post->page_template = plugin_dir_path(__FILE__) . "templates/page.php";
+        }
+    }
 
     public function ca_design_system_build_scripts() {
         
