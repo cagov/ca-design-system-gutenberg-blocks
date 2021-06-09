@@ -6,26 +6,24 @@
 class CAGovContentNavigation extends window.HTMLElement {
   // @TODO make sure WP could return a static version of this. (should be possible with our system)
   connectedCallback() {
-    console.log("content nav loading");
     this.type = "wordpress";
     if (this.type === "wordpress") {
       document.addEventListener("DOMContentLoaded", () =>
-        this.buildNavigation()
+        this.buildContentNavigation()
       );
     }
   }
 
-  buildNavigation() {
+  buildContentNavigation() {
     // Parse header tags
     let markup = this.getHeaderTags();
-    this.template({ content: markup }, "wordpress");
+    this.template({ content: markup, label: this.dataset.label || "On this page" }, "wordpress");
   }
 
   template(data, type) {
     if (data !== undefined && data !== null) {
       if (type === "wordpress") {
-        // Rough sketch:
-        this.innerHTML = "<h2>On this page</h2>" + data.content;
+        this.innerHTML = `<h2>${data.label}</h2>${data.content}`;
       }
     }
     return null;
@@ -36,9 +34,9 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 
   getHeaderTags() {
-    let selector = "#main-content";
-    // let selector = this.dataset.selector;
+    let selector = this.dataset.selector;
     let editor = this.dataset.editor;
+    let label = this.dataset.label;
     // let display = this.dataset.display;
     let display = "render";
     let callback = this.dataset.callback; // Editor only right now
@@ -46,7 +44,6 @@ class CAGovContentNavigation extends window.HTMLElement {
     var h = ["h2", "h3", "h4", "h5", "h6"];
     var headings = [];
     for (var i = 0; i < h.length; i++) {
-      //   console.log(`${selector}`);
       // Pull out the header tags, in order & render as links with anchor tags
       // auto convert h tags with tag names
       if (selector !== undefined && selector !== null) {
@@ -55,9 +52,7 @@ class CAGovContentNavigation extends window.HTMLElement {
         // data-selector="#main-content" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)" data-js-flip="true"
 
         if (display === "render") {
-          // console.log("selector", document, selector);
           let selectorContent = document.querySelector(selector);
-          console.log("render content", selectorContent);
           if (selectorContent !== null) {
             let outline = this.outliner(selectorContent);
             return outline;
@@ -79,15 +74,15 @@ class CAGovContentNavigation extends window.HTMLElement {
 
   outliner(content) {
     let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
-    console.log("HEADERS", headers);
     let output = ``;
     if (headers !== undefined && headers !== null && headers.length > 1) {
       headers.forEach((tag) => {
         console.log(tag);
         let title = tag.innerHTML;
-        let anchor = tag.innerHTML.toLowerCase().replace(/ /g,"-");
-        output += `<li><a href="${anchor}">${title}</a></li>`;
-        if (tag.name === undefined) {
+        let anchor = tag.innerHTML.toLowerCase().trim().replace(/ /g,"-");
+        output += `<li><a href="#${anchor}">${title}</a></li>`;
+
+        if (tag.name === undefined || tag.name === null) {
           tag.name = anchor;
         }
       });

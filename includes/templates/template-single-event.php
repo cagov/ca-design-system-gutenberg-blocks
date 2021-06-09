@@ -1,19 +1,17 @@
 <?php
 /*
- * Template Name: Page
- * Template Post Type: page
+ * Template Name: Event
+ * Template Post Type: post
  */
 ?>
 
 <?php require_once get_template_directory() . '/header.php'; ?>
 
 	<div id="page-container">
-	
+
 
 			<div id="main-content" class="main-content" tabindex="-1">
-				<aside>
-		            <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
-				</aside>
+
 				<main class="main-primary">
 
 					<?php
@@ -23,26 +21,35 @@
 
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
+						<!-- Page Title-->
 						<?php
 						if ( 'on' === get_post_meta( $post->ID, 'ca_custom_post_title_display', true ) ) {
-							print esc_html( the_title( '<!-- Page Title--><h1 class="page-title">', '</h1>' ) );
+							$caweb_padding = get_option( 'ca_default_post_date_display' ) ? ' pb-0' : '';
+
+							esc_html( the_title( sprintf( '<h1 class="page-title%1$s">', $caweb_padding ), '</h1>' ) );
 						}
+
+						// if ( get_option( 'ca_default_post_date_display' ) && ! $caweb_is_page_builder_used ) {
+						// 	printf( '<p class="page-date published">Published: <time datetime="%1$s">%1$s</time></p>', get_the_date( 'M d, Y' ) );
+						// }
 
 						print '<div class="entry-content">';
 
 						the_content();
 
-						print '</div>';
 
+						print '</div>';
 
 						?>
 
-					</article> <!-- .et_pb_post -->
+
+					</article>
 
 					<?php endwhile; ?>
-					<span class="return-top hidden-print"></span>
-				</main>
-			</div> <!-- #main-content -->
 
+				</main>
+
+		</div>
 	</div>
+
 	<?php get_footer(); ?>

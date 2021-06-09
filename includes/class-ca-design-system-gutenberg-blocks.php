@@ -83,18 +83,14 @@ class CADesignSystemGutenbergBlocks {
      */
     public function ca_design_system_gutenberg_blocks_default_page_template() {
         global $post;
-        echo $post->post_type;
-   
         if ( 'page' == $post->post_type && 0 != count( get_page_templates( $post ) ) && get_option( 'page_for_posts' ) != $post->ID ) {
             $post->page_template = plugin_dir_path(__FILE__) . "templates/template-page.php";
         } else if ( 'post' == $post->post_type && 0 != count( get_page_templates( $post ) ) && get_option( 'page_for_posts' ) != $post->ID ) {
             $post->page_template = plugin_dir_path(__FILE__) . "templates/template-single.php";
         }
-        print_r($post);
     }
 
     public function ca_design_system_build_scripts() {
-        
     
         // Custom web components javascript and css
         wp_enqueue_script(

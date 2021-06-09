@@ -109,11 +109,6 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
    public function add_template_filter ( $template ) {
       
       $user_selected_template = get_page_template_slug($post->ID);
-
-      print_r($user_selected_template);
-
-      // We need to check if the selected template
-      // is inside the plugin folder
       $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
       $template_dir = $this->template_dir;
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: CA Design System Post Template
+ * Template Name: Announcement
  * Template Post Type: post
  */
 ?>
