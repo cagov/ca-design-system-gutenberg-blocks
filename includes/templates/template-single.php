@@ -8,7 +8,7 @@
 <?php require_once get_template_directory() . '/header.php'; ?>
 
 	<div id="page-container">
-		<div id="et-main-area">
+
 
 			<div id="main-content" class="main-content" tabindex="-1">
 
@@ -29,34 +29,26 @@
 							esc_html( the_title( sprintf( '<h1 class="page-title%1$s">', $caweb_padding ), '</h1>' ) );
 						}
 
-						if ( get_option( 'ca_default_post_date_display' ) && ! $caweb_is_page_builder_used ) {
-							printf( '<p class="page-date published">Published: <time datetime="%1$s">%1$s</time></p>', get_the_date( 'M d, Y' ) );
-						}
+						// if ( get_option( 'ca_default_post_date_display' ) && ! $caweb_is_page_builder_used ) {
+						// 	printf( '<p class="page-date published">Published: <time datetime="%1$s">%1$s</time></p>', get_the_date( 'M d, Y' ) );
+						// }
 
 						print '<div class="entry-content">';
 
 						the_content();
 
-						if ( ! $caweb_is_page_builder_used ) {
-							wp_link_pages(
-								array(
-									'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'Divi' ),
-									'after'  => '</div>',
-								)
-							);
-						}
 
 						print '</div>';
 
 						?>
 
 
-					</article> <!-- .et_pb_post -->
+					</article>
 
 					<?php endwhile; ?>
 
 				</main>
-			</div> <!-- #main-content -->
+
 		</div>
 	</div>
 

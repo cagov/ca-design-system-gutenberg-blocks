@@ -32,14 +32,9 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
    */
   public function __construct ( ) {
       $this->template_dir = plugin_dir_path(__FILE__) . 'templates/';
-
-    //   echo($this->template_dir);
-
       $this->templates = $this->load_plugin_templates();
-
-    //   echo(print_r( $this->templates ));
-
-      add_filter('theme_page_templates', array($this, 'register_plugin_templates'));
+      add_filter('theme_page_templates', array($this, 'register_plugin_templates_page'));
+      add_filter('theme_post_templates', array($this, 'register_plugin_templates_post'));
       add_filter('template_include', array($this, 'add_template_filter' ));
   }
 
@@ -47,7 +42,6 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
    * Loading templates from the templates folder inside the plugin
    */
   private function load_plugin_templates ( ) {
-
       $template_dir = $this->template_dir;
 
       // Reads all templates from the folder
@@ -86,14 +80,22 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
    * @param array $theme_templates
    * @return array $theme_templates
    */
-  public function register_plugin_templates ( $theme_templates ) {
-    // echo("HI" . print_r($theme_templates));
-    // $theme_templates = get_page_templates();
+  public function register_plugin_templates_post ( $theme_templates ) {    
+    // Merging the WP templates with this plugin's active templates
 
-      // Merging the WP templates with this plugin's active templates
-      $theme_templates = array_merge($theme_templates, $this->templates);
+    // @TODO filter array by type
+    $theme_templates = array_merge($theme_templates, $this->templates);
       
-      return $theme_templates;
+    return $theme_templates;
+  }
+
+  public function register_plugin_templates_page ( $theme_templates ) {    
+    // Merging the WP templates with this plugin's active templates
+
+    // @TODO filter array by type
+    $theme_templates = array_merge($theme_templates, $this->templates);
+      
+    return $theme_templates;
   }
 
   /**
@@ -108,6 +110,8 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
       
       $user_selected_template = get_page_template_slug($post->ID);
 
+      print_r($user_selected_template);
+
       // We need to check if the selected template
       // is inside the plugin folder
       $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
@@ -117,9 +121,6 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
           $is_plugin = true;
       }
 
-      // If selected template is not empty, it's not the Default Template
-      // AND if it's a plugin template, we replace the normal flow to
-      // include the selected template
       if ( $user_selected_template != '' AND $is_plugin ) {
           $template = $user_selected_template;
       }       
