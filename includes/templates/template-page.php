@@ -6,6 +6,7 @@
 ?>
 
 <?php
+// Placeholder breadcrumb function
 function get_breadcrumb() {
     echo '<a href="'.home_url().'" rel="nofollow">Home</a>';
     if (is_category() || is_single()) {
@@ -27,11 +28,14 @@ function get_breadcrumb() {
 }?>
 
 <?php 
-
-
-require_once get_stylesheet_directory() . '/header.php';
-require_once get_stylesheet_directory() . '/partials/header.php';
- ?>
+	// Pull header file from theme if it exists.
+	if (file_exists(get_stylesheet_directory() . '/header.php')) {
+		require_once get_stylesheet_directory() . '/header.php';
+	}
+	if (file_exists(get_stylesheet_directory() . '/header.php')) {
+		require_once get_stylesheet_directory() . '/partials/header.php';
+	}	
+?>
 
 	<div id="page-container" class="with-sidebar page-container-ds">
 	

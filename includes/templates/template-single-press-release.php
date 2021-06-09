@@ -5,8 +5,15 @@
  */
 ?>
 
-<?php require_once get_template_directory() . '/header.php'; ?>
-
+<?php 
+	// Pull header file from theme if it exists.
+	if (file_exists(get_stylesheet_directory() . '/header.php')) {
+		require_once get_stylesheet_directory() . '/header.php';
+	}
+	if (file_exists(get_stylesheet_directory() . '/header.php')) {
+		require_once get_stylesheet_directory() . '/partials/header.php';
+	}	
+?>
 	<div id="page-container">
 
 
