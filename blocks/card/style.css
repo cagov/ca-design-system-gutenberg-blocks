@@ -10,6 +10,7 @@
   border: 1px solid;
   padding: 1rem;
   border-bottom: 0.3rem solid #33705B;
+  border-bottom: 0.3rem solid var(--primary-color, #33705B);
   border-radius: 0.3rem;
   min-width: 250px;
   min-height: 50px;
@@ -19,12 +20,18 @@
 }
 
 .cagov-card h3 {
-  color: #33705B !important;
+  color: #33705B;
+  /* defined here for when css vars are not supported */
+  color: var(--primary-color, #33705B) !important;
+  /* variable used with fallback in case it is not defined */
+  /* color: #33705B !important; */
 }
 .cagov-card svg {
   min-width: 24px;
   fill: #33705B;
-  margin-top: .5em;
+  fill: var(--primary-color, #33705B);
+  margin-top: 0.5em;
+  margin-left: 1rem;
 }
 
 .cagov-card:hover {
