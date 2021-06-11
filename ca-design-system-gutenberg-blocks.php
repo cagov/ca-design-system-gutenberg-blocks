@@ -5,7 +5,7 @@
  * Description: TBD
  * Author: TBD
  * Author URI: 
- * Version: 1.0.3
+ * Version: 1.0.4
  * License: TBD
  * License URI: TBD
  * Text Domain: ca-design-system
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 // Constants
-define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.3');
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.4');
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH', plugin_dir_path(__FILE__));
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL', plugin_dir_url(__FILE__));
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__FILE', __FILE__);
