@@ -26,6 +26,18 @@ function ca_design_system_gutenberg_block_card() {
  *
  * Passes translations to JavaScript.
  */
+function cagov_card_dynamic_render_callback( $block_attributes, $content ) {
+	// print_r($block_attributes);
+	$title = $block_attributes["title"];
+	$url = $block_attributes["url"];
+	return <<<EOT
+		<a href="$url" class="wp-block-ca-design-system-card no-deco cagov-card">
+			<span class="card-text">$title</span>
+			<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><g><path d="M0,0h24v24H0V0z" fill="none"></path></g><g><polygon points="6.23,20.23 8,22 18,12 8,2 6.23,3.77 14.46,12"></polygon></g></svg>
+		</a>
+	EOT;
+}
+
 function ca_design_system_register_card() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
@@ -58,6 +70,7 @@ function ca_design_system_register_card() {
 		'style' => 'cagov-card',
 		'editor_style' => 'cagov-card-editor',
 		'editor_script' => 'california-design-system',
+		'render_callback' => 'cagov_card_dynamic_render_callback'
 	) );
 
 }

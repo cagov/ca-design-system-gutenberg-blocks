@@ -1,4 +1,4 @@
-.stack * + * {
+.cagov-stack * + * {
   margin-top: 1.5rem;
 }
 .cagov-p-2 {
@@ -17,7 +17,7 @@
 .cagov-featured-section .components-button.image-button {
   display: block;
   height: 100%;
-  margin: 0;
+  margin: 0 0 3rem 0;
   padding: 0;
 }
 .cagov-featured-image {
@@ -38,7 +38,7 @@
   background-color: var(--primary-color, #33705B);
   /* variable used with fallback in case it is not defined */
   color: white;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   font-weight: bold;
   display: inline-block;
@@ -93,6 +93,6 @@
 } 
 @media (min-width: 1200px) {
   .cagov-featured-sidebar {
-    max-width: 36%;
+    max-width: 34%;
   }
 }
