@@ -44,7 +44,7 @@ function get_breadcrumb() {
 			<div id="main-content" class="main-content-ds" tabindex="-1">
 			
 			<div>
-			<sidebar space="0" side="left">
+				<sidebar space="0" side="left">
 		            <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
 				</sidebar></div>
 				<div>
@@ -56,7 +56,6 @@ function get_breadcrumb() {
 						?>
 
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
 						<?php
 						if ( 'on' === get_post_meta( $post->ID, 'ca_custom_post_title_display', true ) ) {
 							print esc_html( the_title( '<!-- Page Title--><h1 class="page-title">', '</h1>' ) );

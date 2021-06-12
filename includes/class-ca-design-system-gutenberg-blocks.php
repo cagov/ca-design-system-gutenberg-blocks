@@ -81,6 +81,15 @@ class CADesignSystemGutenbergBlocks {
         wp_register_style( 'ca-design-system-gutenberg-blocks-page', plugins_url( 'styles/page.css', __DIR__ ), false, '1.0.3' );
 		wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page');
 
+        wp_register_style( 'ca-design-system-gutenberg-blocks-announcement', plugins_url( 'styles/announcement.css', __DIR__ ), false, '1.0.3' );
+		wp_enqueue_style( 'ca-design-system-gutenberg-blocks-announcement'); // Default post
+
+        wp_register_style( 'ca-design-system-gutenberg-blocks-event', plugins_url( 'styles/event.css', __DIR__ ), false, '1.0.3' );
+		wp_enqueue_style( 'ca-design-system-gutenberg-blocks-event');
+
+        wp_register_style( 'ca-design-system-gutenberg-blocks-press-release', plugins_url( 'styles/press-release.css', __DIR__ ), false, '1.0.3' );
+		wp_enqueue_style( 'ca-design-system-gutenberg-blocks-press-release');
+
     }
 
     private function override_ca_web_page_templates() {
