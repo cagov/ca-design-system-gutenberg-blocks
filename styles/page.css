@@ -45,14 +45,19 @@ p {
     line-height: 40px;
 }
 
-.main-content-ds { 
+.main-content-ds {
     margin-top: 72px;
     max-width: 877px;
+    /* overflow: auto; */
 }
 
+#main-content {
+    /* overflow: auto; */
+}
 
 .with-sidebar {
     overflow: hidden;
+    /* overflow: auto; */
 }
 
 .with-sidebar>* {
@@ -91,32 +96,44 @@ p {
     text-underline-position: under;
 }
 
-
 .breadcrumb span {
     padding-left: 5px;
     padding-right: 5px;
 }
 
-sidebar {
+.sidebar-container {
     display: block;
     width: 276px;
     margin-right: 20px;
+    /* height: 100vh; */
+}
 
+.sticky-top {
+    /* position: relative;
+    position: -webkit-sticky;
+    position: sticky; */
+    /* position: fixed; */
+    /* top: 0px; */
+    /* position: fixed;
+    padding: 2em;
+    left: 0%;
+    top: 0%;
+    transform: translate(-0%, -0%); */
+    
 }
 
 sidebar cagov-content-navigation .label {
-    font-weight: 700 ;
-    font-size: 24px ;
-    line-height: 28.2px ;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28.2px;
     padding: 0;
     margin: 0;
     padding-bottom: 16px;
-
 }
+
 sidebar cagov-content-navigation ul,
-sidebar cagov-content-navigation ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]), 
-sidebar cagov-content-navigation ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"])
- {
+sidebar cagov-content-navigation ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]),
+sidebar cagov-content-navigation ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
     margin: 0;
     text-indent: 0;
     padding: 0;
@@ -128,23 +145,17 @@ sidebar cagov-content-navigation ul li {
     /* margin-bottom: 16px; */
     margin-top: 16px;
     border-top: 1px solid #EDEDEF;
-    line-height: 28.2px ;
+    line-height: 28.2px;
 }
 
 sidebar cagov-content-navigation ul li:first-child {
     margin-top: 0px;
 }
 
-
-main {
-
-}
-
-.page-container-ds main ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]), 
+.page-container-ds main ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]),
 .page-container-ds main ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
     padding: 0 0 0 0px;
     margin-top: 32px;
     margin-bottom: 32px;
     list-style-position: inside !important;
 }
-

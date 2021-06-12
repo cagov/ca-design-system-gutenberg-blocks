@@ -1,10 +1,9 @@
 /**
  * Content Navigation web component
  * Supported endpoints: Wordpress v2
- * Wordpress Dependencies: window.wp.moment.
+ * Wordpress Dependencies: window.wp.moment
  */
 class CAGovContentNavigation extends window.HTMLElement {
-  // @TODO make sure WP could return a static version of this. (should be possible with our system)
   connectedCallback() {
     this.type = "wordpress";
     if (this.type === "wordpress") {
@@ -22,7 +21,6 @@ class CAGovContentNavigation extends window.HTMLElement {
       label = this.dataset.label || "On this page";
     }
     let content = null;
-    console.log("markdup", markup);
     if (markup !== null) {
       content = `<div class="label">${label}</div> ${markup}`;
     }
@@ -84,7 +82,6 @@ class CAGovContentNavigation extends window.HTMLElement {
 
   outliner(content) {
     let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
-    console.log("HEADERS", headers, headers.length);
     let output = ``;
     if (headers !== undefined && headers !== null && headers.length > 1) {
       headers.forEach((tag) => {

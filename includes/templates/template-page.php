@@ -80,7 +80,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
     <div id="main-content" class="main-content-ds" tabindex="-1">
 
-        <div>
+        <div class="sidebar-container sticky-top">
             <sidebar space="0" side="left">
                 <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
             </sidebar>
@@ -95,7 +95,9 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
                     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                         <?php
-                        if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
+                        $display_post_title = get_option( 'ca_default_post_title_display', false ) ? ' checked' : '';
+                        echo "hi" . $display_post_title . get_post_meta($post->ID, 'ca_custom_post_title_display', true). "Hi";
+                        if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true) || get_post_meta($post->ID, 'ca_custom_post_title_display', true) == "" ) {
                             print esc_html(the_title('<!-- Page Title--><h1 class="page-title">', '</h1>'));
                         }
 
