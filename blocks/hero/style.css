@@ -1,20 +1,24 @@
-.stack * + * {
+.cagov-stack * + * {
   margin-top: 1.5rem;
 }
+.cagov-stack h2 { padding-bottom: 0; }
 .cagov-p-2 {
   padding: 2rem;
 }
-.cagov-border {
-  border: solid 1px;
+.cagov-bkgrd-gry {
+  background-color: #F9F9FA;
 }
 
 .cagov-featured-sidebar {
-  max-width: 360px;
+  max-width: 400px;
+}
+.cagov-featured-section {
+  margin: 0 0 3rem 0;
 }
 .cagov-featured-section .components-button.image-button {
   display: block;
   height: 100%;
-  margin: 0;
+  margin: 0 0 3rem 0;
   padding: 0;
 }
 .cagov-featured-image {
@@ -24,26 +28,41 @@
   height: 100%;
   min-width: 18rem;
   min-height: 20rem;
+  max-height: 420px;
 }
 
+/* call to action */
 /* this is some hacky css, need to figure out how to control the applied classes in the generated InnerBlocks */
 .cagov-hero-body-content .wp-block-button:not(.is-style-outline) .wp-block-button__link:not(:hover):not(:active):not(.has-background) {  
   background-color: #33705B;
+  /* defined here for when css vars are not supported */
+  background-color: var(--primary-color, #33705B);
+  /* variable used with fallback in case it is not defined */
   color: white;
-  padding: 1rem;
-  border-radius: .5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   font-weight: bold;
   display: inline-block;
   border: none;
+  text-decoration: none;
 }
 .cagov-hero-body-content .wp-block-button:not(.is-style-outline) .wp-block-button__link:hover {
-  background-color: #33705B !important;
-  color: #fff !important;
-  padding: 1rem;
-  border-radius: .5rem !important;
+  background-color: #33705B;
+  /* defined here for when css vars are not supported */
+  background-color: var(--primary-color, #33705B);
+  /* variable used with fallback in case it is not defined */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   font-weight: bold;
   display: inline-block;
   border: none;
+  text-decoration: underline;
+}
+
+.cagov-hero-body-content .wp-block-button__link {
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 
 /* sidebar layout */
@@ -76,3 +95,8 @@
     flex-direction: column-reverse;
   }
 } 
+@media (min-width: 1200px) {
+  .cagov-featured-sidebar {
+    max-width: 34%;
+  }
+}

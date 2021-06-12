@@ -20,7 +20,7 @@
       title: {
         type: 'array',
         source: 'children',
-        selector: 'h3'
+        selector: 'h2'
       },
       body: {
         type: 'array',
@@ -63,11 +63,11 @@
           mediaID: media.id
         });
       };
-      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-border' },
+      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
         el('div', {},
           el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
             el(RichText, {
-              tagName: 'h3',
+              tagName: 'h2',
               inline: true,
               placeholder: __(
                 'Write hero title…',
@@ -117,12 +117,12 @@
     },
     save: function (props) {
       const attributes = props.attributes;
-      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-border' },
+      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
         el('div', {},
           el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
             { className: 'cagov-hero cagov-stack' },
             el(RichText.Content, {
-              tagName: 'h3',
+              tagName: 'h2',
               value: attributes.title
             }),
             el('div', { className: 'cagov-hero-body-content' },
