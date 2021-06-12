@@ -40,25 +40,25 @@
       category: {
         type: "string",
         source: "attribute",
-        selector: ".announcement-list[data-category]",
+        selector: ".post-list[data-category]",
         default: "Announcement",
       },
       order: {
         type: "string",
         source: "attribute",
-        selector: ".announcement-list[data-order]",
+        selector: ".post-list[data-order]",
         default: "desc",
       },
       count: {
         type: "string",
         source: "attribute",
-        selector: ".announcement-list[data-count]",
+        selector: ".post-list[data-count]",
         default: "5",
       },
       endpoint: {
         type: "string",
         source: "attribute",
-        selector: ".announcement-list[data-endpoint]",
+        selector: ".post-list[data-endpoint]",
         default: `${siteUrl}/wp-json/wp/v2`,
       },
       readMore: {
@@ -84,7 +84,7 @@
       return el(
         "div",
         {
-          className: "cagov-announcement-list cagov-stack",
+          className: "cagov-post-list cagov-stack",
         },
         el(
           "div",
@@ -112,8 +112,8 @@
           // }),
           // el('hr'),
           // Visual display of endpoint
-          el("cagov-announcement-list", {
-            className: "announcement-list",
+          el("cagov-post-list", {
+            className: "post-list",
             "data-category": attributes.category,
             "data-count": attributes.count,
             "data-order": attributes.order,
@@ -148,7 +148,7 @@
                       }),
                       // el(RichText, {
                       //   tagName: "input",
-                      //   className: "announcement-list-count",
+                      //   className: "post-list-count",
                       //   inline: false,
                       //   placeholder: __("Count", "ca-design-system"),
                       //   value: attributes.count,
@@ -158,7 +158,7 @@
                       // }),
                       // el(RichText, {
                       //   tagName: "div", // Checkbox desc/asc
-                      //   className: "announcement-list-order",
+                      //   className: "post-list-order",
                       //   inline: false,
                       //   placeholder: __("Order", "ca-design-system"),
                       //   value: attributes.order,
@@ -168,7 +168,7 @@
                       // }),
                       // el(RichText, {
                       //   tagName: "div", // select box + enter data
-                      //   className: "announcement-list-endpoint",
+                      //   className: "post-list-endpoint",
                       //   inline: false,
                       //   placeholder: __("Endpoint", "ca-design-system"),
                       //   value: attributes.endpoint,
@@ -185,7 +185,7 @@
       var attributes = props.attributes;
       return el(
         "div",
-        { className: "cagov-announcement-list cagov-stack" },
+        { className: "cagov-post-list cagov-stack" },
         el(
           "div",
           {},
@@ -197,8 +197,8 @@
             tagName: "p",
             value: attributes.description,
           }),
-          el("cagov-announcement-list", {
-            className: "announcement-list",
+          el("cagov-post-list", {
+            className: "post-list",
             "data-category": attributes.category || "Announcement",
             "data-count": attributes.count || 5,
             "data-order": attributes.order || "desc",
