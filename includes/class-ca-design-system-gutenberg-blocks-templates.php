@@ -5,122 +5,172 @@ if (!defined('ABSPATH')) {
 }
 
 // https://medium.com/@eudestwt/wordpress-how-to-make-available-page-templates-from-your-plugin-6a6a56846b51
-class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader {
-  
+class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
+{
+
     protected static $_instance = null;
 
-    public static function get_instance(){
-        if( is_null( self::$_instance ) ) {
+    public static function get_instance()
+    {
+        if (is_null(self::$_instance)) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
 
 
-  /**
-   * Templates folder inside the plugin
-   */
-  private $templates_dir;
+    /**
+     * Templates folder inside the plugin
+     */
+    private $templates_dir;
 
-  /**
-   * Templates to be merged with WP
-   */
-  private $templates;
+    /**
+     * Templates to be merged with WP
+     */
+    private $templates;
 
-  /**
-   * Filtering and loading templates
-   */
-  public function __construct ( ) {
-      $this->template_dir = plugin_dir_path(__FILE__) . 'templates/';
-      $this->templates = $this->load_plugin_templates();
-      add_filter('theme_page_templates', array($this, 'register_plugin_templates_page'));
-      add_filter('theme_post_templates', array($this, 'register_plugin_templates_post'));
-      add_filter('template_include', array($this, 'add_template_filter' ));
-  }
+    /**
+     * Filtering and loading templates
+     */
+    public function __construct()
+    {
+        $this->template_dir = plugin_dir_path(__FILE__) . 'templates/';
+        $this->templates = $this->load_plugin_templates();
+        add_filter('theme_page_templates', array($this, 'register_plugin_templates_page'));
+        add_filter('theme_post_templates', array($this, 'register_plugin_templates_post'));
+        add_filter('template_include', array($this, 'add_template_filter'));
+        $this->_load_plugin_styles();
+        $this->override_ca_web_page_templates();
+    }
 
-  /**
-   * Loading templates from the templates folder inside the plugin
-   */
-  private function load_plugin_templates ( ) {
-      $template_dir = $this->template_dir;
+    private function override_ca_web_page_templates()
+    {
+        add_filter('add_meta_boxes', array($this, 'ca_design_system_gutenberg_blocks_default_page_template'), 1);
+    }
 
-      // Reads all templates from the folder
-      if (is_dir($template_dir)) {
-          if ($dh = opendir($template_dir)) {
-              while (($file = readdir($dh)) !== false) {
+    private function _load_plugin_styles()
+    {
+        add_action('wp_enqueue_scripts', array($this, 'ca_design_system_gutenberg_blocks_default_page_template_styles'), 100);
+    }
 
-                  $full_path = $template_dir . $file;
+    public function ca_design_system_gutenberg_blocks_default_page_template_styles()
+    {
+        wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.3');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
 
-                  if (filetype($full_path) == 'dir') {
-                      continue;
-                  }
+        wp_register_style('ca-design-system-gutenberg-blocks-announcement', plugins_url('styles/announcement.css', __DIR__), false, '1.0.3');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-announcement'); // Default post
 
-                  // Gets Template Name from the file
-                  $filedata = get_file_data($full_path, array(
-                      'Template Name' => 'Template Name',
-                  ));
+        wp_register_style('ca-design-system-gutenberg-blocks-event', plugins_url('styles/event.css', __DIR__), false, '1.0.3');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-event');
 
-                  $template_name = $filedata['Template Name'];
+        wp_register_style('ca-design-system-gutenberg-blocks-press-release', plugins_url('styles/press-release.css', __DIR__), false, '1.0.3');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-press-release');
+    }
 
-                  $templates[$full_path] = $template_name;
 
-              }
-              closedir($dh);
-          }
-    }		
+    /**
+     * Replace default page template
+     *
+     * @return void
+     */
+    public function ca_design_system_gutenberg_blocks_default_page_template()
+    {
+        global $post;
+        if ('page' == $post->post_type && 0 != count(get_page_templates($post)) && get_option('page_for_posts') != $post->ID) {
+            $post->page_template = plugin_dir_path(__FILE__) . "templates/template-page.php";
+        } else if ('post' == $post->post_type && 0 != count(get_page_templates($post)) && get_option('page_for_posts') != $post->ID) {
+            $post->page_template = plugin_dir_path(__FILE__) . "templates/template-single.php";
+        }
+    }
 
-    return $templates;
-  }
+    
 
-  /**
-   * theme_page_templates Filter callback
-   *
-   * Merges plugins' template with theme's, making them available for the user
-   * 
-   * @param array $theme_templates
-   * @return array $theme_templates
-   */
-  public function register_plugin_templates_post ( $theme_templates ) {    
-    // Merging the WP templates with this plugin's active templates
+    /**
+     * Loading templates from the templates folder inside the plugin
+     */
+    private function load_plugin_templates()
+    {
+        $template_dir = $this->template_dir;
 
-    // @TODO filter array by type
-    $theme_templates = array_merge($theme_templates, $this->templates);
-      
-    return $theme_templates;
-  }
+        // Reads all templates from the folder
+        if (is_dir($template_dir)) {
+            if ($dh = opendir($template_dir)) {
+                while (($file = readdir($dh)) !== false) {
 
-  public function register_plugin_templates_page ( $theme_templates ) {    
-    // Merging the WP templates with this plugin's active templates
+                    $full_path = $template_dir . $file;
 
-    // @TODO filter array by type
-    $theme_templates = array_merge($theme_templates, $this->templates);
-      
-    return $theme_templates;
-  }
+                    if (filetype($full_path) == 'dir') {
+                        continue;
+                    }
 
-  /**
-   * template_include Filter callback
-   * 
-   * Include plugin's template if there's one chosen for the rendering page 
-   *
-   * @param string $template path
-   * @return string $template path
-   */
-   public function add_template_filter ( $template ) {
-      
-      $user_selected_template = get_page_template_slug($post->ID);
-      $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
-      $template_dir = $this->template_dir;
+                    // Gets Template Name from the file
+                    $filedata = get_file_data($full_path, array(
+                        'Template Name' => 'Template Name',
+                    ));
 
-      if (file_exists($template_dir . $file_name)) {
-          $is_plugin = true;
-      }
+                    $template_name = $filedata['Template Name'];
 
-      if ( $user_selected_template != '' AND $is_plugin ) {
-          $template = $user_selected_template;
-      }       
-  
-      return $template;
-  }   
-  
+                    $templates[$full_path] = $template_name;
+                }
+                closedir($dh);
+            }
+        }
+
+        return $templates;
+    }
+
+    /**
+     * theme_page_templates Filter callback
+     *
+     * Merges plugins' template with theme's, making them available for the user
+     * 
+     * @param array $theme_templates
+     * @return array $theme_templates
+     */
+    public function register_plugin_templates_post($theme_templates)
+    {
+        // Merging the WP templates with this plugin's active templates
+
+        // @TODO filter array by type
+        $theme_templates = array_merge($theme_templates, $this->templates);
+
+        return $theme_templates;
+    }
+
+    public function register_plugin_templates_page($theme_templates)
+    {
+        // Merging the WP templates with this plugin's active templates
+
+        // @TODO filter array by type
+        $theme_templates = array_merge($theme_templates, $this->templates);
+
+        return $theme_templates;
+    }
+
+    /**
+     * template_include Filter callback
+     * 
+     * Include plugin's template if there's one chosen for the rendering page 
+     *
+     * @param string $template path
+     * @return string $template path
+     */
+    public function add_template_filter($template)
+    {
+
+        $user_selected_template = get_page_template_slug($post->ID);
+        $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
+        $template_dir = $this->template_dir;
+
+        if (file_exists($template_dir . $file_name)) {
+            $is_plugin = true;
+        }
+
+        if ($user_selected_template != '' and $is_plugin) {
+            $template = $user_selected_template;
+        }
+
+        return $template;
+    }
 }
