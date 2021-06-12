@@ -2,24 +2,27 @@
 
 /**
  * Plugin Name: CA Design System Gutenberg Blocks
- * Plugin URI: TBD
+ * Plugin URI: https://github.com/cagov/ca-design-system-gutenberg-blocks
  * Description: Gutenberg blocks to be used in WordPress that are compatible with the California's design system
  * Author: Office of Digital Innovation
- * Author URI: 
+ * Author URI: https://digital.ca.gov
  * Version: 1.0.5
- * License: TBD
- * License URI: TBD
+ * License: MIT
+ * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
  * 
- * @package ca-design-system
- * 
+ * @category CADesignSystem
+ * @package  CADesignSystem
+ * @author   Office of Digital Innovation <info@digital.ca.gov>
+ * @license  https://opensource.org/licenses/MIT MIT
+ * @link     https://github.com/cagov/ca-design-system-gutenberg-blocks#readme
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 // Constants
-define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.4');
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.5');
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH', plugin_dir_path(__FILE__));
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL', plugin_dir_url(__FILE__));
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__FILE', __FILE__);
