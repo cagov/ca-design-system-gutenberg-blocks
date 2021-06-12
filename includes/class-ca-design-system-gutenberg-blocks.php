@@ -124,6 +124,7 @@ class CADesignSystemGutenbergBlocks
          * Plugins creates hooks that lets us load that component as needed.
          */
         do_action("ca_design_system_register_post_list_web_component");
+        do_action("ca_design_system_register_content_navigation_web_component"); 
     }
 
 

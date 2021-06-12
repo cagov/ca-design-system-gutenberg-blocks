@@ -9,15 +9,16 @@
  * @package ca-design-system
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_news_archive' );
+add_action('init', 'ca_design_system_gutenberg_block_news_archive');
 
-function ca_design_system_gutenberg_block_news_archive() {
-	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
+function ca_design_system_gutenberg_block_news_archive()
+{
+	load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
 
 /**
@@ -26,9 +27,10 @@ function ca_design_system_gutenberg_block_news_archive() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_news_archive() {
+function ca_design_system_register_news_archive()
+{
 
-	if ( ! function_exists( 'register_block_type' ) ) {
+	if (!function_exists('register_block_type')) {
 		// Gutenberg is not active.
 		return;
 	}
@@ -36,45 +38,45 @@ function ca_design_system_register_news_archive() {
 	// Register custom web component
 	wp_register_script(
 		'ca-design-system-post-list-web-component',
-		plugins_url( 'web-component.js', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
+		plugins_url('web-component.js', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
 	);
 
 	wp_register_script(
 		'ca-design-system-post-list',
-		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-post-list-web-component' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
+		plugins_url('block.js', __FILE__),
+		array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-post-list-web-component'),
+		filemtime(plugin_dir_path(__FILE__) . 'block.js'),
 	);
 
 	wp_register_style(
 		'ca-design-system-post-list',
-		plugins_url( 'style.css', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
+		plugins_url('style.css', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'style.css')
 	);
 
-	register_block_type( 'ca-design-system/post-list', array(
+	register_block_type('ca-design-system/post-list', array(
 		'style' => 'cagov-post-list',
 		'editor_script' => 'ca-design-system-post-list',
-	) );
-
+	));
 }
-add_action( 'init', 'ca_design_system_register_news_archive' );
+add_action('init', 'ca_design_system_register_news_archive');
 
 
 
-function ca_design_system_register_post_list_web_component_callback() {
+function ca_design_system_register_post_list_web_component_callback()
+{
 	// @TODO move into post-list
 	wp_register_script(
 		'ca-design-system-post-list-web-component',
-		plugins_url( 'web-component.js', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
+		plugins_url('web-component.js', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
 	);
 
 	wp_enqueue_script('ca-design-system-post-list-web-component');
 }
 
-add_action( 'ca_design_system_register_post_list_web_component', 'ca_design_system_register_post_list_web_component_callback', 10, 2 );
+add_action('ca_design_system_register_post_list_web_component', 'ca_design_system_register_post_list_web_component_callback', 10, 2);

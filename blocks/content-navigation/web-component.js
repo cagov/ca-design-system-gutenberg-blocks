@@ -18,14 +18,19 @@ class CAGovContentNavigation extends window.HTMLElement {
     // Parse header tags
     let markup = this.getHeaderTags();
     let label = null;
-    if (markup !== null) { 
+    if (markup !== null) {
       label = this.dataset.label || "On this page";
     }
-    this.template({ content: `<div class="label">${label}</div> ${markup}`, }, "wordpress");
+    let content = null;
+    console.log("markdup", markup);
+    if (markup !== null) {
+      content = `<div class="label">${label}</div> ${markup}`;
+    }
+    this.template({ content }, "wordpress");
   }
 
   template(data, type) {
-    if (data !== undefined && data !== null) {
+    if (data !== undefined && data !== null && data.content !== null) {
       if (type === "wordpress") {
         this.innerHTML = `${data.content}`;
       }
@@ -47,6 +52,7 @@ class CAGovContentNavigation extends window.HTMLElement {
 
     var h = ["h2", "h3", "h4", "h5", "h6"];
     var headings = [];
+
     for (var i = 0; i < h.length; i++) {
       // Pull out the header tags, in order & render as links with anchor tags
       // auto convert h tags with tag names
@@ -63,7 +69,6 @@ class CAGovContentNavigation extends window.HTMLElement {
           }
         }
       } else if (display === "editor") {
-        console.log("EDITOR", editor);
         let editorContent = window.document.querySelector(`${editor}`);
         let editorInnerHTML = selectorContent.innerHTML;
         if (callback !== undefined && callback !== null) {
@@ -74,19 +79,19 @@ class CAGovContentNavigation extends window.HTMLElement {
         return outline;
       }
     }
+    return null;
   }
 
   outliner(content) {
     let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
+    console.log("HEADERS", headers, headers.length);
     let output = ``;
     if (headers !== undefined && headers !== null && headers.length > 1) {
-      console.log(headers);
       headers.forEach((tag) => {
-        console.log(tag.getAttribute("id"));
         let tagId = tag.getAttribute("id");
         let title = tag.innerHTML;
 
-        let anchor = tag.innerHTML.toLowerCase().trim().replace(/ /g,"-");
+        let anchor = tag.innerHTML.toLowerCase().trim().replace(/ /g, "-");
 
         // If id not set already, create an id to jump to.
         if (tagId !== undefined && tagId !== null) {
@@ -100,8 +105,9 @@ class CAGovContentNavigation extends window.HTMLElement {
           tag.setAttribute("id", tagId);
         }
       });
+      return `<ul>${output}</ul>`;
     }
-    return `<ul>${output}</ul>`;
+    return null;
   }
 }
 

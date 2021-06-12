@@ -62,3 +62,18 @@ function ca_design_system_register_content_navigation() {
 
 }
 add_action( 'init', 'ca_design_system_register_content_navigation' );
+
+function ca_design_system_register_content_navigation_web_component_callback()
+{
+	// @TODO move into content-navigation
+	wp_register_script(
+		'ca-design-system-content-navigation-web-component',
+		plugins_url('web-component.js', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+	);
+
+	wp_enqueue_script('ca-design-system-content-navigation-web-component');
+}
+
+add_action('ca_design_system_register_content_navigation_web_component', 'ca_design_system_register_content_navigation_web_component_callback', 10, 2);

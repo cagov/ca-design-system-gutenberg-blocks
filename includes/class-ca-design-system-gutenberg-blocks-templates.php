@@ -1,10 +1,25 @@
 <?php
-// Exit if accessed directly.
+
+/**
+ * Register custom templates for the CA Design System
+ * 
+ * @category CADesignSystem
+ * @package  CADesignSystem
+ * @author   Office of Digital Innovation <info@digital.ca.gov>
+ * @license  https://opensource.org/licenses/MIT MIT
+ * @link     https://github.com/cagov/ca-design-system-gutenberg-blocks#readme
+ */
+
 if (!defined('ABSPATH')) {
+    /* Exit if accessed directly. */
     exit;
 }
 
-// https://medium.com/@eudestwt/wordpress-how-to-make-available-page-templates-from-your-plugin-6a6a56846b51
+/**
+ * Make custom templates available to the UI.
+ * https://medium.com/@eudestwt/wordpress-how-to-make-available-page-templates-from-your-plugin-6a6a56846b51
+ * 
+ */
 class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
 {
 
@@ -34,62 +49,21 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
      */
     public function __construct()
     {
-        $this->template_dir = plugin_dir_path(__FILE__) . 'templates/';
-        $this->templates = $this->load_plugin_templates();
+        $this->template_dir = plugin_dir_path(__FILE__) . 'templates/'; // @TODO this saves with absolute file path which requires resetting the path in each WP instance.
+        // $this->template_dir = WP_CONTENT_DIR .  'ca-design-system-gutenberg-blocks/includes/templates/';
+        $this->templates = $this->_load_default_page_templates();
+        $this->_add_page_templates_to_metaboxes();
+        $this->_load_default_page_template_styles();
+
         add_filter('theme_page_templates', array($this, 'register_plugin_templates_page'));
         add_filter('theme_post_templates', array($this, 'register_plugin_templates_post'));
         add_filter('template_include', array($this, 'add_template_filter'));
-        $this->_load_plugin_styles();
-        $this->override_ca_web_page_templates();
     }
-
-    private function override_ca_web_page_templates()
-    {
-        add_filter('add_meta_boxes', array($this, 'ca_design_system_gutenberg_blocks_default_page_template'), 1);
-    }
-
-    private function _load_plugin_styles()
-    {
-        add_action('wp_enqueue_scripts', array($this, 'ca_design_system_gutenberg_blocks_default_page_template_styles'), 100);
-    }
-
-    public function ca_design_system_gutenberg_blocks_default_page_template_styles()
-    {
-        wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.3');
-        wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
-
-        wp_register_style('ca-design-system-gutenberg-blocks-announcement', plugins_url('styles/announcement.css', __DIR__), false, '1.0.3');
-        wp_enqueue_style('ca-design-system-gutenberg-blocks-announcement'); // Default post
-
-        wp_register_style('ca-design-system-gutenberg-blocks-event', plugins_url('styles/event.css', __DIR__), false, '1.0.3');
-        wp_enqueue_style('ca-design-system-gutenberg-blocks-event');
-
-        wp_register_style('ca-design-system-gutenberg-blocks-press-release', plugins_url('styles/press-release.css', __DIR__), false, '1.0.3');
-        wp_enqueue_style('ca-design-system-gutenberg-blocks-press-release');
-    }
-
 
     /**
-     * Replace default page template
-     *
-     * @return void
+     * Load templates located in the plugin templates folder.
      */
-    public function ca_design_system_gutenberg_blocks_default_page_template()
-    {
-        global $post;
-        if ('page' == $post->post_type && 0 != count(get_page_templates($post)) && get_option('page_for_posts') != $post->ID) {
-            $post->page_template = plugin_dir_path(__FILE__) . "templates/template-page.php";
-        } else if ('post' == $post->post_type && 0 != count(get_page_templates($post)) && get_option('page_for_posts') != $post->ID) {
-            $post->page_template = plugin_dir_path(__FILE__) . "templates/template-single.php";
-        }
-    }
-
-    
-
-    /**
-     * Loading templates from the templates folder inside the plugin
-     */
-    private function load_plugin_templates()
+    private function _load_default_page_templates()
     {
         $template_dir = $this->template_dir;
 
@@ -118,6 +92,51 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
         }
 
         return $templates;
+    }
+
+    /**
+     * Add Page Templates to Editor interface panels (metaboxes.)
+     *
+     * @return void
+     */
+    private function _add_page_templates_to_metaboxes()
+    {
+        add_filter('add_meta_boxes', array($this, 'ca_design_system_gutenberg_blocks_default_page_template'), 1);
+    }
+
+    /**
+     * Replace default page template
+     *
+     * @return void
+     */
+    public function ca_design_system_gutenberg_blocks_default_page_template()
+    {
+        global $post;
+        if ('page' == $post->post_type && 0 != count(get_page_templates($post)) && get_option('page_for_posts') != $post->ID) {
+            $post->page_template = $this->template_dir . "templates/template-page.php";
+        } else if ('post' == $post->post_type && 0 != count(get_page_templates($post)) && get_option('page_for_posts') != $post->ID) {
+            $post->page_template = $this->template_dir . "templates/template-single.php";
+        }
+    }
+
+    private function _load_default_page_template_styles()
+    {
+        add_action('wp_enqueue_scripts', array($this, 'ca_design_system_gutenberg_blocks_default_page_template_styles'), 100);
+    }
+
+    public function ca_design_system_gutenberg_blocks_default_page_template_styles()
+    {
+        wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.3');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
+
+        wp_register_style('ca-design-system-gutenberg-blocks-announcement', plugins_url('styles/announcement.css', __DIR__), false, '1.0.3');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-announcement'); // Default post
+
+        // wp_register_style('ca-design-system-gutenberg-blocks-event', plugins_url('styles/event.css', __DIR__), false, '1.0.3');
+        // wp_enqueue_style('ca-design-system-gutenberg-blocks-event');
+
+        // wp_register_style('ca-design-system-gutenberg-blocks-press-release', plugins_url('styles/press-release.css', __DIR__), false, '1.0.3');
+        // wp_enqueue_style('ca-design-system-gutenberg-blocks-press-release');
     }
 
     /**
