@@ -107,4 +107,4 @@ class CAGovNewsList extends window.HTMLElement {
   }
 }
 
-window.customElements.define("cagov-news-list", CAGovNewsList);
+window.customElements.define("cagov-announcement-list", CAGovNewsList);

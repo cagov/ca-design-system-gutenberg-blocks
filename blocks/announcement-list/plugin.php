@@ -35,29 +35,29 @@ function ca_design_system_register_announcement_list() {
 
 	// Register custom web component
 	wp_register_script(
-		'ca-design-system-news-list-web-component',
+		'ca-design-system-announcement-list-web-component',
 		plugins_url( 'web-component.js', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
 	);
 
 	wp_register_script(
-		'ca-design-system-news-list',
+		'ca-design-system-announcement-list',
 		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-news-list-web-component' ),
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-announcement-list-web-component' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
 	);
 
 	wp_register_style(
-		'ca-design-system-news-list',
+		'ca-design-system-announcement-list',
 		plugins_url( 'style.css', __FILE__ ),
 		array( ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
 	);
 
-	register_block_type( 'ca-design-system/news-list', array(
-		'style' => 'cagov-news-list',
-		'editor_script' => 'ca-design-system-news-list',
+	register_block_type( 'ca-design-system/announcement-list', array(
+		'style' => 'cagov-announcement-list',
+		'editor_script' => 'ca-design-system-announcement-list',
 	) );
 
 }
