@@ -71,16 +71,17 @@ function ca_design_system_web_component_scripts() {
         'moment'
     );
 
+    // @TODO sort of in wrong place but actually this is the better place (page scope)
     // Custom web components javascript and css
     wp_enqueue_script(
         'ca-design-system-post-list-web-component',
-        plugins_url( '/blocks/post-list/web-component.js', dirname( __FILE__ ) ),
+        plugins_url( '/blocks/announcement-list/web-component.js', dirname( __FILE__ ) ),
         array( ),
     );
     // @TODO this is acting strangely, figure out why.
     // wp_enqueue_style(
     //     'ca-design-system-post-list',
-    //     plugins_url( '/blocks/post-list/style.css', dirname( __FILE__ ) ),
+    //     plugins_url( '/blocks/announcement-list/style.css', dirname( __FILE__ ) ),
     //     array( )
     // );
 
