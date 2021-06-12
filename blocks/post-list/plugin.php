@@ -62,3 +62,19 @@ function ca_design_system_register_news_archive() {
 
 }
 add_action( 'init', 'ca_design_system_register_news_archive' );
+
+
+
+function ca_design_system_register_post_list_web_component_callback() {
+	// @TODO move into post-list
+	wp_register_script(
+		'ca-design-system-post-list-web-component',
+		plugins_url( 'web-component.js', __FILE__ ),
+		array( ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
+	);
+
+	wp_enqueue_script('ca-design-system-post-list-web-component');
+}
+
+add_action( 'ca_design_system_register_post_list_web_component', 'ca_design_system_register_post_list_web_component_callback', 10, 2 );

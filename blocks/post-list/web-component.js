@@ -1,14 +1,14 @@
 /**
- * News Archive web component
+ * News List web component
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment.
  */
-class CAGovNewsArchive extends window.HTMLElement {
+ class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
     this.endpoint = this.dataset.endpoint;
     this.order = this.dataset.order || "desc";
     this.count = this.dataset.count || "5";
-    this.category = this.dataset.category || "News";
+    this.category = this.dataset.category || "Announcement";
     this.type = "wordpress";
     if (this.type === "wordpress") {
       this.getWordpressPosts();
@@ -17,7 +17,8 @@ class CAGovNewsArchive extends window.HTMLElement {
 
   getWordpressPosts() {
     if (this.endpoint !== undefined) {
-      let categoryEndpoint = `${this.endpoint}/categories?slug="${this.category}"`;
+      let categoryEndpoint = `${this.endpoint}/categories?slug=${this.category}`;
+      console.log("cate", categoryEndpoint)
       // Get data
       window
         .fetch(categoryEndpoint)
@@ -107,4 +108,4 @@ class CAGovNewsArchive extends window.HTMLElement {
   }
 }
 
-window.customElements.define("cagov-news-archive", CAGovNewsArchive);
+window.customElements.define("cagov-post-list", CAGovPostList);

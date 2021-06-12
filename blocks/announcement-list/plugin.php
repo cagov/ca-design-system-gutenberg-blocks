@@ -59,6 +59,8 @@ function ca_design_system_register_announcement_list() {
 		'style' => 'cagov-announcement-list',
 		'editor_script' => 'ca-design-system-announcement-list',
 	) );
-
 }
+
 add_action( 'init', 'ca_design_system_register_announcement_list' );
+
+

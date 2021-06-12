@@ -47,7 +47,7 @@ class CADesignSystemGutenbergBlocks {
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-navigation/plugin.php';
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/event-detail/plugin.php';
         // require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
-        // require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/post-list/plugin.php';
+        require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/post-list/plugin.php';
 
         // CA Design System blocks
         require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/accordion/plugin.php';
@@ -126,14 +126,14 @@ class CADesignSystemGutenbergBlocks {
             array( ),
         );
 
-        // Individual block web-components
-        wp_enqueue_script(
-            'ca-design-system-block-announcement-list',
-            plugins_url( '/blocks/announcement-list/web-component.js', dirname( __FILE__ ) ),
-            array( ),
-        );
+        do_action("ca_design_system_register_post_list_web_component"); // registeres web component from GB
 
 
+    
+
+    
+
+ 
              // https://stackoverflow.com/questions/54600455/how-to-register-styles-scripts-blocks-for-wordpress-gutenberg-block-editor
              // wp_register_style(
              //     'ca-design-system-blocks',

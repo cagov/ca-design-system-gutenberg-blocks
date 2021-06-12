@@ -67,29 +67,11 @@ add_action( 'init', 'ca_design_system_custom_wp_block_pattern_standard_page' );
 
 function ca_design_system_web_component_scripts() {
     // Global dependencies
-    wp_enqueue_script(
-        'moment'
-    );
-
-    // @TODO sort of in wrong place but actually this is the better place (page scope)
-    // Custom web components javascript and css
-    wp_enqueue_script(
-        'ca-design-system-post-list-web-component',
-        plugins_url( '/blocks/announcement-list/web-component.js', dirname( __FILE__ ) ),
-        array( ),
-    );
-    // @TODO this is acting strangely, figure out why.
-    // wp_enqueue_style(
-    //     'ca-design-system-post-list',
-    //     plugins_url( '/blocks/announcement-list/style.css', dirname( __FILE__ ) ),
-    //     array( )
+    // wp_enqueue_script(
+    //     'moment'
     // );
 
-    wp_enqueue_script(
-        'ca-design-system-content-navigation-web-component',
-        plugins_url( '/blocks/content-navigation/web-component.js', dirname( __FILE__ ) ),
-        array( ),
-    );
+
 }
 
 
