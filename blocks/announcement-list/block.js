@@ -30,7 +30,7 @@
         type: "array",
         source: "children",
         selector: "h3",
-        default: "Announcement",
+        default: "Announcements",
       },
       description: {
         type: "array",
@@ -65,7 +65,7 @@
         type: "string",
         source: "html",
         selector: "div.read-more",
-        default: '<a href="/category/announcement">View all annoucements</a>',
+        default: '<a href="/category/announcement">View all announcements</a>',
       },
     },
     example: {

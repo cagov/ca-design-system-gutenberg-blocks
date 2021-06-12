@@ -119,9 +119,17 @@ class CADesignSystemGutenbergBlocks {
             array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),
         );
     
+        // Compiled dynamic blocks
         wp_enqueue_script(
             'ca-design-system-blocks',
             plugins_url( '/build/index.js', dirname( __FILE__ ) ),
+            array( ),
+        );
+
+        // Individual block web-components
+        wp_enqueue_script(
+            'ca-design-system-block-announcement-list',
+            plugins_url( '/blocks/announcement-list/web-component.js', dirname( __FILE__ ) ),
             array( ),
         );
 
