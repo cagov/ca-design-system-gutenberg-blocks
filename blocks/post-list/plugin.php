@@ -14,9 +14,9 @@ defined('ABSPATH') || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action('init', 'ca_design_system_gutenberg_block_news_archive');
+add_action('init', 'ca_design_system_gutenberg_block_post_list');
 
-function ca_design_system_gutenberg_block_news_archive()
+function ca_design_system_gutenberg_block_post_list()
 {
 	load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
@@ -27,7 +27,7 @@ function ca_design_system_gutenberg_block_news_archive()
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_news_archive()
+function ca_design_system_register_post_list()
 {
 
 	if (!function_exists('register_block_type')) {
@@ -62,7 +62,7 @@ function ca_design_system_register_news_archive()
 		'editor_script' => 'ca-design-system-post-list',
 	));
 }
-add_action('init', 'ca_design_system_register_news_archive');
+add_action('init', 'ca_design_system_register_post_list');
 
 
 

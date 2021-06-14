@@ -29,7 +29,6 @@
         type: "array",
         source: "children",
         selector: "h3",
-        default: "News",
       },
       description: {
         type: "array",
@@ -40,7 +39,7 @@
         type: "string",
         source: "attribute",
         selector: ".post-list[data-category]",
-        default: "News",
+        default: "",
       },
       order: {
         type: "string",
@@ -52,7 +51,7 @@
         type: "string",
         source: "attribute",
         selector: ".post-list[data-count]",
-        default: "5",
+        default: "10",
       },
       endpoint: {
         type: "string",
@@ -64,7 +63,7 @@
         type: "string",
         source: "html",
         selector: "div.read-more",
-        default: '<a href="/news">View all news</a>',
+        default: '<a href="/category/announcement">View all posts</a>',
       },
     },
     example: {
@@ -73,8 +72,8 @@
         description: __("Post list description", "ca-design-system"),
         readMore: __("Link Text", "ca-design-system"),
         category: __("Category to include", "ca-design-system"),
-        count: __("Number news items to display", "ca-design-system"),
-        order: __("Order of news posts", "ca-design-system"),
+        count: __("Number post items to display", "ca-design-system"),
+        order: __("Order of posts", "ca-design-system"),
         endpoint: __("Endpoint to fetch data from", "ca-design-system"),
       },
     },
@@ -91,7 +90,7 @@
           el(RichText, {
             tagName: "h3",
             inline: false,
-            placeholder: __("News list title", "ca-design-system"),
+            placeholder: __("Post list title", "ca-design-system"),
             value: attributes.title,
             onChange: function (value) {
               props.setAttributes({ title: value });
@@ -101,7 +100,7 @@
           //   tagName: "p",
           //   inline: false,
           //   placeholder: __(
-          //     "News list message (optional)",
+          //     "Post list message (optional)",
           //     "ca-design-system"
           //   ),
           //   value: attributes.description,
@@ -123,7 +122,7 @@
             tagName: "div",
             className: "read-more",
             inline: false,
-            placeholder: __("Link to news page", "ca-design-system"),
+            placeholder: __("Link to post page", "ca-design-system"),
             value: attributes.readMore,
             onChange: function (value) {
               props.setAttributes({ readMore: value });
@@ -135,7 +134,7 @@
                       { className: "edit" },
                       // @TODO Change to select with categories list.
                       el(TextControl, {
-                        label: "Change news post category",
+                        label: "Change post category",
                         tagName: "input",
                         className: "post-list-category",
                         inline: false,
@@ -198,8 +197,8 @@
           }),
           el("cagov-post-list", {
             className: "post-list",
-            "data-category": attributes.category || "News",
-            "data-count": attributes.count || 5,
+            "data-category": attributes.category || "",
+            "data-count": attributes.count || 10,
             "data-order": attributes.order || "desc",
             "data-endpoint":
               attributes.endpoint || `${siteUrl}/wp-json/wp/v2`,

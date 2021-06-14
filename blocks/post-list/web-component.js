@@ -7,8 +7,8 @@
   connectedCallback() {
     this.endpoint = this.dataset.endpoint;
     this.order = this.dataset.order || "desc";
-    this.count = this.dataset.count || "5";
-    this.category = this.dataset.category || "Announcement";
+    this.count = this.dataset.count || "10";
+    this.category = this.dataset.category || "";
     this.type = "wordpress";
     if (this.type === "wordpress") {
       this.getWordpressPosts();
@@ -18,7 +18,7 @@
   getWordpressPosts() {
     if (this.endpoint !== undefined) {
       let categoryEndpoint = `${this.endpoint}/categories?slug=${this.category}`;
-      console.log("cate", categoryEndpoint)
+      // console.log("cate", categoryEndpoint)
       // Get data
       window
         .fetch(categoryEndpoint)
@@ -103,6 +103,7 @@
                 <a href="${link}">
                     ${title.rendered}
                 </a>
+                <p>${title.excerpt}</p>
                 <div class="date">${dateFormatted && dateFormatted}</div>
             </li>`;
   }

@@ -109,7 +109,7 @@ class CADesignSystemGutenbergBlocks_AdminPage
         foreach ($all_posts as $single_post) {
             // print_r($single_post);
             echo $single_post->ca_custom_post_title_display;
-            update_post_meta($single_post->ID, 'ca_custom_post_title_display', true);
+            update_post_meta($single_post->ID, 'ca_custom_post_title_display', 'on');
         }
     }
 
@@ -132,7 +132,7 @@ class CADesignSystemGutenbergBlocks_AdminPage
         foreach ($all_posts as $single_post) {
             // print_r($single_post);
             echo $single_post->ca_custom_post_title_display;
-            update_post_meta($single_post->ID, 'ca_custom_post_title_display', true);
+            update_post_meta($single_post->ID, 'ca_custom_post_title_display', 'on');
         }
     }
 
