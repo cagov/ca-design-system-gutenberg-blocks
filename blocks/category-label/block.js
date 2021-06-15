@@ -55,9 +55,6 @@
     },
     edit: function (props) {
       var attributes = props.attributes;
-      console.log("edit", attributes);
-
-
       return el(RichText.Content, {
 		tagName: "div",
 		className: "cagov-category-label cagov-stack",

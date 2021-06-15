@@ -27,7 +27,6 @@
         .then(
           function (data) {
             let categoryIds = data.map((item) => {
-              console.log(item);
               return item.id;
             });
 

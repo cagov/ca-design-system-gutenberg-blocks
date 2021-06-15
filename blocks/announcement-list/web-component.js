@@ -18,7 +18,6 @@
   getWordpressPosts() {
     if (this.endpoint !== undefined) {
       let categoryEndpoint = `${this.endpoint}/categories?slug=${this.category}`;
-      console.log("cate", categoryEndpoint)
       // Get data
       window
         .fetch(categoryEndpoint)
@@ -26,7 +25,6 @@
         .then(
           function (data) {
             let categoryIds = data.map((item) => {
-              console.log(item);
               return item.id;
             });
 

@@ -27,7 +27,7 @@ function ca_design_system_gutenberg_block_post_list()
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_post_list()
+function ca_design_system_gutenberg_blocks_register_post_list()
 {
     if (!function_exists('register_block_type')) {
         // Gutenberg is not active.

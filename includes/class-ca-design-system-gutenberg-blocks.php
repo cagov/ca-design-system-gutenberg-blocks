@@ -98,12 +98,24 @@ class CADesignSystemGutenbergBlocks
      */
     public function ca_design_system_gutenberg_blocks_build_scripts()
     {
+        wp_enqueue_script(
+            'ca-design-system-blocks',
+            plugins_url('/build/index.js', dirname(__FILE__)),
+            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
+        );
+
+        // Styles broken
+        // Add global CSS
+        // wp_register_style(
+        //     'ca-design-system-global-styles',
+        //     CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/style.css',
+        //     array(),
+        //     filemtime(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/style.css')
+        // );
+
+        // wp_enqueue_style('ca-design-system-global-styles');
+
         if (!is_admin()) {
-            wp_enqueue_script(
-                'ca-design-system-blocks',
-                plugins_url('/build/index.js', dirname(__FILE__)),
-                array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
-            );
 
             /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
             wp_enqueue_script(
@@ -111,16 +123,6 @@ class CADesignSystemGutenbergBlocks
                 plugins_url('/build/index.js', dirname(__FILE__)),
                 array(),
             );
-
-            // Add global CSS
-            wp_register_style(
-                'ca-design-system-global-styles',
-                plugins_url('style.css', __FILE__),
-                array(),
-                filemtime(plugin_dir_path(__FILE__) . 'styles/style.css')
-            );
-
-            wp_enqueue_style('ca-design-system-global-styles');
 
             /**
              * Register web-component from Block child plugins. 
@@ -132,14 +134,15 @@ class CADesignSystemGutenbergBlocks
         } else {
 
             // Add editor styles
-            wp_register_style(
-                'ca-design-system-global-styles-editor',
-                plugins_url('styles/editor.css', __FILE__),
-                array(),
-                filemtime(plugin_dir_path(__FILE__) . 'styles/editor.css')
-            );
+            // Breaks page silently, no errors
 
-            wp_enqueue_style('ca-design-system-global-styles-editor');
+            // wp_register_style(
+            //     'ca-design-system-global-styles-editor',
+            //     CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css',
+            //     array()
+            // );
+
+            // wp_enqueue_style('ca-design-system-global-styles-editor');
         }
     }
 
