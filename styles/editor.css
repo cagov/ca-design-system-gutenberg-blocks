@@ -1,0 +1,4 @@
+.edit-post-visual-editor .editor-block-list__block[data-type="uagb/column"] .editor-block-list__block-edit {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

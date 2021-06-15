@@ -2,7 +2,7 @@
  * CAGov Post list
  */
 
-(function (blocks, blockEditor, i18n, element, components, _, moment) {
+ (function (blocks, blockEditor, i18n, element, components, _, moment) {
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
@@ -23,6 +23,7 @@
     title: __("Post list", "ca-design-system"),
     icon: "universal-access-alt",
     category: "ca-design-system-utilities",
+    description: __("List of recent posts.", "ca-design-system"),
     attributes: {
       title: {
         type: "array",
@@ -107,17 +108,15 @@
           //     props.setAttributes({ description: value });
           //   },
           // }),
-          // el('hr'),
           // Visual display of endpoint
-          // el("cagov-post-list", {
-          //   className: "post-list",
-          //   "data-category": attributes.category,
-          //   "data-count": attributes.count,
-          //   "data-order": attributes.order,
-          //   "data-endpoint": attributes.endpoint,
-          //   "data-show-excerpt": "true",
-          // }),
-          // el('hr'),
+          el("cagov-post-list", {
+            className: "post-list",
+            "data-category": attributes.category,
+            "data-count": attributes.count,
+            "data-order": attributes.order,
+            "data-endpoint": attributes.endpoint,
+            "data-show-excerpt": "true",
+          }),
           el(RichText, {
             tagName: "div",
             className: "read-more",
@@ -133,17 +132,17 @@
             "div",
             { className: "edit" },
             // @TODO Change to select with categories list.
-            // el(TextControl, {
-            //   label: "Change post category",
-            //   tagName: "input",
-            //   className: "post-list-category",
-            //   inline: false,
-            //   placeholder: __("Category", "ca-design-system"),
-            //   value: attributes.category,
-            //   onChange: function (value) {
-            //     props.setAttributes({ category: value });
-            //   },
-            // })
+            el(TextControl, {
+              label: "Change post category",
+              tagName: "input",
+              className: "post-list-category",
+              inline: false,
+              placeholder: __("Category", "ca-design-system"),
+              value: attributes.category,
+              onChange: function (value) {
+                props.setAttributes({ category: value });
+              },
+            })
             // el(RichText, {
             //   tagName: "input",
             //   className: "post-list-count",
@@ -191,18 +190,18 @@
             tagName: "h3",
             value: attributes.title,
           }),
-          el(RichText.Content, {
-            tagName: "p",
-            value: attributes.description,
-          }),
-          // el("cagov-post-list", {
-          //   className: "post-list",
-          //   "data-category": attributes.category || "",
-          //   "data-count": attributes.count || 10,
-          //   "data-order": attributes.order || "desc",
-          //   "data-endpoint": attributes.endpoint || `${siteUrl}/wp-json/wp/v2`,
-          //   "data-show-excerpt": "true",
+          // el(RichText.Content, {
+          //   tagName: "p",
+          //   value: attributes.description,
           // }),
+          el("cagov-post-list", {
+            className: "post-list",
+            "data-category": attributes.category || "",
+            "data-count": attributes.count || 10,
+            "data-order": attributes.order || "desc",
+            "data-endpoint": attributes.endpoint || `${siteUrl}/wp-json/wp/v2`,
+            "data-show-excerpt": "true",
+          }),
           el(RichText.Content, {
             tagName: "div",
             className: "read-more",

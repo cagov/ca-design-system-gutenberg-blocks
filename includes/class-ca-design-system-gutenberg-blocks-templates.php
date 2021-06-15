@@ -190,6 +190,10 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
             $template = $user_selected_template;
         }
 
+        if (is_category() and $is_plugin ) {
+            $template = $this->template_dir . 'category-template.php';
+        }  
+
         return $template;
     }
 }

@@ -64,23 +64,23 @@ class CADesignSystemGutenbergBlocks
 
         // CA Design System: Utilities blocks
         // These appear in child patterns, content editors do not need to interact with these.
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/breadcrumb/plugin.php';
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/category-label/plugin.php';
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-navigation/plugin.php';
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/breadcrumb/plugin.php';
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/category-label/plugin.php';
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-navigation/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/event-detail/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/post-list/plugin.php';
 
         // CA Design System blocks
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/accordion/plugin.php';
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/announcement-list/plugin.php'; // Renamed
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/button/plugin.php';
+        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/announcement-list/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/card/plugin.php'; // Planning to rename to: 'call-to-action-button' - Renamed in GB interface labels but not code
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/card-grid/plugin.php'; // Planning to rename to: 'call-to-action-grid' - Renamed in GB interface labels but not code
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/hero/plugin.php'; // Planning to rename to feature-card - Renamed in GB interface labels but not code
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/page-alert/plugin.php'; // Renamed
 
         // Not phase one, unclear, not using or might archive
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/button/plugin.php';
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/twitter-feed/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/header-image/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/highlight-box/plugin.php';
@@ -91,38 +91,58 @@ class CADesignSystemGutenbergBlocks
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/mailchimp/plugin.php';
     }
 
-   /**
+    /**
      * Add required WP block scripts to front end pages.
      * 
-     * NOTE: This is not optimized for performance or file loading.
+     * NOTE: This is NOT optimized for performance or file loading.
      */
     public function ca_design_system_gutenberg_blocks_build_scripts()
     {
-        // if (!is_admin()) {
+        if (!is_admin()) {
+            wp_enqueue_script(
+                'ca-design-system-blocks',
+                plugins_url('/build/index.js', dirname(__FILE__)),
+                array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
+            );
 
-        wp_enqueue_script(
-            'ca-design-system-blocks',
-            plugins_url('/build/index.js', dirname(__FILE__)),
-            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
-        );
+            /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
+            wp_enqueue_script(
+                'ca-design-system-blocks',
+                plugins_url('/build/index.js', dirname(__FILE__)),
+                array(),
+            );
 
-        /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
-        wp_enqueue_script(
-            'ca-design-system-blocks',
-            plugins_url('/build/index.js', dirname(__FILE__)),
-            array(),
-        );
+            // Add global CSS
+            wp_register_style(
+                'ca-design-system-global-styles',
+                plugins_url('style.css', __FILE__),
+                array(),
+                filemtime(plugin_dir_path(__FILE__) . 'styles/style.css')
+            );
 
-        /**
-         * Register web-component from Block child plugins. 
-         * Plugins creates hooks that lets us load that component as needed.
-         */
-        do_action("ca_design_system_gutenberg_blocks_register_announcement_list_web_component");
-        do_action("ca_design_system_gutenberg_blocks_register_post_list_web_component");
-        do_action("ca_design_system_gutenberg_blocks_register_content_navigation_web_component"); 
+            wp_enqueue_style('ca-design-system-global-styles');
 
+            /**
+             * Register web-component from Block child plugins. 
+             * Plugins creates hooks that lets us load that component as needed.
+             */
+            do_action("ca_design_system_gutenberg_blocks_register_announcement_list_web_component");
+            do_action("ca_design_system_gutenberg_blocks_register_post_list_web_component");
+            do_action("ca_design_system_gutenberg_blocks_register_content_navigation_web_component");
+        } else {
+
+            // Add editor styles
+            wp_register_style(
+                'ca-design-system-global-styles-editor',
+                plugins_url('styles/editor.css', __FILE__),
+                array(),
+                filemtime(plugin_dir_path(__FILE__) . 'styles/editor.css')
+            );
+
+            wp_enqueue_style('ca-design-system-global-styles-editor');
+        }
     }
-    
+
 
     /**
      * Register Custom Block Pattern Category.
