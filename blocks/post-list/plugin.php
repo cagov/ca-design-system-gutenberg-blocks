@@ -29,7 +29,6 @@ function ca_design_system_gutenberg_block_post_list()
  */
 function ca_design_system_register_post_list()
 {
-
 	if (!function_exists('register_block_type')) {
 		// Gutenberg is not active.
 		return;
@@ -62,11 +61,9 @@ function ca_design_system_register_post_list()
 		'editor_script' => 'ca-design-system-post-list',
 	));
 }
-add_action('init', 'ca_design_system_register_post_list');
+add_action('init', 'ca_design_system_gutenberg_blocks_register_post_list');
 
-
-
-function ca_design_system_register_post_list_web_component_callback()
+function ca_design_system_gutenberg_blocks_register_post_list_web_component_callback()
 {
 	// @TODO move into post-list
 	wp_register_script(
@@ -87,4 +84,4 @@ function ca_design_system_register_post_list_web_component_callback()
 	wp_enqueue_style('ca-design-system-post-list');
 }
 
-add_action('ca_design_system_register_post_list_web_component', 'ca_design_system_register_post_list_web_component_callback', 10, 2);
+add_action('ca_design_system_gutenberg_blocks_register_post_list_web_component', 'ca_design_system_gutenberg_blocks_register_post_list_web_component_callback', 10, 2);

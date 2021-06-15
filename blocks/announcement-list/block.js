@@ -84,7 +84,7 @@
       return el(
         "div",
         {
-          className: "cagov-post-list cagov-stack",
+          className: "cagov-announcement-list cagov-stack",
         },
         el(
           "div",
@@ -185,7 +185,7 @@
       var attributes = props.attributes;
       return el(
         "div",
-        { className: "cagov-post-list cagov-stack" },
+        { className: "cagov-announcement-list cagov-stack" },
         el(
           "div",
           {},

@@ -17,11 +17,10 @@
     font-weight: normal;
     font-size: 18px;
     line-height: 30px;
-    text-decoration: underline;
     color: #000;
 }
 
-cagov-post-list a {
+.cagov-post-list .link-title a {
     color: #064E66;
     font-weight: 700;
     line-height: 32.9px;
@@ -29,44 +28,27 @@ cagov-post-list a {
     margin-bottom: 8px;
 }
 
-cagov-post-list .excerpt {
+.cagov-post-list .excerpt {
     font-weight: 400;
     line-height: 30px;
     font-size: 18px;
     margin-bottom: 8px;
 }
 
-cagov-post-list ul,
-cagov-post-list ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
+cagov-post-list .post-list-item {
     margin: 0;
     padding: 0;
 }
 
-cagov-post-list ul li {
-    list-style: none;
+cagov-post-list .post-list-item {
     font-style: normal;
     font-weight: normal;
     margin-bottom: 24px;
 }
 
-cagov-post-list ul li a {
-    /* font-family: Public Sans; */
-    font-size: 18px;
-    line-height: 30px;
-    text-decoration: underline;
-    color: #064E66;
-    ;
-}
-
-cagov-post-list ul li .date {
-    /* font-family: Public Sans; */
+.cagov-post-list .post-list-item .date {
     font-size: 18px;
     line-height: 30px;
     margin-top: 0px;
     color: #000;
-}
-
-
-body .editor-styles-wrapper a {
-    /* color: inherit; */
 }

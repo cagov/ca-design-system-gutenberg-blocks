@@ -46,7 +46,7 @@ class CADesignSystemGutenbergBlocks
     {
         // Load all block dependencies and files.
         $this->_load_block_dependencies();
-        $this->ca_design_system_build_scripts();
+        $this->ca_design_system_gutenberg_blocks_build_scripts();
         $this->_load_block_pattern_categories();
         $this->_load_block_category();
     }
@@ -91,21 +91,15 @@ class CADesignSystemGutenbergBlocks
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/mailchimp/plugin.php';
     }
 
-    // private function _load_component_block_script()
-    // {
-    //     add_action('wp_enqueue_scripts', array($this, 'ca_design_system_build_scripts'));
-    // }
-
-
-
-    public function ca_design_system_build_scripts()
+   /**
+     * Add required WP block scripts to front end pages.
+     * 
+     * NOTE: This is not optimized for performance or file loading.
+     */
+    public function ca_design_system_gutenberg_blocks_build_scripts()
     {
+        // if (!is_admin()) {
 
-        /**
-         * Add required WP blocks editors to pages.
-         * 
-         * @TODO This is not optimized for performance or file loading.
-         */
         wp_enqueue_script(
             'ca-design-system-blocks',
             plugins_url('/build/index.js', dirname(__FILE__)),
@@ -123,10 +117,12 @@ class CADesignSystemGutenbergBlocks
          * Register web-component from Block child plugins. 
          * Plugins creates hooks that lets us load that component as needed.
          */
-        do_action("ca_design_system_register_post_list_web_component");
-        do_action("ca_design_system_register_content_navigation_web_component"); 
-    }
+        do_action("ca_design_system_gutenberg_blocks_register_announcement_list_web_component");
+        do_action("ca_design_system_gutenberg_blocks_register_post_list_web_component");
+        do_action("ca_design_system_gutenberg_blocks_register_content_navigation_web_component"); 
 
+    }
+    
 
     /**
      * Register Custom Block Pattern Category.

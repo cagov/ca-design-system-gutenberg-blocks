@@ -72,7 +72,7 @@
         let renderedPosts = posts.map((post) =>
           this.renderWordpressPostTitleDate(post)
         );
-        return `<ul>${renderedPosts.join("")}</ul>`;
+        return `<div class="post-list-items">${renderedPosts.join("")}</div>`;
       }
     }
     return null;
@@ -101,16 +101,17 @@
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
 
-    console.log("Excerpt", excerpt);
     let getExcerpt = this.showExcerpt === "true" ? `<p>${excerpt.rendered}</p>` : ``;
-    return `<div>
-                <h3><a href="${link}">
+    return `<div class="post-list-item">
+                <div class="link-title"><a href="${link}">
                     ${title.rendered}
-                </a></h3>
+                </a></div>
                 <div class="excerpt">${getExcerpt}</div>
                 <div class="date">${dateFormatted && dateFormatted}</div>
             </div>`;
   }
 }
 
-window.customElements.define("cagov-post-list", CAGovPostList);
+if (customElements.get('cagov-post-list') === undefined) {
+  window.customElements.define("cagov-post-list", CAGovPostList);
+}

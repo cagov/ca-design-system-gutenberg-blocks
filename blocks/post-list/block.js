@@ -3,7 +3,6 @@
  */
 
 (function (blocks, blockEditor, i18n, element, components, _, moment) {
-
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
@@ -23,7 +22,7 @@
   blocks.registerBlockType("ca-design-system/post-list", {
     title: __("Post list", "ca-design-system"),
     icon: "universal-access-alt",
-    category: 'ca-design-system-utilities',
+    category: "ca-design-system-utilities",
     attributes: {
       title: {
         type: "array",
@@ -110,13 +109,14 @@
           // }),
           // el('hr'),
           // Visual display of endpoint
-          el("cagov-post-list", {
-            className: "post-list",
-            "data-category": attributes.category,
-            "data-count": attributes.count,
-            "data-order": attributes.order,
-            "data-endpoint": attributes.endpoint,
-          }),
+          // el("cagov-post-list", {
+          //   className: "post-list",
+          //   "data-category": attributes.category,
+          //   "data-count": attributes.count,
+          //   "data-order": attributes.order,
+          //   "data-endpoint": attributes.endpoint,
+          //   "data-show-excerpt": "true",
+          // }),
           // el('hr'),
           el(RichText, {
             tagName: "div",
@@ -128,53 +128,53 @@
               props.setAttributes({ readMore: value });
             },
           }),
-                    // Settings, will reorganize into gear overlay or other interface (TBD)
-                    el(
-                      "div",
-                      { className: "edit" },
-                      // @TODO Change to select with categories list.
-                      el(TextControl, {
-                        label: "Change post category",
-                        tagName: "input",
-                        className: "post-list-category",
-                        inline: false,
-                        placeholder: __("Category", "ca-design-system"),
-                        value: attributes.category,
-                        onChange: function (value) {
-                          props.setAttributes({ category: value });
-                        },
-                      }),
-                      // el(RichText, {
-                      //   tagName: "input",
-                      //   className: "post-list-count",
-                      //   inline: false,
-                      //   placeholder: __("Count", "ca-design-system"),
-                      //   value: attributes.count,
-                      //   onChange: function (value) {
-                      //     props.setAttributes({ count: value });
-                      //   },
-                      // }),
-                      // el(RichText, {
-                      //   tagName: "div", // Checkbox desc/asc
-                      //   className: "post-list-order",
-                      //   inline: false,
-                      //   placeholder: __("Order", "ca-design-system"),
-                      //   value: attributes.order,
-                      //   onChange: function (value) {
-                      //     props.setAttributes({ order: value });
-                      //   },
-                      // }),
-                      // el(RichText, {
-                      //   tagName: "div", // select box + enter data
-                      //   className: "post-list-endpoint",
-                      //   inline: false,
-                      //   placeholder: __("Endpoint", "ca-design-system"),
-                      //   value: attributes.endpoint,
-                      //   onChange: function (value) {
-                      //     props.setAttributes({ endpoint: value });
-                      //   },
-                      // })
-                    ),
+          // Settings, will reorganize into gear overlay or other interface (TBD)
+          el(
+            "div",
+            { className: "edit" },
+            // @TODO Change to select with categories list.
+            // el(TextControl, {
+            //   label: "Change post category",
+            //   tagName: "input",
+            //   className: "post-list-category",
+            //   inline: false,
+            //   placeholder: __("Category", "ca-design-system"),
+            //   value: attributes.category,
+            //   onChange: function (value) {
+            //     props.setAttributes({ category: value });
+            //   },
+            // })
+            // el(RichText, {
+            //   tagName: "input",
+            //   className: "post-list-count",
+            //   inline: false,
+            //   placeholder: __("Count", "ca-design-system"),
+            //   value: attributes.count,
+            //   onChange: function (value) {
+            //     props.setAttributes({ count: value });
+            //   },
+            // }),
+            // el(RichText, {
+            //   tagName: "div", // Checkbox desc/asc
+            //   className: "post-list-order",
+            //   inline: false,
+            //   placeholder: __("Order", "ca-design-system"),
+            //   value: attributes.order,
+            //   onChange: function (value) {
+            //     props.setAttributes({ order: value });
+            //   },
+            // }),
+            // el(RichText, {
+            //   tagName: "div", // select box + enter data
+            //   className: "post-list-endpoint",
+            //   inline: false,
+            //   placeholder: __("Endpoint", "ca-design-system"),
+            //   value: attributes.endpoint,
+            //   onChange: function (value) {
+            //     props.setAttributes({ endpoint: value });
+            //   },
+            // })
+          )
         )
       );
     },
@@ -195,15 +195,14 @@
             tagName: "p",
             value: attributes.description,
           }),
-          el("cagov-post-list", {
-            className: "post-list",
-            "data-category": attributes.category || "",
-            "data-count": attributes.count || 10,
-            "data-order": attributes.order || "desc",
-            "data-endpoint":
-              attributes.endpoint || `${siteUrl}/wp-json/wp/v2`,
-            "data-show-excerpt": "true",
-          }),
+          // el("cagov-post-list", {
+          //   className: "post-list",
+          //   "data-category": attributes.category || "",
+          //   "data-count": attributes.count || 10,
+          //   "data-order": attributes.order || "desc",
+          //   "data-endpoint": attributes.endpoint || `${siteUrl}/wp-json/wp/v2`,
+          //   "data-show-excerpt": "true",
+          // }),
           el(RichText.Content, {
             tagName: "div",
             className: "read-more",

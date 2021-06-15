@@ -3,7 +3,7 @@
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment.
  */
- class CAGovPostList extends window.HTMLElement {
+ class CAGovAnnoucementList extends window.HTMLElement {
   connectedCallback() {
     this.endpoint = this.dataset.endpoint;
     this.order = this.dataset.order || "desc";
@@ -107,5 +107,6 @@
             </li>`;
   }
 }
-
-window.customElements.define("cagov-post-list", CAGovPostList);
+if (customElements.get('cagov-announcement-list') === undefined) {
+  window.customElements.define("cagov-announcement-list", CAGovAnnoucementList);
+}

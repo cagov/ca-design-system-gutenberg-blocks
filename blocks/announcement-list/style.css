@@ -21,39 +21,32 @@
     color: #000;
 }
 
-cagov-announcement-list {
-    color: #004ABC;
+.cagov-post-list .link-title a {
+    color: #064E66;
+    font-weight: normal;
+    text-decoration: underline;
+    line-height: 32.9px;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 8px;
 }
 
-cagov-announcement-list ul {
+cagov-announcement-list .post-list-item {
     margin: 0;
     padding: 0;
 }
 
-cagov-announcement-list ul li {
+cagov-announcement-list .post-list-item {
     list-style: none;
     font-style: normal;
     font-weight: normal;
     margin-bottom: 24px;
 }
 
-cagov-announcement-list ul li a {
-    /* font-family: Public Sans; */
-    font-size: 18px;
-    line-height: 30px;
-    text-decoration: underline;
-    color: #004ABC;
-}
-
-cagov-announcement-list ul li .date {
-    /* font-family: Public Sans; */
+.cagov-announcement-list .post-list-item .date {
     font-size: 18px;
     line-height: 30px;
     margin-top: 0px;
     color: #000;
 }
 
-
-body .editor-styles-wrapper a {
-    /* color: inherit; */
-}

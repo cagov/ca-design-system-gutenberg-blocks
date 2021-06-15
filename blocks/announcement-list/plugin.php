@@ -63,3 +63,27 @@ function ca_design_system_register_announcement_list() {
 
 add_action( 'init', 'ca_design_system_register_announcement_list' );
 
+
+function ca_design_system_gutenberg_blocks_register_announcement_list_web_component_callback()
+{
+	// @TODO move into post-list
+	// wp_register_script(
+	// 	'ca-design-system-announcement-list-web-component',
+	// 	plugins_url('web-component.js', __FILE__),
+	// 	array(),
+	// 	filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+	// );
+
+	// Depends on post-list component.
+	wp_register_style(
+		'ca-design-system-announcement-list',
+		plugins_url('style.css', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'style.css')
+	);
+
+	// wp_enqueue_script('ca-design-system-announcement-list-web-component');
+	wp_enqueue_style('ca-design-system-announcement-list');
+}
+
+add_action('ca_design_system_gutenberg_blocks_register_announcement_list_web_component', 'ca_design_system_gutenberg_blocks_register_announcement_list_web_component_callback', 10, 2);
