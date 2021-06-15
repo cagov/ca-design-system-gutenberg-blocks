@@ -15,7 +15,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 }
 ?>
 
-<div id="page-container" class="with-sidebar page-container-ds">
+<div id="page-container" class="page-container-ds">
 
     <div class="breadcrumb">
         <?php
@@ -23,7 +23,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
         ?>
     </div>
 
-    <div id="main-content" class="main-content-ds" tabindex="-1">
+    <div id="main-content" class="main-content-ds single-column" tabindex="-1">
         <div class="section">
             <main class="main-primary">
 
@@ -39,7 +39,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                 <h1 class="page-title"><?php echo $category->name; ?></h1>
                 <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
                     <div>
-                        <cagov-post-list class="post-list" data-category="<?php $category->name ?>" data-count="10" data-order="desc" data-endpoint="http://wordpress.test:8888/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true">
+                        <cagov-post-list class="post-list" data-category="<?php $category->name ?>" data-count="10" data-order="desc" data-endpoint="/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true">
                         </cagov-post-list>
                     </div>
                 </div>
