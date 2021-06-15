@@ -76,7 +76,15 @@ function ca_design_system_register_post_list_web_component_callback()
 		filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
 	);
 
+	wp_register_style(
+		'ca-design-system-post-list',
+		plugins_url('style.css', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'style.css')
+	);
+
 	wp_enqueue_script('ca-design-system-post-list-web-component');
+	wp_enqueue_style('ca-design-system-post-list');
 }
 
 add_action('ca_design_system_register_post_list_web_component', 'ca_design_system_register_post_list_web_component_callback', 10, 2);

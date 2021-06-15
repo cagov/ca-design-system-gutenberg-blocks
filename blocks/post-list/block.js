@@ -202,6 +202,7 @@
             "data-order": attributes.order || "desc",
             "data-endpoint":
               attributes.endpoint || `${siteUrl}/wp-json/wp/v2`,
+            "data-show-excerpt": "true",
           }),
           el(RichText.Content, {
             tagName: "div",

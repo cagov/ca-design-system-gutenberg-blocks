@@ -63,4 +63,3 @@ function ca_design_system_register_announcement_list() {
 
 add_action( 'init', 'ca_design_system_register_announcement_list' );
 
-

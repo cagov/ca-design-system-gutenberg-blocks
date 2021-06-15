@@ -9,6 +9,7 @@
     this.order = this.dataset.order || "desc";
     this.count = this.dataset.count || "10";
     this.category = this.dataset.category || "";
+    this.showExcerpt = this.dataset.showExcerpt || true;
     this.type = "wordpress";
     if (this.type === "wordpress") {
       this.getWordpressPosts();
@@ -91,7 +92,7 @@
     link = null,
     date = null, // "2021-05-23T18:19:58"
     // content = null,
-    // excerpt = null, // @TODO shorten / optional
+    excerpt = null, // @TODO shorten / optional
     // author = null, // 1
     // featured_media = null, // 0
   }) {
@@ -99,13 +100,16 @@
     if (date !== null && window.moment !== undefined) {
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
-    return `<li>
-                <a href="${link}">
+
+    console.log("Excerpt", excerpt);
+    let getExcerpt = this.showExcerpt === "true" ? `<p>${excerpt.rendered}</p>` : ``;
+    return `<div>
+                <h3><a href="${link}">
                     ${title.rendered}
-                </a>
-                <p>${title.excerpt}</p>
+                </a></h3>
+                <div class="excerpt">${getExcerpt}</div>
                 <div class="date">${dateFormatted && dateFormatted}</div>
-            </li>`;
+            </div>`;
   }
 }
 

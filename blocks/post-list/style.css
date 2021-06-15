@@ -21,11 +21,23 @@
     color: #000;
 }
 
-cagov-post-list {
-    color: #004ABC;
+cagov-post-list a {
+    color: #064E66;
+    font-weight: 700;
+    line-height: 32.9px;
+    font-size: 28px;
+    margin-bottom: 8px;
 }
 
-cagov-post-list ul {
+cagov-post-list .excerpt {
+    font-weight: 400;
+    line-height: 30px;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+cagov-post-list ul,
+cagov-post-list ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
     margin: 0;
     padding: 0;
 }
@@ -42,7 +54,8 @@ cagov-post-list ul li a {
     font-size: 18px;
     line-height: 30px;
     text-decoration: underline;
-    color: #004ABC;
+    color: #064E66;
+    ;
 }
 
 cagov-post-list ul li .date {
