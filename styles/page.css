@@ -1,3 +1,7 @@
+.page-container-ds .cagov-stack * + * {
+    margin-top: inherit
+}
+
 .page-container-ds {
     max-width: 1280px;
     margin: 0 auto;
@@ -6,45 +10,12 @@
     margin-bottom: 144px;
 }
 
-h1.page-title {
-    font-weight: 700;
-    font-size: 40px;
-    margin: -16px 0 0 0;
-    padding: 0 0 24px 0;
+.single-column {
+    max-width: 877px;
+    margin: 0 auto;
 }
 
-h2 {
-    font-size: 32px;
-    line-height: 38px;
-    margin-top: 32px;
-    scroll-margin: 40px;
-}
-
-h3 {
-    margin-top: 72px;
-    scroll-margin: 40px;
-}
-
-h4 {
-    margin-top: 72px;
-    scroll-margin: 40px;
-}
-
-h5 {
-    margin-top: 72px;
-    scroll-margin: 40px;
-}
-
-h6 {
-    margin-top: 72px;
-    scroll-margin: 40px;
-}
-
-p {
-    font-size: 18px;
-    line-height: 40px;
-}
-
+/* PAGE CONTAINER */
 .main-content-ds {
     margin-top: 72px;
     max-width: 877px;
@@ -53,6 +24,27 @@ p {
 
 #main-content {
     /* overflow: auto; */
+}
+
+/* SIDEBAR */
+.sticky-top {
+    /* position: relative;
+    position: -webkit-sticky;
+    position: sticky; */
+    /* position: fixed; */
+    /* top: 0px; */
+    /* position: fixed;
+    padding: 2em;
+    left: 0%;
+    top: 0%;
+    transform: translate(-0%, -0%); */
+    
+}
+.sidebar-container {
+    display: block;
+    width: 276px;
+    margin-right: 20px;
+    /* height: 100vh; */
 }
 
 .with-sidebar {
@@ -78,6 +70,7 @@ p {
     min-width: calc(50% - var(--s1));
 }
 
+/* BREADCRUMB */
 .breadcrumb {
     display: block;
     margin-top: 32px;
@@ -101,26 +94,7 @@ p {
     padding-right: 5px;
 }
 
-.sidebar-container {
-    display: block;
-    width: 276px;
-    margin-right: 20px;
-    /* height: 100vh; */
-}
-
-.sticky-top {
-    /* position: relative;
-    position: -webkit-sticky;
-    position: sticky; */
-    /* position: fixed; */
-    /* top: 0px; */
-    /* position: fixed;
-    padding: 2em;
-    left: 0%;
-    top: 0%;
-    transform: translate(-0%, -0%); */
-    
-}
+/* CONTENT NAVIGATION */ 
 
 sidebar cagov-content-navigation .label {
     font-weight: 700;
@@ -158,4 +132,81 @@ sidebar cagov-content-navigation ul li:first-child {
     margin-top: 32px;
     margin-bottom: 32px;
     list-style-position: inside !important;
+}
+
+
+/* TYPOGRAPHY */
+h1.page-title {
+    font-weight: 700;
+    font-size: 40px;
+    margin: 0 0 0 0;
+    padding: 0 0 24px 0;
+}
+
+h2 {
+    font-size: 32px;
+    line-height: 38px;
+    margin-top: 32px;
+    scroll-margin: 40px;
+}
+
+h3 {
+    margin-top: 72px;
+    scroll-margin: 40px;
+}
+
+h4 {
+    margin-top: 72px;
+    scroll-margin: 40px;
+}
+
+h5 {
+    margin-top: 72px;
+    scroll-margin: 40px;
+}
+
+h6 {
+    margin-top: 72px;
+    scroll-margin: 40px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 40px;
+}
+
+/* @TODO breakpoint, css vars */
+@media only screen and (max-width: 600px) {
+    .breadcrumb a.crumb,
+    .breadcrumb span.crumb {
+        display: none;
+    }
+
+    .breadcrumb .crumb.current {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 18.8px;
+        color: #064E66;
+    }
+    
+    .breadcrumb {
+        display: block;
+        margin-top: 48px;
+        margin-bottom: 16px;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    #main-content {
+        margin-top: 16px;
+    }
+
+    h1.page-title {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 37.6px;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+    }
 }

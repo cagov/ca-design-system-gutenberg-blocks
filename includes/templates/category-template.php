@@ -85,16 +85,25 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
                 global $wp_query;
 
+                echo "cate" . the_category();
                 if (have_posts()) :
                     while (have_posts()) :
                         the_post();
                 ?>
 
-                        <cagov-post-list ></cagov-post-list>
-    
+                        <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
+                            <div>
+                                <cagov-post-list class="post-list" data-category="<?php the_category() ?>" data-count="10" data-order="desc" data-endpoint="http://wordpress.test:8888/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true">
+                                </cagov-post-list>
+                            </div>
+                        </div>
+                    <?php
+                    endwhile;
+                    ?>
+
                 <?php
                 else :
-                    get_template_part('includes/no-results', 'index');
+                // Do nothing, component will handle no results.
                 endif;
                 ?>
             </main>
