@@ -1,6 +1,11 @@
-.page-container-ds .cagov-stack * + * {
-    margin-top: inherit
+.cagov-stack * + *,
+.wp-block-columns {
+    margin-top: 1.5rem;
 }
+
+/* .page-container-ds .cagov-stack * + * {
+    margin-top: inherit
+} */
 
 .page-container-ds {
     max-width: 1280px;

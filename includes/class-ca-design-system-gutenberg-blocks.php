@@ -49,6 +49,9 @@ class CADesignSystemGutenbergBlocks
         $this->ca_design_system_gutenberg_blocks_build_scripts();
         $this->_load_block_pattern_categories();
         $this->_load_block_category();
+
+        add_action('ca_design_system_breadcrumb', array($this, 'get_breadcrumb_callback'));
+
     }
 
     /**
@@ -189,4 +192,44 @@ class CADesignSystemGutenbergBlocks
             2
         );
     }
+
+    public function get_breadcrumb_callback()
+    {
+        /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
+
+        $separator = "<span class=\"crumb separator\">/</span>";
+        $linkOff = true;
+        $items = wp_get_nav_menu_items('header-menu');
+        _wp_menu_item_classes_by_context($items); // Set up the class variables, including current-classes
+        // @TODO These could be put in plugin settings.
+        $crumbs = array(
+            "<a class=\"crumb\" href=\"https:\/\/ca.gov\" title=\"CA.GOV\">CA.GOV</a>",
+            "<a class=\"crumb\" href=\"/\" title=\"" . get_bloginfo('name') . "\">" . get_bloginfo('name') . "</a>"
+        );
+
+
+        foreach ($items as $item) {
+            if ($item->current_item_ancestor) {
+                if ($linkOff == true) {
+                    $crumbs[] = "<span class=\"crumb\">{$item->title}</span>";
+                } else {
+                    $crumbs[] = "<a class=\"crumb\" href=\"{$item->url}\" title=\"{$item->title}\">{$item->title}</a>";
+                }
+            } else if ($item->current) {
+                $crumbs[] = "<span class=\"crumb current\">{$item->title}</>";
+            }
+        }
+
+        if (is_category()) {
+
+            global $wp_query;
+            $category = get_category(get_query_var('cat'), false);
+            $crumbs[] = "<span class=\"crumb current\">{$category->name}</>";
+
+        }
+
+        
+        echo implode($separator, $crumbs);
+    }
+
 }

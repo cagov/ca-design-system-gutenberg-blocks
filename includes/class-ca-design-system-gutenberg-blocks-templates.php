@@ -126,7 +126,7 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
 
     public function ca_design_system_gutenberg_blocks_default_page_template_styles()
     {
-        wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.3');
+        wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.3a');
         wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
 
         wp_register_style('ca-design-system-gutenberg-blocks-announcement', plugins_url('styles/announcement.css', __DIR__), false, '1.0.3');

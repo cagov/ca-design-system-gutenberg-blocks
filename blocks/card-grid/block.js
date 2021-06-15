@@ -15,7 +15,7 @@
     edit: function (props) { 
       return el(
         'div',
-        { className: 'cagov-grid' },
+        { className: 'cagov-grid cagov-stack' },
         el(InnerBlocks,
           {
             orientation: 'horizontal',
@@ -27,7 +27,7 @@
     save: function (props) {
       return el(
         'div',
-        { className: 'cagov-grid' },
+        { className: 'cagov-grid cagov-stack' },
         el(InnerBlocks.Content)
       );
     }

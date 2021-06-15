@@ -1,6 +1,4 @@
-.cagov-stack * + * {
-  margin-top: 1.5rem;
-}
+
 
 .alignfull, .full-max-width, .full-bleed {
   width: 100vw !important;
