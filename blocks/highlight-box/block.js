@@ -8,7 +8,7 @@
 	var RichText = editor.RichText;
 
 	blocks.registerBlockType( 'ca-design-system/highlight-box', {
-		title: __( 'CAGov: Highlight Box', 'ca-design-system' ),
+		title: __( 'Highlight Box', 'ca-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'ca-design-system',
 		attributes: {

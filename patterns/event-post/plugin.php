@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_event_post_custom_wp_block_patterns() {
+function ca_design_system_custom_wp_block_pattern_event_post() {
 
 	if ( ! function_exists( 'register_block_pattern' ) ) {
 		// Gutenberg is not active.
@@ -37,10 +37,10 @@ function ca_design_system_event_post_custom_wp_block_patterns() {
         // Great reference: https://fullsiteediting.com/lessons/introduction-to-block-patterns/
         array(
             'title'       => __( 'Event Post', 'ca-design-system' ),
-            'description' => _x( 'Page layout with event detail', 'Block pattern description', 'ca-design-system' ),
-            'content' => '<!-- wp:columns --><div class="wp-block-columns"><!-- wp:column {"width":"33.33%"} -->
+            'description' => _x( 'Page layout with dynamic content navigation sidebar', 'Block pattern description', 'ca-design-system' ),
+            'content' => '<!-- wp:columns --><div class="wp-block-columns has-2-columns"><!-- wp:column {"width":"33.33%"} -->
             <div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:html -->
-            
+            <cagov-content-navigation></cagov-content-navigation>
             <!-- /wp:html --></div>
             <!-- /wp:column -->
             
@@ -54,34 +54,27 @@ function ca_design_system_event_post_custom_wp_block_patterns() {
     );
 }
 
-add_action( 'init', 'ca_design_system_event_post_custom_wp_block_patterns' );
+add_action( 'init', 'ca_design_system_custom_wp_block_pattern_event_post' );
 
 
-function ca_design_system_event_post_web_component_scripts() {
-    // Global dependencies
-    wp_enqueue_script(
-        'moment'
-    );
 
-    // Custom web components javascript and css
-    wp_enqueue_script(
-        'ca-design-system-news-list-web-component',
-        plugins_url( '/blocks/news-list/web-component.js', dirname( __FILE__ ) ),
-        array( ),
-    );
-    // @TODO this is acting strangely, figure out why.
-    // wp_enqueue_style(
-    //     'ca-design-system-news-list',
-    //     plugins_url( '/blocks/news-list/style.css', dirname( __FILE__ ) ),
-    //     array( )
-    // );
-
-    wp_enqueue_script(
-        'ca-design-system-content-navigation-web-component',
-        plugins_url( '/blocks/content-navigation/web-component.js', dirname( __FILE__ ) ),
-        array( ),
-    );
-}
-
-
-add_action('wp_enqueue_scripts', 'ca_design_system_event_post_web_component_scripts');
+// function myplugin_register_book_post_type() {
+//     $args = array(
+//         'public' => true,
+//         'label'  => 'Books',
+//         'show_in_rest' => true,
+//         'template' => array(
+//             array( 'core/image', array(
+//                 'align' => 'left',
+//             ) ),
+//             array( 'core/heading', array(
+//                 'placeholder' => 'Add Author...',
+//             ) ),
+//             array( 'core/paragraph', array(
+//                 'placeholder' => 'Add Description...',
+//             ) ),
+//         ),
+//     );
+//     register_post_type( 'book', $args );
+// }
+// add_action( 'init', 'myplugin_register_book_post_type' );

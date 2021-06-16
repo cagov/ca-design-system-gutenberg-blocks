@@ -34,19 +34,19 @@ function ca_design_system_register_event_detail() {
 	}
 
 	// Register custom web component
-	wp_register_script(
-		'ca-design-system-event-detail-web-component',
-		plugins_url( 'web-component.js', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
-	);
+	// wp_register_script(
+	// 	'ca-design-system-event-detail-web-component',
+	// 	plugins_url( 'web-component.js', __FILE__ ),
+	// 	array( ),
+	// 	filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
+	// );
 
-	wp_register_script(
-		'ca-design-system-event-detail',
-		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-event-detail-web-component' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
-	);
+	// wp_register_script(
+	// 	'ca-design-system-event-detail',
+	// 	plugins_url( 'block.js', __FILE__ ),
+	// 	array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-event-detail-web-component' ),
+	// 	filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
+	// );
 
 	wp_register_style(
 		'ca-design-system-event-detail',

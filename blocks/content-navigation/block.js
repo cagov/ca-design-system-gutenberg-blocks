@@ -11,14 +11,21 @@
 	// var PlainText = blockEditor.PlainText;
 	
 	blocks.registerBlockType("ca-design-system/content-navigation", {
-	  title: __("CAGov: Content Navigation", "ca-design-system"),
+	  title: __("Content Navigation", "ca-design-system"),
 	  icon: "universal-access-alt",
-	  category: 'ca-design-system',
+	  description: __( 'TBD: Content navigation description here.' ),
+	  category: 'ca-design-system-utilities',
 	  attributes: {
 	  },
 	  example: {
 		attributes: {
 		},
+	  },
+	  supports: {
+		html: false,
+		// reusable: false,
+		// multiple: false,
+		// inserter: false
 	  },
 	  edit: function (props) {
 		var attributes = props.attributes;
