@@ -180,6 +180,14 @@ sidebar cagov-content-navigation ul li:first-child {
     list-style-position: inside !important;
 }
 
+/* PAGE BEHAVIORS */
+main .entry-content {
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+    overflow-y: scroll;
+    /* height: 100vh; */
+}
+
 /* TYPOGRAPHY */
 h1.page-title {
     font-weight: 700;
@@ -192,27 +200,32 @@ h2 {
     font-size: 32px;
     line-height: 38px;
     margin-top: 32px;
-    scroll-margin-top: 64px;
+    scroll-margin: 100px;
+    scroll-snap-align: start;
 }
 
 h3 {
     margin-top: 72px;
     scroll-margin-top: 64px;
+    scroll-snap-align: start;
 }
 
 h4 {
     margin-top: 72px;
     scroll-margin-top: 64px;
+    scroll-snap-align: start;
 }
 
 h5 {
     margin-top: 72px;
     scroll-margin-top: 64px;
+    scroll-snap-align: start;
 }
 
 h6 {
     margin-top: 72px;
     scroll-margin-top: 64px;
+    scroll-snap-align: start;
 }
 
 p {
@@ -230,7 +243,7 @@ p {
     .breadcrumb span.crumb {
         display: none;
     }
-    /* a tag too - don't have test data for deeper menus yet * 
+    /* a tag too - don't have test data for deeper menus yet */
     .breadcrumb span.crumb:not(:last-child):not([class*="separator"]) {
     /* .breadcrumb .crumb.current { */
         display: inline-block;
@@ -240,6 +253,10 @@ p {
         color: #064E66;
     }
     
+    .breadcrumb span.crumb:not(:last-child):not([class*="separator"]) {
+        padding: 0;
+    }
+
     .breadcrumb {
         display: block;
         margin-top: 48px;
@@ -247,9 +264,18 @@ p {
         background-color: transparent;
         padding: 0;
     }
+    .with-sidebar.page-container-ds .breadcrumb {
+        margin-bottom: 0px;
+    }
 
     #main-content {
         margin-top: 16px;
+    }
+
+    
+    .with-sidebar.page-container-ds #main-content.main-content-ds,
+    .with-sidebar.page-container-ds #main-content.main-content-ds main {
+        margin-top: 0;
     }
 
     h1.page-title {
@@ -259,6 +285,7 @@ p {
         margin: 0 0 0 0;
         padding: 0 0 0 0;
     }
+
     .with-sidebar.page-container-ds main {
         margin-left: inherit;
         margin-top: 32px;
@@ -282,5 +309,35 @@ p {
         padding-bottom: 16px;
         margin-bottom: 16px;
         border-bottom: 1px solid #EDEDEF;
+    }
+
+    cagov-content-navigation ul li a {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+
+    /* Typography */
+
+
+    h2 {
+        font-size: 28px;
+        line-height: 33px;
+        margin-top: 36px;
+    }
+
+    h2:first-child {
+        margin-top: 16px;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 40px;
+    }
+
+
+    p {
+        font-size: 16px;
+        line-height: 32px;
     }
 }

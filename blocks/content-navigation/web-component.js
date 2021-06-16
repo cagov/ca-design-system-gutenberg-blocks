@@ -33,6 +33,31 @@ class CAGovContentNavigation extends window.HTMLElement {
         this.innerHTML = `${data.content}`;
       }
     }
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        let hashval = anchor.getAttribute('href');
+        let target = document.querySelector(hashval);
+        
+        // Not working with scroll margin ... weird - @TODO look for conflict with parent themes
+
+        target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            top: 100,
+        });
+
+        // let position = target.getBoundingClientRect();
+        // console.log("pos", position, position.top + window.scrollY - 128);
+        // scrolls to 20px above element
+        // window.scrollTo(position.left, position.top + window.scrollY - 128);
+
+        history.pushState(null, null, hashval);
+        
+        e.preventDefault();
+      });
+    });
+
     return null;
   }
 
