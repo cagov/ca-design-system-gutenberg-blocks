@@ -8,7 +8,7 @@
 	var RichText = editor.RichText;
 
 	blocks.registerBlockType( 'ca-design-system/mailchimp', {
-		title: __( 'CAGov: Mailchimp', 'ca-design-system' ),
+		title: __( 'Mailchimp', 'ca-design-system' ),
 		icon: 'universal-access-alt',
 		category: 'ca-design-system',
 		attributes: {

@@ -1,7 +1,5 @@
-.cagov-stack * + * {
-  margin-top: 1.5rem;
-}
 
-.cagov-category-label {
 
+.category-label .span {
+  font-weight: bold;
 }

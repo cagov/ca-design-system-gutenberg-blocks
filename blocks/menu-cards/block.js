@@ -8,9 +8,9 @@
 	var RichText = editor.RichText;
 
 	blocks.registerBlockType( 'ca-design-system/menu-cards', {
-		title: __( 'CAGov: Menu Cards', 'ca-design-system' ),
+		title: __( 'Menu Cards', 'ca-design-system' ),
 		icon: 'universal-access-alt',
-		category: 'ca-design-system',
+		category: 'ca-design-system-utilities',
 		attributes: {
 			title: {
 				type: 'array',
