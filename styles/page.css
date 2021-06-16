@@ -1,6 +1,11 @@
-.cagov-stack * + *,
+.cagov-stack  {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 .wp-block-columns {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .page-container-ds {
@@ -19,12 +24,13 @@
 /* PAGE CONTAINER */
 .main-content-ds {
     margin-top: 72px;
-    max-width: 877px;
-    /* overflow: auto; */
+    /* max-width: 877px; */
+    max-width: 100%;
+    overflow: auto;
 }
 
 #main-content {
-    /* overflow: auto; */
+    overflow: auto;
 }
 
 /* SIDEBAR */
@@ -50,8 +56,8 @@
 }
 
 .with-sidebar {
-    overflow: hidden;
-    /* overflow: auto; */
+    /* overflow: hidden; */
+    overflow: auto;
 }
 
 .with-sidebar>* {
@@ -120,13 +126,20 @@ time {
     color: #000;
     font-weight: 700;
 }
-}
-
 
 category-label a {
     color: #000;
     font-weight: 700;
 }
+
+.with-sidebar.page-container-ds .breadcrumb {
+    margin-bottom: 64px;
+}
+
+.with-sidebar.page-container-ds main {
+    margin-left: 64px
+}
+
 
 /* CONTENT NAVIGATION */ 
 sidebar cagov-content-navigation .label {
@@ -179,27 +192,27 @@ h2 {
     font-size: 32px;
     line-height: 38px;
     margin-top: 32px;
-    scroll-margin: 40px;
+    scroll-margin-top: 64px;
 }
 
 h3 {
     margin-top: 72px;
-    scroll-margin: 40px;
+    scroll-margin-top: 64px;
 }
 
 h4 {
     margin-top: 72px;
-    scroll-margin: 40px;
+    scroll-margin-top: 64px;
 }
 
 h5 {
     margin-top: 72px;
-    scroll-margin: 40px;
+    scroll-margin-top: 64px;
 }
 
 h6 {
     margin-top: 72px;
-    scroll-margin: 40px;
+    scroll-margin-top: 64px;
 }
 
 p {

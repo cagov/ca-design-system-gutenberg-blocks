@@ -31,9 +31,9 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                 <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
             </sidebar>
         </div>
+
         <div>
             <main class="main-primary">
-
                 <?php
                 while (have_posts()) :
                     the_post();
@@ -43,15 +43,15 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                         <?php
 
                         if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                            print esc_html(the_title('<!-- Page Title--><h1 class="page-title">', '</h1>'));
+                            esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
                         }
+
 
                         print '<div class="entry-content">';
 
                         the_content();
 
                         print '</div>';
-
 
                         ?>
 
