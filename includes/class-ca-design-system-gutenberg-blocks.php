@@ -200,15 +200,18 @@ class CADesignSystemGutenbergBlocks
 
         $separator = "<span class=\"crumb separator\">/</span>";
         $linkOff = true;
+
+        // @TODO Iterate through footer menu (or any menus) to locate links.
+        // $supported_menus = array('header-menu', 'footer-menu'); 
+
         $items = wp_get_nav_menu_items('header-menu');
+
         _wp_menu_item_classes_by_context($items); // Set up the class variables, including current-classes
-        // @TODO These could be put in plugin settings.
+        // @TODO Move default breadcrumbs to plugin settings
         $crumbs = array(
             "<a class=\"crumb\" href=\"https:\/\/ca.gov\" title=\"CA.GOV\">CA.GOV</a>",
             "<a class=\"crumb\" href=\"/\" title=\"" . get_bloginfo('name') . "\">" . get_bloginfo('name') . "</a>"
         );
-
-
 
         foreach ($items as $item) {
             if ($item->current_item_ancestor) {
@@ -222,18 +225,38 @@ class CADesignSystemGutenbergBlocks
             }
         }
 
+        // if (is_category()) {
+        //     global $wp_query;
+        //     $category = get_category(get_query_var('cat'), false);
+        //     $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
+        // }
 
-        if (is_category()) {
-            global $wp_query;
-            $category = get_category(get_query_var('cat'), false);
-            $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
-        }
+        if (count($crumbs) == 2 && !is_category()) {
+            // No menu items (@TODO read through list of possible menu items)
+            // Not a category page
+            // Check to see if category landing page appears in the header menu structure.
+            // Configuration note: requires that a menu item link to a category page.
 
-        if (count($items) == 0 && !is_category()) {
             $category = get_the_category($post->ID);
-            $crumbs[] = "<span class=\"crumb current\">" . $category->name . "</span>";
-        }
+            // print_r($category);
+            // Get category menu item from original menu item
 
+            $category_menu_item_found = false;
+
+            foreach ($items as $category_item) {
+                if ($category_item->type_label == "Category") { // or ->type == "taxonomy"
+                    if ($category[0]->name == $category_item->title) {
+                        // @TODO Finish this later... look up the ancestors of the category page
+                        $crumbs[] = "<span class=\"crumb current\">" . $category_item->title . "</span>";
+                        $category_menu_item_found = true;
+                    }
+                }
+            }
+
+            if ($category[0] && $category_menu_item_found == false) {
+                $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
+            }
+        }
 
         echo implode($separator, $crumbs);
     }

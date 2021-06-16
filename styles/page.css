@@ -220,14 +220,19 @@ p {
     line-height: 40px;
 }
 
+.narrow-page-title {
+    display: none;
+}
+
 /* @TODO breakpoint, css vars */
 @media only screen and (max-width: 600px) {
     .breadcrumb a.crumb,
     .breadcrumb span.crumb {
         display: none;
     }
-
-    .breadcrumb .crumb.current {
+    /* a tag too - don't have test data for deeper menus yet * 
+    .breadcrumb span.crumb:not(:last-child):not([class*="separator"]) {
+    /* .breadcrumb .crumb.current { */
         display: inline-block;
         font-weight: 700;
         font-size: 16px;
@@ -253,5 +258,29 @@ p {
         line-height: 37.6px;
         margin: 0 0 0 0;
         padding: 0 0 0 0;
+    }
+    .with-sidebar.page-container-ds main {
+        margin-left: inherit;
+        margin-top: 32px;
+    }
+
+    .wide-page-title {
+        display: none;
+    }
+
+    .narrow-page-title {
+        display: block;
+        margin-bottom: 16px;
+        margin-top: 16px;
+    }
+
+    cagov-content-navigation .label {
+        display: none;
+    }
+
+    sidebar cagov-content-navigation ul li:last-child {
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #EDEDEF;
     }
 }
