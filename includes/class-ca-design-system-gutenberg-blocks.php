@@ -51,7 +51,6 @@ class CADesignSystemGutenbergBlocks
         $this->_load_block_category();
 
         add_action('ca_design_system_breadcrumb', array($this, 'get_breadcrumb_callback'));
-
     }
 
     /**
@@ -197,6 +196,8 @@ class CADesignSystemGutenbergBlocks
     {
         /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
 
+        global $post;
+
         $separator = "<span class=\"crumb separator\">/</span>";
         $linkOff = true;
         $items = wp_get_nav_menu_items('header-menu');
@@ -208,6 +209,7 @@ class CADesignSystemGutenbergBlocks
         );
 
 
+
         foreach ($items as $item) {
             if ($item->current_item_ancestor) {
                 if ($linkOff == true) {
@@ -216,20 +218,23 @@ class CADesignSystemGutenbergBlocks
                     $crumbs[] = "<a class=\"crumb\" href=\"{$item->url}\" title=\"{$item->title}\">{$item->title}</a>";
                 }
             } else if ($item->current) {
-                $crumbs[] = "<span class=\"crumb current\">{$item->title}</>";
+                $crumbs[] = "<span class=\"crumb current\">{$item->title}</span>";
             }
         }
 
-        if (is_category()) {
 
+        if (is_category()) {
             global $wp_query;
             $category = get_category(get_query_var('cat'), false);
-            $crumbs[] = "<span class=\"crumb current\">{$category->name}</>";
-
+            $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
         }
 
-        
+        if (count($items) == 0 && !is_category()) {
+            $category = get_the_category($post->ID);
+            $crumbs[] = "<span class=\"crumb current\">" . $category->name . "</span>";
+        }
+
+
         echo implode($separator, $crumbs);
     }
-
 }

@@ -6,7 +6,7 @@
  * Description: Gutenberg blocks to be used in WordPress that are compatible with the California's design system
  * Author: Office of Digital Innovation
  * Author URI: https://digital.ca.gov
- * Version: 1.0.5
+ * Version: 1.0.6
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
