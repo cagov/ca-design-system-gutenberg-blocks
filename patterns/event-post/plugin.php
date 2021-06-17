@@ -51,21 +51,6 @@ function ca_design_system_custom_wp_block_pattern_event_post()
                 <!-- wp:column {"width":"33.33%"} -->
                     <div class="wp-block-column" style="flex-basis:33.33%">
                     <!-- wp:ca-design-system/event-detail -->
-                    <div class="wp-block-ca-design-system-event-detail cagov-event-detail  cagov-stack">
-                    <div>
-                    
-                    <h3>Event Details</h3>
-                    
-                    <div class="wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack">
-                        <div class="startDate"></div>
-                        <div class="startTime"></div>
-                        <div class="endTime"></div>
-                        <div class="location"></div>
-                        <div class="cost"></div>
-                    </div>
-                        
-                    </div>
-                </div>
                     <!-- /wp:ca-design-system/event-detail -->
                     </div>
                 <!-- /wp:column --> 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Announcement
+ * Template Name: Event
  * Template Post Type: post
  */
 ?>
