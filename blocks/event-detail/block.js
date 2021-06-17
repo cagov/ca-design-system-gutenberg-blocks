@@ -36,12 +36,8 @@ var el = createElement;
 
 var defaultDate = new Date();
 var formattedDate = moment(defaultDate).format("MMMM DD, YYYY");
-
-
 var formattedTime = moment(defaultDate).startOf('hour').format("hh:mm a");
 var formattedTimePlusHour = moment(defaultDate).startOf('hour').add(moment.duration(1, 'hours')).format("hh:mm a");
-
-
 
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
@@ -55,19 +51,19 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     },
     startDate: {
       type: "string",
-      default: formattedDate,
+      // default: formattedDate,
     },
     endDate: {
       type: "string",
-      default: formattedDate,
+      // default: formattedDate,
     },
     startTime: {
       type: "string",
-      default: formattedTime
+      // default: formattedTime
     },
     endTime: {
       type: "string",
-      default: formattedTimePlusHour
+      // default: formattedTimePlusHour
     },
     location: {
       type: "string",
@@ -101,48 +97,48 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         <div className="cagov-event-detail cagov-stack">
           <h4>Date &amp; time</h4>
           <RichText
-            value={attributes.startDate}
+            value={startDate}
             tagName="div"
             className="startDate"
-            value={attributes.startDate}
+            value={startDate}
             onChange={(startDate) => props.setAttributes({ startDate })}
-            placeholder={__("Month Day, Year", "ca-design-system")}
+            placeholder={__(formattedDate, "ca-design-system")}
           />
 
-          {/* <RichText
-            value={attributes.endDate}
+          <RichText
+            value={endDate}
             tagName="div"
             className="endDate"
-            value={attributes.endDate}
+            value={endDate}
             onChange={(endDate) => props.setAttributes({ endDate })}
-            placeholder={__("Month Day, Year", "ca-design-system")}
-          /> */}
-
-          <RichText
-            value={attributes.startTime}
-            tagName="div"
-            className="startTime"
-            value={attributes.startTime}
-            onChange={(startTime) => props.setAttributes({ startTime })}
-            placeholder={__("hh:mm a", "ca-design-system")}
+            placeholder={__(formattedDate, "ca-design-system")}
           />
 
           <RichText
-            value={attributes.endTime}
+            value={startTime}
+            tagName="div"
+            className="startTime"
+            value={startTime}
+            onChange={(startTime) => props.setAttributes({ startTime })}
+            placeholder={__(formattedTime, "ca-design-system")}
+          />
+
+          <RichText
+            value={endTime}
             tagName="div"
             className="endTime"
-            value={attributes.endTime}
+            value={endTime}
             onChange={(endTime) => props.setAttributes({ endTime })}
-            placeholder={__("hh:mm a", "ca-design-system")}
+            placeholder={__(formattedTimePlusHour, "ca-design-system")}
           />
 
           <h4>Location</h4>
 
           <RichText
-            value={attributes.location}
+            value={location}
             tagName="div"
             className="location"
-            value={attributes.location}
+            value={location}
             onChange={(location) => props.setAttributes({ location })}
             placeholder={__("Enter text...", "ca-design-system")}
           />
@@ -150,10 +146,10 @@ blocks.registerBlockType("ca-design-system/event-detail", {
           <h4>Cost</h4>
 
           <RichText
-            value={props.attributes.cost}
+            value={cost}
             tagName="div"
             className="cost"
-            value={attributes.cost}
+            value={cost}
             onChange={(cost) => props.setAttributes({ cost })}
             placeholder={__("Enter text...", "ca-design-system")}
           />

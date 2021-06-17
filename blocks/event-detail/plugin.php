@@ -66,7 +66,7 @@ function ca_design_system_register_event_detail() {
 function ca_design_system_gutenberg_blocks_event_detail_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = $block_attributes["title"];
+    $title = $block_attributes["title"] ? $block_attributes["title"] : "Event Details";
     $startDate = $block_attributes["startDate"];
     $endDate = $block_attributes["endDate"];
     $startTime = $block_attributes["startTime"];
@@ -79,11 +79,16 @@ function ca_design_system_gutenberg_blocks_event_detail_dynamic_render_callback(
         <div>
             <h3>$title</h3>
             <div class="wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack">
+                <h4>Date &amp; time</h4>
                 <div class="startDate">$startDate</div>
                 <div class="endDate">$endDate</div>
+
                 <div class="startTime">$startTime</div>
                 <div class="endTime">$endTime</div>
+                <h4>Location</h4>
                 <div class="location">$location</div>
+
+                <h4>Cost</h4>
                 <div class="cost">$cost</div>
             </div>
         </div>

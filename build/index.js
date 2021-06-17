@@ -159,20 +159,20 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       default: "Event Details"
     },
     startDate: {
-      type: "string",
-      default: formattedDate
+      type: "string" // default: formattedDate,
+
     },
     endDate: {
-      type: "string",
-      default: formattedDate
+      type: "string" // default: formattedDate,
+
     },
     startTime: {
-      type: "string",
-      default: formattedTime
+      type: "string" // default: formattedTime
+
     },
     endTime: {
-      type: "string",
-      default: formattedTimePlusHour
+      type: "string" // default: formattedTimePlusHour
+
     },
     location: {
       type: "string"
@@ -209,46 +209,55 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     }), createElement("div", {
       className: "cagov-event-detail cagov-stack"
     }, createElement("h4", null, "Date & time"), createElement(RichText, {
-      value: attributes.startDate,
+      value: startDate,
       tagName: "div",
       className: "startDate",
-      value: attributes.startDate,
+      value: startDate,
       onChange: startDate => props.setAttributes({
         startDate
       }),
-      placeholder: __("Month Day, Year", "ca-design-system")
+      placeholder: __(formattedDate, "ca-design-system")
     }), createElement(RichText, {
-      value: attributes.startTime,
+      value: endDate,
+      tagName: "div",
+      className: "endDate",
+      value: endDate,
+      onChange: endDate => props.setAttributes({
+        endDate
+      }),
+      placeholder: __(formattedDate, "ca-design-system")
+    }), createElement(RichText, {
+      value: startTime,
       tagName: "div",
       className: "startTime",
-      value: attributes.startTime,
+      value: startTime,
       onChange: startTime => props.setAttributes({
         startTime
       }),
-      placeholder: __("hh:mm a", "ca-design-system")
+      placeholder: __(formattedTime, "ca-design-system")
     }), createElement(RichText, {
-      value: attributes.endTime,
+      value: endTime,
       tagName: "div",
       className: "endTime",
-      value: attributes.endTime,
+      value: endTime,
       onChange: endTime => props.setAttributes({
         endTime
       }),
-      placeholder: __("hh:mm a", "ca-design-system")
+      placeholder: __(formattedTimePlusHour, "ca-design-system")
     }), createElement("h4", null, "Location"), createElement(RichText, {
-      value: attributes.location,
+      value: location,
       tagName: "div",
       className: "location",
-      value: attributes.location,
+      value: location,
       onChange: location => props.setAttributes({
         location
       }),
       placeholder: __("Enter text...", "ca-design-system")
     }), createElement("h4", null, "Cost"), createElement(RichText, {
-      value: props.attributes.cost,
+      value: cost,
       tagName: "div",
       className: "cost",
-      value: attributes.cost,
+      value: cost,
       onChange: cost => props.setAttributes({
         cost
       }),
