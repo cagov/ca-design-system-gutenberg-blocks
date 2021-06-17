@@ -77,4 +77,9 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
     </div> <!-- #main-content -->
 
 </div>
+
+<?php
+    do_action("ca_design_system_content_menu");
+?>
+
 <?php get_footer(); ?>

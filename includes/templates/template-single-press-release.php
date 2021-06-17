@@ -47,7 +47,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                             }
 
                             // if (get_option('ca_default_post_date_display') && !$caweb_is_page_builder_used) {
-                                printf('<p class="page-date published"><time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
+                            printf('<p class="page-date published"><time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
                             // }
 
 
@@ -82,5 +82,10 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
 </div>
 </div>
+
+
+<?php
+do_action("ca_design_system_content_menu");
+?>
 
 <?php get_footer(); ?>

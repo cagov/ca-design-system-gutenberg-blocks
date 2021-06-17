@@ -202,6 +202,24 @@ sidebar cagov-content-navigation ul li:first-child {
     list-style-position: inside !important;
 }
 
+/* CONTENT FOOTER */
+
+.content-menu-three-quarters {
+
+}
+
+.content-menu-links {
+
+}
+
+.content-menu-quarter {
+
+}
+
+.content-menu-quarter-socialsharer-container {
+
+}
+
 /* PAGE BEHAVIORS */
 main .entry-content {
     scroll-snap-type: y mandatory;

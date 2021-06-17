@@ -50,7 +50,8 @@ class CADesignSystemGutenbergBlocks
         $this->_load_block_pattern_categories();
         $this->_load_block_category();
 
-        add_action('ca_design_system_breadcrumb', array($this, 'get_breadcrumb_callback'));
+        add_action('ca_design_system_breadcrumb', array($this, 'ca_design_system_content_breadcrumb_callback'));
+        add_action('ca_design_system_content_menu', array($this, 'ca_design_system_content_content_menu_callback'));
     }
 
     /**
@@ -187,7 +188,73 @@ class CADesignSystemGutenbergBlocks
         );
     }
 
-    public function get_breadcrumb_callback()
+
+    public function ca_design_system_content_content_menu_callback($args)
+    {
+        $nav_links = '';
+
+        /* loop thru and create a link (parent nav item only) */
+        // $menuitems = wp_get_nav_menu_items($args->menu->term_id, array('order' => 'DESC'));
+
+        $menuitems = wp_get_nav_menu_items('content-menu');
+
+        foreach ($menuitems as $item) {
+            if (!$item->menu_item_parent) {
+                $nav_links .= sprintf(
+                    '<li%1$stitle="%2$s"%3$s><a href="%4$s"%5$s>%6$s</a></li>',
+                    (!empty($item->classes) ? sprintf(' class="%1$s" ', implode(' ', $item->classes)) : ''),
+                    $item->attr_title,
+                    (!empty($item->xfn) ? sprintf(' rel="%1$s" ', $item->xfn) : ''),
+                    $item->url,
+                    (!empty($item->target) ? sprintf(' target="%1$s"', $item->target) : ''),
+                    $item->title
+                );
+            }
+        }
+
+        $social_links = $this->createContentSocialMenu($args);
+
+        $class = !empty($social_links) ? 'content-menu-three-quarters' : 'content-menu-full-width';
+        $style = '';
+
+        $nav_links = sprintf('<div class="%1$s"><ul class="content-menu-links" %2$s>%3$s</ul></div>%4$s', $class, $style, $nav_links, $social_links);
+
+        echo $nav_links;
+    }
+
+    
+    public function createContentSocialMenu($args)
+    {
+
+        // Based on CAWeb createFooterSocialMenu
+        $social_share = caweb_get_site_options('social');
+        $social_links = '';
+
+        foreach ($social_share as $opt) {
+            $share_email = 'ca_social_email' === $opt ? true : false;
+            $sub         = rawurlencode(sprintf('%1$s | %2$s', get_the_title(), get_bloginfo('name')));
+            $body        = rawurlencode(get_permalink());
+            $mailto      = $share_email ? sprintf('mailto:?subject=%1$s&body=%2$s', $sub, $body) : '';
+            
+            // Removed named menu option
+            if (($share_email || '' !== get_option($opt))) {
+                $share         = substr($opt, 10);
+                $share         = str_replace('_', '-', $share);
+                $title         = get_option("${opt}_hover_text", 'Share via ' . ucwords($share));
+                $social_url    = $share_email ? $mailto : esc_url(get_option($opt));
+                $social_target = sprintf(' target="%1$s"', get_option($opt . '_new_window', true) ? '_blank' : '_self');
+                $social_icon   = !empty($share) ? "<span class=\"ca-gov-icon-$share\"></span>" : '';
+                $social_links .= sprintf('<li><a href="%1$s" title="%2$s"%3$s>%4$s<span class="sr-only">%5$s</span></a></li>', $social_url, $title, $social_target, $social_icon, $share);
+            }
+        }
+
+        $social_links = !empty($social_links) ? sprintf('<ul class="content-menu-quarter-socialsharer-container">%1$s</ul>', $social_links) : '';
+
+        return !empty($social_links) ? sprintf('<div class="content-menu-quarter">%1$s</div>', $social_links) : $social_links;
+    }
+
+
+    public function ca_design_system_content_breadcrumb_callback()
     {
         /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
 
