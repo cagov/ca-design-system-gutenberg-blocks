@@ -194,7 +194,6 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                             <?php
                             if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
                                 $caweb_padding = get_option('ca_default_post_date_display') ? ' pb-0' : '';
-
                                 esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
                             }
                             print '<div class="entry-content">';
@@ -202,7 +201,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                             the_content();
 
                             // if (get_option('ca_default_post_date_display') && !$caweb_is_page_builder_used) {
-                            printf('<p class="page-date published">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
+                            printf('<p class="page-date">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
                             // }
                             print '</div>';
                             ?>

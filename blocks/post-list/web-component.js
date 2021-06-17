@@ -11,6 +11,7 @@ class CAGovPostList extends window.HTMLElement {
     this.count = this.dataset.count || "10";
     this.category = this.dataset.category || "announcements,press-releases";
     this.showExcerpt = this.dataset.showExcerpt || true;
+    this.showPublishedDate = this.dataset.showPublishedDate || true;
     this.type = this.dataset.type || "wordpress";
     if (this.type === "wordpress") {
       this.getWordpressPosts();
@@ -27,7 +28,7 @@ class CAGovPostList extends window.HTMLElement {
 
       let categoryEndpoint = `${this.endpoint}/categories?slug=${this.category}`;
 
-      console.log("category endpoint", categoryEndpoint, this.dataset);
+      // console.log("category endpoint", categoryEndpoint, this.dataset);
 
       // Get data
       window
@@ -109,14 +110,17 @@ class CAGovPostList extends window.HTMLElement {
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
 
-    let getExcerpt =
-      this.showExcerpt === "true" ? `<p>${excerpt.rendered}</p>` : ``;
+    let getExcerpt = this.showExcerpt === "true" ? `<div class="excerpt"><p>${excerpt.rendered}</p></div>` : ``;
+
+    console.log("this.showPublishedDate", this.showPublishedDate);
+    let getDate = this.showPublishedDate === "true" ? `<div class="date">${dateFormatted}</div>` : ``;
+
     return `<div class="post-list-item">
                 <div class="link-title"><a href="${link}">
                     ${title.rendered}
                 </a></div>
-                <div class="excerpt">${getExcerpt}</div>
-                <div class="date">${dateFormatted && dateFormatted}</div>
+                ${getExcerpt}
+                ${getDate}
             </div>`;
   }
 }

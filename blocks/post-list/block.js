@@ -58,6 +58,10 @@
         type: "string",
         default: "true"
       },
+      showPublishedDate: {
+        type: "string",
+        default: "true"
+      },
     },
     example: {
       attributes: {
@@ -68,7 +72,7 @@
     edit: function (props) {
       var attributes = props.attributes;
 
-      console.log("props", attributes);
+      // console.log("props", attributes);
 
       return el(
         "div",
@@ -180,6 +184,21 @@
               onChange: function (value) {
                 props.setAttributes({ 
                   showExcerpt: value === true ? "true" : "false" 
+                });
+              },
+            }),
+            el(CheckboxControl, {
+              label: "Show published date",
+              tagName: "div", // select box + enter data
+              className: "post-list-published-date",
+              help: "Show the date the post was published",
+              inline: false,
+              placeholder: __("Show published date", "ca-design-system"),
+              checked:  attributes.showPublishedDate === "true" ? true : false,
+              value: attributes.showPublishedDate,
+              onChange: function (value) {
+                props.setAttributes({ 
+                  showPublishedDate: value === true ? "true" : "false" 
                 });
               },
             }),
