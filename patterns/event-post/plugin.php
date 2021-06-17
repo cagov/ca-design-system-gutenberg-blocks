@@ -11,6 +11,9 @@
 
 defined('ABSPATH') || exit;
 
+function ca_design_system_custom_wp_block_pattern_event_post_set_meta_data () {
+    // @TODO change the category if this pattern is selected.
+}
 
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in

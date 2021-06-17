@@ -46,6 +46,12 @@ function getCustomBlock($blockObject, $blockName)
 function ca_design_system_gutenberg_blocks_event_schema($post)
 {
     $name = $post->post_title;
+
+    // $meta = get_post_meta($post->ID);
+    //     print_r($meta['_wp_page_template'][0]);
+
+        // Array ( [_edit_lock] => Array ( [0] => 1623916193:1 ) [ca_custom_initial_state] => Array ( [0] => 1 ) [ca_default_navigation_menu] => Array ( [0] => dropdown ) [_edit_last] => Array ( [0] => 1 ) [ca_custom_post_title_display] => Array ( [0] => on ) [_wp_page_template] => Array ( [0] => /Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php ) [_pingme] => Array ( [0] => 1 ) [_encloseme] => Array ( [0] => 1 ) )
+
     $blocks = parse_blocks($post->post_content);
     $start_date = "";
     $end_date = "";

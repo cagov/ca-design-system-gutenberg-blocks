@@ -58,6 +58,7 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
         add_filter('theme_page_templates', array($this, 'register_plugin_templates_page'));
         add_filter('theme_post_templates', array($this, 'register_plugin_templates_post'));
         add_filter('template_include', array($this, 'add_template_filter'));
+        add_filter('get_the_excerpt', array($this, 'ca_design_system_gutenberg_blocks_excerpt'));
     }
 
     /**
@@ -103,6 +104,34 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
     {
         add_filter('add_meta_boxes', array($this, 'ca_design_system_gutenberg_blocks_default_page_template'), 1);
     }
+
+    public function ca_design_system_gutenberg_blocks_excerpt($excerpt)
+    {
+        global $post;
+        $meta = get_post_meta($post->ID);
+        $details = $excerpt;
+        try {
+            // if (str_contains($meta['_wp_page_template'][0], "event")) {
+                // @TODO see why str_contains doesn't work here & also fix this absolute pathed template.
+                if ($meta['_wp_page_template'][0] == "/Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php") {
+
+                    $blocks = parse_blocks($post->post_content);
+                    $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+                    //     // $event_materials = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+                    //     // @TODO escape && ISO format: "2025-07-21T19:00-05:00"; // @TODO reconstruct from event-detail saved data in post body.
+                    $start_date = $event_details['startDate'];
+                    $end_date = $event_details['endDate'];
+
+                $details = "EVENT " . $excerpt . $start_date . $end_date;
+            }
+        } catch (Exception $e) {
+        } finally {
+        }
+
+
+        return $details;
+    }
+
 
     /**
      * Replace default page template
@@ -190,9 +219,9 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
             $template = $user_selected_template;
         }
 
-        if (is_category() and $is_plugin ) {
+        if (is_category() and $is_plugin) {
             $template = $this->template_dir . 'category-template.php';
-        }  
+        }
 
         return $template;
     }
