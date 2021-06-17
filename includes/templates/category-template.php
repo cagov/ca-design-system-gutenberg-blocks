@@ -40,8 +40,9 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                     </div>
                 </div>
 
-
+                <span class="return-top hidden-print"></span>
             </main>
+            
         </div> <!-- #main-content -->
     </div>
 </div>

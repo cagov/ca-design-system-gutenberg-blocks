@@ -16,7 +16,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 }
 ?>
 
-<div id="page-container" class="with-sidebar page-container-ds">
+<div id="page-container" class="with-sidebar has-sidebar-left page-container-ds">
 
     <div class="breadcrumb">
         <?php

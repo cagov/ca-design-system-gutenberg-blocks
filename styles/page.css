@@ -1,4 +1,4 @@
-.cagov-stack  {
+.cagov-stack {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -24,7 +24,6 @@
 /* PAGE CONTAINER */
 .main-content-ds {
     margin-top: 72px;
-    /* max-width: 877px; */
     max-width: 100%;
     overflow: auto;
 }
@@ -45,13 +44,11 @@
     left: 0%;
     top: 0%;
     transform: translate(-0%, -0%); */
-    
 }
 
 .sidebar-container {
     display: block;
     width: 276px;
-    margin-right: 20px;
     /* height: 100vh; */
 }
 
@@ -66,17 +63,30 @@
     margin: calc(var(--s1) / 2 * -1);
 }
 
-.with-sidebar>*>* {
+.with-sidebar.has-sidebar-left>*>* {
     margin: calc(var(--s1) / 2);
     flex-basis: 267px;
     flex-grow: 1;
 }
 
-.with-sidebar>*> :last-child {
+.with-sidebar.has-sidebar-left >*> :last-child {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(50% - var(--s1));
 }
+
+.with-sidebar.has-sidebar-right >*>* {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: calc(50% - var(--s1));
+}
+
+.with-sidebar.has-sidebar-right >*> :last-child {
+    margin: calc(var(--s1) / 2);
+    flex-basis: 267px;
+    flex-grow: 1;
+}
+
 
 /* BREADCRUMB */
 .breadcrumb {
@@ -102,7 +112,7 @@
     padding-right: 5px;
 }
 
-.page-container-ds main category-label  ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]),
+.page-container-ds main category-label ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]),
 .page-container-ds main category-label ul {
     margin: 0;
     text-indent: 0;
@@ -136,12 +146,24 @@ category-label a {
     margin-bottom: 64px;
 }
 
-.with-sidebar.page-container-ds main {
-    margin-left: 64px
+.with-sidebar.page-container-ds.has-sidebar-left main {
+    margin-left: 64px;
+    margin-right: 20px;
+}
+
+.with-sidebar.page-container-ds.has-sidebar-right main {
+    margin-right: 64px;
+    margin-left: 20px;
+}
+
+.with-sidebar .main-container-ds {
+    max-width: 877px;
 }
 
 
-/* CONTENT NAVIGATION */ 
+
+
+/* CONTENT NAVIGATION */
 sidebar cagov-content-navigation .label {
     font-weight: 700;
     font-size: 24px;
@@ -239,20 +261,22 @@ p {
 
 /* @TODO breakpoint, css vars */
 @media only screen and (max-width: 600px) {
+
     .breadcrumb a.crumb,
     .breadcrumb span.crumb {
         display: none;
     }
+
     /* a tag too - don't have test data for deeper menus yet */
     .breadcrumb span.crumb:not(:last-child):not([class*="separator"]) {
-    /* .breadcrumb .crumb.current { */
+        /* .breadcrumb .crumb.current { */
         display: inline-block;
         font-weight: 700;
         font-size: 16px;
         line-height: 18.8px;
         color: #064E66;
     }
-    
+
     .breadcrumb span.crumb:not(:last-child):not([class*="separator"]) {
         padding: 0;
     }
@@ -264,6 +288,7 @@ p {
         background-color: transparent;
         padding: 0;
     }
+
     .with-sidebar.page-container-ds .breadcrumb {
         margin-bottom: 0px;
     }
@@ -272,7 +297,6 @@ p {
         margin-top: 16px;
     }
 
-    
     .with-sidebar.page-container-ds #main-content.main-content-ds,
     .with-sidebar.page-container-ds #main-content.main-content-ds main {
         margin-top: 0;
@@ -316,10 +340,7 @@ p {
         line-height: 24px;
     }
 
-
     /* Typography */
-
-
     h2 {
         font-size: 28px;
         line-height: 33px;

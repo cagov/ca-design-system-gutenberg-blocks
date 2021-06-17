@@ -80,17 +80,14 @@ class CADesignSystemGutenbergBlocks
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/hero/plugin.php'; // Planning to rename to feature-card - Renamed in GB interface labels but not code
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/page-alert/plugin.php'; // Renamed
 
-        // Not phase one, unclear, not using or might archive
+        // Phase 2
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/process-step-list/plugin.php'; // Renamed
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/highlight-box/plugin.php';
+
+        // Still a little unclear
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/button/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/twitter-feed/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/header-image/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/highlight-box/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/alert/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/social-media-links/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-footer/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/process-step-list/plugin.php'; // Renamed
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/mailchimp/plugin.php';
     }
 
     /**
@@ -207,7 +204,9 @@ class CADesignSystemGutenbergBlocks
         $items = wp_get_nav_menu_items('header-menu');
 
         _wp_menu_item_classes_by_context($items); // Set up the class variables, including current-classes
+        
         // @TODO Move default breadcrumbs to plugin settings
+        
         $crumbs = array(
             "<a class=\"crumb\" href=\"https:\/\/ca.gov\" title=\"CA.GOV\">CA.GOV</a>",
             "<a class=\"crumb\" href=\"/\" title=\"" . get_bloginfo('name') . "\">" . get_bloginfo('name') . "</a>"
@@ -225,34 +224,30 @@ class CADesignSystemGutenbergBlocks
             }
         }
 
-        // if (is_category()) {
-        //     global $wp_query;
-        //     $category = get_category(get_query_var('cat'), false);
-        //     $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
-        // }
+        if (is_category()) {
+            global $wp_query;
+            $category = get_category(get_query_var('cat'), false);
+            $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
+        }
 
+        // STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
+        // Configuration note: requires that a menu item link to a category page.
         if (count($crumbs) == 2 && !is_category()) {
-            // No menu items (@TODO read through list of possible menu items)
-            // Not a category page
-            // Check to see if category landing page appears in the header menu structure.
-            // Configuration note: requires that a menu item link to a category page.
-
             $category = get_the_category($post->ID);
-            // print_r($category);
+            
             // Get category menu item from original menu item
-
             $category_menu_item_found = false;
 
             foreach ($items as $category_item) {
                 if ($category_item->type_label == "Category") { // or ->type == "taxonomy"
                     if ($category[0]->name == $category_item->title) {
-                        // @TODO Finish this later... look up the ancestors of the category page
                         $crumbs[] = "<span class=\"crumb current\">" . $category_item->title . "</span>";
                         $category_menu_item_found = true;
                     }
                 }
             }
 
+            // If not found, just use the category name
             if ($category[0] && $category_menu_item_found == false) {
                 $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
             }
