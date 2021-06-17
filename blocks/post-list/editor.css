@@ -2,6 +2,31 @@
 /* @TODO Align with typography & styles: Font, px spacing, colors, css vars, breakpoints  */
 /* @TODO Figure out editor theme styles & if it conflicts with the display of this block/web-component. */
 
+.cagov-post-list .post-list-endpoint,
+.cagov-post-list .post-list-show-excerpt,
+.cagov-post-list .post-list-count,
+.cagov-post-list .post-list-order,
+.cagov-post-list .post-list-category {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 32px;
+    margin-bottom: 24px;
+}
+.cagov-post-list .post-list-count input,
+.cagov-post-list .post-list-category input {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 32px;
+    margin-bottom: 24px;
+}
+
+.cagov-post-list .post-list-order {
+    font-style: normal;
+    font-size: 16px;
+    line-height: 32px;
+    margin-bottom: 24px;
+}
+
 .cagov-post-list .post-list-title {
     /* font-family: Public Sans; */
     font-style: normal;
