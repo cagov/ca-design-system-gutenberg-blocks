@@ -16,7 +16,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 }
 ?>
 
-<div id="page-container" class="with-sidebar has-sidebar-right page-container-ds">
+<div id="page-container" class="page-container-ds">
 
     <div class="breadcrumb">
         <?php
@@ -24,77 +24,49 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
         ?>
     </div>
 
-    <div id="main-content" class="main-content-ds" tabindex="-1">
-
-        <div class="narrow-page-title">
-            <?php
-            if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
-            }
-            ?>
-        </div>
-
-
+    <div id="main-content" class="main-content-ds single-column" tabindex="-1">
         <div>
             <main class="main-primary">
-                <?php
-                while (have_posts()) :
-                    the_post();
-                ?>
-
-                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                        <category-label><?php the_category(); ?></category-label>
-                        <!-- Page Title-->
-                        <?php
-                        if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                            $caweb_padding = get_option('ca_default_post_date_display') ? ' pb-0' : '';
-
-                            esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
-                        }
-
-                        // if (get_option('ca_default_post_date_display') && !$caweb_is_page_builder_used) {
-                        printf('<p class="page-date published"><time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
-                        // }
 
 
+                <div>
 
-                        print '<div class="entry-content">';
+                    <?php
+                    while (have_posts()) :
+                        the_post();
+                    ?>
 
-                        the_content();
+                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                            <category-label><?php the_category(); ?></category-label>
+                            <!-- Page Title-->
+                            <?php
+                            if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
+                                $caweb_padding = get_option('ca_default_post_date_display') ? ' pb-0' : '';
 
-                        if (!$caweb_is_page_builder_used) {
-                            wp_link_pages(
-                                array(
-                                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'Divi'),
-                                    'after'  => '</div>',
-                                )
-                            );
-                        }
+                                esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
+                            }
 
-                        print '</div>';
+                            print '<div class="entry-content">';
 
-                        ?>
+                            the_content();
+
+                            // if (get_option('ca_default_post_date_display') && !$caweb_is_page_builder_used) {
+                            printf('<p class="page-date published">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
+                            // }
+                            print '</div>';
+
+                            ?>
 
 
-                    </article>
+                        </article>
 
-                <?php endwhile; ?>
-                <span class="return-top hidden-print"></span>
+                    <?php endwhile; ?>
+                    <span class="return-top hidden-print"></span>
 
             </main>
+
         </div>
-
-
-        <div class="sidebar-container">
-            <sidebar space="0" side="right">
-                    <h3>Event Details</h3>
-                    <cagov-event-detail></cagov-event-detail>
-            </sidebar>
-        </div>
-
     </div>
-
-
 
 </div>
 </div>

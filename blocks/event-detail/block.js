@@ -38,6 +38,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
   icon: "universal-access-alt",
   category: 'ca-design-system-utilities',
+  description: __("Block for details about an event"),
   attributes: {
     startDate: {
       type: "array",
@@ -136,7 +137,6 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
     return (
       <div className="cagov-event-detail cagov-stack">
-
         <RichText.Content
           tagName="div"
           className="startDate"

@@ -59,10 +59,8 @@ class CADesignSystemGutenbergBlocks
     private function _load_block_dependencies()
     {
         // Load patterns, order of loading is order of appearance in patterns list.
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/standard-page/plugin.php';
+
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/event-post/plugin.php';
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/announcement-post/plugin.php';
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/press-release-post/plugin.php';
 
         // CA Design System: Utilities blocks
         // These appear in child patterns, content editors do not need to interact with these.
