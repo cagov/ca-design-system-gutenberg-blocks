@@ -28,18 +28,14 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
             <main class="main-primary">
 
                 <?php
-
                 global $wp_query;
-
-
                 $category = get_category(get_query_var('cat'), false);
                 ?>
-
 
                 <h1 class="page-title"><?php echo $category->name; ?></h1>
                 <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
                     <div>
-                        <cagov-post-list class="post-list" data-category="<?php $category->name ?>" data-count="10" data-order="desc" data-endpoint="/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true">
+                        <cagov-post-list class="post-list" data-category="<?php echo $category->slug ?>" data-count="10" data-order="desc" data-endpoint="/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true">
                         </cagov-post-list>
                     </div>
                 </div>

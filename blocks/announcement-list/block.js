@@ -1,5 +1,7 @@
 /**
  * CAGov Announcement list
+ * "List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the ""Announcement"" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.
+
  */
 
 (function (blocks, blockEditor, i18n, element, components, _, moment) {

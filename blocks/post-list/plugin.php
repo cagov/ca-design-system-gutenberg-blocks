@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Post list
  * Plugin URI: TBD
- * Description: TBD
- * Version: 1.1.0
+ * Description: List of recent posts. Appears on the homepage. Allows people to see the most recent announcements with the ""Announcement"" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.
+ * Version: 1.1.1
  * Author: California Office of Digital Innovation
  * @package ca-design-system
  */
@@ -20,6 +20,41 @@ function ca_design_system_gutenberg_block_post_list()
 {
     load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
+
+function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($block_attributes, $content)
+{
+
+    $title = $block_attributes["title"];
+    $count = $block_attributes["count"];
+    $order = $block_attributes["order"];
+    $category = $block_attributes["category"];
+    $endpoint = $block_attributes["endpoint"];
+    $readMore = $block_attributes["readMore"];
+    $showExcerpt = "true";
+
+    return <<<EOT
+    <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
+        <div>
+            <h3>$title</h3>
+            <cagov-post-list 
+                class="post-list" 
+                data-category="$category"
+                data-count="$count"
+                data-order="$order"
+                data-endpoint="$endpoint"
+                data-show-excerpt="$showExcerpt"
+                >
+                </cagov-post-list>
+
+                <div class="read-more">
+                $readMore
+                </div>
+        </div>
+    </div>
+    EOT;
+}
+
+
 
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in
@@ -43,10 +78,17 @@ function ca_design_system_gutenberg_blocks_register_post_list()
     );
 
     wp_register_script(
-        'ca-design-system-post-list',
+        'ca-design-system-post-list',  // @TODO this scope will conflict & multiply with all component - probably needs to be registered up one level - will move when blocks are more stabilized.
         plugins_url('block.js', __FILE__),
         array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-post-list-web-component'),
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
+    );
+
+    wp_register_style(
+        'ca-design-system-post-list-editor',
+        plugins_url( 'editor.css', __FILE__ ),
+        array( 'wp-edit-blocks' ),
+        filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
     );
 
     wp_register_style(
@@ -58,9 +100,10 @@ function ca_design_system_gutenberg_blocks_register_post_list()
 
     register_block_type('ca-design-system/post-list', array(
         'style' => 'cagov-post-list',
+        'editor_style' => 'ca-design-system-post-list-editor',
         'editor_script' => 'ca-design-system-post-list',
+        'render_callback' => 'ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback'
     ));
-    
 }
 add_action('init', 'ca_design_system_gutenberg_blocks_register_post_list');
 

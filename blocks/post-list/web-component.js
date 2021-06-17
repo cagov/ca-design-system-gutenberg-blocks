@@ -3,14 +3,15 @@
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment.
  */
- class CAGovPostList extends window.HTMLElement {
+class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
-    this.endpoint = this.dataset.endpoint;
+    let siteUrl = window.location.origin;
+    this.endpoint = this.dataset.endpoint || `${siteUrl}/wp-json/wp/v2`;
     this.order = this.dataset.order || "desc";
     this.count = this.dataset.count || "10";
-    this.category = this.dataset.category || "";
+    this.category = this.dataset.category || "announcements,press-releases";
     this.showExcerpt = this.dataset.showExcerpt || true;
-    this.type = "wordpress";
+    this.type = this.dataset.type || "wordpress";
     if (this.type === "wordpress") {
       this.getWordpressPosts();
     }
@@ -18,8 +19,16 @@
 
   getWordpressPosts() {
     if (this.endpoint !== undefined) {
+      if (this.category.indexOf(",") > -1) {
+        this.category = this.category.split(",");
+      } else {
+        this.category = [this.category];
+      }
+
       let categoryEndpoint = `${this.endpoint}/categories?slug=${this.category}`;
-      // console.log("cate", categoryEndpoint)
+
+      console.log("category endpoint", categoryEndpoint, this.dataset);
+
       // Get data
       window
         .fetch(categoryEndpoint)
@@ -100,7 +109,8 @@
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
 
-    let getExcerpt = this.showExcerpt === "true" ? `<p>${excerpt.rendered}</p>` : ``;
+    let getExcerpt =
+      this.showExcerpt === "true" ? `<p>${excerpt.rendered}</p>` : ``;
     return `<div class="post-list-item">
                 <div class="link-title"><a href="${link}">
                     ${title.rendered}
@@ -111,6 +121,6 @@
   }
 }
 
-if (customElements.get('cagov-post-list') === undefined) {
+if (customElements.get("cagov-post-list") === undefined) {
   window.customElements.define("cagov-post-list", CAGovPostList);
 }
