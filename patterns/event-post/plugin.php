@@ -31,11 +31,6 @@ function ca_design_system_custom_wp_block_pattern_event_post()
      */
     register_block_pattern(
         'ca-design-system/event-post',
-        // @TODO Update div & markup
-        // @TODO Add css style (enqueue)
-        // Add field reference
-
-        // Great reference: https://fullsiteediting.com/lessons/introduction-to-block-patterns/
         array(
             'title'       => __('Event Post', 'ca-design-system'),
             'description' => __('Page layout with dynamic content navigation sidebar', 'Block pattern description', 'ca-design-system'),
@@ -51,7 +46,28 @@ function ca_design_system_custom_wp_block_pattern_event_post()
                 <!-- wp:column {"width":"33.33%"} -->
                     <div class="wp-block-column" style="flex-basis:33.33%">
                     <!-- wp:ca-design-system/event-detail -->
+
+                    {
+                        "title": "Event Details",
+                        "startDate":"",
+                        "endDate":"",
+                        "startTime":"",
+                        "endTime":"",
+                        "location:"",
+                        "cost": "",
+                    }
+
                     <!-- /wp:ca-design-system/event-detail -->
+
+                    <!-- wp:ca-design-system/event-materials -->
+
+                    {
+                        "title": "Event Materials",
+                        "agenda": "",
+                        "materials": "",
+                    }
+
+                    <!-- /wp:ca-design-system/event-materials -->
                     </div>
                 <!-- /wp:column --> 
         </div><!-- /wp:columns -->',

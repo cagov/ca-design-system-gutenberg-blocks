@@ -54,8 +54,6 @@ function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($bl
     EOT;
 }
 
-
-
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in
  * the corresponding context.

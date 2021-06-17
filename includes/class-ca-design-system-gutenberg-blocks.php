@@ -68,6 +68,7 @@ class CADesignSystemGutenbergBlocks
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/category-label/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-navigation/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/event-detail/plugin.php';
+        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/event-materials/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/post-list/plugin.php';
 
         // CA Design System blocks
@@ -78,11 +79,15 @@ class CADesignSystemGutenbergBlocks
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/hero/plugin.php'; // Planning to rename to feature-card - Renamed in GB interface labels but not code
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/page-alert/plugin.php'; // Renamed
 
-        // Phase 2
+        // ## Phase 2
+        // Blocks
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/process-step-list/plugin.php'; // Renamed
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/highlight-box/plugin.php';
 
-        // Still a little unclear
+        // Patterns
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/agenda/plugin.php';
+
+        // Still a little unclear if these would be used:
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/button/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/header-image/plugin.php';
@@ -101,7 +106,7 @@ class CADesignSystemGutenbergBlocks
             array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
         );
 
-        // Styles broken
+        // Styles broken... needed? (can't tell yet, too many things moving)
         // Add global CSS
         // wp_register_style(
         //     'ca-design-system-global-styles',
@@ -109,11 +114,9 @@ class CADesignSystemGutenbergBlocks
         //     array(),
         //     filemtime(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/style.css')
         // );
-
         // wp_enqueue_style('ca-design-system-global-styles');
 
         if (!is_admin()) {
-
             /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
             wp_enqueue_script(
                 'ca-design-system-blocks',
@@ -129,16 +132,13 @@ class CADesignSystemGutenbergBlocks
             do_action("ca_design_system_gutenberg_blocks_register_post_list_web_component");
             do_action("ca_design_system_gutenberg_blocks_register_content_navigation_web_component");
         } else {
-
-            // Add editor styles
+            // Add global admin & editor styles
             // Breaks page silently, no errors
-
             // wp_register_style(
             //     'ca-design-system-global-styles-editor',
             //     CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css',
             //     array()
             // );
-
             // wp_enqueue_style('ca-design-system-global-styles-editor');
         }
     }
@@ -202,9 +202,9 @@ class CADesignSystemGutenbergBlocks
         $items = wp_get_nav_menu_items('header-menu');
 
         _wp_menu_item_classes_by_context($items); // Set up the class variables, including current-classes
-        
+
         // @TODO Move default breadcrumbs to plugin settings
-        
+
         $crumbs = array(
             "<a class=\"crumb\" href=\"https:\/\/ca.gov\" title=\"CA.GOV\">CA.GOV</a>",
             "<a class=\"crumb\" href=\"/\" title=\"" . get_bloginfo('name') . "\">" . get_bloginfo('name') . "</a>"
@@ -228,11 +228,11 @@ class CADesignSystemGutenbergBlocks
             $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
         }
 
-        // STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
+        // @TODO STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
         // Configuration note: requires that a menu item link to a category page.
         if (count($crumbs) == 2 && !is_category()) {
             $category = get_the_category($post->ID);
-            
+
             // Get category menu item from original menu item
             $category_menu_item_found = false;
 
