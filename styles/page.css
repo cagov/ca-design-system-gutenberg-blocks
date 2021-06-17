@@ -236,41 +236,65 @@ h1.page-title {
     padding: 0 0 24px 0;
 }
 
-h2 {
+main h2 {
     font-size: 32px;
     line-height: 38px;
-    margin-top: 32px;
+    margin: 2.25rem 0 1rem 0;
     scroll-margin: 100px;
     scroll-snap-align: start;
+    padding-bottom: 0px;
 }
 
-h3 {
-    margin-top: 72px;
+main h3 {
+    scroll-margin-top: 64px;
+    margin: 2.25rem 0 1rem 0;
+    scroll-snap-align: start;
+    padding-bottom: 0px;
+}
+
+main h4 {
+    margin: 2.25rem 0 1rem 0;
     scroll-margin-top: 64px;
     scroll-snap-align: start;
+    padding-bottom: 0px;
 }
 
-h4 {
-    margin-top: 72px;
+main h5 {
+    margin: 2.25rem 0 1rem 0;
     scroll-margin-top: 64px;
     scroll-snap-align: start;
+    padding-bottom: 0px;
 }
 
-h5 {
-    margin-top: 72px;
+main h6 {
+    margin: 2.25rem 0 1rem 0;
     scroll-margin-top: 64px;
     scroll-snap-align: start;
+    padding-bottom: 0px;
 }
 
-h6 {
-    margin-top: 72px;
-    scroll-margin-top: 64px;
-    scroll-snap-align: start;
-}
-
-p {
+main p {
     font-size: 18px;
-    line-height: 40px;
+    line-height: 28.8px;
+    margin-bottom: 1rem;
+}
+
+main ul li {
+    margin-bottom: 0.5rem;
+    font-size: 18px;
+    line-height: 28.8px;
+    text-indent: 8px;
+    padding-left: 20px;
+}
+
+.page-container-ds main ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) li ul {
+    margin-top: 0.5rem;
+}
+
+.page-container-ds main ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]), 
+.page-container-ds main ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
+    padding-left: 0px;
+    margin: 0 0 1rem 0;
 }
 
 .narrow-page-title {
