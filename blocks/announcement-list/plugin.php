@@ -34,17 +34,17 @@ function ca_design_system_register_announcement_list() {
     }
 
     // Register custom web component
-    wp_register_script(
-        'ca-design-system-announcement-list-web-component',
-        plugins_url( 'web-component.js', __FILE__ ),
-        array( ),
-        filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
-    );
+    // wp_register_script(
+    //     'ca-design-system-announcement-list-web-component',
+    //     plugins_url( 'web-component.js', __FILE__ ),
+    //     array( ),
+    //     filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
+    // );
 
     wp_register_script(
         'ca-design-system-announcement-list',
         plugins_url( 'block.js', __FILE__ ),
-        array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-announcement-list-web-component' ),
+        array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment'),
         filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
     );
 
