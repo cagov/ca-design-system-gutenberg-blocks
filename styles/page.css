@@ -280,38 +280,46 @@ h1.page-title {
 }
 
 main h2 {
-    font-size: 32px;
-    line-height: 38px;
-    margin: 2.25rem 0 1rem 0;
+    font-size: 28px !important; /* conflict with global styles */
+    line-height: 36.4px !important;
+    margin: 2.25rem 0 1rem 0 !important;
     scroll-margin: 100px;
     scroll-snap-align: start;
     padding-bottom: 0px;
 }
 
 main h3 {
-    scroll-margin-top: 64px;
-    margin: 2.25rem 0 1rem 0;
+    font-size: 28px !important; /* conflict with global styles */
+    line-height: 36.4px !important;
+    margin: 2.25rem 0 1rem 0 !important;
+    scroll-margin: 100px;
     scroll-snap-align: start;
     padding-bottom: 0px;
 }
 
 main h4 {
-    margin: 2.25rem 0 1rem 0;
-    scroll-margin-top: 64px;
+    font-size: 28px !important; /* conflict with global styles */
+    line-height: 36.4px !important;
+    margin: 2.25rem 0 1rem 0 !important;
+    scroll-margin: 100px;
     scroll-snap-align: start;
     padding-bottom: 0px;
 }
 
 main h5 {
-    margin: 2.25rem 0 1rem 0;
-    scroll-margin-top: 64px;
+    font-size: 28px !important; /* conflict with global styles */
+    line-height: 36.4px !important;
+    margin: 2.25rem 0 1rem 0 !important;
+    scroll-margin: 100px;
     scroll-snap-align: start;
     padding-bottom: 0px;
 }
 
 main h6 {
-    margin: 2.25rem 0 1rem 0;
-    scroll-margin-top: 64px;
+    font-size: 28px !important; /* conflict with global styles */
+    line-height: 36.4px !important;
+    margin: 2.25rem 0 1rem 0 !important;
+    scroll-margin: 100px;
     scroll-snap-align: start;
     padding-bottom: 0px;
 }
