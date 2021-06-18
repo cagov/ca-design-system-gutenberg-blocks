@@ -1,0 +1,3 @@
+cagov-accordion.prog-enhanced button[aria-expanded="true"] + .accordion-card-container {
+    min-height: 100px;
+}
