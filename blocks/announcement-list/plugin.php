@@ -99,7 +99,7 @@ function ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback(
     return <<<EOT
     <div class="wp-block-ca-design-system-announcement-list cagov-announcement-list cagov-stack">
         <div>
-            <h3>$title</h3>
+            <h2>$title</h2>
             <cagov-post-list 
                 class="post-list" 
                 data-category="$category"
