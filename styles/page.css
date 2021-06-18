@@ -324,13 +324,13 @@ main h6 {
     padding-bottom: 0px;
 }
 
-main p {
+main .entry-content p {
     font-size: 18px;
     line-height: 28.8px;
     margin-bottom: 1rem;
 }
 
-main ul li {
+main .entry-content ul li {
     margin-bottom: 0.5rem;
     font-size: 18px;
     line-height: 28.8px;
@@ -338,12 +338,12 @@ main ul li {
     padding-left: 20px;
 }
 
-.page-container-ds main ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) li ul {
+.page-container-ds main .entry-content ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) li ul {
     margin-top: 0.5rem;
 }
 
-.page-container-ds main ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]), 
-.page-container-ds main ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
+.page-container-ds main .entry-content ol:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]), 
+.page-container-ds main .entry-content ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]) {
     padding-left: 0px;
     margin: 0 0 1rem 0;
 }
