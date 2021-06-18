@@ -220,7 +220,7 @@ class CADesignSystemGutenbergBlocks
         $per_page_feedback = "<div class=\"per-page-feedback-container\" style=\"background: background: #2F4C2C;
 \">PER PAGE FEEDBACK HERE</div>";
 
-        $logo_small = "<div class=\"logo-small\"></div>";
+        $logo_small = "<div class=\"logo-small\"><a href=\"/\"></a></div>";
 
         $nav_links = sprintf('<div class="content-footer-container"><div class="%1$s">
             <div class="menu-section">%2$s</div>
