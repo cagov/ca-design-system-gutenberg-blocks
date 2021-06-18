@@ -3,7 +3,7 @@
 /**
  * Plugin Name: CA Design System Gutenberg Blocks
  * Plugin URI: https://github.com/cagov/ca-design-system-gutenberg-blocks
- * Description: Gutenberg blocks to be used in WordPress that are compatible with the California's design system
+ * Description: Gutenberg blocks for CA Design System
  * Author: Office of Digital Innovation
  * Author URI: https://digital.ca.gov
  * Version: 1.0.6

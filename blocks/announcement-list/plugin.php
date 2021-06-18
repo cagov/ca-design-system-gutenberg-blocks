@@ -58,6 +58,7 @@ function ca_design_system_register_announcement_list() {
     register_block_type( 'ca-design-system/announcement-list', array(
         'style' => 'cagov-announcement-list',
         'editor_script' => 'ca-design-system-announcement-list',
+        'render_callback' => 'ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback'
     ) );
 }
 
@@ -80,3 +81,40 @@ function ca_design_system_gutenberg_blocks_register_announcement_list_web_compon
 }
 
 add_action('ca_design_system_gutenberg_blocks_register_announcement_list_web_component', 'ca_design_system_gutenberg_blocks_register_announcement_list_web_component_callback', 10, 2);
+
+
+
+function ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback($block_attributes, $content)
+{
+
+    $title = $block_attributes["title"];
+    $count = $block_attributes["count"];
+    $order = $block_attributes["order"];
+    $category = $block_attributes["category"];
+    $endpoint = $block_attributes["endpoint"];
+    $readMore = $block_attributes["readMore"];
+    $showExcerpt = "false";
+    $showPublishedDate = "true";
+
+    return <<<EOT
+    <div class="wp-block-ca-design-system-announcement-list cagov-announcement-list cagov-stack">
+        <div>
+            <h3>$title</h3>
+            <cagov-post-list 
+                class="post-list" 
+                data-category="$category"
+                data-count="5"
+                data-order="desc"
+                data-endpoint="$endpoint"
+                data-show-excerpt="$showExcerpt"
+                data-show-published-date="$showPublishedDate"
+            >
+            </cagov-post-list>
+
+            <div class="read-more">
+            $readMore
+            </div>
+        </div>
+    </div>
+    EOT;
+}

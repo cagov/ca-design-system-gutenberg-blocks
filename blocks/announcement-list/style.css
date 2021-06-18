@@ -8,7 +8,7 @@
     font-weight: bold;
     font-size: 28px;
     line-height: 33px;
-    margin-bottom: 24px;
+    margin-bottom: 24px !important;
 }
 
 .cagov-announcement-list .read-more a {

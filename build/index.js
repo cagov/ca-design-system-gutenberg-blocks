@@ -144,131 +144,240 @@ const {
 } = compose;
 var __ = i18n.__;
 var el = createElement;
+var defaultDate = new Date();
+var formattedDate = moment(defaultDate).format("MMMM DD, YYYY");
+var formattedTime = moment(defaultDate).startOf('hour').format("hh:mm a");
+var formattedTimePlusHour = moment(defaultDate).startOf('hour').add(moment.duration(1, 'hours')).format("hh:mm a");
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
   icon: "universal-access-alt",
-  category: 'ca-design-system-utilities',
+  category: "ca-design-system-utilities",
+  description: __("Block for details about an event"),
   attributes: {
-    startDate: {
-      type: "array",
-      source: "children",
-      selector: "div.start-date"
+    title: {
+      type: "string",
+      default: "Event Details"
     },
-    // endDate: {
-    //   type: "array",
-    //   source: "children",
-    //   selector: "div.end-date",
-    // },
+    startDate: {
+      type: "string" // default: formattedDate,
+
+    },
+    endDate: {
+      type: "string" // default: formattedDate,
+
+    },
     startTime: {
-      type: "array",
-      source: "children",
-      selector: "div.start-date"
+      type: "string" // default: formattedTime
+
     },
     endTime: {
-      type: "array",
-      source: "children",
-      selector: "div.end-date"
+      type: "string" // default: formattedTimePlusHour
+
     },
     location: {
-      type: "array",
-      source: "children",
-      selector: "div.location"
+      type: "string"
     },
     cost: {
-      type: "array",
-      source: "children",
-      selector: "div.cost"
+      type: "string"
     }
   },
   example: {
-    startDate: __("Start Data & Time", "ca-design-system")
+    attributes: {// startDate: __("Start Date & Time", "ca-design-system"),
+    }
   },
   edit: function (props) {
     const [openDatePopup, setOpenDatePopup] = useState(false);
     var attributes = props.attributes;
     const {
+      title,
       startDate,
       endDate,
+      startTime,
+      endTime,
       location,
       cost
     } = props.attributes; // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
 
-    return createElement("div", {
+    return createElement("div", null, createElement(RichText, {
+      value: title,
+      tagName: "h3",
+      className: "title",
+      onChange: title => props.setAttributes({
+        title
+      }),
+      placeholder: __("Event Details", "ca-design-system")
+    }), createElement("div", {
       className: "cagov-event-detail cagov-stack"
     }, createElement("h4", null, "Date & time"), createElement(RichText, {
-      value: attributes.startDate,
+      value: startDate,
       tagName: "div",
       className: "startDate",
-      value: attributes.startDate,
+      value: startDate,
       onChange: startDate => props.setAttributes({
         startDate
       }),
-      placeholder: __("Month Day, Year", "ca-design-system")
+      placeholder: __(formattedDate, "ca-design-system")
     }), createElement(RichText, {
-      value: attributes.startTime,
+      value: endDate,
+      tagName: "div",
+      className: "endDate",
+      value: endDate,
+      onChange: endDate => props.setAttributes({
+        endDate
+      }),
+      placeholder: __(formattedDate, "ca-design-system")
+    }), createElement(RichText, {
+      value: startTime,
       tagName: "div",
       className: "startTime",
-      value: attributes.startTime,
+      value: startTime,
       onChange: startTime => props.setAttributes({
         startTime
       }),
-      placeholder: __("HH:mm a", "ca-design-system")
+      placeholder: __(formattedTime, "ca-design-system")
     }), createElement(RichText, {
-      value: attributes.endTime,
+      value: endTime,
       tagName: "div",
       className: "endTime",
-      value: attributes.endTime,
+      value: endTime,
       onChange: endTime => props.setAttributes({
         endTime
       }),
-      placeholder: __("HH:mm a", "ca-design-system")
+      placeholder: __(formattedTimePlusHour, "ca-design-system")
     }), createElement("h4", null, "Location"), createElement(RichText, {
-      value: attributes.location,
+      value: location,
       tagName: "div",
       className: "location",
-      value: attributes.location,
+      value: location,
       onChange: location => props.setAttributes({
         location
       }),
       placeholder: __("Enter text...", "ca-design-system")
     }), createElement("h4", null, "Cost"), createElement(RichText, {
-      value: props.attributes.cost,
+      value: cost,
       tagName: "div",
       className: "cost",
-      value: attributes.cost,
+      value: cost,
       onChange: cost => props.setAttributes({
         cost
       }),
       placeholder: __("Enter text...", "ca-design-system")
-    }));
-  },
-  save: function (props) {
-    var attributes = props.attributes;
-    return createElement("div", {
-      className: "cagov-event-detail cagov-stack"
-    }, createElement(RichText.Content, {
-      tagName: "div",
-      className: "startDate",
-      value: attributes.startDate
-    }), createElement(RichText.Content, {
-      tagName: "div",
-      className: "startTime",
-      value: attributes.startTime
-    }), createElement(RichText.Content, {
-      tagName: "div",
-      className: "endTime",
-      value: attributes.endTime
-    }), createElement(RichText.Content, {
-      tagName: "div",
-      className: "location",
-      value: attributes.location
-    }), createElement(RichText.Content, {
-      tagName: "div",
-      className: "cost",
-      value: attributes.cost
-    }));
-  } // <div className="cost">{attributes.cost}</div>
+    })));
+  }
+});
 
+/***/ }),
+
+/***/ "./blocks/event-materials/block.js":
+/*!*****************************************!*\
+  !*** ./blocks/event-materials/block.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * CAGov Event Materials
+ *
+ */
+const {
+  blocks,
+  blockEditor,
+  i18n,
+  element,
+  components,
+  date,
+  data,
+  compose
+} = wp;
+const {
+  moment,
+  _
+} = window;
+const {
+  dateI18n
+} = date;
+const {
+  DateTimePicker,
+  DatePicker,
+  Popover,
+  Button,
+  PanelRow,
+  TextControl,
+  Panel,
+  PanelBody
+} = components;
+const {
+  Fragment,
+  useState,
+  useEffect,
+  createElement
+} = element;
+const {
+  InspectorControls,
+  RichText,
+  InnerBlocks
+} = blockEditor;
+const {
+  useSelect,
+  useDispatch
+} = data;
+const {
+  withState
+} = compose;
+var __ = i18n.__;
+var el = createElement;
+blocks.registerBlockType("ca-design-system/event-materials", {
+  title: __("Event Materials", "ca-design-system"),
+  icon: "universal-access-alt",
+  category: "ca-design-system-utilities",
+  description: __("Block for materials from an event"),
+  attributes: {
+    title: {
+      type: "string",
+      default: "Event Materials"
+    },
+    agenda: {
+      type: "string"
+    },
+    materials: {
+      type: "string"
+    }
+  },
+  example: {
+    attributes: {}
+  },
+  edit: function (props) {
+    var attributes = props.attributes;
+    return createElement("div", null, createElement("h3", null, createElement(RichText, {
+      value: attributes.title,
+      tagName: "div",
+      className: "title",
+      onChange: title => props.setAttributes({
+        title
+      }),
+      placeholder: __("Event Materials", "ca-design-system")
+    })), createElement("div", {
+      className: "cagov-event-materials cagov-stack"
+    }, createElement("h4", null, "Agenda"), createElement(RichText, {
+      value: attributes.agenda,
+      tagName: "div",
+      className: "agenda",
+      value: attributes.agenda,
+      onChange: agenda => props.setAttributes({
+        agenda
+      }),
+      placeholder: __("Link to a plain text agenda and agenda files", "ca-design-system")
+    }), createElement("h4", null, "Materials"), createElement(RichText, {
+      value: attributes.materials,
+      tagName: "div",
+      className: "materials",
+      value: attributes.materials,
+      onChange: materials => props.setAttributes({
+        materials
+      }),
+      placeholder: __("Link to a plain text materials and materials files", "ca-design-system")
+    })));
+  }
 });
 
 /***/ }),
@@ -284,7 +393,10 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../blocks/event-detail/block.js */ "./blocks/event-detail/block.js");
 /* harmony import */ var _blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _blocks_event_materials_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../blocks/event-materials/block.js */ "./blocks/event-materials/block.js");
+/* harmony import */ var _blocks_event_materials_block_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_blocks_event_materials_block_js__WEBPACK_IMPORTED_MODULE_1__);
 // Build ES-Next Gutenberg Blocks
+
  // @TODO try keeping blocks and patterns at root and just mess around with imports here until have it worked out, then consider moving src
 
 /***/ })
