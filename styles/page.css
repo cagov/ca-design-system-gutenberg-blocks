@@ -13,7 +13,6 @@
     margin: 0 auto;
     padding-left: 15px;
     padding-right: 15px;
-    margin-bottom: 144px;
 }
 
 .single-column {
@@ -204,20 +203,63 @@ sidebar cagov-content-navigation ul li:first-child {
 
 /* CONTENT FOOTER */
 
-.content-menu-three-quarters {
+.per-page-feedback-container {
 
 }
 
-.content-menu-links {
 
+.content-footer-container {
+    border-bottom: 1px solid #EDEDEF;
+    border-top: 1px solid #EDEDEF;
+    padding-top: 23px;
+    padding-bottom: 23px;
 }
 
-.content-menu-quarter {
-
+.content-footer {
+    max-width: 1176px !important;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
-.content-menu-quarter-socialsharer-container {
+.content-footer .menu-section.menu-section-social {
+    margin-left: auto;
+    align-items: flex-end;
+}
 
+.menu-section {
+    margin-right: 24px;
+}
+
+.menu-section ul, 
+.menu-section ol {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.menu-section ul li {
+    margin-right: 24px;
+}
+
+.menu-section .content-menu-links a {
+    font-size: 18px;
+    line-height: 30px;
+    text-decoration: underline;
+    color: #064E66;
+    text-underline-offset: 2px;
+}
+
+.content-footer .logo-small {
+    width: 45px;
+    height: 45px;
+    background-color: #EDEDEF;
 }
 
 /* PAGE BEHAVIORS */
@@ -226,6 +268,7 @@ main .entry-content {
     scroll-snap-stop: always;
     overflow-y: scroll;
     /* height: 100vh; */
+    /* margin-bottom: 64px; */
 }
 
 /* TYPOGRAPHY */
@@ -403,4 +446,43 @@ main ul li {
         font-size: 16px;
         line-height: 32px;
     }
+
+    .content-footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .content-footer .logo-small {
+        margin-bottom: 16px;
+    }
+    
+    .content-footer .menu-section.menu-section-social {
+        margin-left: 0;
+        align-items: flex-start;
+    }
+
+    .menu-section ul.content-menu-links {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 0 !important;
+    }
+
+    .menu-section ul.social-links-container {
+        padding: 0 !important;
+    }
+
+    .menu-section ul.content-menu-links li {
+        margin-bottom: 16px;
+    }
+
+    .menu-section ul.content-menu-links li {
+        margin-bottom: 16px;
+        margin-right: 0px;
+    }
+
+
 }

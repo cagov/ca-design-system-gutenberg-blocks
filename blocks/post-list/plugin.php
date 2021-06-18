@@ -31,6 +31,7 @@ function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($bl
     $endpoint = $block_attributes["endpoint"];
     $readMore = $block_attributes["readMore"];
     $showExcerpt = "true";
+    $showPublishedDate = "true";
 
     return <<<EOT
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
@@ -43,6 +44,7 @@ function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($bl
                 data-order="$order"
                 data-endpoint="$endpoint"
                 data-show-excerpt="$showExcerpt"
+                data-show-published-date="$showPublishedDate"
                 >
                 </cagov-post-list>
 

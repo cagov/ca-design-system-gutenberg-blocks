@@ -214,10 +214,19 @@ class CADesignSystemGutenbergBlocks
 
         $social_links = $this->createContentSocialMenu($args);
 
-        $class = !empty($social_links) ? 'content-menu-three-quarters' : 'content-menu-full-width';
+        $class = !empty($social_links) ? 'content-footer' : 'content-footer';
         $style = '';
 
-        $nav_links = sprintf('<div class="%1$s"><ul class="content-menu-links" %2$s>%3$s</ul></div>%4$s', $class, $style, $nav_links, $social_links);
+        $per_page_feedback = "<div class=\"per-page-feedback-container\" style=\"background: background: #2F4C2C;
+\">PER PAGE FEEDBACK HERE</div>";
+
+        $logo_small = "<div class=\"logo-small\"></div>";
+
+        $nav_links = sprintf('<div class="content-footer-container"><div class="%1$s">
+            <div class="menu-section">%2$s</div>
+            <div class="menu-section"><ul class="content-menu-links" %3$s>%4$s</ul></div>
+            <div class="menu-section menu-section-social">%5$s</div>
+        </div></div>', $class,  $logo_small, $style, $nav_links, $social_links);
 
         echo $nav_links;
     }
@@ -248,9 +257,9 @@ class CADesignSystemGutenbergBlocks
             }
         }
 
-        $social_links = !empty($social_links) ? sprintf('<ul class="content-menu-quarter-socialsharer-container">%1$s</ul>', $social_links) : '';
+        $social_links = !empty($social_links) ? sprintf('<ul class="social-links-container">%1$s</ul>', $social_links) : '';
 
-        return !empty($social_links) ? sprintf('<div class="content-menu-quarter">%1$s</div>', $social_links) : $social_links;
+        return !empty($social_links) ? sprintf('%1$s', $social_links) : $social_links;
     }
 
 
