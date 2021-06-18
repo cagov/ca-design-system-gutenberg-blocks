@@ -1,3 +1,14 @@
-cagov-accordion.prog-enhanced button[aria-expanded="true"] + .accordion-card-container {
-    min-height: 100px;
+cagov-accordion.prog-enhanced button[aria-expanded="true"]+.accordion-card-container {
+  min-height: 100px;
+}
+
+cagov-accordion.prog-enhanced .accordion-card-container {
+  padding: 0 1rem;
+}
+
+cagov-accordion .accordion-card-header .block-editor-rich-text__editable.rich-text {
+  color: var(--primary-color, #064E66);
+  padding: 0 0.5rem 0 0 !important;
+  font-size: 1.125rem;
+  font-weight: bold;
 }

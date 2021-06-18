@@ -1,4 +1,4 @@
 let newScript = document.createElement("script");
 newScript.type="module";
-newScript.src = "https://files.covid19.ca.gov/js/components/accordion/v1/index.js";
+newScript.src = "https://cagov.github.io/cannabis.ca.gov/src/js/index.min.js";
 document.querySelector('head').appendChild(newScript);
