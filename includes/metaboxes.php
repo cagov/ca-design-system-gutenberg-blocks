@@ -18,7 +18,7 @@ function cagov_add_meta_boxes() {
 	/* Page Meta Box */
 	add_meta_box(
 		'cagov_page_meta_box',
-		'CADesignSystem Page Settings',
+		'CA Design System Page Settings',
 		'cagov_page_identifier_metabox_callback',
 		array( 'page', 'post' ),
 		'side',
