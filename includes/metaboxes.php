@@ -20,7 +20,7 @@ function cagov_add_meta_boxes() {
 		'cagov_page_meta_box',
 		'CA Design System Page Settings',
 		'cagov_page_identifier_metabox_callback',
-		array( 'page', 'post' ),
+		array( 'page' ),
 		'side',
 		'high'
 	);
@@ -41,7 +41,7 @@ function cagov_page_identifier_metabox_callback( $post ) {
 	?>
 
 		<label for="cagov_content_menu_sidebar">
-		<input type="checkbox" id="cagov_content_menu_sidebar" name="cagov_content_menu_sidebar"<?php print 'on' === $cagov_content_menu_sidebar ? ' checked' : ''; ?>>
+		<input type="checkbox" id="cagov_content_menu_sidebar" name="cagov_content_menu_sidebar"<?php print empty($cagov_content_menu_sidebar) || 'on' === $cagov_content_menu_sidebar ? ' checked' : ''; ?>>
 		Display Content Menu Sidebar
 		</label>
 
@@ -72,7 +72,7 @@ function cagov_save_post( $post_id, $post ) {
 		return $post_id;
 	}
 
-	$cagov_content_menu_sidebar = isset( $_POST['cagov_content_menu_sidebar'] ) ? sanitize_text_field( wp_unslash( $_POST['cagov_content_menu_sidebar'] ) ) : false;
+	$cagov_content_menu_sidebar = isset( $_POST['cagov_content_menu_sidebar'] ) ? sanitize_text_field( wp_unslash( $_POST['cagov_content_menu_sidebar'] ) ) : 'off';
 	update_post_meta( $post->ID, '_cagov_content_menu_sidebar', $cagov_content_menu_sidebar );
 
 }
