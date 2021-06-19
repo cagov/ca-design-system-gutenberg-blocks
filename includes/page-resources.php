@@ -115,10 +115,6 @@ function cagov_content_menu(){
 
     $menuitems = wp_get_nav_menu_items('content-menu');
 
-    if( empty($menuitems ) ){
-        return;
-    }
-
     foreach ($menuitems as $item) {
         if (!$item->menu_item_parent) {
             $nav_links .= sprintf(
