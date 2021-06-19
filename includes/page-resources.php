@@ -126,8 +126,13 @@ function cagov_content_menu(){
 
     /* loop thru and create a link (parent nav item only) */
     // $menuitems = wp_get_nav_menu_items($args->menu->term_id, array('order' => 'DESC'));
+    $nav_menus = get_nav_menu_locations();
 
-    $menuitems = wp_get_nav_menu_items('content-menu');
+    if( ! isset( $nav_menus['content-menu'] ) ){
+        return;
+    }
+    
+    $menuitems = wp_get_nav_menu_items($nav_menus['content-menu']);
 
     foreach ($menuitems as $item) {
         if (!$item->menu_item_parent) {

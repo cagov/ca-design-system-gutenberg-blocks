@@ -64,7 +64,7 @@ function cagov_init() {
 		require_once $file;
 	}
 
-	cagov_gutenberg_init();
+	register_nav_menu( 'content-menu', 'Content Menu' );
 }
 
 /**
