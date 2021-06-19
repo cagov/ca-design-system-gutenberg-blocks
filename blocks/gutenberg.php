@@ -5,12 +5,15 @@
  * @package CADesignSystem
  */
 
+cagov_gutenberg_init();
+
 function cagov_gutenberg_init(){
     // Load all block dependencies and files.
     cagov_load_block_dependencies();
-    cagov_gutenberg_blocks_build_scripts();
     cagov_load_block_pattern_categories();
     cagov_load_block_category();
+
+	add_action( 'wp_enqueue_scripts', 'cagov_gutenberg_blocks_build_scripts' );
 }
 
 /**
@@ -58,7 +61,7 @@ function cagov_load_block_dependencies() {
  * NOTE: This is NOT optimized for performance or file loading.
  */
 function cagov_gutenberg_blocks_build_scripts() {
-	wp_enqueue_script(
+	 wp_enqueue_script(
 		'ca-design-system-blocks',
 		CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),

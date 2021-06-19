@@ -45,6 +45,8 @@ add_action( 'wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100 );
  */
 add_action( 'admin_init', 'cagov_admin_init' );
 
+/* Include Gutenberg Functionality */
+require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/gutenberg.php';
 
 /**
  * CADesignSystem Init

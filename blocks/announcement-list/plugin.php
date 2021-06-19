@@ -88,11 +88,11 @@ function ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback(
 {
 
     $title = $block_attributes["title"];
-    $count = $block_attributes["count"];
-    $order = $block_attributes["order"];
-    $category = $block_attributes["category"];
-    $endpoint = $block_attributes["endpoint"];
-    $readMore = $block_attributes["readMore"];
+    $count = isset( $block_attributes["count"] ) ? $block_attributes["count"] : 0;
+    $order = isset( $block_attributes["order"] ) ? $block_attributes["order"] : 'desc';
+    $category = isset( $block_attributes["category"] ) ? $block_attributes["category"] : '';
+    $endpoint = isset( $block_attributes["endpoint"] ) ? $block_attributes["endpoint"] : '';
+    $readMore = isset( $block_attributes["readMore"] ) ? $block_attributes["readMore"] : '';
     $showExcerpt = "false";
     $showPublishedDate = "true";
 
