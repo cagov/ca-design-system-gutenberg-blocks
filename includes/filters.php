@@ -135,7 +135,7 @@ function cagov_post_title_class( $class ){
  */
 function cagov_page_container_class( $class ){
 	global $post;
-	$cagov_content_menu_sidebar = '';
+	$cagov_content_menu_sidebar_class = '';
 	
 	// if not FrontPage
 	if( ! is_front_page() ){
@@ -143,11 +143,11 @@ function cagov_page_container_class( $class ){
 
 		// if display content menu sidebar
 		if( 'on' === $cagov_content_menu_sidebar ){
-			$cagov_content_menu_sidebar = ' with-sidebar has-sidebar-left';
+			$cagov_content_menu_sidebar_class = ' with-sidebar has-sidebar-left';
 		}
 	}
 
-	return "page-container-ds$cagov_content_menu_sidebar" ;
+	return "page-container-ds$cagov_content_menu_sidebar_class" ;
 }
 
 
