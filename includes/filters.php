@@ -16,6 +16,8 @@ add_filter( 'post_class', 'cagov_body_class', 20 );
 /* CAWeb Theme Filters */
 add_filter( 'caweb_page_title_class', 'cagov_page_title_class');
 add_filter( 'caweb_post_title_class', 'cagov_post_title_class');
+add_filter( 'caweb_page_container_class', 'cagov_page_container_class');
+add_filter( 'caweb_main_content_class', 'cagov_main_content_class');
 
 /**
  * Overrides CAWeb Theme Custom Post Title Display Meta Data
@@ -75,27 +77,6 @@ function cagov_page_template_filter( $template ) {
 }
 
 /**
- * Filters the CAWeb Theme Page Title Class
- *
- * @param  string $class Page Title class.
- * @return string
- */
-function cagov_page_title_class( $class ){
-	return $class . ' wide-page-title';
-}
-
-/**
- * Filters the CAWeb Theme Post Title Class
- *
- * @param  string $class Post Title class.
- * @return string
- */
-function cagov_post_title_class( $class ){
-	$caweb_padding = get_option('ca_default_post_date_display', false ) ? ' pb-0' : '';
-	return $class . $caweb_padding;
-}
-
-/**
  *
  * Filters the list of CSS body class names for the current page/post.
  *
@@ -123,4 +104,72 @@ function cagov_body_class( $wp_classes ) {
 
 	/* Return filtered wp class */
 	return array_merge( $wp_classes, (array) $whitelist );
+}
+
+/**
+ * Filters the CAWeb Theme Page Title Class
+ *
+ * @param  string $class Page Title class.
+ * @return string
+ */
+function cagov_page_title_class( $class ){
+	return $class . ' wide-page-title';
+}
+
+/**
+ * Filters the CAWeb Theme Post Title Class
+ *
+ * @param  string $class Post Title class.
+ * @return string
+ */
+function cagov_post_title_class( $class ){
+	$caweb_padding = get_option('ca_default_post_date_display', false ) ? ' pb-0' : '';
+	return $class . $caweb_padding;
+}
+
+/**
+ * Filters the CAWeb Theme Page Container Class
+ *
+ * @param  string $class Page Container class.
+ * @return string
+ */
+function cagov_page_container_class( $class ){
+	global $post;
+	$cagov_content_menu_sidebar = '';
+	
+	// if not FrontPage
+	if( ! is_front_page() ){
+		$cagov_content_menu_sidebar = get_post_meta( $post->ID, '_cagov_content_menu_sidebar', true );
+
+		// if display content menu sidebar
+		if( 'on' === $cagov_content_menu_sidebar ){
+			$cagov_content_menu_sidebar = ' with-sidebar has-sidebar-left';
+		}
+	}
+
+	return "page-container-ds$cagov_content_menu_sidebar" ;
+}
+
+
+/**
+ * Filters the CAWeb Theme Main Content Class
+ *
+ * @param  string $class Main Content class.
+ * @return string
+ */
+function cagov_main_content_class( $class ){
+	global $post;
+	$main_content = ' single-column';
+	
+	// if not FrontPage
+	if( ! is_front_page() ){
+		$cagov_content_menu_sidebar = get_post_meta( $post->ID, '_cagov_content_menu_sidebar', true );
+
+		// if display content menu sidebar is enabled then not single column
+		if( 'on' === $cagov_content_menu_sidebar ){
+			$main_content = '';
+		}
+	}
+
+	return "main-content-ds$main_content";
 }

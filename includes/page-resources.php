@@ -19,6 +19,11 @@ add_action( 'caweb_pre_footer', 'cagov_content_menu' );
 function cagov_breadcrumb(){
     /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
 
+    // Dont render breadcrumbs on front page
+    if( is_front_page() ){
+        return;
+    }
+
     global $post;
 
     $separator = "<span class=\"crumb separator\">/</span>";
@@ -93,6 +98,15 @@ function cagov_breadcrumb(){
  * @return HTML
  */
 function cagov_pre_main_primary(){
+        global $post;
+
+        $cagov_content_menu_sidebar = get_post_meta( $post->ID, '_cagov_content_menu_sidebar', true );
+
+        // Dont render cagov-content-navigation sidebar on front page, 
+        // or if content navigation sidebar not enabled
+        if( 'on' !== $cagov_content_menu_sidebar || is_front_page() ){
+            return;
+        }
     ?>
     <div class="sidebar-container sticky-top" style="z-index: 1;">
         <sidebar space="0" side="left">
