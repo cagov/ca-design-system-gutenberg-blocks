@@ -41,7 +41,7 @@ function cagov_page_identifier_metabox_callback( $post ) {
 	?>
 
 		<label for="cagov_content_menu_sidebar">
-		<input type="checkbox" id="cagov_content_menu_sidebar" name="cagov_content_menu_sidebar"<?php print empty($cagov_content_menu_sidebar) || 'on' === $cagov_content_menu_sidebar ? ' checked' : ''; ?>>
+		<input type="checkbox" id="cagov_content_menu_sidebar" name="cagov_content_menu_sidebar"<?php print empty( $cagov_content_menu_sidebar ) || 'on' === $cagov_content_menu_sidebar ? ' checked' : ''; ?>>
 		Display Content Navigation Sidebar
 		</label>
 
