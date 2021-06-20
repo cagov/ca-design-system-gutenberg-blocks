@@ -6,12 +6,12 @@
  * @package CADesignSystem
  */
 
-// add_action( 'caweb_pre_main_area', 'ca_design_system_gutenberg_blocks_breadcrumb');
-// add_action( 'caweb_pre_main_primary', 'ca_design_system_gutenberg_blocks_pre_main_primary' );
-// add_action( 'caweb_pre_footer', 'ca_design_system_gutenberg_blocks_content_menu' );
+// add_action( 'caweb_pre_main_area', 'cagov_breadcrumb');
+// add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary' );
+// add_action( 'caweb_pre_footer', 'cagov_content_menu' );
 
-add_action('ca_design_system_gutenberg_blocks_breadcrumb', 'ca_design_system_gutenberg_blocks_breadcrumb');
-add_action('ca_design_system_gutenberg_blocks_content_menu', 'ca_design_system_gutenberg_blocks_content_menu');
+add_action('cagov_breadcrumb', 'cagov_breadcrumb');
+add_action('cagov_content_menu', 'cagov_content_menu');
 
 /**
  * CADesignSystem Breadcrumb
@@ -20,7 +20,7 @@ add_action('ca_design_system_gutenberg_blocks_content_menu', 'ca_design_system_g
  *
  * @return HTML
  */
-function ca_design_system_gutenberg_blocks_breadcrumb() {
+function cagov_breadcrumb() {
             /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
 
         global $post;
@@ -91,19 +91,19 @@ function ca_design_system_gutenberg_blocks_breadcrumb() {
 /**
  * CADesignSystem Pre Main Primary
  *
- * @category add_action( 'caweb_pre_main_primary', 'ca_design_system_gutenberg_blocks_pre_main_primary');
+ * @category add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary');
  * @return HTML
  */
-function ca_design_system_gutenberg_blocks_pre_main_primary() {
+function cagov_pre_main_primary() {
         global $post;
 
-        $ca_design_system_gutenberg_blocks_content_menu_sidebar = get_post_meta( $post->ID, '_ca_design_system_gutenberg_blocks_content_menu_sidebar', true );
+        $cagov_content_menu_sidebar = get_post_meta( $post->ID, '_cagov_content_menu_sidebar', true );
 
         // Dont render cagov-content-navigation sidebar on front page, post,
         // or if content navigation sidebar not enabled.
         // @TODO This logic needs to be recorded, documented for headless unless we do a simpler method of just doing templates & not adding extra logic that needs to be maintained.
 
-        if ( 'on' !== $ca_design_system_gutenberg_blocks_content_menu_sidebar || is_front_page() || is_single() ) {
+        if ( 'on' !== $cagov_content_menu_sidebar || is_front_page() || is_single() ) {
             return;
         }
     ?>
@@ -118,10 +118,10 @@ function ca_design_system_gutenberg_blocks_pre_main_primary() {
 /**
  * CADesignSystem Content Menu
  *
- * @category add_action( 'caweb_pre_footer', 'ca_design_system_gutenberg_blocks_content_menu' );
+ * @category add_action( 'caweb_pre_footer', 'cagov_content_menu' );
  * @return HTML
  */
-function ca_design_system_gutenberg_blocks_content_menu() {
+function cagov_content_menu() {
     $nav_links = '';
 
     /* loop thru and create a link (parent nav item only) */
@@ -161,7 +161,7 @@ function ca_design_system_gutenberg_blocks_content_menu() {
             </div>
             <div class="menu-section menu-section-social">
                 <?php
-                    ca_design_system_gutenberg_blocks_content_social_menu();
+                    cagov_content_social_menu();
                 ?>
             </div>
         </div>
@@ -177,7 +177,7 @@ function ca_design_system_gutenberg_blocks_content_menu() {
  *
  * @return HTML
  */
-function ca_design_system_gutenberg_blocks_content_social_menu() {
+function cagov_content_social_menu() {
     // Based on CAWeb createFooterSocialMenu.
     if ( ! function_exists( 'caweb_get_site_options' ) ) {
         return;

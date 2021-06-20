@@ -5,7 +5,7 @@
  * @package CADesignSystem
  */
 
-add_action( 'admin_menu', 'ca_design_system_gutenberg_blocks_admin_menu' );
+add_action( 'admin_menu', 'cagov_admin_menu' );
 
 /**
  * Administration Menu Setup
@@ -14,13 +14,13 @@ add_action( 'admin_menu', 'ca_design_system_gutenberg_blocks_admin_menu' );
  * @link https://developer.wordpress.org/reference/hooks/admin_menu/
  * @return void
  */
-function ca_design_system_gutenberg_blocks_admin_menu() {
+function cagov_admin_menu() {
 	add_menu_page(
 		__( 'CA Design System', 'cagov' ),
 		__( 'CA Design System', 'cagov' ),
 		'manage_options',
 		'ca-design-system',
-		'ca_design_system_gutenberg_blocks_render_admin_page',
+		'cagov_render_admin_page',
 		'dashicons-schedule',
 		3
 	);
@@ -30,15 +30,15 @@ function ca_design_system_gutenberg_blocks_admin_menu() {
 	/**
 	 * Render main landing page for CA Design System admin page.
 	 */
-function ca_design_system_gutenberg_blocks_render_admin_page() {
+function cagov_render_admin_page() {
 	$vm_nonce = wp_create_nonce( 'volunteer_match_settings' );
 
 	// if saving.
-	if ( isset( $_POST['ca_design_system_gutenberg_blocks_submit'] ) ) {
-		ca_design_system_gutenberg_blocks_save_options( $_POST );
+	if ( isset( $_POST['cagov_submit'] ) ) {
+		cagov_save_options( $_POST );
 	}
 
-	$ca_design_system_gutenberg_blocks_force_post_title = get_option( 'ca_design_system_gutenberg_blocks_force_post_title', true );
+	$cagov_force_post_title = get_option( 'cagov_force_post_title', true );
 	?>
 
 		<h2>CA Design System</h2>
@@ -53,9 +53,9 @@ function ca_design_system_gutenberg_blocks_render_admin_page() {
 
 			<form id="cagov-options-form" action="<?php print esc_url( admin_url( 'admin.php?page=ca-design-system' ) ); ?>" method="POST">
 				<div>
-				<label for="ca_design_system_gutenberg_blocks_force_post_title">Force Post/Page Title <input type="checkbox" id="ca_design_system_gutenberg_blocks_force_post_title" name="ca_design_system_gutenberg_blocks_force_post_title"<?php echo $ca_design_system_gutenberg_blocks_force_post_title ? ' checked' : ''; ?>/></label>
+				<label for="cagov_force_post_title">Force Post/Page Title <input type="checkbox" id="cagov_force_post_title" name="cagov_force_post_title"<?php echo $cagov_force_post_title ? ' checked' : ''; ?>/></label>
 				</div>
-				<input type="submit" value="Save Changes" name="ca_design_system_gutenberg_blocks_submit">
+				<input type="submit" value="Save Changes" name="cagov_submit">
 			</form>
 		</div>
 		<?php
@@ -68,6 +68,6 @@ function ca_design_system_gutenberg_blocks_render_admin_page() {
  *
  * @return void
  */
-function ca_design_system_gutenberg_blocks_save_options( $values = array() ) {
-	update_option( 'ca_design_system_gutenberg_blocks_force_post_title', isset( $values['ca_design_system_gutenberg_blocks_force_post_title'] ) );
+function cagov_save_options( $values = array() ) {
+	update_option( 'cagov_force_post_title', isset( $values['cagov_force_post_title'] ) );
 }

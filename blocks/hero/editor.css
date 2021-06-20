@@ -33,3 +33,13 @@
 .block-editor-rich-text__editable.wp-block-button__link.rich-text {
   padding: 0;
 }
+.wp-core-ui .button-group.button-large .button, 
+.wp-core-ui .button.button-large,
+.components-button .button .button-large {
+  margin: 25px;
+}
+
+.cagov-featured-section .components-button.image-button {
+  margin: 0;
+  padding: 0;
+}

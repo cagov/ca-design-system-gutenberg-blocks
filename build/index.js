@@ -150,7 +150,7 @@ var formattedTime = moment(defaultDate).startOf('hour').format("hh:mm a");
 var formattedTimePlusHour = moment(defaultDate).startOf('hour').add(moment.duration(1, 'hours')).format("hh:mm a");
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
-  icon: "universal-access-alt",
+  icon: "format-aside",
   category: "ca-design-system-utilities",
   description: __("Block for details about an event"),
   attributes: {
@@ -328,7 +328,7 @@ var __ = i18n.__;
 var el = createElement;
 blocks.registerBlockType("ca-design-system/event-materials", {
   title: __("Event Materials", "ca-design-system"),
-  icon: "universal-access-alt",
+  icon: "format-aside",
   category: "ca-design-system-utilities",
   description: __("Block for materials from an event"),
   attributes: {

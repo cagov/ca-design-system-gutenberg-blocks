@@ -23,7 +23,7 @@
 
   blocks.registerBlockType("ca-design-system/announcement-list", {
     title: __("Announcement list", "ca-design-system"),
-    icon: "universal-access-alt",
+    icon: "format-aside",
     category: "ca-design-system",
     description: __(
       'List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the "Announcement" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.',
@@ -58,15 +58,17 @@
         default: '<a href="/category/announcements">View all announcements</a>',
       },
     },
+    // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional
     example: {
       attributes: {
-        title: __("Post List title", "ca-design-system"),
-        description: __("Post List description", "ca-design-system"),
-        readMore: __("Link Text", "ca-design-system"),
-        category: __("Category to include", "ca-design-system"),
-        count: __("Number of items to display", "ca-design-system"),
-        order: __("Order of posts", "ca-design-system"),
-        endpoint: __("Endpoint to fetch data from", "ca-design-system"),
+        title: __("Announcements", "ca-design-system"),
+        category: __("announcements,press-releases", "ca-design-system"),
+        readMore: __("<a href=\"#\">View all posts</a>", "ca-design-system"),
+        order: "desc",
+        count: "3",
+        endpoint: `${siteUrl}/wp-json/wp/v2`,
+        showExcerpt: "true",
+        showPublishedDate: "true",
       },
     },
     edit: function (props) {
@@ -97,6 +99,7 @@
             "data-endpoint": attributes.endpoint,
             "data-show-excerpt" : "false",
             "data-show-published-date" : "true",
+            "data-no-results": "No results found",
           }),
           el(RichText, {
             tagName: "div",

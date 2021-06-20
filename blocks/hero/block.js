@@ -49,9 +49,10 @@
     },
     example: {
       attributes: {
-        title: __('hero title', 'cagov-design-system'),
-        body: __('hero body', 'cagov-design-system'),
-        buttontext: __('hero button text', 'cagov-design-system'),
+        title: __('Annual meeting, January 14, 2022', 'cagov-design-system'),
+        body: __('Registration opens November 5, 2022', 'cagov-design-system'),
+        buttontext: __('Register', 'cagov-design-system'),
+        buttonurl: __('https://example.com', 'cagov-design-system'),
         mediaURL: 'http://www.fillmurray.com/720/240'
       }
     },
@@ -70,7 +71,7 @@
               tagName: 'h2',
               inline: true,
               placeholder: __(
-                'Write hero title…',
+                'Write title…',
                 'cagov-design-system'
               ),
               value: attributes.title,

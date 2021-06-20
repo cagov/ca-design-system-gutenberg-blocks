@@ -14,13 +14,13 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_blocks_accordion' );
+add_action( 'init', 'cagov_accordion' );
 
-function ca_design_system_gutenberg_blocks_accordion() {
+function cagov_accordion() {
 	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
-function ca_design_system_gutenberg_blocks_accordion_dynamic_render_callback( $block_attributes, $content ) {
+function cagov_accordion_dynamic_render_callback( $block_attributes, $content ) {
 	// print_r($block_attributes);
 	$title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
 	return <<<EOT
@@ -81,7 +81,7 @@ function ca_design_system_register_accordion() {
 		'style' => 'ca-design-system-accordion-style',
     'editor_style' => 'ca-design-system-accordion-editor-style',
 		'editor_script' => 'ca-design-system-accordion',
-		'render_callback' => 'ca_design_system_gutenberg_blocks_accordion_dynamic_render_callback'
+		'render_callback' => 'cagov_accordion_dynamic_render_callback'
 	) );
 
 }

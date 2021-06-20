@@ -9,7 +9,7 @@
 
     blocks.registerBlockType( 'ca-design-system/content-footer', {
         title: __( 'Content Footer', 'ca-design-system' ),
-        icon: 'universal-access-alt',
+        icon: 'format-aside',
         category: 'ca-design-system-utilities',
         attributes: {
             title: {

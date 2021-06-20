@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_blocks_event_materials' );
+add_action( 'init', 'cagov_event_materials' );
 
-function ca_design_system_gutenberg_blocks_event_materials() {
+function cagov_event_materials() {
     load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -59,13 +59,13 @@ function ca_design_system_register_event_materials() {
         'style' => 'cagov-event-materials',
         'editor_script' => 'ca-design-system-event-materials',
         'editor_style' => 'ca-design-system-event-materials-editor',
-        'render_callback' => 'ca_design_system_gutenberg_blocks_event_materials_dynamic_render_callback'
+        'render_callback' => 'cagov_event_materials_dynamic_render_callback'
     ) );
     
 }
 
 // NOTE: This is a proof of concept, that we are just starting to research.
-function ca_design_system_gutenberg_blocks_event_materials_dynamic_render_callback($block_attributes, $content)
+function cagov_event_materials_dynamic_render_callback($block_attributes, $content)
 {
 
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";

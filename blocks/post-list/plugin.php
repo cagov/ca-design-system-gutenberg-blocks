@@ -14,14 +14,14 @@ defined('ABSPATH') || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action('init', 'ca_design_system_gutenberg_blocks_post_list');
+add_action('init', 'cagov_post_list');
 
-function ca_design_system_gutenberg_blocks_post_list()
+function cagov_post_list()
 {
     load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
 
-function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($block_attributes, $content)
+function cagov_post_list_dynamic_render_callback($block_attributes, $content)
 {
 
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
@@ -30,6 +30,7 @@ function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($bl
     $category = isset($block_attributes["category"]) ? $block_attributes["category"] : "";
     $endpoint = isset($block_attributes["endpoint"]) ? $block_attributes["endpoint"] : "";
     $readMore = isset($block_attributes["readMore"]) ? $block_attributes["readMore"] : "";
+    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noReults"] : "";
     $showExcerpt = "true";
     $showPublishedDate = "true";
 
@@ -45,6 +46,7 @@ function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($bl
                 data-endpoint="$endpoint"
                 data-show-excerpt="$showExcerpt"
                 data-show-published-date="$showPublishedDate"
+                data-no-results="$noResults"
                 >
                 </cagov-post-list>
 
@@ -62,7 +64,7 @@ function ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback($bl
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_gutenberg_blocks_register_post_list()
+function cagov_register_post_list()
 {
     if (!function_exists('register_block_type')) {
         // Gutenberg is not active.
@@ -102,12 +104,12 @@ function ca_design_system_gutenberg_blocks_register_post_list()
         'style' => 'cagov-post-list',
         'editor_style' => 'ca-design-system-post-list-editor',
         'editor_script' => 'ca-design-system-post-list',
-        'render_callback' => 'ca_design_system_gutenberg_blocks_post_list_dynamic_render_callback'
+        'render_callback' => 'cagov_post_list_dynamic_render_callback'
     ));
 }
-add_action('init', 'ca_design_system_gutenberg_blocks_register_post_list');
+add_action('init', 'cagov_register_post_list');
 
-function ca_design_system_gutenberg_blocks_register_post_list_web_component_callback()
+function cagov_register_post_list_web_component_callback()
 {
     wp_register_script(
         'ca-design-system-post-list-web-component',
@@ -127,4 +129,4 @@ function ca_design_system_gutenberg_blocks_register_post_list_web_component_call
     wp_enqueue_style('ca-design-system-post-list');
 }
 
-add_action('ca_design_system_gutenberg_blocks_register_post_list_web_component', 'ca_design_system_gutenberg_blocks_register_post_list_web_component_callback', 10, 2);
+add_action('cagov_register_post_list_web_component', 'cagov_register_post_list_web_component_callback', 10, 2);

@@ -9,7 +9,7 @@
   const ALLOWED_BLOCKS = ['ca-design-system/card'];
   blocks.registerBlockType('ca-design-system/card-grid', {
     title: 'Call to action grid',
-    icon: "universal-access-alt",
+    icon: "format-aside",
     category: 'ca-design-system',
     description: __("Automatic, organized layout for call to action buttons. Appears on the homepage. Ranked and prioritized in order of most needed service. Includes top 6 or less services. Includes \"Call to action button.\"", "ca-design-system"),
     edit: function (props) { 

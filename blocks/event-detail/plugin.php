@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_blocks_event_detail' );
+add_action( 'init', 'cagov_event_detail' );
 
-function ca_design_system_gutenberg_blocks_event_detail() {
+function cagov_event_detail() {
     load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -59,11 +59,11 @@ function ca_design_system_register_event_detail() {
         'style' => 'cagov-event-detail',
         'editor_script' => 'ca-design-system-event-detail',
         'editor_style' => 'ca-design-system-event-detail-editor',
-        'render_callback' => 'ca_design_system_gutenberg_blocks_event_detail_dynamic_render_callback'
+        'render_callback' => 'cagov_event_detail_dynamic_render_callback'
     ) );
 }
 
-function ca_design_system_gutenberg_blocks_event_detail_dynamic_render_callback($block_attributes, $content)
+function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
 {
 
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Event Details";

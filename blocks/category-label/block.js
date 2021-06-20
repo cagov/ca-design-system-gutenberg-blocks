@@ -28,7 +28,7 @@
 
   blocks.registerBlockType("ca-design-system/category-label", {
     title: __("Category Label", "ca-design-system"),
-    icon: "universal-access-alt",
+    icon: "format-aside",
     category: 'ca-design-system-utilities',
     // namespace: "CA Design System", // Version?
 
@@ -125,5 +125,5 @@
   window.wp.components,
   window._,
   window.wp.data,
-  window.ca_design_system_gutenberg_blocks_category_label_vars
+  window.cagov_category_label_vars
 );

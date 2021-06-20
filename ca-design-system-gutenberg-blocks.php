@@ -32,8 +32,8 @@ define( 'CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__FILE', __FILE__ );
  *
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference#Actions_Run_During_a_Typical_Request
  */
-add_action( 'init', 'ca_design_system_gutenberg_blocks_init' );
-add_action( 'wp_enqueue_scripts', 'ca_design_system_gutenberg_blocks_wp_enqueue_scripts', 100 );
+add_action( 'init', 'cagov_init' );
+add_action( 'wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100 );
 
 /**
  * Plugin API/Action Reference
@@ -41,7 +41,7 @@ add_action( 'wp_enqueue_scripts', 'ca_design_system_gutenberg_blocks_wp_enqueue_
  *
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference#Actions_Run_During_an_Admin_Page_Request
  */
-add_action( 'admin_init', 'ca_design_system_gutenberg_blocks_admin_init' );
+add_action( 'admin_init', 'cagov_admin_init' );
 
 /* Include Gutenberg Functionality */
 require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/gutenberg.php';
@@ -52,11 +52,11 @@ require_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/guten
  * Note, this does not just run on user-facing admin screens.
  * It runs on admin-ajax.php and admin-post.php as well.
  *
- * @category add_action( 'init', 'ca_design_system_gutenberg_blocks_init' );
+ * @category add_action( 'init', 'cagov_init' );
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/admin_init
  * @return void
  */
-function ca_design_system_gutenberg_blocks_init() {
+function cagov_init() {
 	/* Include Functionality */
 	foreach ( glob( __DIR__ . '/includes/*.php' ) as $file ) {
 		require_once $file;
@@ -72,11 +72,11 @@ function ca_design_system_gutenberg_blocks_init() {
  * Note, this does not just run on user-facing admin screens.
  * It runs on admin-ajax.php and admin-post.php as well.
  *
- * @category add_action( 'init', 'ca_design_system_gutenberg_blocks_admin_init' );
+ * @category add_action( 'init', 'cagov_admin_init' );
  * @link   https://codex.wordpress.org/Plugin_API/Action_Reference/admin_init
  * @return void
  */
-function ca_design_system_gutenberg_blocks_admin_init() {
+function cagov_admin_init() {
 	include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/core/class-ca-design-system-gutenberg-blocks-plugin-update.php';
 }
 
@@ -85,12 +85,12 @@ function ca_design_system_gutenberg_blocks_admin_init() {
  *
  * Fires when scripts and styles are enqueued.
  *
- * @category add_action( 'wp_enqueue_scripts', 'ca_design_system_gutenberg_blocks_wp_enqueue_scripts', 100 );
+ * @category add_action( 'wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100 );
  * @link https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/
  *
  * @return void
  */
-function ca_design_system_gutenberg_blocks_wp_enqueue_scripts() {
+function cagov_wp_enqueue_scripts() {
 
 	wp_register_style( 'ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.8' );
 	wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page' );

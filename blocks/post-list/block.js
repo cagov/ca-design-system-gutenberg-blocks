@@ -24,8 +24,8 @@
 
   blocks.registerBlockType("ca-design-system/post-list", {
     title: __("Post list", "ca-design-system"),
-    icon: "universal-access-alt",
-    category: "ca-design-system-utilities",
+    icon: "format-aside",
+    category: "ca-design-system",
     description: __(
       'List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the "Announcement" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.',
       "ca-design-system"
@@ -65,8 +65,14 @@
     },
     example: {
       attributes: {
-        // title: __("Post list title", "ca-design-system"),
-        // category: __("Post list categories", "ca-design-system"),
+        title: __("Events", "ca-design-system"),
+        category: __("events", "ca-design-system"),
+        readMore: __("<a href=\"#\">View all events</a>", "ca-design-system"),
+        order: "desc",
+        count: "3",
+        endpoint: `${siteUrl}/wp-json/wp/v2`,
+        showExcerpt: "false",
+        showPublishedDate: "false",
       },
     },
     edit: function (props) {

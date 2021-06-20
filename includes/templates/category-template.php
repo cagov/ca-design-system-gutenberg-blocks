@@ -19,7 +19,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
     <div class="breadcrumb">
         <?php
-        do_action("ca_design_system_gutenberg_blocks_breadcrumb");
+        do_action("cagov_breadcrumb");
         ?>
     </div>
 
@@ -35,7 +35,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                 <h1 class="page-title"><?php echo $category->name; ?></h1>
                 <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
                     <div>
-                        <cagov-post-list class="post-list" data-category="<?php echo $category->slug ?>" data-count="10" data-order="desc" data-endpoint="/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true" data-show-published-date="true">
+                        <cagov-post-list class="post-list" data-category="<?php echo $category->slug ?>" data-count="10" data-order="desc" data-endpoint="/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true" data-show-published-date="true" data-no-results="No results found">
                         </cagov-post-list>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 </div>
 
 <?php
-    do_action("ca_design_system_gutenberg_blocks_content_menu");
+    do_action("cagov_content_menu");
 ?>
 
 <?php get_footer(); ?>

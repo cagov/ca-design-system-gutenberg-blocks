@@ -9,7 +9,7 @@
 
 	blocks.registerBlockType( 'ca-design-system/highlight-box', {
 		title: __( 'Highlight Box', 'ca-design-system' ),
-		icon: 'universal-access-alt',
+		icon: 'format-aside',
 		category: 'ca-design-system',
 		attributes: {
 			title: {
