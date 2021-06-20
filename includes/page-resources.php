@@ -95,6 +95,7 @@ function cagov_breadcrumb(){
 /**
  * CADesignSystem Pre Main Primary
  *
+ * @category add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary');
  * @return HTML
  */
 function cagov_pre_main_primary(){
@@ -102,9 +103,9 @@ function cagov_pre_main_primary(){
 
         $cagov_content_menu_sidebar = get_post_meta( $post->ID, '_cagov_content_menu_sidebar', true );
 
-        // Dont render cagov-content-navigation sidebar on front page, 
+        // Dont render cagov-content-navigation sidebar on front page, post, 
         // or if content navigation sidebar not enabled
-        if( 'on' !== $cagov_content_menu_sidebar || is_front_page() ){
+        if( 'on' !== $cagov_content_menu_sidebar || is_front_page() || is_single() ){
             return;
         }
     ?>
@@ -119,6 +120,7 @@ function cagov_pre_main_primary(){
 /**
  * CADesignSystem Content Menu
  *
+ * @category add_action( 'caweb_pre_footer', 'cagov_content_menu' );
  * @return HTML
  */
 function cagov_content_menu(){
@@ -153,8 +155,7 @@ function cagov_content_menu(){
     $class = !empty($social_links) ? 'content-footer' : 'content-footer';
     $style = '';
 
-    $per_page_feedback = "<div class=\"per-page-feedback-container\" style=\"background: background: #2F4C2C;
-\">PER PAGE FEEDBACK HERE</div>";
+    $per_page_feedback = "<div class=\"per-page-feedback-container\" style=\"background: background: #2F4C2C;\">PER PAGE FEEDBACK HERE</div>";
 
     $logo_small = "<div class=\"logo-small\"><a href=\"/\"></a></div>";
 

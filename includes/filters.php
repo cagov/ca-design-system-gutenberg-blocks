@@ -15,9 +15,16 @@ add_filter( 'post_class', 'cagov_body_class', 20 );
 
 /* CAWeb Theme Filters */
 add_filter( 'caweb_page_title_class', 'cagov_page_title_class');
-add_filter( 'caweb_post_title_class', 'cagov_post_title_class');
 add_filter( 'caweb_page_container_class', 'cagov_page_container_class');
-add_filter( 'caweb_main_content_class', 'cagov_main_content_class');
+add_filter( 'caweb_page_main_content_class', 'cagov_page_main_content_class');
+
+add_filter( 'caweb_post_title_class', 'cagov_post_title_class');
+add_filter( 'caweb_post_container_class', 'cagov_post_container_class');
+add_filter( 'caweb_post_main_content_class', 'cagov_post_content_class');
+
+add_filter( 'caweb_category_template', 'cagov_category_template');
+add_filter( 'caweb_category_template_sidebar', 'cagov_category_template_sidebar');
+
 
 /**
  * Overrides CAWeb Theme Custom Post Title Display Meta Data
@@ -57,6 +64,10 @@ function cagov_register_page_post_templates( $theme_templates ) {
 function cagov_page_template_filter( $template ) {
 	global $post;
 
+	if( ! isset( $post->ID ) ){
+		return $template;
+	}
+
 	$user_selected_template = get_page_template_slug( $post->ID );
 	$file_name              = pathinfo( $user_selected_template, PATHINFO_BASENAME );
 	$template_dir           = CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'templates/';
@@ -67,10 +78,6 @@ function cagov_page_template_filter( $template ) {
 
 	if ( '' !== $user_selected_template && $is_plugin ) {
 		$template = $user_selected_template;
-	}
-
-	if ( is_category() && $is_plugin ) {
-		$template = $template_dir . 'category-template.php';
 	}
 
 	return $template;
@@ -117,17 +124,6 @@ function cagov_page_title_class( $class ){
 }
 
 /**
- * Filters the CAWeb Theme Post Title Class
- *
- * @param  string $class Post Title class.
- * @return string
- */
-function cagov_post_title_class( $class ){
-	$caweb_padding = get_option('ca_default_post_date_display', false ) ? ' pb-0' : '';
-	return $class . $caweb_padding;
-}
-
-/**
  * Filters the CAWeb Theme Page Container Class
  *
  * @param  string $class Page Container class.
@@ -150,14 +146,13 @@ function cagov_page_container_class( $class ){
 	return "page-container-ds$cagov_content_menu_sidebar_class" ;
 }
 
-
 /**
  * Filters the CAWeb Theme Main Content Class
  *
  * @param  string $class Main Content class.
  * @return string
  */
-function cagov_main_content_class( $class ){
+function cagov_page_main_content_class( $class ){
 	global $post;
 	$main_content = ' single-column';
 	
@@ -172,4 +167,72 @@ function cagov_main_content_class( $class ){
 	}
 
 	return "main-content-ds$main_content";
+}
+
+/**
+ * Filters the CAWeb Theme Post Title Class
+ *
+ * @param  string $class Post Title class.
+ * @return string
+ */
+function cagov_post_title_class( $class ){
+	$caweb_padding = get_option('ca_default_post_date_display', false ) ? ' pb-0' : '';
+	return $class . $caweb_padding;
+}
+
+/**
+ * Filters the CAWeb Theme Post Container Class
+ *
+ * @param  string $class Post Container class.
+ * @return string
+ */
+function cagov_post_container_class( $class ){
+	global $post;
+	$post_conatiner_class = '';
+	
+
+	return "page-container-ds$post_conatiner_class" ;
+}
+
+/**
+ * Filters the CAWeb Theme Post Main Content Class
+ *
+ * @param  string $class Post Main Content class.
+ * @return string
+ */
+function cagov_post_main_content_class( $class ){
+	global $post;
+	$main_content = ' single-column';
+	
+
+	return "main-content-ds$main_content";
+}
+
+/**
+ * CADesignSystem Category Template
+ *
+ * @category add_action( 'caweb_category_main_primary', 'cagov_category_main_primary');
+ * @return HTML
+ */
+function cagov_category_template( $output ){
+	global $wp_query;
+	$category = get_category(get_query_var('cat'), false);
+   
+	$page_title = sprintf('<h1 class="page-title">%1$s</h1>', $category->name);
+	$post_list = sprintf('<cagov-post-list class="post-list" data-category="%1$s" data-count="10" data-order="desc" data-endpoint="/wp-json/wp/v2" data-show-excerpt="true" data-show-paginator="true" data-show-published-date="true"></cagov-post-list>',
+		$category->slug
+	);
+	$block_div = sprintf('<div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack"><div>%1$s</div></div>', $post_list);
+
+	return sprintf('%1$s%2$s<span class="return-top hidden-print"></span>', $page_title, $block_div);
+                
+}
+
+/**
+ * CADesignSystem Category Template Sidebar
+ *
+ * @return HTML
+ */
+function cagov_category_template_sidebar( $output ){
+	return '';
 }

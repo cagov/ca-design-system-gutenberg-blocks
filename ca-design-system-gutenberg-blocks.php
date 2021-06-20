@@ -74,6 +74,7 @@ function cagov_init() {
  * Note, this does not just run on user-facing admin screens.
  * It runs on admin-ajax.php and admin-post.php as well.
  *
+ * @category add_action( 'init', 'cagov_admin_init' );
  * @link   https://codex.wordpress.org/Plugin_API/Action_Reference/admin_init
  * @return void
  */
@@ -81,17 +82,17 @@ function cagov_admin_init() {
 	include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/core/class-ca-design-system-gutenberg-blocks-plugin-update.php';
 }
 
-function cagov_wp_enqueue_scripts() {
-    global $post;
-	
-	$user_selected_template = get_page_template_slug( $post->ID );
-	$file_name              = pathinfo( $user_selected_template, PATHINFO_BASENAME );
-	$template_dir           = CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'templates/';
-
-    // Only enqueue styles on pages using plugin templates.
-	if ( ! is_dir( $template_dir . $file_name ) && file_exists( $template_dir . $file_name ) ) {
-        
-    }
+/**
+ * Register CADesignSystem scripts/styles with priority of 100
+ *
+ * Fires when scripts and styles are enqueued.
+ *
+ * @category add_action( 'wp_enqueue_scripts', 'caweb_wp_enqueue_scripts', 100 );
+ * @link https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/
+ *
+ * @return void
+ */function cagov_wp_enqueue_scripts() {
+    
 	wp_register_style( 'ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.7.2' );
     wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page' );
     
