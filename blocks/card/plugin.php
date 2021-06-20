@@ -29,9 +29,8 @@ function ca_design_system_gutenberg_blocks_card()
  */
 function ca_design_system_gutenberg_blocks_card_dynamic_render_callback($block_attributes, $content)
 {
-    // print_r($block_attributes);
-    $title = $block_attributes["title"];
-    $url = $block_attributes["url"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $url = isset($block_attributes["url"]) ? $block_attributes["url"] : null;
     return <<<EOT
         <a href="$url" class="wp-block-ca-design-system-card no-deco cagov-card">
             <span class="card-text">$title</span>

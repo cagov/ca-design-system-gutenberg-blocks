@@ -66,13 +66,13 @@ function ca_design_system_register_event_detail() {
 function ca_design_system_gutenberg_blocks_event_detail_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = $block_attributes["title"] ? $block_attributes["title"] : "Event Details";
-    $startDate = $block_attributes["startDate"];
-    $endDate = $block_attributes["endDate"];
-    $startTime = $block_attributes["startTime"];
-    $endTime = $block_attributes["endTime"];
-    $location = $block_attributes["location"];
-    $cost = $block_attributes["cost"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Event Details";
+    $startDate = isset($block_attributes["startDate"]) ? $block_attributes["startDate"] : "";
+    $endDate = isset($block_attributes["endDate"]) ? $block_attributes["$endDate"] : "";
+    $startTime = isset($block_attributes["startTime"]) ? $block_attributes["startTime"] : "";
+    $endTime = isset($block_attributes["endTime"]) ? $block_attributes["endTime"] : "";
+    $location = isset($block_attributes["location"]) ? $block_attributes["location"] : "";
+    $cost = isset($block_attributes["cost"]) ? $block_attributes["cost"] : "";
 
     return <<<EOT
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">

@@ -22,7 +22,7 @@ function ca_design_system_gutenberg_block_accordion() {
 
 function cagov_accordion_dynamic_render_callback( $block_attributes, $content ) {
 	// print_r($block_attributes);
-	$title = $block_attributes["title"];
+	$title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
 	return <<<EOT
 		<cagov-accordion>
 			<div class="cagov-accordion-card">

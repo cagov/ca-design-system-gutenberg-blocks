@@ -64,24 +64,22 @@ function ca_design_system_register_event_materials() {
     
 }
 
-
+// NOTE: This is a proof of concept, that we are just starting to research.
 function ca_design_system_gutenberg_blocks_event_materials_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = $block_attributes["title"];
-    $startDate = $block_attributes["startDate"];
-    $startTime = $block_attributes["startTime"];
-    $endTime = $block_attributes["endTime"];
-    $location = $block_attributes["location"];
-    $cost = $block_attributes["cost"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $title = isset($block_attributes["agenda"]) ? $block_attributes["agenda"] : "";
+    $title = isset($block_attributes["materials"]) ? $block_attributes["materials"] : "";
+
 
     return <<<EOT
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
         <div>
             <h3>$title</h3>
             <div class="wp-block-ca-design-system-event-materials cagov-event-materials cagov-stack">
-                <div class="startDate">$startDate</div>
-                <div class="startTime">$startTime</div>
+                <div class="agenda">$agenda</div>
+                <div class="materials">$materials</div>
             </div>
         </div>
     </div>

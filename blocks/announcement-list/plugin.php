@@ -83,16 +83,15 @@ function ca_design_system_gutenberg_blocks_register_announcement_list_web_compon
 add_action('ca_design_system_gutenberg_blocks_register_announcement_list_web_component', 'ca_design_system_gutenberg_blocks_register_announcement_list_web_component_callback', 10, 2);
 
 
-
 function ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = $block_attributes["title"];
-    $count = $block_attributes["count"];
-    $order = $block_attributes["order"];
-    $category = $block_attributes["category"];
-    $endpoint = $block_attributes["endpoint"];
-    $readMore = $block_attributes["readMore"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $count = isset( $block_attributes["count"] ) ? $block_attributes["count"] : 0;
+    $order = isset( $block_attributes["order"] ) ? $block_attributes["order"] : 'desc';
+    $category = isset( $block_attributes["category"] ) ? $block_attributes["category"] : '';
+    $endpoint = isset( $block_attributes["endpoint"] ) ? $block_attributes["endpoint"] : '';
+    $readMore = isset( $block_attributes["readMore"] ) ? $block_attributes["readMore"] : '';
     $showExcerpt = "false";
     $showPublishedDate = "true";
 
