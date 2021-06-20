@@ -21,7 +21,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
     <div class="breadcrumb">
         <?php
         // @TODO update function to render web component if we build it OR export compiled breadcrumb markup or JSON to WP API
-        do_action("ca_design_system_breadcrumb");
+        do_action("ca_design_system_gutenberg_blocks_breadcrumb");
         ?>
     </div>
 
@@ -30,13 +30,13 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
         <div class="narrow-page-title">
             <?php
             if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
+                esc_html(the_title('<h1 class="page-title">', '</h1>'));
             }
             ?>
         </div>
 
 
-        <div class="sidebar-container sticky-top">
+        <div class="sidebar-container sticky-top" style="z-index: 1;">
             <sidebar space="0" side="left">
                 <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
             </sidebar>
@@ -55,7 +55,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                         <?php
 
                         if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                            esc_html(the_title(sprintf('<h1 class="wide-page-title page-title%1$s">', $caweb_padding), '</h1>'));
+                            esc_html(the_title('<h1 class="wide-page-title page-title">', '</h1>'));
                         }
 
 
@@ -79,7 +79,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 </div>
 
 <?php
-    do_action("ca_design_system_content_menu");
+    do_action("ca_design_system_gutenberg_blocks_content_menu");
 ?>
 
 <?php get_footer(); ?>

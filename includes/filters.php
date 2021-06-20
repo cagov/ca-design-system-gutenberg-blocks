@@ -36,9 +36,9 @@ add_filter( 'caweb_category_template_sidebar', 'ca_design_system_gutenberg_block
  * @return string
  */
 function ca_design_system_gutenberg_blocks_modify_ca_custom_post_title_display( $metadata, $object_id, $meta_key ) {
-	if ( 'ca_custom_post_title_display' === $meta_key && get_option( 'ca_design_system_gutenberg_blocks_force_post_title', true ) ) {
-		return 'on';
-	}
+	// if ( 'ca_custom_post_title_display' === $meta_key && get_option( 'ca_design_system_gutenberg_blocks_force_post_title', true ) ) {
+	// 	return 'on';
+	// }
 	return $metadata;
 }
 
@@ -75,6 +75,8 @@ function ca_design_system_gutenberg_blocks_page_template_filter( $template ) {
 	$file_name              = pathinfo( $user_selected_template, PATHINFO_BASENAME );
 	$template_dir           = CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'templates/';
 
+
+	$is_plugin = false;
 	if ( file_exists( $template_dir . $file_name ) ) {
 		$is_plugin = true;
 	}

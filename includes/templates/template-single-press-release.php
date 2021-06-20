@@ -20,7 +20,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
     <div class="breadcrumb">
         <?php
-        do_action("ca_design_system_breadcrumb");
+        do_action("ca_design_system_gutenberg_blocks_breadcrumb");
         ?>
     </div>
 
@@ -85,7 +85,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
 
 <?php
-do_action("ca_design_system_content_menu");
+do_action("ca_design_system_gutenberg_blocks_content_menu");
 ?>
 
 <?php get_footer(); ?>

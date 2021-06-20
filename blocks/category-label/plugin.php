@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_category_label' );
+add_action( 'init', 'ca_design_system_gutenberg_blocks_category_label' );
 
-function ca_design_system_gutenberg_block_category_label() {
+function ca_design_system_gutenberg_blocks_category_label() {
 	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 

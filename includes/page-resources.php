@@ -6,9 +6,12 @@
  * @package CADesignSystem
  */
 
-add_action( 'caweb_pre_main_area', 'ca_design_system_gutenberg_blocks_breadcrumb');
-add_action( 'caweb_pre_main_primary', 'ca_design_system_gutenberg_blocks_pre_main_primary' );
-add_action( 'caweb_pre_footer', 'ca_design_system_gutenberg_blocks_content_menu' );
+// add_action( 'caweb_pre_main_area', 'ca_design_system_gutenberg_blocks_breadcrumb');
+// add_action( 'caweb_pre_main_primary', 'ca_design_system_gutenberg_blocks_pre_main_primary' );
+// add_action( 'caweb_pre_footer', 'ca_design_system_gutenberg_blocks_content_menu' );
+
+add_action('ca_design_system_gutenberg_blocks_breadcrumb', 'ca_design_system_gutenberg_blocks_breadcrumb');
+add_action('ca_design_system_gutenberg_blocks_content_menu', 'ca_design_system_gutenberg_blocks_content_menu');
 
 /**
  * CADesignSystem Breadcrumb
@@ -18,87 +21,71 @@ add_action( 'caweb_pre_footer', 'ca_design_system_gutenberg_blocks_content_menu'
  * @return HTML
  */
 function ca_design_system_gutenberg_blocks_breadcrumb() {
-    /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
+            /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
 
-    // Dont render breadcrumbs on front page.
-    if ( is_front_page() ) {
-        return;
-    }
+        global $post;
 
-    global $post;
+        $separator = "<span class=\"crumb separator\">/</span>";
+        $linkOff = true;
 
-    $separator = '<span class="crumb separator">/</span>';
-    $link_off  = true;
+        // @TODO Iterate through footer menu (or any menus) to locate links.
+        // $supported_menus = array('header-menu', 'footer-menu'); 
 
-    // @TODO Iterate through footer menu (or any menus) to locate links.
-    // $supported_menus = array('header-menu', 'footer-menu');
+        $items = wp_get_nav_menu_items('header-menu');
 
-    $items = wp_get_nav_menu_items( 'header-menu' );
+        _wp_menu_item_classes_by_context($items); // Set up the class variables, including current-classes
 
-    _wp_menu_item_classes_by_context( $items ); // Set up the class variables, including current-classes.
+        // @TODO Move default breadcrumbs to plugin settings
 
-    // @TODO Move default breadcrumbs to plugin settings
+        $crumbs = array(
+            "<a class=\"crumb\" href=\"https:\/\/ca.gov\" title=\"CA.GOV\">CA.GOV</a>",
+            "<a class=\"crumb\" href=\"/\" title=\"" . get_bloginfo('name') . "\">" . get_bloginfo('name') . "</a>"
+        );
 
-    $crumbs = array(
-        '<a class="crumb" href="https:\/\/ca.gov" title="CA.GOV">CA.GOV</a>',
-        '<a class="crumb" href="/" title="' . get_bloginfo( 'name' ) . '">' . get_bloginfo( 'name' ) . '</a>',
-    );
-
-    foreach ( $items as $item ) {
-        if ( $item->current_item_ancestor ) {
-            if ( true === $link_off ) {
-                $crumbs[] = "<span class=\"crumb\">{$item->title}</span>";
-            } else {
-                $crumbs[] = "<a class=\"crumb\" href=\"{$item->url}\" title=\"{$item->title}\">{$item->title}</a>";
+        foreach ($items as $item) {
+            if ($item->current_item_ancestor) {
+                if ($linkOff == true) {
+                    $crumbs[] = "<span class=\"crumb\">{$item->title}</span>";
+                } else {
+                    $crumbs[] = "<a class=\"crumb\" href=\"{$item->url}\" title=\"{$item->title}\">{$item->title}</a>";
+                }
+            } else if ($item->current) {
+                $crumbs[] = "<span class=\"crumb current\">{$item->title}</span>";
             }
-        } elseif ( $item->current ) {
-            $crumbs[] = "<span class=\"crumb current\">{$item->title}</span>";
         }
-    }
 
-    if ( is_category() ) {
-        global $wp_query;
-        $category = get_category( get_query_var( 'cat' ), false );
-        $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
-    }
+        // if (is_category()) {
+        //     global $wp_query;
+        //     $category = get_category(get_query_var('cat'), false);
+        //     $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
+        // }
 
-    // @TODO STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
-    // Configuration note: requires that a menu item link to a category page.
-    if ( 2 === count( $crumbs ) && ! is_category() ) {
-        $category = get_the_category( $post->ID );
+        // @TODO STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
 
-        // Get category menu item from original menu item.
-        $category_menu_item_found = false;
+        // Configuration note: requires that a menu item link to a category page.
+        if (count($crumbs) == 2 && !is_category()) {
+            $category = get_the_category($post->ID);
 
-        foreach ( $items as $category_item ) {
-            if ( 'Category' === $category_item->type_label ) { // or ->type == "taxonomy".
-                if ( $category[0]->name === $category_item->title ) {
-                    $crumbs[]                 = '<span class="crumb current">' . $category_item->title . '</span>';
-                    $category_menu_item_found = true;
+            // Get category menu item from original menu item
+            $category_menu_item_found = false;
+
+            foreach ($items as $category_item) {
+                if ($category_item->type_label == "Category") { // or ->type == "taxonomy"
+                    if ($category[0]->name == $category_item->title) {
+                        $crumbs[] = "<span class=\"crumb current\">" . $category_item->title . "</span>";
+                        $category_menu_item_found = true;
+                    }
                 }
             }
-        }
 
-        // If not found, just use the category name.
-        if ( $category[0] && false === $category_menu_item_found ) {
-            $crumbs[] = '<span class="crumb current">' . $category[0]->name . '</span>';
-        }
-    }
-
-    ?>
-    <div class="breadcrumb">
-        <?php echo implode( $separator, $crumbs ); ?>
-    </div>
-
-    <div class="narrow-page-title">
-            <?php
-            if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                esc_html(the_title('<h1 class="page-title">', '</h1>'));
+            // If not found, just use the category name
+            if ($category[0] && $category_menu_item_found == false) {
+                $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
             }
-            ?>      
-    </div>
+        }
 
-<?php
+        echo implode($separator, $crumbs);
+    
 }
 
 /**

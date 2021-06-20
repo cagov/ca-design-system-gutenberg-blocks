@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_card_grid' );
+add_action( 'init', 'ca_design_system_gutenberg_blocks_card_grid' );
 
-function ca_design_system_gutenberg_block_card_grid() {
+function ca_design_system_gutenberg_blocks_card_grid() {
 	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
