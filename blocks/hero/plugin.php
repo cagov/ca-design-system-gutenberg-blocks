@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_design_system_gutenberg_block_hero' );
+add_action( 'init', 'ca_design_system_gutenberg_blocks_design_system_gutenberg_block_hero' );
 
-function cagov_design_system_gutenberg_block_hero() {
+function ca_design_system_gutenberg_blocks_design_system_gutenberg_block_hero() {
 	load_plugin_textdomain( 'cagov-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function cagov_design_system_gutenberg_block_hero() {
  *
  * Passes translations to JavaScript.
  */
-function cagov_design_system_register_hero() {
+function ca_design_system_gutenberg_blocks_design_system_register_hero() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -61,4 +61,4 @@ function cagov_design_system_register_hero() {
 	) );
 
 }
-add_action( 'init', 'cagov_design_system_register_hero' );
+add_action( 'init', 'ca_design_system_gutenberg_blocks_design_system_register_hero' );

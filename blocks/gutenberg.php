@@ -5,21 +5,21 @@
  * @package CADesignSystem
  */
 
-cagov_gutenberg_init();
+ca_design_system_gutenberg_blocks_gutenberg_init();
 
-function cagov_gutenberg_init(){
+function ca_design_system_gutenberg_blocks_gutenberg_init(){
     // Load all block dependencies and files.
-    cagov_load_block_dependencies();
-    cagov_load_block_pattern_categories();
-    cagov_load_block_category();
+    ca_design_system_gutenberg_blocks_load_block_dependencies();
+    ca_design_system_gutenberg_blocks_load_block_pattern_categories();
+    ca_design_system_gutenberg_blocks_load_block_category();
 
-	add_action( 'wp_enqueue_scripts', 'cagov_gutenberg_blocks_build_scripts' );
+	add_action( 'wp_enqueue_scripts', 'ca_design_system_gutenberg_blocks_gutenberg_blocks_build_scripts' );
 }
 
 /**
  * Load all patterns and blocks.
  */
-function cagov_load_block_dependencies() {
+function ca_design_system_gutenberg_blocks_load_block_dependencies() {
 	// Load patterns, order of loading is order of appearance in patterns list.
 
 	include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/event-post/plugin.php';
@@ -60,7 +60,7 @@ function cagov_load_block_dependencies() {
  *
  * NOTE: This is NOT optimized for performance or file loading.
  */
-function cagov_gutenberg_blocks_build_scripts() {
+function ca_design_system_gutenberg_blocks_gutenberg_blocks_build_scripts() {
 	 wp_enqueue_script(
 		'ca-design-system-blocks',
 		CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
@@ -107,7 +107,7 @@ function cagov_gutenberg_blocks_build_scripts() {
 /**
  * Register Custom Block Pattern Category.
  */
-function cagov_load_block_pattern_categories() {
+function ca_design_system_gutenberg_blocks_load_block_pattern_categories() {
 	if ( function_exists( 'register_block_pattern_category' ) ) {
 		register_block_pattern_category(
 			'ca-design-system',
@@ -119,7 +119,7 @@ function cagov_load_block_pattern_categories() {
 /**
  * Register Custom Block Category.
  */
-function cagov_load_block_category() {
+function ca_design_system_gutenberg_blocks_load_block_category() {
 	// This doesn't load a normal plugin function (probably syntax recommendation or scoping issue.)
 	add_filter(
 		'block_categories',
