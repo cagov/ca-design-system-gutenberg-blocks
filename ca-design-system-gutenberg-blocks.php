@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: CA Design System Gutenberg Blocks
  * Plugin URI: https://github.com/cagov/ca-design-system-gutenberg-blocks
@@ -11,7 +10,6 @@
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
  *
- * @category CADesignSystem
  * @package  CADesignSystem
  * @author   Office of Digital Innovation <info@digital.ca.gov>
  * @license  https://opensource.org/licenses/MIT MIT
@@ -22,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Constants
+// Constants.
 define( 'CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.7' );
 define( 'CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL', plugin_dir_url( __FILE__ ) );
@@ -87,16 +85,17 @@ function cagov_admin_init() {
  *
  * Fires when scripts and styles are enqueued.
  *
- * @category add_action( 'wp_enqueue_scripts', 'caweb_wp_enqueue_scripts', 100 );
+ * @category add_action( 'wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100 );
  * @link https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/
  *
  * @return void
- */function cagov_wp_enqueue_scripts() {
-    
+ */
+function cagov_wp_enqueue_scripts() {
+
 	wp_register_style( 'ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.7.2' );
-    wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page' );
-    
-    wp_register_style( 'ca-design-system-gutenberg-blocks-announcement', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/announcement.css', false, '1.0.6' );
-    wp_enqueue_style( 'ca-design-system-gutenberg-blocks-announcement' ); // Default post
+	wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page' );
+
+	wp_register_style( 'ca-design-system-gutenberg-blocks-announcement', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/announcement.css', false, '1.0.6' );
+	wp_enqueue_style( 'ca-design-system-gutenberg-blocks-announcement' ); // Default post.
 
 }
