@@ -24,17 +24,6 @@ function cagov_add_meta_boxes() {
         'side',
         'high'
     );
-
-    add_meta_box(
-        'cagov_page_meta_box',
-        'CA Design System Page Alert',
-        'cagov_page_alert_identifier_metabox_callback',
-        array( 'page' ),
-        'side',
-        'high'
-    );
-
-
 }
 
 /**
