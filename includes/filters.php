@@ -85,29 +85,11 @@ function cagov_page_template_filter( $template ) {
 		$template = $user_selected_template;
 	}
 
-
-
-
-
-    // $user_selected_template = get_page_template_slug($post->ID);
-    //     $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
-    //     $template_dir = $this->template_dir;
-
-    //     if (file_exists($template_dir . $file_name)) {
-    //         $is_plugin = true;
-    //     }
-
-    //     if ($user_selected_template != '' and $is_plugin) {
-    //         $template = $user_selected_template;
-    //     }
-
+	// @TODO Review differences
+    //     $template_dir = $this->template_dir;  
     //     if (is_category() and $is_plugin) {
     //         $template = $this->template_dir . 'category-template.php';
     //     }
-
-
-
-
 	return $template;
 }
 
