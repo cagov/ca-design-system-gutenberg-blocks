@@ -2,10 +2,32 @@
  * CAGov Page Alert
  *
  */
- ( function( blocks, editor, i18n, element, components, _ ) {
+ ( function( blocks, editor, i18n, element, components, _, compose ) {
     var __ = i18n.__;
     var el = element.createElement;
     var RichText = editor.RichText;
+
+    var { SelectControl } = components;
+    // var { withState } = compose;
+     
+    // const SelectIcon = withState( {
+    //     icon: 'bell',
+    // } )( ( { size, setState } ) => (
+    //     <SelectControl
+    //         label="Icon"
+    //         value={ icon }
+    //         options={ [
+    //             { label: 'Bell', value: 'bell' },
+    //         ] }
+    //         onChange={ ( icon ) => {
+    //             setState( { icon } );
+    //         } }
+    //     />
+    // ) );
+
+
+
+
 
     blocks.registerBlockType( 'ca-design-system/page-alert', {
         title: __( 'Page Alert', 'ca-design-system' ),
@@ -14,68 +36,47 @@
         description: __("A departmental alert box. Appears on this website, beneath the site navigation on the homepage. Provides brief, important or time-sensitive information. It can include a hyperlink, but not a button or image.", "ca-design-system"),
         attributes: {
             icon: {
-                type: 'array',
-                source: 'children',
-                selector: 'span.icon',
+                type: 'string',
             },
             body: {
-                type: 'array',
-                source: 'children',
-                selector: 'p',
+                type: 'string'
             }
         },
         example: {
             attributes: {
-                icon: __( 'Icon', 'ca-design-system' ),
-                body: __( 'Card body', 'ca-design-system' )
+                icon: __( 'bell', 'ca-design-system' ),
+                body: __( 'We’re accepting applications for regulatory relief due to COVID-19. <a href="#">Find out how to apply.</a>', 'ca-design-system' )
             }
         },
         edit: function( props ) {
             var attributes = props.attributes;
-
             return el(
                 'div',
                 { className: 'cagov-page-alert cagov-stack' },
-                el( RichText, {
-                    tagName: 'span',
-                    className: 'icon',
+                el(SelectControl, {
+                    label: "Icon",
                     inline: true,
-                    placeholder: __(
-                        'Insert icon',
-                        'ca-design-system'
-                    ),
+                    className: "icon-select",
                     value: attributes.icon,
+                    options: [
+                        { label: 'None', value: '' },
+                        { label: 'Bell', value: 'bell' },
+                    ],
                     onChange: function( value ) {
                         props.setAttributes( { icon: value } );
                     },
-                } ),
+                }),
                 el( RichText, {
                     tagName: 'p',
                     inline: true,
                     placeholder: __(
-                        'Write page-alert message',
+                        'Write page alert message',
                         'ca-design-system'
                     ),
                     value: attributes.body,
                     onChange: function( value ) {
                         props.setAttributes( { body: value } );
                     },
-                } )
-            );
-        },
-        save: function(props) {
-            var attributes = props.attributes;
-            return el(
-                'div',
-                { className: 'cagov-page-alert cagov-stack' },
-                el( RichText.Content, {
-                    tagName: 'span',
-                    className: 'icon',
-                    value: attributes.icon,
-                } ),
-                el( RichText.Content, {
-                    tagName: 'p',
-                    value: attributes.body,
                 } )
             );
         },
@@ -86,5 +87,6 @@
     window.wp.i18n,
     window.wp.element,
     window.wp.components,
-    window._
+    window._,
+    window.wp.compose
 );
