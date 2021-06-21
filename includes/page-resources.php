@@ -146,15 +146,12 @@ function cagov_content_menu()
         $image_meta = caweb_get_attachment_post_meta($org_footer_logo, '_wp_attachment_metadata');
 
         $image = wp_get_attachment_image_src($org_footer_logo_filename, 'full');
-        // Using original size
-
         $uploads = wp_upload_dir(); 
         
         $image_url = esc_url( $uploads['baseurl'] . "/" . $image_meta['file'] );
         $image_width = $image_meta['width'];
         $image_height = $image_meta['height'];
     }
-
 ?>
     <div class="content-footer-container">
         <div class="content-footer">
@@ -245,139 +242,3 @@ function cagov_content_social_menu()
 <?php
 }
 
-//Adding the Open Graph in the Language Attributes
-// function cagov_add_opengraph_doctype( $output ) {
-//     return $output . ' xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"';
-// }
-// add_filter('language_attributes', 'cagov_add_opengraph_doctype');
-
-function cagov_content_og_tags()
-{
-
-    // Current CA Web og tags (None. is a plugin typically recommended to CA Web customers?)
-    // Name	Content
-    // Author	State of California
-    // charset	utf-8
-    // Description	State of California
-    // generator	CAWeb v.1.5.5
-    // generator	WordPress 5.7.2
-    // google-site-verification	001779225245372747843:9s-idxui5pk
-    // HandheldFriendly	True
-    // Keywords	California, government
-    // MobileOptimized	320
-    // robots	noindex, nofollow
-    // viewport	width=device-width, initial-scale=1.0, minimum-scale=1.0
-
-    // theme-color
-    // manifest
-    // shortcut icon
-    // echo '<meta http-equiv="X-UA-Compatible" content="IE=Edge" />';
-
-    // Dependency:
-    $caweb_social_options = caweb_get_site_options('social');
-
-    $twitterCreator = false;
-    if (get_option($caweb_social_options['Twitter'], false)) {
-        $twitterCreator = get_option($caweb_social_options['Twitter'], false);
-    }
-    global $post;
-    if (!is_singular()) //if it is not a post or a page
-        return;
-
-    // echo '<meta property="fb:app_id" content="Your Facebook App ID" />'; // @TODO Needs to be a setting & we don't have a FB App Id - should be optional
-
-    echo '<meta property="og:title" content="' . get_the_title() . '"/>';
-    echo '<meta property="og:type" content="article"/>';
-    echo '<meta property="og:url" content="' . get_permalink() . '"/>';
-    echo '<meta property="og:site_name" content="' . get_bloginfo('', 'name') . '"/>';
-
-
-    // echo '<meta property="og:description" content="' . get_bloginfo('', 'description') . '"/>';
-    // Or excerpt
-    echo '<meta property="og:description" content="' . get_the_excerpt() . '"/>';
-
-    // Q: default cagov twitter account?
-
-    if ($twitterCreator) {
-        echo '<meta name="twitter:site" content="' . $twitterCreator . '" />';
-        echo '<meta name="twitter:creator" content="' . $twitterCreator . '" />';
-    }
-    echo '<meta name="twitter:url" content="' . get_permalink() . '" />';
-    echo '<meta name="twitter:title" content="' . get_bloginfo('', 'name') . '" />';
-    echo '<meta name="twitter:description" content="' . get_the_excerpt() . '" />';
-    echo '<meta name="twitter:card" content="summary_large_image" />';
-    echo '<link rel="canonical" href="' . get_permalink() . '" />';
-
-    // 1200/630
-
-    if (!has_post_thumbnail($post->ID)) {
-        // Default image handling for image and twitter cards
-
-        // Organization Social Media Image.
-        $org_social_media_image = get_option('header_ca_social_media_image', '');
-
-        $org_social_media_image_filename = !empty($org_social_media_image) ? substr($org_social_media_image, strrpos($org_social_media_image, '/') + 1) : '';
-
-        // Organization Social Media Image Alt Text.
-        $org_social_media_image_alt_text = '';
-        if (!empty($org_social_media_image)) {
-            $org_social_media_image_alt_text = !empty(get_option('header_ca_social_media_image_alt_text', '')) ? get_option('header_ca_social_media_image_alt_text') : caweb_get_attachment_post_meta($org_social_media_image, '_wp_attachment_image_alt');
-
-            $image_meta = caweb_get_attachment_post_meta($org_social_media_image, '_wp_attachment_metadata');
-            // echo '<pre>' ;
-            // print_r($image_meta) ;
-            // echo '</pre>';
-
-            $image = wp_get_attachment_image_src($org_social_media_image_filename, 'full');
-            // print_r($image);
-            // Using original size
-            $image_url = $image_meta['file'];
-            $image_width = $image_meta['width'];
-            $image_height = $image_meta['height'];
-
-            // Use default image
-            $default_image = $image_url;
-            echo '<meta property="og:image" content="' . $org_social_media_image . '"/>';
-            echo '<meta property="og:image:width" content="' . $image_width . '"/>';
-            echo '<meta property="og:image:height" content="' . $image_height . '"/>';
-        }
-        // og:image:alt
-    } else {
-        $image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'medium');
-        $image_url = $image[0];
-        $image_width = $image[1];
-        $image_height = $image[2];
-        echo '<meta property="og:image" content="' . $image_url . '"/>';
-        echo '<meta property="og:image:width" content="' . $image_width . '"/>';
-        echo '<meta property="og:image:height" content="' . $image_height . '"/>';
-        // og:image:alt
-    }
-}
-
-/**
- * CA Web header has hard coded default site metadata.
- * This function 
- *
- * @return void
- */
-function cagov_fix_header_meta()
-{
-
-    // Future possibility: before header, update the app icon, to be able to test & review with communities.
-
-    // This could be a sitewide setting & accept a high res images that uses an image cropping tool to generate all the variants for new images (if it doesn't already)
-
-    // $caweb_apple_icon = CAWEB_URI . '/images/system/apple-touch-icon';
-
-
-    echo '<meta name="author" content="' . get_bloginfo('', 'name') . ' | State of California" />';
-
-    echo '<meta name="description" content="' . get_bloginfo('', 'description') . '" />';
-
-    // @TODO Are keywords set anywhere in the theme? If so, append.
-    // echo '<meta name="keywords" content="California, government' . $keywords .  '" />';
-}
-
-add_action('wp_head', 'cagov_content_og_tags');
-// This double renders values og:description is correct for social media. Need to check with Twitter card.
-add_action('wp_head', 'cagov_fix_header_meta');
