@@ -61,6 +61,10 @@
                     options: [
                         { label: 'None', value: '' },
                         { label: 'Bell', value: 'bell' },
+                        { label: 'Warning', value: 'warning' },
+                        { label: 'Question', value: 'editor-help' },
+                        { label: 'Flag', value: 'flag' },
+                        { label: 'Star', value: 'star-filled' },
                     ],
                     onChange: function( value ) {
                         props.setAttributes( { icon: value } );

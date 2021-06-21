@@ -68,7 +68,6 @@ add_action('init', 'ca_design_system_register_page_alert');
 
 function cagov_page_alert_dynamic_render_callback($block_attributes, $content)
 {
-
     $body = isset($block_attributes["body"]) ? $block_attributes["body"] : "";
     $icon = isset($block_attributes["icon"]) ? $block_attributes["icon"] : "";
     
