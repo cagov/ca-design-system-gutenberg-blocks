@@ -48,11 +48,21 @@
                 body: __( 'We’re accepting applications for regulatory relief due to COVID-19. <a href="#">Find out how to apply.</a>', 'ca-design-system' )
             }
         },
+        supports: {
+            // html: false,
+            reusable: false,
+            multiple: false,
+            inserter: true
+          },
         edit: function( props ) {
             var attributes = props.attributes;
             return el(
                 'div',
                 { className: 'cagov-page-alert cagov-stack' },
+                el(
+                    'span',
+                    { className: `dashicons dashicons-${attributes.icon}`  },
+                ),
                 el(SelectControl, {
                     label: "Icon",
                     inline: true,
@@ -72,6 +82,7 @@
                 }),
                 el( RichText, {
                     tagName: 'p',
+                    className: "message-body",
                     inline: true,
                     placeholder: __(
                         'Write page alert message',
