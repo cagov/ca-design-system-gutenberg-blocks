@@ -252,11 +252,11 @@ function cagov_content_og_tags()
     // echo '<meta http-equiv="X-UA-Compatible" content="IE=Edge" />';
 
     // Dependency:
-    $caweb_social_options = caweb_get_site_options( 'social' );
+    $caweb_social_options = caweb_get_site_options('social');
 
     $twitterCreator = false;
-    if ( get_option( $caweb_social_options['Twitter'], false ) ) {
-        $twitterCreator = get_option( $caweb_social_options['Twitter'], false );
+    if (get_option($caweb_social_options['Twitter'], false)) {
+        $twitterCreator = get_option($caweb_social_options['Twitter'], false);
     }
     global $post;
     if (!is_singular()) //if it is not a post or a page
@@ -269,6 +269,7 @@ function cagov_content_og_tags()
     echo '<meta property="og:url" content="' . get_permalink() . '"/>';
     echo '<meta property="og:site_name" content="' . get_bloginfo('', 'name') . '"/>';
 
+
     // echo '<meta property="og:description" content="' . get_bloginfo('', 'description') . '"/>';
     // Or excerpt
     echo '<meta property="og:description" content="' . get_the_excerpt() . '"/>';
@@ -277,10 +278,9 @@ function cagov_content_og_tags()
 
     if ($twitterCreator) {
         echo '<meta name="twitter:site" content="' . $twitterCreator . '" />';
-        echo '<meta name="twitter:creator" content="' . $twitterCreator . '" />'; 
+        echo '<meta name="twitter:creator" content="' . $twitterCreator . '" />';
     }
     echo '<meta name="twitter:url" content="' . get_permalink() . '" />';
-
     echo '<meta name="twitter:title" content="' . get_bloginfo('', 'name') . '" />';
     echo '<meta name="twitter:description" content="' . get_the_excerpt() . '" />';
     echo '<meta name="twitter:card" content="summary_large_image" />';
@@ -290,25 +290,45 @@ function cagov_content_og_tags()
 
     if (!has_post_thumbnail($post->ID)) {
         // Default image handling for image and twitter cards
-        $logo = get_theme_mod('custom_logo');
-        $image = wp_get_attachment_image_src($logo, 'full');
-        $image_url = $image[0];
-        $image_width = $image[1];
-        $image_height = $image[2];
 
-        // Use default image
-        $default_image = $image_url;
-        echo '<meta property="og:image" content="' . $image_url . '"/>';
-        echo '<meta property="og:image:width" content="' . $image_width . '"/>';
-        echo '<meta property="og:image:height" content="' . $image_height . '"/>';
+        // Organization Social Media Image.
+        $org_social_media_image = get_option('header_ca_social_media_image', '');
+
+        $org_social_media_image_filename = !empty($org_social_media_image) ? substr($org_social_media_image, strrpos($org_social_media_image, '/') + 1) : '';
+
+        // Organization Social Media Image Alt Text.
+        $org_social_media_image_alt_text = '';
+        if (!empty($org_social_media_image)) {
+            $org_social_media_image_alt_text = !empty(get_option('header_ca_social_media_image_alt_text', '')) ? get_option('header_ca_social_media_image_alt_text') : caweb_get_attachment_post_meta($org_social_media_image, '_wp_attachment_image_alt');
+
+            $image_meta = caweb_get_attachment_post_meta($org_social_media_image, '_wp_attachment_metadata');
+            // echo '<pre>' ;
+            // print_r($image_meta) ;
+            // echo '</pre>';
+
+            $image = wp_get_attachment_image_src($org_social_media_image_filename, 'full');
+            // print_r($image);
+            // Using original size
+            $image_url = $image_meta['file'];
+            $image_width = $image_meta['width'];
+            $image_height = $image_meta['height'];
+
+            // Use default image
+            $default_image = $image_url;
+            echo '<meta property="og:image" content="' . $org_social_media_image . '"/>';
+            echo '<meta property="og:image:width" content="' . $image_width . '"/>';
+            echo '<meta property="og:image:height" content="' . $image_height . '"/>';
+        }
+        // og:image:alt
     } else {
-        $image =wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'medium');
+        $image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'medium');
         $image_url = $image[0];
         $image_width = $image[1];
         $image_height = $image[2];
         echo '<meta property="og:image" content="' . $image_url . '"/>';
         echo '<meta property="og:image:width" content="' . $image_width . '"/>';
         echo '<meta property="og:image:height" content="' . $image_height . '"/>';
+        // og:image:alt
     }
 }
 
@@ -318,38 +338,24 @@ function cagov_content_og_tags()
  *
  * @return void
  */
-function cagov_fix_header_meta() {
+function cagov_fix_header_meta()
+{
 
     // Future possibility: before header, update the app icon, to be able to test & review with communities.
 
     // This could be a sitewide setting & accept a high res images that uses an image cropping tool to generate all the variants for new images (if it doesn't already)
-    
+
     // $caweb_apple_icon = CAWEB_URI . '/images/system/apple-touch-icon';
 
-    
+
     echo '<meta name="author" content="' . get_bloginfo('', 'name') . ' | State of California" />';
-    
-	echo '<meta name="description" content="' . get_bloginfo('', 'description') . '" />';
+
+    echo '<meta name="description" content="' . get_bloginfo('', 'description') . '" />';
 
     // @TODO Are keywords set anywhere in the theme? If so, append.
-	// echo '<meta name="keywords" content="California, government' . $keywords .  '" />';
+    // echo '<meta name="keywords" content="California, government' . $keywords .  '" />';
 }
 
 add_action('wp_head', 'cagov_content_og_tags');
 // This double renders values og:description is correct for social media. Need to check with Twitter card.
 add_action('wp_head', 'cagov_fix_header_meta');
-
-add_filter('robots_txt', 'custom_robots_txt', 10,  2);
-
-function custom_robots_txt($output, $public) {
-
-    $robots_txt =  "User-agent: Twitterbot \n";
-    $robots_txt =  "Disallow: * \n";
-    $robots_txt =  "Allow: /wp-content/uploads/* \n";
-
-    $robots_txt =  "User-agent: facebookexternalhit \n";
-    $robots_txt =  "Allow: /wp-content/uploads/* \n";
-
-    return $robots_txt;
-}
-

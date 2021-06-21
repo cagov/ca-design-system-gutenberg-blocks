@@ -8,11 +8,8 @@
 }
 
 .editor-styles-wrapper .cagov-page-alert {
-    height: 64px;
-}
-
-.editor-styles-wrapper .icon  {
-    
+    min-height: 64px;
+    height: auto;
 }
 
 .cagov-page-alert {
@@ -22,7 +19,8 @@
     padding: 8px 16px;
     
     width: 100%;
-    height: 46px;
+    min-height: 46px;
+    height: auto;
     
     background: rgba(254, 192, 47, 0.2);
     border: 1px solid #FEC02F;
@@ -42,4 +40,11 @@
 .cagov-page-alert .body {
     line-height: 1.5rem;
     padding: 0 16px;
+}
+
+@media only screen and (max-width: 600px) {
+    .cagov-page-alert {
+        min-height: 46px;
+        height: auto;
+    }
 }
