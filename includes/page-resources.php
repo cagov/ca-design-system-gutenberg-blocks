@@ -133,12 +133,34 @@ function cagov_content_menu()
         return;
     }
 
+    // Organization Footer Logo Image
+    $org_footer_logo = get_option('header_ca_footer_logo', '');
+
+    $org_footer_logo_filename = !empty($org_footer_logo) ? substr($org_footer_logo, strrpos($org_footer_logo, '/') + 1) : '';
+
+    // Organization Footer Logo Alt Text
+    $org_footer_logo_alt_text = '';
+    if (!empty($org_footer_logo)) {
+        $org_footer_logo_alt_text = !empty(get_option('header_ca_footer_logo_alt_text', '')) ? get_option('header_ca_footer_logo_alt_text') : caweb_get_attachment_post_meta($org_footer_logo, '_wp_attachment_image_alt');
+
+        $image_meta = caweb_get_attachment_post_meta($org_footer_logo, '_wp_attachment_metadata');
+
+        $image = wp_get_attachment_image_src($org_footer_logo_filename, 'full');
+        // Using original size
+
+        $uploads = wp_upload_dir(); 
+        
+        $image_url = esc_url( $uploads['baseurl'] . "/" . $image_meta['file'] );
+        $image_width = $image_meta['width'];
+        $image_height = $image_meta['height'];
+    }
+
 ?>
     <div class="content-footer-container">
         <div class="content-footer">
             <div class="menu-section">
                 <div class="logo-small">
-                    <a href="/"></a>
+                    <a href="/"><img src="<?php echo $image_url ?>" alt="<?php echo $org_footer_logo_alt_text ?>" /></a>
                 </div>
             </div>
             <div class="menu-section">
