@@ -338,3 +338,18 @@ function cagov_fix_header_meta() {
 add_action('wp_head', 'cagov_content_og_tags');
 // This double renders values og:description is correct for social media. Need to check with Twitter card.
 add_action('wp_head', 'cagov_fix_header_meta');
+
+add_filter('robots_txt', 'custom_robots_txt', 10,  2);
+
+function custom_robots_txt($output, $public) {
+
+    $robots_txt =  "User-agent: Twitterbot \n";
+    $robots_txt =  "Disallow: * \n";
+    $robots_txt =  "Allow: /wp-content/uploads/* \n";
+
+    $robots_txt =  "User-agent: facebookexternalhit \n";
+    $robots_txt =  "Allow: /wp-content/uploads/* \n";
+
+    return $robots_txt;
+}
+
