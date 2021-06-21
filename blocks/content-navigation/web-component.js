@@ -108,7 +108,7 @@ class CAGovContentNavigation extends window.HTMLElement {
   outliner(content) {
     let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
     let output = ``;
-    if (headers !== undefined && headers !== null && headers.length > 1) {
+    if (headers !== undefined && headers !== null && headers.length > 0) {
       headers.forEach((tag) => {
         let tagId = tag.getAttribute("id");
         let title = tag.innerHTML;

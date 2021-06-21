@@ -71,8 +71,8 @@ function cagov_breadcrumb()
         $category_menu_item_found = false;
 
         foreach ($items as $category_item) {
-            if ($category_item->type_label == "Category") { // or ->type == "taxonomy"
-                if ($category[0]->name == $category_item->title) {
+            if (isset($category_item->type_label) && $category_item->type_label === "Category") { // or ->type == "taxonomy"
+                if (isset($category[0]->name) && $category[0]->name == $category_item->title) {
                     $crumbs[] = "<span class=\"crumb current\">" . $category_item->title . "</span>";
                     $category_menu_item_found = true;
                 }
@@ -80,7 +80,7 @@ function cagov_breadcrumb()
         }
 
         // If not found, just use the category name
-        if ($category[0] && $category_menu_item_found == false) {
+        if (isset($category[0]) && $category[0] && $category_menu_item_found == false) {
             $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
         }
     }
