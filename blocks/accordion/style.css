@@ -2,10 +2,10 @@
 
 cagov-accordion .cagov-accordion-card {
   border-radius: 0 !important;
-  border: solid 1px #EDEDEF;
   margin-bottom: 0;
   min-height: 3rem;
   margin-top: 1rem;
+  border: solid 1px #ededef !important;
 }
 
 cagov-accordion .accordion-card-container {
