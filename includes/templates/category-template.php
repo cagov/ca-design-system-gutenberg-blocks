@@ -1,7 +1,6 @@
 <?php
-/*
- * Template Name: Category Page
- * Template Post Type: page
+/* 
+ * This template is used to render categories with the post-list web component.
  */
 ?>
 
