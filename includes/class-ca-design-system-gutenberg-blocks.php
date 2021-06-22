@@ -49,9 +49,6 @@ class CADesignSystemGutenbergBlocks
         $this->ca_design_system_gutenberg_blocks_build_scripts();
         $this->_load_block_pattern_categories();
         $this->_load_block_category();
-
-        add_action('ca_design_system_breadcrumb', array($this, 'ca_design_system_content_breadcrumb_callback'));
-        add_action('ca_design_system_content_menu', array($this, 'ca_design_system_content_content_menu_callback'));
     }
 
     /**
@@ -65,8 +62,7 @@ class CADesignSystemGutenbergBlocks
 
         // CA Design System: Utilities blocks
         // These appear in child patterns, content editors do not need to interact with these.
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/breadcrumb/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/category-label/plugin.php';
+
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-navigation/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/event-detail/plugin.php';
         include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/event-materials/plugin.php';
@@ -89,9 +85,11 @@ class CADesignSystemGutenbergBlocks
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/agenda/plugin.php';
 
         // Still a little unclear if these would be used:
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/button/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/menu-cards/plugin.php';
-        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/header-image/plugin.php';
+
+        // For alternate approach with pattern construction
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/breadcrumb/plugin.php';
+        // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/category-label/plugin.php';
     }
 
     /**
@@ -298,10 +296,7 @@ class CADesignSystemGutenbergBlocks
             }
         }
 
-        print_r("cat");
-        print_r("is cat" . is_category());
         if (is_category()) {
-            echo " cat" ;
             global $wp_query;
             $category = get_category(get_query_var('cat'), false);
             $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
