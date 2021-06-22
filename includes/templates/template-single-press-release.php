@@ -18,11 +18,9 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
 <div id="page-container" class="page-container-ds">
 
-    <div class="breadcrumb">
-        <?php
+    <?php
         do_action("cagov_breadcrumb");
-        ?>
-    </div>
+    ?>
 
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
         <div>

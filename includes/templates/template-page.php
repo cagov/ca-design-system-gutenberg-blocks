@@ -18,12 +18,9 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
 <div id="page-container" class="with-sidebar has-sidebar-left page-container-ds">
 
-    <div class="breadcrumb">
-        <?php
-        // @TODO update function to render web component if we build it OR export compiled breadcrumb markup or JSON to WP API
+    <?php
         do_action("cagov_breadcrumb");
-        ?>
-    </div>
+    ?>
 
     <div id="main-content" class="main-content-ds" tabindex="-1">
 
@@ -36,7 +33,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
         </div>
 
 
-        <div class="sidebar-container sticky-top" style="z-index: 1;">
+        <div class="sidebar-container" style="z-index: 1;">
             <sidebar space="0" side="left">
                 <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
             </sidebar>

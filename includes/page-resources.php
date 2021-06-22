@@ -84,7 +84,7 @@ function cagov_breadcrumb()
         }
     }
 
-    echo implode($separator, $crumbs);
+    echo '<div class="breadcrumb">' . implode($separator, $crumbs) . '</div>';
 }
 
 /**
@@ -107,7 +107,7 @@ function cagov_pre_main_primary()
         return;
     }
 ?>
-    <div class="sidebar-container sticky-top" style="z-index: 1;">
+    <div class="sidebar-container" style="z-index: 1;">
         <sidebar space="0" side="left">
             <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
         </sidebar>

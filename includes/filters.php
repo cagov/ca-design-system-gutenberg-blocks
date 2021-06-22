@@ -167,7 +167,7 @@ function cagov_page_container_class( $class ) {
  */
 function cagov_page_main_content_class( $class ) {
 	global $post;
-	$main_content = ' single-column';
+	$main_content = ' single-column-default';
 
 	// if not FrontPage.
 	if ( ! is_front_page() ) {
@@ -179,7 +179,7 @@ function cagov_page_main_content_class( $class ) {
 		}
 	}
 
-	return "main-content-ds$main_content";
+	return "main-content-default$main_content";
 }
 
 /**
@@ -203,9 +203,9 @@ function cagov_post_title_class( $class ) {
  */
 function cagov_post_container_class( $class ) {
 	global $post;
-	$post_conatiner_class = '';
+	$post_container_class = '';
 
-	return "page-container-ds$post_conatiner_class";
+	return "page-container-default$post_container_class";
 }
 
 /**
@@ -217,9 +217,9 @@ function cagov_post_container_class( $class ) {
  */
 function cagov_post_main_content_class( $class ) {
 	global $post;
-	$main_content = ' single-column';
+	$main_content = ' single-column-default';
 
-	return "main-content-ds$main_content";
+	return "main-content-default$main_content";
 }
 
 /**

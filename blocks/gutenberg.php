@@ -67,18 +67,15 @@ function cagov_gutenberg_blocks_build_scripts() {
 		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),
 	);
 
-	// Styles broken... needed? (can't tell yet, too many things moving)
-	// Add global CSS
-	// wp_register_style(
-	// 'ca-design-system-global-styles',
-	// CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/style.css',
-	// array(),
-	// filemtime(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/style.css')
-	// );
-	// wp_enqueue_style('ca-design-system-global-styles');
-
 	if ( ! is_admin() ) {
 		/* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
+
+		// wp_enqueue_script(
+		// 	'ca-design-system-npm-web-components-bundle',
+		// 	"https://cagov.github.io/cannabis.ca.gov/src/js/index.min.js",
+		// 	array(),
+		// );
+
 		wp_enqueue_script(
 			'ca-design-system-blocks',
 			CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
@@ -88,21 +85,40 @@ function cagov_gutenberg_blocks_build_scripts() {
 		/**
 		 * Register web-component from Block child plugins.
 		 * Plugins creates hooks that lets us load that component as needed.
+		 * As design system converges, these web components will move into full design system & bundle.
+		 * For Wordpress iteration and development of the components, blocks can include actions to include web component code.
 		 */
 		do_action( 'cagov_register_announcement_list_web_component' );
 		do_action( 'cagov_register_post_list_web_component' );
 		do_action( 'cagov_register_content_navigation_web_component' );
-	} else {
-		// Add global admin & editor styles
-		// Breaks page silently, no errors
-		// wp_register_style(
-		// 'ca-design-system-global-styles-editor',
-		// CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css',
-		// array()
-		// );
-		// wp_enqueue_style('ca-design-system-global-styles-editor');
 	}
 }
+
+/**
+ * Add compiled external web components (for rapid development without requiring plugin release)
+ *
+ * @param [type] $tag
+ * @param [type] $handle
+ * @param [type] $src
+ * @return void
+ */
+// function cagov_add_type_attribute($tag, $handle, $src) {
+//     // if not your script, do nothing and return original $tag
+//     if ( 'ca-design-system-externally-compiled-developement-web-components' !== $handle ) {
+//         return $tag;
+//     }
+
+// 	// Override This snippet is inserted into the custom js section of the WordPress CAWeb theme in order to deliver the bundle of client side web components. 
+// 	// This bundle is created in the github.com/cagov/cannabis.ca.gov repository.
+// 	// let newScript = document.createElement("script");
+// 	// newScript.type="module";
+// 	// newScript.src = "https://cagov.github.io/cannabis.ca.gov/src/js/index.min.js";
+// 	// document.querySelector('head').appendChild(newScript);
+
+//     // change the script tag by adding type="module" and return it.
+//     $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
+//     return $tag;
+// }
 
 /**
  * Register Custom Block Pattern Category.
