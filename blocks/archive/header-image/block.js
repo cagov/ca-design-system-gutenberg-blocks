@@ -9,7 +9,7 @@
 
 	blocks.registerBlockType( 'ca-design-system/header-image', {
 		title: __( 'Header Image', 'ca-design-system' ),
-		icon: 'universal-access-alt',
+		icon: 'format-aside',
 		category: 'ca-design-system',
 		attributes: {
 			title: {

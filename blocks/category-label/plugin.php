@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_category_label' );
+add_action( 'init', 'cagov_category_label' );
 
-function ca_design_system_gutenberg_block_category_label() {
+function cagov_category_label() {
 	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -49,7 +49,7 @@ function ca_design_system_register_category_label() {
 		'hide_empty' => false,
 	));
 	
-	wp_localize_script('ca-design-system-category-label', 'ca_design_system_gutenberg_blocks_category_label_vars', array(
+	wp_localize_script('ca-design-system-category-label', 'cagov_category_label_vars', array(
 			'terms' => $terms
 		)
 	);

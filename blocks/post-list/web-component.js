@@ -11,6 +11,7 @@ class CAGovPostList extends window.HTMLElement {
     this.count = this.dataset.count || "10";
     this.category = this.dataset.category || "announcements,press-releases";
     this.showExcerpt = this.dataset.showExcerpt || true;
+    this.noResults = this.dataset.noResults || "No results found";
     this.showPublishedDate = this.dataset.showPublishedDate || true;
     this.type = this.dataset.type || "wordpress";
     if (this.type === "wordpress") {
@@ -83,6 +84,8 @@ class CAGovPostList extends window.HTMLElement {
         );
         return `<div class="post-list-items">${renderedPosts.join("")}</div>`;
       }
+    } else {
+      return `<div class="no-results">${this.noResults}</div>`;
     }
     return null;
   }

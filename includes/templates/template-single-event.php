@@ -43,7 +43,7 @@ function getCustomBlock($blockObject, $blockName)
     return false;
 }
 
-function ca_design_system_gutenberg_blocks_event_schema($post)
+function cagov_event_schema($post)
 {
     $name = $post->post_title;
 
@@ -176,7 +176,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
     <div class="breadcrumb">
         <?php
-        do_action("ca_design_system_breadcrumb");
+        do_action("cagov_breadcrumb");
         ?>
     </div>
 
@@ -207,7 +207,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                             ?>
                         </article>
 
-                        <?php echo ca_design_system_gutenberg_blocks_event_schema($post) ?>
+                        <?php echo cagov_event_schema($post) ?>
 
                     <?php endwhile; ?>
                     <span class="return-top hidden-print"></span>
@@ -221,7 +221,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 </div>
 
 <?php
-    do_action("ca_design_system_content_menu");
+    do_action("cagov_content_menu");
 ?>
 
 <?php get_footer(); ?>

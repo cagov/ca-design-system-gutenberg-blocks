@@ -15,6 +15,7 @@
   blocks.registerBlockType('cagov/hero', {
     title: __('Feature card', 'cagov-design-system'),
     category: 'ca-design-system',
+    icon: "format-aside",
     description: __("Featured content space. Appears on the homepage. Calls attention to a web page, announcement or event. Includes title text, brief description, image, and a button.", "ca-design-system"),
     attributes: {
       title: {
@@ -49,9 +50,10 @@
     },
     example: {
       attributes: {
-        title: __('hero title', 'cagov-design-system'),
-        body: __('hero body', 'cagov-design-system'),
-        buttontext: __('hero button text', 'cagov-design-system'),
+        title: __('Annual meeting, January 14, 2022', 'cagov-design-system'),
+        body: __('Registration opens November 5, 2022', 'cagov-design-system'),
+        buttontext: __('Register', 'cagov-design-system'),
+        buttonurl: __('https://example.com', 'cagov-design-system'),
         mediaURL: 'http://www.fillmurray.com/720/240'
       }
     },
@@ -70,7 +72,7 @@
               tagName: 'h2',
               inline: true,
               placeholder: __(
-                'Write hero title…',
+                'Write title…',
                 'cagov-design-system'
               ),
               value: attributes.title,

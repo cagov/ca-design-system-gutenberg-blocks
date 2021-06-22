@@ -36,7 +36,7 @@ var el = createElement;
 
 blocks.registerBlockType("ca-design-system/event-materials", {
   title: __("Event Materials", "ca-design-system"),
-  icon: "universal-access-alt",
+  icon: "format-aside",
   category: "ca-design-system-utilities",
   description: __("Block for materials from an event"),
   attributes: {

@@ -9,15 +9,16 @@
  * @package ca-design-system
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_page_alert' );
+add_action('init', 'cagov_page_alert');
 
-function ca_design_system_gutenberg_block_page_alert() {
-	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
+function cagov_page_alert()
+{
+    load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
 
 /**
@@ -26,39 +27,53 @@ function ca_design_system_gutenberg_block_page_alert() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_page_alert() {
+function ca_design_system_register_page_alert()
+{
 
-	if ( ! function_exists( 'register_block_type' ) ) {
-		// Gutenberg is not active.
-		return;
-	}
+    if (!function_exists('register_block_type')) {
+        // Gutenberg is not active.
+        return;
+    }
 
-	// Register custom web component
-	wp_register_script(
-		'ca-design-system-page-alert-web-component',
-		plugins_url( 'web-component.js', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
-	);
+    // Register custom web component
+    wp_register_script(
+        'ca-design-system-page-alert-web-component',
+        plugins_url('web-component.js', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+    );
 
-	wp_register_script(
-		'ca-design-system-page-alert',
-		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-page-alert-web-component' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
-	);
+    wp_register_script(
+        'ca-design-system-page-alert',
+        plugins_url('block.js', __FILE__),
+        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-page-alert-web-component'),
+        filemtime(plugin_dir_path(__FILE__) . 'block.js'),
+    );
 
-	wp_register_style(
-		'ca-design-system-page-alert',
-		plugins_url( 'style.css', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-	);
+    wp_register_style(
+        'ca-design-system-page-alert',
+        plugins_url('style.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'style.css')
+    );
 
-	register_block_type( 'ca-design-system/page-alert', array(
-		'style' => 'cagov-page-alert',
-		'editor_script' => 'ca-design-system-page-alert',
-	) );
-
+    register_block_type('ca-design-system/page-alert', array(
+        'style' => 'ca-design-system-page-alert',
+        'editor_style' => 'ca-design-system-page-alert',
+        'editor_script' => 'ca-design-system-page-alert',
+        'render_callback' => 'cagov_page_alert_dynamic_render_callback',
+    ));
 }
-add_action( 'init', 'ca_design_system_register_page_alert' );
+add_action('init', 'ca_design_system_register_page_alert');
+
+function cagov_page_alert_dynamic_render_callback($block_attributes, $content)
+{
+    $body = isset($block_attributes["body"]) ? $block_attributes["body"] : "";
+    $icon = isset($block_attributes["icon"]) ? $block_attributes["icon"] : "";
+    
+    return sprintf('<div class="wp-block-ca-design-system-page-alert cagov-page-alert cagov-stack">
+        <div class="icon"><span class="dashicons dashicons-%1$s"></span></div>
+        <div class="body">%2$s</div>
+        <div class="close-button"><span class="dashicons dashicons-close"></span></div>
+    </div>', $icon, $body);
+}

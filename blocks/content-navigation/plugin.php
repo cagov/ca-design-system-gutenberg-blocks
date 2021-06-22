@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_content_navigation' );
+add_action( 'init', 'cagov_content_navigation' );
 
-function ca_design_system_gutenberg_block_content_navigation() {
+function cagov_content_navigation() {
 	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function ca_design_system_gutenberg_block_content_navigation() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_gutenberg_blocks_register_content_navigation() {
+function cagov_register_content_navigation() {
 
 	if ( ! function_exists( 'register_block_type' ) ) {
 		// Gutenberg is not active.
@@ -61,9 +61,9 @@ function ca_design_system_gutenberg_blocks_register_content_navigation() {
 	) );
 
 }
-add_action( 'init', 'ca_design_system_gutenberg_blocks_register_content_navigation' );
+add_action( 'init', 'cagov_register_content_navigation' );
 
-function ca_design_system_gutenberg_blocks_register_content_navigation_web_component_callback()
+function cagov_register_content_navigation_web_component_callback()
 {
 	// @TODO move into content-navigation
 	wp_register_script(
@@ -76,4 +76,4 @@ function ca_design_system_gutenberg_blocks_register_content_navigation_web_compo
 	wp_enqueue_script('ca-design-system-content-navigation-web-component');
 }
 
-add_action('ca_design_system_gutenberg_blocks_register_content_navigation_web_component', 'ca_design_system_gutenberg_blocks_register_content_navigation_web_component_callback', 10, 2);
+add_action('cagov_register_content_navigation_web_component', 'cagov_register_content_navigation_web_component_callback', 10, 2);

@@ -12,7 +12,7 @@
 
   blocks.registerBlockType("ca-design-system/content-navigation", {
     title: __("Content Navigation", "ca-design-system"),
-    icon: "universal-access-alt",
+    icon: "format-aside",
     description: __("Render content header tags."),
     category: "ca-design-system-utilities",
     attributes: {},
@@ -21,9 +21,9 @@
     },
     supports: {
       html: false,
-      // reusable: false,
-      // multiple: false,
-      // inserter: false
+      reusable: false,
+      multiple: false,
+      inserter: false
     },
     edit: function (props) {
       var attributes = props.attributes;

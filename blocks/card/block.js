@@ -13,7 +13,7 @@
 
   blocks.registerBlockType('ca-design-system/card', {
     title: __('Call to action button', 'ca-design-system'),
-    icon: 'universal-access-alt',
+    icon: 'format-aside',
     category: 'ca-design-system',
     description: __("Button that highlights common user needs. Appears on the homepage. Provides a link to a webpage where people can take action with the department. Includes a text label and link.  Copy writing tip: Ideally starts with a verb.", "ca-design-system"),
     attributes: {

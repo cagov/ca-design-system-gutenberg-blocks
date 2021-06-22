@@ -14,9 +14,9 @@ defined('ABSPATH') || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action('init', 'ca_design_system_gutenberg_blocks_card');
+add_action('init', 'cagov_card');
 
-function ca_design_system_gutenberg_blocks_card()
+function cagov_card()
 {
     load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
@@ -27,11 +27,10 @@ function ca_design_system_gutenberg_blocks_card()
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_gutenberg_blocks_card_dynamic_render_callback($block_attributes, $content)
+function cagov_card_dynamic_render_callback($block_attributes, $content)
 {
-    // print_r($block_attributes);
-    $title = $block_attributes["title"];
-    $url = $block_attributes["url"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $url = isset($block_attributes["url"]) ? $block_attributes["url"] : null;
     return <<<EOT
         <a href="$url" class="wp-block-ca-design-system-card no-deco cagov-card">
             <span class="card-text">$title</span>
@@ -40,7 +39,7 @@ function ca_design_system_gutenberg_blocks_card_dynamic_render_callback($block_a
     EOT;
 }
 
-function ca_design_system_gutenberg_blocks_register_card()
+function cagov_register_card()
 {
 
     if (!function_exists('register_block_type')) {
@@ -73,7 +72,7 @@ function ca_design_system_gutenberg_blocks_register_card()
         'style' => 'ca-design-system-card',
         'editor_style' => 'ca-design-system-card-editor',
         'editor_script' => 'california-design-system',
-        'render_callback' => 'ca_design_system_gutenberg_blocks_card_dynamic_render_callback'
+        'render_callback' => 'cagov_card_dynamic_render_callback'
     ));
 }
-add_action('init', 'ca_design_system_gutenberg_blocks_register_card');
+add_action('init', 'cagov_register_card');

@@ -41,7 +41,7 @@ var formattedTimePlusHour = moment(defaultDate).startOf('hour').add(moment.durat
 
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
-  icon: "universal-access-alt",
+  icon: "format-aside",
   category: "ca-design-system-utilities",
   description: __("Block for details about an event"),
   attributes: {

@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_announcement_list' );
+add_action( 'init', 'cagov_announcement_list' );
 
-function ca_design_system_gutenberg_block_announcement_list() {
+function cagov_announcement_list() {
     load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -58,14 +58,14 @@ function ca_design_system_register_announcement_list() {
     register_block_type( 'ca-design-system/announcement-list', array(
         'style' => 'cagov-announcement-list',
         'editor_script' => 'ca-design-system-announcement-list',
-        'render_callback' => 'ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback'
+        'render_callback' => 'cagov_announcement_dynamic_render_callback'
     ) );
 }
 
 add_action( 'init', 'ca_design_system_register_announcement_list' );
 
 
-function ca_design_system_gutenberg_blocks_register_announcement_list_web_component_callback()
+function cagov_register_announcement_list_web_component_callback()
 {
 
     // Depends on post-list component.
@@ -80,19 +80,19 @@ function ca_design_system_gutenberg_blocks_register_announcement_list_web_compon
     wp_enqueue_style('ca-design-system-announcement-list');
 }
 
-add_action('ca_design_system_gutenberg_blocks_register_announcement_list_web_component', 'ca_design_system_gutenberg_blocks_register_announcement_list_web_component_callback', 10, 2);
+add_action('cagov_register_announcement_list_web_component', 'cagov_register_announcement_list_web_component_callback', 10, 2);
 
 
-
-function ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback($block_attributes, $content)
+function cagov_announcement_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = $block_attributes["title"];
-    $count = $block_attributes["count"];
-    $order = $block_attributes["order"];
-    $category = $block_attributes["category"];
-    $endpoint = $block_attributes["endpoint"];
-    $readMore = $block_attributes["readMore"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $count = isset( $block_attributes["count"] ) ? $block_attributes["count"] : 0;
+    $order = isset( $block_attributes["order"] ) ? $block_attributes["order"] : 'desc';
+    $category = isset( $block_attributes["category"] ) ? $block_attributes["category"] : '';
+    $endpoint = isset( $block_attributes["endpoint"] ) ? $block_attributes["endpoint"] : '';
+    $readMore = isset( $block_attributes["readMore"] ) ? $block_attributes["readMore"] : '';
+    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noReults"] : "";
     $showExcerpt = "false";
     $showPublishedDate = "true";
 
@@ -108,6 +108,7 @@ function ca_design_system_gutenberg_blocks_announcement_dynamic_render_callback(
                 data-endpoint="$endpoint"
                 data-show-excerpt="$showExcerpt"
                 data-show-published-date="$showPublishedDate"
+                data-no-results="$noResults"
             >
             </cagov-post-list>
 

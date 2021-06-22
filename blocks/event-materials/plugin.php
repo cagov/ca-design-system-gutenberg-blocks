@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'ca_design_system_gutenberg_block_event_materials' );
+add_action( 'init', 'cagov_event_materials' );
 
-function ca_design_system_gutenberg_block_event_materials() {
+function cagov_event_materials() {
     load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -59,29 +59,27 @@ function ca_design_system_register_event_materials() {
         'style' => 'cagov-event-materials',
         'editor_script' => 'ca-design-system-event-materials',
         'editor_style' => 'ca-design-system-event-materials-editor',
-        'render_callback' => 'ca_design_system_gutenberg_blocks_event_materials_dynamic_render_callback'
+        'render_callback' => 'cagov_event_materials_dynamic_render_callback'
     ) );
     
 }
 
-
-function ca_design_system_gutenberg_blocks_event_materials_dynamic_render_callback($block_attributes, $content)
+// NOTE: This is a proof of concept, that we are just starting to research.
+function cagov_event_materials_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = $block_attributes["title"];
-    $startDate = $block_attributes["startDate"];
-    $startTime = $block_attributes["startTime"];
-    $endTime = $block_attributes["endTime"];
-    $location = $block_attributes["location"];
-    $cost = $block_attributes["cost"];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $title = isset($block_attributes["agenda"]) ? $block_attributes["agenda"] : "";
+    $title = isset($block_attributes["materials"]) ? $block_attributes["materials"] : "";
+
 
     return <<<EOT
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
         <div>
             <h3>$title</h3>
             <div class="wp-block-ca-design-system-event-materials cagov-event-materials cagov-stack">
-                <div class="startDate">$startDate</div>
-                <div class="startTime">$startTime</div>
+                <div class="agenda">$agenda</div>
+                <div class="materials">$materials</div>
             </div>
         </div>
     </div>
