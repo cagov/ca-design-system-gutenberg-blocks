@@ -95,6 +95,11 @@ function cagov_wp_enqueue_scripts() {
 	wp_register_style( 'ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.8' );
 	wp_enqueue_style( 'ca-design-system-gutenberg-blocks-page' );
 
+	// if (!is_admin()) {
+	// 	wp_register_style( 'ca-design-system-gutenberg-blocks-editor', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css', false, '1.0.8' );
+	// 	wp_enqueue_style( 'ca-design-system-gutenberg-blocks-editor' );
+	// }
+
 }
 
 if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader')) {

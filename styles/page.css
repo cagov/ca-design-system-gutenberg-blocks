@@ -14,15 +14,8 @@
  Additionally Custom Gutenberg blocks may have additional styles.
  Any imported Web components may also be bundled with their CSS.
 
- :root {
-  --primary-color: #064e66;
-  --primary-hover-color: #043747;
-  --standout-color: #2f4c2c;
-  --standout-hover-color: #21351f;
-  --secondary-color: #cf5d28;
-  --highlight-color: #fdb81e;
-}
 */
+
 
 /* PAGE CONTAINER */
 /* Design system page container */
