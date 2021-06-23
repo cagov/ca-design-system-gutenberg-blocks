@@ -16,13 +16,11 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 ?>
 
 <div id="page-container" class="page-container-ds">
-
-    <?php
-        do_action("cagov_breadcrumb");
-    ?>
-
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
-        <div>
+        <?php
+            do_action("cagov_breadcrumb");
+        ?>
+        <div class="ds-content-layout">
             <main class="main-primary">
 
                 <?php

@@ -114,8 +114,6 @@ class CAGovPostList extends window.HTMLElement {
     }
 
     let getExcerpt = this.showExcerpt === "true" ? `<div class="excerpt"><p>${excerpt.rendered}</p></div>` : ``;
-
-    console.log("this.showPublishedDate", this.showPublishedDate);
     let getDate = this.showPublishedDate === "true" ? `<div class="date">${dateFormatted}</div>` : ``;
 
     return `<div class="post-list-item">

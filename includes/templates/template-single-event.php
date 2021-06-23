@@ -173,20 +173,24 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 ?>
 
 <div id="page-container" class="page-container-ds">
-
-    <?php
-    do_action("cagov_breadcrumb");
-    ?>
-
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
-        <div>
+        <?php
+            do_action("cagov_breadcrumb");
+        ?>
+        <div class="ds-content-layout">
             <main class="main-primary">
-                <?php
-                while (have_posts()) :
-                    the_post();
-                ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                        <category-label><?php the_category(); ?></category-label>
+                <div>
+                    <?php
+                    while (have_posts()) :
+                        the_post();
+                    ?>
+
+                    <?php
+                        $category = get_the_category();
+                    ?>
+
+                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                            <category-label><?php echo $category[0]->cat_name; ?></category-label>
                         <!-- Page Title-->
                         <?php
                         if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
