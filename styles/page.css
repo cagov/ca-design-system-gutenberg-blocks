@@ -16,7 +16,6 @@
 
 */
 
-
 /* PAGE CONTAINER */
 /* Design system page container */
 
@@ -57,6 +56,7 @@
 .sidebar-container {
     display: block;
     width: 276px;
+    max-width: 276px;
 }
 
 .with-sidebar .main-content-default,
@@ -67,28 +67,28 @@
 }
 
 .with-sidebar.has-sidebar-left .main-content-default > *,
-.with-sidebar.has-sidebar-left>*>* {
+.with-sidebar.has-sidebar-left .main-content-ds > .everylayout {
     margin: calc(var(--s1) / 2);
     flex-basis: 267px;
     flex-grow: 1;
 }
 
 .with-sidebar.has-sidebar-left .main-content-default > :last-child,
-.with-sidebar.has-sidebar-left>*> :last-child {
+.with-sidebar.has-sidebar-left .main-content-ds > .everylayout:last-child {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(50% - var(--s1));
 }
 
 .with-sidebar.has-sidebar-right .main-content-default,
-.with-sidebar.has-sidebar-right>*>* {
+.with-sidebar.has-sidebar-right .main-content-ds  > .everylayout {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(50% - var(--s1));
 }
 
 .with-sidebar.has-sidebar-right .main-content-default > * > :last-child,
-.with-sidebar.has-sidebar-right>*> :last-child {
+.with-sidebar.has-sidebar-right .main-content-ds > :last-child {
     margin: calc(var(--s1) / 2);
     flex-basis: 267px;
     flex-grow: 1;
@@ -154,7 +154,7 @@ category-label a {
 }
 
 .with-sidebar.page-container-ds .breadcrumb {
-    margin-bottom: 64px;
+    margin-bottom: 32px;
 }
 
 .with-sidebar.page-container-ds.has-sidebar-left main {

@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Event
+ * Template Name: DS Event
  * Template Post Type: post
  */
 ?>
@@ -50,7 +50,7 @@ function cagov_event_schema($post)
     // $meta = get_post_meta($post->ID);
     //     print_r($meta['_wp_page_template'][0]);
 
-        // Array ( [_edit_lock] => Array ( [0] => 1623916193:1 ) [ca_custom_initial_state] => Array ( [0] => 1 ) [ca_default_navigation_menu] => Array ( [0] => dropdown ) [_edit_last] => Array ( [0] => 1 ) [ca_custom_post_title_display] => Array ( [0] => on ) [_wp_page_template] => Array ( [0] => /Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php ) [_pingme] => Array ( [0] => 1 ) [_encloseme] => Array ( [0] => 1 ) )
+    // Array ( [_edit_lock] => Array ( [0] => 1623916193:1 ) [ca_custom_initial_state] => Array ( [0] => 1 ) [ca_default_navigation_menu] => Array ( [0] => dropdown ) [_edit_last] => Array ( [0] => 1 ) [ca_custom_post_title_display] => Array ( [0] => on ) [_wp_page_template] => Array ( [0] => /Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php ) [_pingme] => Array ( [0] => 1 ) [_encloseme] => Array ( [0] => 1 ) )
 
     $blocks = parse_blocks($post->post_content);
     $start_date = "";
@@ -86,7 +86,7 @@ function cagov_event_schema($post)
     }
     //</script>
     EOT;
-    
+
     // "organizer": "$organizer",
     // "offers": "$offers",
     // "location": "$location",
@@ -175,40 +175,39 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 <div id="page-container" class="page-container-ds">
 
     <?php
-        do_action("cagov_breadcrumb");
+    do_action("cagov_breadcrumb");
     ?>
 
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
         <div>
             <main class="main-primary">
-                <div>
-                    <?php
-                    while (have_posts()) :
-                        the_post();
-                    ?>
-                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                            <category-label><?php the_category(); ?></category-label>
-                            <!-- Page Title-->
-                            <?php
-                            if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
-                                $caweb_padding = get_option('ca_default_post_date_display') ? ' pb-0' : '';
-                                esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
-                            }
-                            print '<div class="entry-content">';
+                <?php
+                while (have_posts()) :
+                    the_post();
+                ?>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                        <category-label><?php the_category(); ?></category-label>
+                        <!-- Page Title-->
+                        <?php
+                        if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
+                            $caweb_padding = get_option('ca_default_post_date_display') ? ' pb-0' : '';
+                            esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
+                        }
+                        print '<div class="entry-content">';
 
-                            the_content();
+                        the_content();
 
-                            // if (get_option('ca_default_post_date_display') && !$caweb_is_page_builder_used) {
-                            printf('<p class="page-date">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
-                            // }
-                            print '</div>';
-                            ?>
-                        </article>
+                        // if (get_option('ca_default_post_date_display') && !$caweb_is_page_builder_used) {
+                        printf('<p class="page-date">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
+                        // }
+                        print '</div>';
+                        ?>
+                    </article>
 
-                        <?php echo cagov_event_schema($post) ?>
+                    <?php echo cagov_event_schema($post) ?>
 
-                    <?php endwhile; ?>
-                    <span class="return-top hidden-print"></span>
+                <?php endwhile; ?>
+                <span class="return-top hidden-print"></span>
 
             </main>
 
@@ -219,7 +218,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 </div>
 
 <?php
-    do_action("cagov_content_menu");
+do_action("cagov_content_menu");
 ?>
 
 <?php get_footer(); ?>
