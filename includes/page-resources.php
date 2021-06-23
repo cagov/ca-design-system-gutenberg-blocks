@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Page/Post Template Overrides for the CAWeb Theme
- *
+ * Page and post template overrides for CA Design System content
  * @package CADesignSystem
  */
 
-// add_action( 'caweb_pre_main_area', 'cagov_breadcrumb');
-// add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary' );
-// add_action( 'caweb_pre_footer', 'cagov_content_menu' );
+add_action( 'caweb_pre_main_area', 'cagov_breadcrumb');
+add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary' );
+add_action( 'caweb_pre_footer', 'cagov_content_menu' );
 
 add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
@@ -55,11 +54,11 @@ function cagov_breadcrumb()
         }
     }
 
-    // if (is_category()) {
-    //     global $wp_query;
-    //     $category = get_category(get_query_var('cat'), false);
-    //     $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
-    // }
+    if (is_category()) {
+        global $wp_query;
+        $category = get_category(get_query_var('cat'), false);
+        $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
+    }
 
     // @TODO STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
 
@@ -85,7 +84,7 @@ function cagov_breadcrumb()
         }
     }
 
-    echo implode($separator, $crumbs);
+    echo '<div class="breadcrumb">' . implode($separator, $crumbs) . '</div>';
 }
 
 /**
@@ -108,7 +107,7 @@ function cagov_pre_main_primary()
         return;
     }
 ?>
-    <div class="sidebar-container sticky-top" style="z-index: 1;">
+    <div class="sidebar-container" style="z-index: 1;">
         <sidebar space="0" side="left">
             <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
         </sidebar>

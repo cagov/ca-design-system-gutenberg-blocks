@@ -1,7 +1,8 @@
 <?php
-/*
- * Template Name: Category Page
- * Template Post Type: page
+/* 
+ * This template is used to render categories with the post-list web component.
+ * 
+ * This keeps the category layout in line with similar pages that use blocks that render content by categories with web componts using the WP API interface, for rendering agnostic-to-WordPress headless performant static pages.
  */
 ?>
 
@@ -16,17 +17,14 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 ?>
 
 <div id="page-container" class="page-container-ds">
-
-    <div class="breadcrumb">
-        <?php
+    
+    <?php
         do_action("cagov_breadcrumb");
-        ?>
-    </div>
+    ?>
 
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
         <div class="section">
             <main class="main-primary">
-
                 <?php
                 global $wp_query;
                 $category = get_category(get_query_var('cat'), false);
