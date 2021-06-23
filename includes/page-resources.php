@@ -146,6 +146,9 @@ function cagov_content_menu()
     // }
     // <a href="/"><img src="$image_url" alt="echo $org_footer_logo_alt_text" /></a>
 ?>
+    <div class="content-footer mb-3">
+        <cagov-feedback data-endpoint-url="https://fa-go-feedback-001.azurewebsites.net/sendfeedback"></cagov-feedback>
+    </div>
     <div class="content-footer-container">
         <div class="content-footer">
             <div class="menu-section">
