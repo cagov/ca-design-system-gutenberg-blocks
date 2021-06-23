@@ -236,20 +236,22 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
     public function add_template_filter($template)
     {
         global $post;
-        $user_selected_template = get_page_template_slug($post->ID);
-        $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
-        $template_dir = $this->template_dir;
-        $is_plugin = false;
-        if (file_exists($template_dir . $file_name)) {
-            $is_plugin = true;
-        }
+        if (isset($post->ID)) {
+            $user_selected_template = get_page_template_slug($post->ID);
+            $file_name = pathinfo($user_selected_template, PATHINFO_BASENAME);
+            $template_dir = $this->template_dir;
+            $is_plugin = false;
+            if (file_exists($template_dir . $file_name)) {
+                $is_plugin = true;
+            }
 
-        if ($user_selected_template != '' and $is_plugin) {
-            $template = $user_selected_template;
+            if ($user_selected_template != '' and $is_plugin) {
+                $template = $user_selected_template;
+            }
         }
 
         if (is_category()) {
-            $template = $this->template_dir . 'category-template.php';
+            $template = $this->template_dir . 'plugin/category-template.php';
         }
 
         return $template;

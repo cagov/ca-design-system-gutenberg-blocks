@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Announcement
+ * Template Name: DS Announcement
  * Template Post Type: post
  */
 ?>
@@ -25,10 +25,7 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
         <div>
             <main class="main-primary">
-
-
                 <div>
-
                     <?php
                     while (have_posts()) :
                         the_post();
