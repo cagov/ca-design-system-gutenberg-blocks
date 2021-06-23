@@ -70,15 +70,7 @@ function ca_design_system_register_accordion() {
 		filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
 	);
 
-	wp_register_style(
-		'ca-design-system-accordion-style',
-		plugins_url( 'style.css', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-	);
-
 	register_block_type( 'ca-design-system/accordion', array(
-		'style' => 'ca-design-system-accordion-style',
     'editor_style' => 'ca-design-system-accordion-editor-style',
 		'editor_script' => 'ca-design-system-accordion',
 		'render_callback' => 'cagov_accordion_dynamic_render_callback'
