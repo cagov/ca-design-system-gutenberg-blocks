@@ -21,21 +21,16 @@ add_action('cagov_content_menu', 'cagov_content_menu');
  */
 function cagov_breadcrumb()
 {
-    /* Quick breadcrumb function, @TODO Register in plugin to call as a shortcode or function */
+    /* Quick breadcrumb function */
 
     global $post;
 
     $separator = "<span class=\"crumb separator\">/</span>";
     $linkOff = true;
 
-    // @TODO Iterate through footer menu (or any menus) to locate links.
-    // $supported_menus = array('header-menu', 'footer-menu'); 
-
     $items = wp_get_nav_menu_items('header-menu');
 
     _wp_menu_item_classes_by_context($items); // Set up the class variables, including current-classes
-
-    // @TODO Move default breadcrumbs to plugin settings
 
     $crumbs = array(
         "<a class=\"crumb\" href=\"https:\/\/ca.gov\" title=\"CA.GOV\">CA.GOV</a>",
@@ -60,8 +55,6 @@ function cagov_breadcrumb()
         $crumbs[] = "<span class=\"crumb current\">{$category->name}</span>";
     }
 
-    // @TODO STILL IN PROGRESS If page is a child of a category that's in the menu system, find the parent in the menu tree & add links to breadcrumbs.
-
     // Configuration note: requires that a menu item link to a category page.
     if (count($crumbs) == 2 && !is_category()) {
         $category = get_the_category($post->ID);
@@ -83,8 +76,8 @@ function cagov_breadcrumb()
             $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
         }
     }
-
-    echo '<div class="breadcrumb">' . implode($separator, $crumbs) . '</div>';
+    
+    echo '<div class="breadcrumb" aria-label="Breadcrumb" role="region">' . implode($separator, $crumbs) . '</div>';
 }
 
 /**

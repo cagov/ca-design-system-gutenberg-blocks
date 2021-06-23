@@ -16,20 +16,20 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 }
 ?>
 
-<div id="page-container" class="page-container-ds">
-    
-    <?php
-        do_action("cagov_breadcrumb");
-    ?>
-
+<div id="page-container" class="page-container-default">
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
-        <div class="section">
+        <?php
+        global $wp_query;
+        $category = get_category(get_query_var('cat'), false);
+        ?>
+        <?php
+        do_action("cagov_breadcrumb");
+        ?>
+        <div class="narrow-page-title">
+            <?php echo $category->name; ?>
+        </div>
+        <div class="ds-content-layout">
             <main class="main-primary">
-                <?php
-                global $wp_query;
-                $category = get_category(get_query_var('cat'), false);
-                ?>
-
                 <h1 class="page-title"><?php echo $category->name; ?></h1>
                 <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
                     <div>
@@ -40,13 +40,12 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
                 <span class="return-top hidden-print"></span>
             </main>
-            
-        </div> <!-- #main-content -->
-    </div>
+        </div>
+    </div> <!-- #main-content -->
 </div>
 
 <?php
-    do_action("cagov_content_menu");
+do_action("cagov_content_menu");
 ?>
 
 <?php get_footer(); ?>

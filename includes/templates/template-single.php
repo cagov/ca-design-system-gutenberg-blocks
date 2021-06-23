@@ -17,13 +17,11 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 ?>
 
 <div id="page-container" class="page-container-ds">
-    
-    <?php
-        do_action("cagov_breadcrumb");
-    ?>
-
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
-        <div>
+        <?php
+            do_action("cagov_breadcrumb");
+        ?>
+        <div class="ds-content-layout">
             <main class="main-primary">
                 <div>
                     <?php
@@ -31,8 +29,12 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                         the_post();
                     ?>
 
+                    <?php
+                        $category = get_the_category();
+                    ?>
+
                         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                            <category-label><?php the_category(); ?></category-label>
+                            <category-label><?php echo $category[0]->cat_name; ?></category-label>
                             <!-- Page Title-->
                             <?php
                             if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
@@ -51,15 +53,6 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 
                             the_content();
 
-                            if (!$caweb_is_page_builder_used) {
-                                wp_link_pages(
-                                    array(
-                                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'Divi'),
-                                        'after'  => '</div>',
-                                    )
-                                );
-                            }
-
                             print '</div>';
 
                             ?>
@@ -70,12 +63,10 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                     <?php endwhile; ?>
                     <span class="return-top hidden-print"></span>
             </main>
-
         </div>
     </div>
+</div>
 
-</div>
-</div>
 
 <?php
     do_action("cagov_content_menu");

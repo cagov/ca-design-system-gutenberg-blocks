@@ -60,45 +60,68 @@
 }
 
 .with-sidebar .main-content-default,
-.with-sidebar>* {
+.with-sidebar .ds-content-layout {
     display: flex;
     flex-wrap: wrap;
     margin: calc(var(--s1) / 2 * -1);
 }
 
-.with-sidebar.has-sidebar-left .main-content-default > *,
-.with-sidebar.has-sidebar-left .main-content-ds > .everylayout {
+.with-sidebar.has-sidebar-left .main-content-default>*,
+.with-sidebar.has-sidebar-left .main-content-ds .ds-content-layout>.everylayout {
     margin: calc(var(--s1) / 2);
     flex-basis: 267px;
     flex-grow: 1;
 }
 
-.with-sidebar.has-sidebar-left .main-content-default > :last-child,
-.with-sidebar.has-sidebar-left .main-content-ds > .everylayout:last-child {
+.with-sidebar.has-sidebar-left .main-content-default> :last-child,
+.with-sidebar.has-sidebar-left .main-content-ds .ds-content-layout>.everylayout:last-child {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(50% - var(--s1));
 }
 
 .with-sidebar.has-sidebar-right .main-content-default,
-.with-sidebar.has-sidebar-right .main-content-ds  > .everylayout {
+.with-sidebar.has-sidebar-right .main-content-ds .ds-content-layout>.everylayout {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(50% - var(--s1));
 }
 
-.with-sidebar.has-sidebar-right .main-content-default > * > :last-child,
-.with-sidebar.has-sidebar-right .main-content-ds > :last-child {
+.with-sidebar.has-sidebar-right .main-content-default>*> :last-child,
+.with-sidebar.has-sidebar-right .main-content-ds .ds-content-layout> :last-child {
     margin: calc(var(--s1) / 2);
     flex-basis: 267px;
     flex-grow: 1;
 }
 
+.with-sidebar.page-container-ds.has-sidebar-left main {
+    margin-left: 64px;
+    margin-right: 20px;
+}
+
+.with-sidebar.page-container-ds.has-sidebar-right main {
+    margin-right: 64px;
+    margin-left: 20px;
+}
+
 /* BREADCRUMB */
+
+.with-sidebar .main-container-ds {
+    max-width: 877px;
+}
+/* 
+.with-sidebar.page-container-default .breadcrumb {
+    margin-bottom: 0px;
+} */
+/* 
+.with-sidebar.page-container-ds .breadcrumb {
+    margin-bottom: 64px;
+} */
+
 .breadcrumb {
     display: block;
-    margin-top: 32px;
-    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 64px;
     background-color: #F9F9FA;
     padding: 8px 16px;
     font-size: 16px;
@@ -117,6 +140,10 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+/* .page-container-default {
+    margin-top: 210px;
+    margin-bottom: -170px;
+} */
 
 /* Category label */
 .page-container-ds main category-label ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]),
@@ -147,28 +174,6 @@ time {
 category-label a {
     color: #000;
     font-weight: 700;
-}
-
-.with-sidebar.page-container-default .breadcrumb {
-    margin-bottom: 0px;
-}
-
-.with-sidebar.page-container-ds .breadcrumb {
-    margin-bottom: 32px;
-}
-
-.with-sidebar.page-container-ds.has-sidebar-left main {
-    margin-left: 64px;
-    margin-right: 20px;
-}
-
-.with-sidebar.page-container-ds.has-sidebar-right main {
-    margin-right: 64px;
-    margin-left: 20px;
-}
-
-.with-sidebar .main-container-ds {
-    max-width: 877px;
 }
 
 /* CONTENT NAVIGATION */
@@ -328,46 +333,11 @@ main ul li {
 
 @media only screen and (max-width: 992px) {
 
-.with-sidebar .main-content-default, .with-sidebar>* {
-    display: block;
-}
+    .with-sidebar .main-content-default,
+    .with-sidebar .ds-content-layout {
+        display: block;
+    }
 
-/* 
-.with-sidebar .main-content-default,
-.with-sidebar>* {
-    display: flex;
-    flex-wrap: wrap;
-    margin: calc(var(--s1) / 2 * -1);
-}
-
-.with-sidebar.has-sidebar-left .main-content-default > *,
-.with-sidebar.has-sidebar-left>*>* {
-    margin: calc(var(--s1) / 2);
-    flex-basis: 267px;
-    flex-grow: 1;
-}
-
-.with-sidebar.has-sidebar-left .main-content-default > :last-child,
-.with-sidebar.has-sidebar-left>*> :last-child {
-    flex-basis: 0;
-    flex-grow: 999;
-    min-width: calc(50% - var(--s1));
-}
-
-.with-sidebar.has-sidebar-right .main-content-default,
-.with-sidebar.has-sidebar-right>*>* {
-    flex-basis: 0;
-    flex-grow: 999;
-    min-width: calc(50% - var(--s1));
-}
-
-.with-sidebar.has-sidebar-right .main-content-default > * > :last-child,
-.with-sidebar.has-sidebar-right>*> :last-child {
-    margin: calc(var(--s1) / 2);
-    flex-basis: 267px;
-    flex-grow: 1;
-} */
-    
 
     article {
         display: block;
@@ -498,6 +468,7 @@ main ul li {
 
 /* override card grid so they stack at theme breakpoint that slims main content */
 @media (max-width: 991px) {
+
     .cagov-grid,
     .cagov-grid .block-editor-block-list__layout {
         grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
