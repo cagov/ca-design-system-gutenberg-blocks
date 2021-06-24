@@ -6,8 +6,6 @@
  class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
     let siteUrl = window.location.origin;
-    siteUrl = "https://cdt.ca.gov/";
-    // todo: ^ remove hardcoded url
     this.endpoint = this.dataset.endpoint || `${siteUrl}/wp-json/wp/v2`;
     this.order = this.dataset.order || "desc";
     this.count = this.dataset.count || "10";
