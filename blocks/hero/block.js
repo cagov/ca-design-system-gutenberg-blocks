@@ -46,7 +46,13 @@
         source: 'attribute',
         selector: 'img',
         attribute: 'src'
-      }
+      },
+      mediaAlt: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'alt'
+      },
     },
     example: {
       attributes: {
@@ -54,15 +60,18 @@
         body: __('Registration opens November 5, 2022', 'cagov-design-system'),
         buttontext: __('Register', 'cagov-design-system'),
         buttonurl: __('https://example.com', 'cagov-design-system'),
-        mediaURL: 'http://www.fillmurray.com/720/240'
+        mediaURL: 'http://www.fillmurray.com/720/240',
+        mediaAlt: 'Image Description',
       }
     },
     edit: function (props) {
       const attributes = props.attributes;
       const onSelectImage = function (media) {
+        console.log("media", media);
         return props.setAttributes({
           mediaURL: media.url,
-          mediaID: media.id
+          mediaID: media.id,
+          mediaAlt: media.description,
         });
       };
       return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
@@ -109,7 +118,7 @@
                   },
                   !attributes.mediaID
                     ? __('Upload Image', 'cagov-design-system')
-                    : el('img', { src: attributes.mediaURL, className: 'cagov-featured-image' })
+                    : el('img', { src: attributes.mediaURL, className: 'cagov-featured-image', alt:attributes.mediaAlt })
                 );
               }
             })
@@ -132,7 +141,7 @@
             )
           ),
           attributes.mediaURL && el('div', { },
-            el('img', { className: 'cagov-featured-image', src: attributes.mediaURL }
+            el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt }
             )
           )
         )

@@ -3,15 +3,6 @@
     padding: 0 0px 0 16px;
 }
 
-.editor-styles-wrapper .message-body {
-    padding: 0 32px;
-}
-
-.editor-styles-wrapper .cagov-page-alert {
-    min-height: 64px;
-    height: auto;
-}
-
 .cagov-page-alert {
     display: flex;
     flex-direction: row;
