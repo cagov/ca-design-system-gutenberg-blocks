@@ -14,6 +14,7 @@ class CAGovPostList extends window.HTMLElement {
     this.noResults = this.dataset.noResults || "No results found";
     this.showPublishedDate = this.dataset.showPublishedDate || true;
     this.type = this.dataset.type || "wordpress";
+    this.currentPage = 1;
     if (this.type === "wordpress") {
       this.getWordpressPosts();
     }
@@ -37,6 +38,11 @@ class CAGovPostList extends window.HTMLElement {
         .then((response) => response.json())
         .then(
           function (data) {
+            let itemCount = 0;
+            data.map(item => {
+              itemCount += item.count;
+            })
+
             let categoryIds = data.map((item) => {
               return item.id;
             });
@@ -52,6 +58,9 @@ class CAGovPostList extends window.HTMLElement {
             if (this.order) {
               postsEndpoint += `&order=${this.order}`;
             }
+            if(this.currentPage) {
+              postsEndpoint += `&page=${this.currentPage}`;
+            }
             window
               .fetch(postsEndpoint)
               .then((response) => response.json())
@@ -59,7 +68,17 @@ class CAGovPostList extends window.HTMLElement {
                 function (posts) {
                   if (posts !== undefined) {
                     // Set posts content.
-                    this.innerHTML = this.template(posts, "wordpress");
+                    if(!this.querySelector('.post-list-results')) {
+                      this.innerHTML = `<div class="post-list-results"></div>
+                        <cagov-pagination data-current-page="${this.currentPage}" data-total-pages="${parseInt(itemCount/this.count)}"></cagov-pagination>`;
+                    }
+                    this.querySelector('.post-list-results').innerHTML = this.template(posts, "wordpress", itemCount);
+                    this.querySelector('cagov-pagination').addEventListener('paginationClick', function (event) {
+                      if(event.detail) {
+                        this.currentPage = event.detail;
+                        this.getWordpressPosts();
+                      }
+                    }.bind(this), false);
                   }
                 }.bind(this)
               )
