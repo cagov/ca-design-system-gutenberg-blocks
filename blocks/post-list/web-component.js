@@ -3,7 +3,7 @@
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment.
  */
- class CAGovPostList extends window.HTMLElement {
+class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
     let siteUrl = window.location.origin;
     this.endpoint = this.dataset.endpoint || `${siteUrl}/wp-json/wp/v2`;
