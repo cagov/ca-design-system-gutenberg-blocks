@@ -183,8 +183,6 @@ function cagov_content_menu()
         </div>
     </div>
 <?php
-
-    $per_page_feedback = '<div class="per-page-feedback-container" style="background: background: #2F4C2C;">PER PAGE FEEDBACK HERE</div>';
 }
 
 /**

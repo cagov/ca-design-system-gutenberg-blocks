@@ -9,15 +9,16 @@
  * @package ca-design-system
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_card_grid' );
+add_action('init', 'cagov_card_grid');
 
-function cagov_card_grid() {
-	load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
+function cagov_card_grid()
+{
+	load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
 }
 
 /**
@@ -26,31 +27,39 @@ function cagov_card_grid() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_card_grid() {
+function ca_design_system_register_card_grid()
+{
 
-	if ( ! function_exists( 'register_block_type' ) ) {
+	if (!function_exists('register_block_type')) {
 		// Gutenberg is not active.
 		return;
 	}
 
 	wp_register_script(
 		'ca-design-system-card-grid',
-		plugins_url( 'block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'block.js' )
+		plugins_url('block.js', __FILE__),
+		array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore'),
+		filemtime(plugin_dir_path(__FILE__) . 'block.js')
 	);
 
 	wp_register_style(
 		'cagov-card-grid',
-		plugins_url( 'style.css', __FILE__ ),
-		array( ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
+		plugins_url('style.css', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'style.css')
 	);
 
-	register_block_type( 'ca-design-system/card-grid', array(
-		'style' => 'cagov-card-grid',
-		'editor_script' => 'ca-design-system-card-grid',
-	) );
+	wp_register_style(
+		'ca-design-system-accordion-editor-style',
+		plugins_url('editor.css', __FILE__),
+		array(),
+		filemtime(plugin_dir_path(__FILE__) . 'editor.css')
+	);
 
+	register_block_type('ca-design-system/card-grid', array(
+		'style' => 'cagov-card-grid',
+		'editor_style' => 'ca-design-system-accordion-editor-style',
+		'editor_script' => 'ca-design-system-card-grid',
+	));
 }
-add_action( 'init', 'ca_design_system_register_card_grid' );
+add_action('init', 'ca_design_system_register_card_grid');
