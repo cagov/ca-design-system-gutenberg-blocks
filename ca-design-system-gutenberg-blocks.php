@@ -97,7 +97,7 @@ function cagov_admin_init()
  */
 function cagov_wp_enqueue_scripts()
 {
-	wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.8');
+	wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.9');
 	wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
 }
 

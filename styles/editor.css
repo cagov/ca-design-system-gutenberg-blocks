@@ -1,5 +1,8 @@
 /* 
-Editor styles
+* Editor styles
+* Based on: https://github.com/cagov/cannabis.ca.gov/tree/main/src/css
+ * colorscheme-cannabis.v1.0.7.min.css (or latest increment) - sets css variables and main page typography.
+ * manual-caweb.v1.0.1.css
 */
 @import url(https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap);
 
@@ -22,6 +25,8 @@ Editor styles
   line-height: 1.5;
 }
 
+
+/* Basic block typography overrides */
 .blocks-rich-text__tinymce.mce-content-body,
 .edit-post-visual-editor,
 .edit-post-visual-editor p {
@@ -41,6 +46,36 @@ Editor styles
   font-size: 18px;
   font-size: 1rem;
 }
+
+/* TABLE */
+.edit-post-visual-editor .wp-block-table {
+  background: none !important;
+  border:none !important;
+  margin-bottom: .7rem;
+  font-family: "Public Sans", sans-serif;
+  color: #000;
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.edit-post-visual-editor .wp-block-table table, 
+.edit-post-visual-editor .wp-block-table table th, 
+.edit-post-visual-editor .wp-block-table table td {
+  border:1px solid #ededef !important;
+  margin-bottom: .7rem;
+  font-family: "Public Sans", sans-serif;
+  color: #000;
+  font-size: 18px;
+  font-size: 1rem;
+}
+
+.edit-post-visual-editor .wp-block-table table th, 
+.edit-post-visual-editor .wp-block-table table td {
+  /* @TODO Sync with styles - where are they? */
+  padding: 8px 16px;
+}
+
+/* HEADINGS */ 
 
 div.editor-post-title__block .editor-post-title__input {
   margin-bottom: .7rem;
@@ -123,18 +158,14 @@ div.editor-post-title__block textarea.editor-post-title__input,
   line-height: 1.5;
 }
 
+/* CUSTOM BLOCKS */ 
+/* NOTE: Most of these block specific styles will belong in editor.css unless they CSS is about relationships between blocks */
 /* override card grid so they stack at theme breakpoint that slims main content */
 @media (max-width: 991px) {
-
   .edit-post-visual-editor.cagov-grid,
   .edit-post-visual-editor.cagov-grid .block-editor-block-list__layout {
     grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
   }
-}
-
-/* link underline not used in cannabis designs */
-.edit-post-visual-editor a.cagov-card {
-  text-decoration: none;
 }
 
 .edit-post-visual-editor .cagov-stack h1,
@@ -152,10 +183,33 @@ div.editor-post-title__block textarea.editor-post-title__input,
   padding-top: 32px;
 }
 
+
+/* OVERRIDE DEFAULT GB STYLES */
+
+.wp-block-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.block-editor-rich-text__editable.wp-block-button__link.rich-text {
+  padding: 24px 0px;
+}
+.wp-block-button__link{
+  background: #064E66;
+  border-radius: 5px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 24px 0px;
+}
+
+/* NOT YET INTEGRATED INTO BLOCKS */
+
 /**
 * Step list
 * Step list should move to a custom block so that we can control and edit the css over time without refactoring page markup. 
-* We should include the editor styles with the block.
+* We should include the editor styles with the block (when we create one)
 */
 .edit-post-visual-editor ol.steps {
   padding-left: 0 !important;
@@ -315,3 +369,5 @@ div.editor-post-title__block textarea.editor-post-title__input,
 .edit-post-visual-editor ol.steps li:last-child {
   border-left: none;
 }
+
+

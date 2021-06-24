@@ -5,7 +5,7 @@
 
  The css variables and properties are set in a custom theme css file and added to WordPress (with CAWeb theme installed under CA Web Options Custom CSS, as a file and a manual override. 
  Currently in: https://github.com/cagov/cannabis.ca.gov/tree/main/src/css
- * colorscheme-cannabis.v1.0.6.min.css (or latest increment) - sets css variables and main page typography.
+ * colorscheme-cannabis.v1.0.7.min.css (or latest increment) - sets css variables and main page typography.
  * manual-caweb.v1.0.1.css
 
  The manual override contains style overrides for the Site Header and Footer elements.
