@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: DS Press Release
+ * Template Name: DS Post: Press Release
  * Template Post Type: post
  */
 ?>

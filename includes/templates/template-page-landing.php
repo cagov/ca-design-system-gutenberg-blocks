@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: DS Landing Page
+ * Template Name: DS Page: Landing
  * Template Post Type: page
  */
 ?>
@@ -18,6 +18,13 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
 <div id="page-container" class="page-container-ds">
 
     <div id="main-content" class="main-content-ds single-column" tabindex="-1">
+        <div class="narrow-page-title">
+                <?php
+                if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
+                    esc_html(the_title('<h1 class="page-title">', '</h1>'));
+                }
+                ?>
+        </div>
         <div class="ds-content-layout">
             <main class="main-primary">
 

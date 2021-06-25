@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: DS Page
+ * Template Name: DS Page: Default
  * Template Post Type: page
  */
 ?>
