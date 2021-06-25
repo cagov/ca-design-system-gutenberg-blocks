@@ -39,7 +39,7 @@ class CAGovContentNavigation extends window.HTMLElement {
         let hashval = anchor.getAttribute('href');
         let target = document.querySelector(hashval);
         
-        // Not working with scroll margin ... weird - @TODO look for conflict with parent themes
+        // Not working with scroll margin, has conflict with parent theme, using many overflow statements on most page element containers.
 
         target.scrollIntoView({
             behavior: 'smooth',
@@ -47,6 +47,7 @@ class CAGovContentNavigation extends window.HTMLElement {
             top: 100,
         });
 
+        // We should probably switch to standard JS until CSS can be worked out.
         // let position = target.getBoundingClientRect();
         // console.log("pos", position, position.top + window.scrollY - 128);
         // scrolls to 20px above element
@@ -73,7 +74,7 @@ class CAGovContentNavigation extends window.HTMLElement {
     let display = "render";
     let callback = this.dataset.callback; // Editor only right now
 
-    var h = ["h2", "h3", "h4", "h5", "h6"];
+    var h = ["h2"];
     var headings = [];
 
     for (var i = 0; i < h.length; i++) {
@@ -106,7 +107,7 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 
   outliner(content) {
-    let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
+    let headers = content.querySelectorAll("h2");
     let output = ``;
     if (headers !== undefined && headers !== null && headers.length > 0) {
       headers.forEach((tag) => {
