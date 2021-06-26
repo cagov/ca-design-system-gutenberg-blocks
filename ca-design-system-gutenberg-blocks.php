@@ -35,7 +35,7 @@ define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__FILE', __FILE__);
  */
 add_action('init', 'cagov_init');
 add_action('wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100);
-add_action('enqueue_block_editor_assets', 'cagov_wp_enqueue_editor_scripts');
+add_action('enqueue_block_editor_assets', 'cagov_wp_enqueue_editor_scripts', 1);
 
 /**
  * Plugin API/Action Reference

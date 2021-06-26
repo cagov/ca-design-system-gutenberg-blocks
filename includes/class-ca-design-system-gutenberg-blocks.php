@@ -98,6 +98,7 @@ class CADesignSystemGutenbergBlocks
      */
     public function ca_design_system_gutenberg_blocks_build_scripts()
     {
+        // ***THIS IS A PERFORMANCE BOTTLENECK***
         wp_enqueue_script(
             'ca-design-system-blocks',
             plugins_url('/build/index.js', dirname(__FILE__)),

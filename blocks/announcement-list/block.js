@@ -100,6 +100,7 @@
             "data-show-excerpt" : "false",
             "data-show-published-date" : "true",
             "data-no-results": "No results found",
+            "date-show-paginator": "false"
           }),
           el(RichText, {
             tagName: "div",

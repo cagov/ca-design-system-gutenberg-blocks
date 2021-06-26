@@ -13,6 +13,7 @@ class CAGovPostList extends window.HTMLElement {
     this.showExcerpt = this.dataset.showExcerpt || true;
     this.noResults = this.dataset.noResults || "No results found";
     this.showPublishedDate = this.dataset.showPublishedDate || true;
+    this.showPaginator = this.dataset.showPaginator === "true" ? true : false;
     this.type = this.dataset.type || "wordpress";
     this.currentPage = 1;
     if (this.type === "wordpress") {
@@ -69,8 +70,10 @@ class CAGovPostList extends window.HTMLElement {
                   if (posts !== undefined) {
                     // Set posts content.
                     if(!this.querySelector('.post-list-results')) {
-                      this.innerHTML = `<div class="post-list-results"></div>
-                        <cagov-pagination data-current-page="${this.currentPage}" data-total-pages="${parseInt(itemCount/this.count)}"></cagov-pagination>`;
+                      this.innerHTML = `<div class="post-list-results"></div>`;
+                      if (this.showPaginator === true) {
+                        this.innerHTML = `<div class="post-list-results"></div><cagov-pagination data-current-page="${this.currentPage}" data-total-pages="${parseInt(itemCount/this.count)}"></cagov-pagination>`
+                      }
                     }
                     this.querySelector('.post-list-results').innerHTML = this.template(posts, "wordpress", itemCount);
                     this.querySelector('cagov-pagination').addEventListener('paginationClick', function (event) {
