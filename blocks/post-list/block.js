@@ -25,7 +25,7 @@
   blocks.registerBlockType("ca-design-system/post-list", {
     title: __("Post list", "ca-design-system"),
     icon: "format-aside",
-    category: "ca-design-system",
+    category: "ca-design-system-utilities",
     description: __(
       'List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the "Announcement" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.',
       "ca-design-system"

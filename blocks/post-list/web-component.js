@@ -15,6 +15,7 @@ class CAGovPostList extends window.HTMLElement {
     this.noResults = this.dataset.noResults || "No results found";
     this.showPublishedDate = this.dataset.showPublishedDate || true;
     this.showPaginator = this.dataset.showPaginator === "true" ? true : false;
+    this.filter = this.dataset.filter ? this.dataset.filter : "none"; // Accepts types of filtering
     this.readMore = this.dataset.readMore || "";
     this.type = this.dataset.type || "wordpress";
     this.currentPage = 1;
@@ -68,6 +69,19 @@ class CAGovPostList extends window.HTMLElement {
             }
             if(this.currentPage) {
               postsEndpoint += `&page=${this.currentPage}`;
+            }
+
+            // @TODO add some filters
+            if (this.filter === "today-or-after") {
+              // Get current date
+              // Add and register metabox data & expose it to endpoint
+              // Filter by this value if it's found/set compared to today.
+              // 
+            } else if (this.filter === "before-yesterday") {
+              // Get current date
+              // Add and register metabox data & expose it to endpoint
+              // Filter by this value if it's found/set compared to today.
+              // 
             }
             window
               .fetch(postsEndpoint)

@@ -55,6 +55,7 @@ function cagov_post_list_dynamic_render_callback($block_attributes, $content)
                 data-no-results="$noResults"
                 data-show-pagination="$showPagination"
                 data-read-more="$readMore"
+                data-filter="none"
             >
             </cagov-post-list>
         </div>
