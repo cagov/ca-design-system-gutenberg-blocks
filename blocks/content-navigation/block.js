@@ -2,7 +2,7 @@
  * CAGov Content Navigation
  */
 
-(function (blocks, blockEditor, i18n, element, components, _, moment) {
+(function (blocks, i18n, element) {
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
@@ -44,35 +44,10 @@
           })
         )
       );
-    },
-    // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/
-    save: function (props) {
-      var attributes = props.attributes;
-      return el(
-        "div",
-        {
-          className: "cagov-content-navigation cagov-stack",
-        },
-        el(
-          "div",
-          {},
-          // Visual display of content
-          el("cagov-content-navigation", {
-            className: "content-navigation",
-            "data-selector": "article",
-            "data-editor": "textarea.block-editor-plain-text",
-            "data-callback": "(content) => content",
-          })
-        )
-      );
-    },
+    }
   });
 })(
   window.wp.blocks,
-  window.wp.blockEditor,
   window.wp.i18n,
-  window.wp.element,
-  window.wp.components,
-  window._,
-  window.moment
+  window.wp.element
 );

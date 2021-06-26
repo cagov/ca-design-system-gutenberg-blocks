@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Card
  * Plugin URI: TBD
- * Description: TBD
+ * Description: Button that highlights common user needs. Appears on the homepage. Provides a link to a webpage where people can take action with the department. Includes a text label and link.  Copy writing tip: Ideally starts with a verb.
  * Version: 1.1.0
  * Author: California Office of Digital Innovation
  * @package ca-design-system
@@ -11,14 +11,41 @@
 
 defined('ABSPATH') || exit;
 
-/**
- * Load all translations for our plugin from the MO file.
- */
-add_action('init', 'cagov_card');
+add_action('init', 'cagov_gb_register_card');
 
-function cagov_card()
+function cagov_gb_register_card()
 {
-    load_plugin_textdomain('ca-design-system', false, basename(__DIR__) . '/languages');
+
+    if (!function_exists('register_block_type')) {
+        // Gutenberg is not active.
+        return;
+    }
+
+    wp_register_script(
+        'ca-design-system-card-editor-script',
+        plugins_url('block.js', __FILE__),
+        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment'),
+        filemtime(plugin_dir_path(__FILE__) . 'block.js'),
+    );
+
+
+    wp_register_style(
+        'ca-design-system-card-editor-style',
+        plugins_url('editor.css', __FILE__),
+        false,
+        filemtime(plugin_dir_path(__FILE__) . 'editor.css')
+    );
+
+    wp_register_style( 'ca-design-system-card-style', false );
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    wp_add_inline_style('ca-design-system-card-style', $style_css);
+
+    register_block_type('ca-design-system/card', array(
+        'style' => 'ca-design-system-card-style',
+        'editor_style' => 'ca-design-system-card-editor-style',
+        'editor_script' => 'ca-design-system-card-editor-script',
+        'render_callback' => 'cagov_gb_card_dynamic_render_callback'
+    ));
 }
 
 /**
@@ -27,7 +54,7 @@ function cagov_card()
  *
  * Passes translations to JavaScript.
  */
-function cagov_card_dynamic_render_callback($block_attributes, $content)
+function cagov_gb_card_dynamic_render_callback($block_attributes, $content)
 {
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
     $url = isset($block_attributes["url"]) ? $block_attributes["url"] : null;
@@ -38,41 +65,3 @@ function cagov_card_dynamic_render_callback($block_attributes, $content)
         </a>
     EOT;
 }
-
-function cagov_register_card()
-{
-
-    if (!function_exists('register_block_type')) {
-        // Gutenberg is not active.
-        return;
-    }
-
-    wp_register_script(
-        'california-design-system', // @TODO this scope will conflict & multiply with all component - probably needs to be registered up one level - will move when blocks are more stabilized.
-        plugins_url('block.js', __FILE__),
-        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore'),
-        filemtime(plugin_dir_path(__FILE__) . 'block.js')
-    );
-
-    wp_register_style(
-        'ca-design-system-card-editor',
-        plugins_url('editor.css', __FILE__),
-        array('wp-edit-blocks'),
-        filemtime(plugin_dir_path(__FILE__) . 'editor.css')
-    );
-
-    wp_register_style(
-        'ca-design-system-card',
-        plugins_url('style.css', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    );
-
-    register_block_type('ca-design-system/card', array(
-        'style' => 'ca-design-system-card',
-        'editor_style' => 'ca-design-system-card-editor',
-        'editor_script' => 'california-design-system',
-        'render_callback' => 'cagov_card_dynamic_render_callback'
-    ));
-}
-add_action('init', 'cagov_register_card');

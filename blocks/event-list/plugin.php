@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Event list
  * Plugin URI: TBD
- * Description: List of recent events. Block for event pages. Allows people to see the most recent events with the "Events" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.
+ * Description: List of recent events. Block for event pages. Allows people to see the most recent events with the "Events" tag. Includes title, hyperlink to full event, date, and a view all link to see longer list.
  * Version: 1.0.0
  * Author: California Office of Digital Innovation
  * @package ca-design-system
@@ -48,15 +48,12 @@ function ca_design_system_register_event_list() {
         filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
     );
 
-    wp_register_style(
-        'ca-design-system-event-list',
-        plugins_url( 'style.css', __FILE__ ),
-        array( ),
-        filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-    );
+    wp_register_style( 'ca-design-system-event-list-style', false );
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    wp_add_inline_style('ca-design-system-event-list-style', $style_css);
 
     register_block_type( 'ca-design-system/event-list', array(
-        'style' => 'ca-design-system-event-list',
+        'style' => 'ca-design-system-event-list-style',
         'editor_script' => 'ca-design-system-event-list',
         'render_callback' => 'cagov_event_list_dynamic_render_callback'
     ) );

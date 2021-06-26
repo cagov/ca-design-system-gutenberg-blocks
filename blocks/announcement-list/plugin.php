@@ -48,15 +48,12 @@ function ca_design_system_register_announcement_list() {
         filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
     );
 
-    wp_register_style(
-        'ca-design-system-announcement-list',
-        plugins_url( 'style.css', __FILE__ ),
-        array( ),
-        filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-    );
+    wp_register_style( 'ca-design-system-announcement-list-style', false );
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    wp_add_inline_style('ca-design-system-announcement-list-style', $style_css);
 
     register_block_type( 'ca-design-system/announcement-list', array(
-        'style' => 'ca-design-system-announcement-list',
+        'style' => 'ca-design-system-announcement-list-style',
         'editor_script' => 'ca-design-system-announcement-list',
         'render_callback' => 'cagov_announcement_dynamic_render_callback'
     ) );

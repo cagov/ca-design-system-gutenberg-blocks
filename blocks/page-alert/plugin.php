@@ -50,15 +50,19 @@ function ca_design_system_register_page_alert()
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
     );
 
-    wp_register_style(
-        'ca-design-system-page-alert',
-        plugins_url('style.css', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    );
+    // wp_register_style(
+    //     'ca-design-system-page-alert',
+    //     plugins_url('style.css', __FILE__),
+    //     array(),
+    //     filemtime(plugin_dir_path(__FILE__) . 'style.css')
+    // );
+
+	wp_register_style( 'ca-design-system-page-alert-style', false );
+	$style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+	wp_add_inline_style('ca-design-system-page-alert-style', $style_css);
 
     register_block_type('ca-design-system/page-alert', array(
-        'style' => 'ca-design-system-page-alert',
+        'style' => 'ca-design-system-page-alert-style',
         'editor_style' => 'ca-design-system-page-alert',
         'editor_script' => 'ca-design-system-page-alert',
         'render_callback' => 'cagov_page_alert_dynamic_render_callback',

@@ -6,29 +6,30 @@
  * @package CADesignSystem
  */
 
-cagov_gutenberg_blocks_init();
+cagov_gb_init();
 
-function cagov_gutenberg_blocks_init()
+function cagov_gb_init()
 {
     // Load all block dependencies and files.
-    cagov_gutenberg_blocks_load_block_dependencies();
+    cagov_gb_load_block_dependencies();
 
     // Create special categories for design system blocks
-    cagov_gutenberg_blocks_load_block_pattern_categories();
-    cagov_gutenberg_blocks_load_block_category();
+    cagov_gb_load_block_pattern_categories();
+    cagov_gb_load_block_category();
 
     // Get all scripts
-    add_action('wp_enqueue_scripts', 'cagov_gutenberg_blocks_build_scripts_frontend', 100);
-    add_action('enqueue_block_editor_assets', 'cagov_gutenberg_blocks_build_scripts_editor', 100);
+    add_action('wp_enqueue_scripts', 'cagov_gb_build_scripts_frontend', 100);
+    add_action('enqueue_block_editor_assets', 'cagov_gb_build_scripts_editor', 100);
 
     // Add metadata to WP-API
-    add_action('rest_api_init', 'cagov_gutenberg_blocks_register_rest_field');
+    add_action('rest_api_init', 'cagov_gb_register_rest_field');
+    add_filter('get_the_excerpt', 'cagov_gb_excerpt');
 }
 
 /**
  * Load all patterns and blocks.
  */
-function cagov_gutenberg_blocks_load_block_dependencies()
+function cagov_gb_load_block_dependencies()
 {
 
     // CA Design System BLOCKS
@@ -65,7 +66,7 @@ function cagov_gutenberg_blocks_load_block_dependencies()
 /**
  * Register Custom Block Pattern Category.
  */
-function cagov_gutenberg_blocks_load_block_pattern_categories()
+function cagov_gb_load_block_pattern_categories()
 {
     if (function_exists('register_block_pattern_category')) {
         register_block_pattern_category(
@@ -78,7 +79,7 @@ function cagov_gutenberg_blocks_load_block_pattern_categories()
 /**
  * Register Custom Block Category.
  */
-function cagov_gutenberg_blocks_load_block_category()
+function cagov_gb_load_block_category()
 {
     // This doesn't load a normal plugin function (probably syntax recommendation or scoping issue.)
     add_filter(
@@ -111,7 +112,7 @@ function cagov_gutenberg_blocks_load_block_category()
  *
  * NOTE: This is NOT optimized for performance or file loading.
  */
-function cagov_gutenberg_blocks_build_scripts_frontend()
+function cagov_gb_build_scripts_frontend()
 {
     if (!is_admin()) {
 
@@ -132,19 +133,27 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
             array(),
         );
 
+        // Add local web components without triggering render blocking
+        add_action('wp_footer', 'cagov_gb_load_web_components_callback');
+        add_action('wp_footer', 'cagov_gb_register_post_list_web_component_callback' );
+        add_action('wp_footer', 'cagov_gb_register_content_navigation_web_component_callback' );
 
-        // do_action('cagov_gutenberg_blocks_register_announcement_list_web_component');
-        // do_action('cagov_gutenberg_blocks_register_post_list_web_component');
-        do_action('cagov_gutenberg_blocks_register_content_navigation_web_component');
-
-        wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
-        wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
+        // wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
+        // wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
 
         // PERFORMANCE OPTION (re render blocking): inlining our CSS 
         // Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
-        // $critical_css = file_get_contents(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css');
-        // echo '<style>' . $critical_css . '</style>';
+        $critical_css = file_get_contents(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css');
+        echo '<style>' . $critical_css . '</style>';
     }
+}
+
+function cagov_gb_load_web_components_callback() {
+    wp_enqueue_script(
+        'ca-design-system-npm-web-components-bundle',
+        "https://files.covid19.ca.gov/js/components/bundle/index.min.js",
+        array(),
+    );
 }
 
 /**
@@ -155,7 +164,7 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
  * @param [type] $src
  * @return void
  */
-function cagov_gutenberg_blocks_build_scripts_editor()
+function cagov_gb_build_scripts_editor()
 {
     // ***THIS IS A PERFORMANCE BOTTLENECK***
     // wp_enqueue_script(
@@ -180,7 +189,7 @@ function cagov_gutenberg_blocks_build_scripts_editor()
  *
  * @return void
  */
-function cagov_gutenberg_blocks_register_rest_field()
+function cagov_gb_register_rest_field()
 {
     // @TODO some of this will be scoped to the theme/plugin
     // Starting with block content for API then will do other assets
@@ -188,7 +197,7 @@ function cagov_gutenberg_blocks_register_rest_field()
         'post',
         'design_system_fields',
         array(
-            'get_callback'    => 'cagov_gutenberg_blocks_get_custom_fields',
+            'get_callback'    => 'cagov_gb_get_custom_fields',
             'update_callback' => null,
             'schema'          => null, // @TODO look up what our options are here
         )
@@ -203,11 +212,11 @@ function cagov_gutenberg_blocks_register_rest_field()
  * @param [type] $request
  * @return void
  */
-function cagov_gutenberg_blocks_get_custom_fields($object, $field_name, $request)
+function cagov_gb_get_custom_fields($object, $field_name, $request)
 {
     global $post;
     // print_r($post);
-    // $cagov_gutenberg_blocks_content_menu_sidebar = get_post_meta($post->ID, '_cagov_gutenberg_blocks_content_menu_sidebar', true);
+    // $cagov_gb_content_menu_sidebar = get_post_meta($post->ID, '_cagov_gb_content_menu_sidebar', true);
     $caweb_custom_post_title_display = get_post_meta($post->ID, '_ca_custom_post_title_display', true);
     // $caweb_default_post_date_display = get_post_meta($post->ID, '_ca_default_post_date_display', true);
 
@@ -238,7 +247,7 @@ function cagov_gutenberg_blocks_get_custom_fields($object, $field_name, $request
 
 
 
-function cagov_gutenberg_blocks_excerpt($excerpt)
+function cagov_gb_excerpt($excerpt)
 {
     global $post;
     $meta = get_post_meta($post->ID);
@@ -298,10 +307,10 @@ function cagov_gutenberg_blocks_excerpt($excerpt)
 
 // function _load_default_page_template_styles()
 // {
-// 	add_action('wp_enqueue_scripts', array($this, 'cagov_gutenberg_blocks_default_page_template_styles'), 100);
+// 	add_action('wp_enqueue_scripts', array($this, 'cagov_gb_default_page_template_styles'), 100);
 // }
 
-// public function cagov_gutenberg_blocks_default_page_template_styles()
+// public function cagov_gb_default_page_template_styles()
 // {
 // 	wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.7.2');
 // 	wp_enqueue_style('ca-design-system-gutenberg-blocks-page');

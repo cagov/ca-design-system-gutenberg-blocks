@@ -12,7 +12,7 @@
   const RichText = editor.RichText;
   const MediaUpload = editor.MediaUpload;
 
-  blocks.registerBlockType('cagov/hero', {
+  blocks.registerBlockType('ca-design-system/hero', {
     title: __('Feature card', 'cagov-design-system'),
     category: 'ca-design-system',
     icon: "format-aside",
@@ -53,6 +53,18 @@
         selector: 'img',
         attribute: 'alt'
       },
+      mediaWidth: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'width'
+      },
+      mediaHeight: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'height'
+      },
     },
     example: {
       attributes: {
@@ -62,6 +74,8 @@
         buttonurl: __('https://example.com', 'cagov-design-system'),
         mediaURL: 'http://www.fillmurray.com/720/240',
         mediaAlt: 'Image Description',
+        mediaWidth: "750",
+        mediaHeight: "500",
       }
     },
     edit: function (props) {
@@ -72,6 +86,8 @@
           mediaURL: media.url,
           mediaID: media.id,
           mediaAlt: media.description,
+          mediaWidth: media.sizes.large.width,
+          mediaHeight: media.sizes.large.height
         });
       };
       return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
@@ -118,7 +134,7 @@
                   },
                   !attributes.mediaID
                     ? __('Upload Image', 'cagov-design-system')
-                    : el('img', { src: attributes.mediaURL, className: 'cagov-featured-image', alt:attributes.mediaAlt })
+                    : el('img', { src: attributes.mediaURL, className: 'cagov-featured-image', alt:attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight  })
                 );
               }
             })
@@ -141,7 +157,7 @@
             )
           ),
           attributes.mediaURL && el('div', { },
-            el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt }
+            el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight }
             )
           )
         )

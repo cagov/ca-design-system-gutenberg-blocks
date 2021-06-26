@@ -31,12 +31,12 @@ function cagov_register_post_list()
     }
 
     // Register custom web component with dependencies.
-    wp_register_script(
-        'ca-design-system-post-list-web-component',
-        plugins_url('web-component.js', __FILE__),
-        array('moment'),
-        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
-    );
+    // wp_register_script(
+    //     'ca-design-system-post-list-web-component',
+    //     plugins_url('web-component.js', __FILE__),
+    //     array('moment'),
+    //     filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+    // );
 
     wp_register_script(
         'ca-design-system-post-list-editor',  // @TODO this scope will conflict & multiply with all component - probably needs to be registered up one level - will move when blocks are more stabilized.
@@ -52,22 +52,18 @@ function cagov_register_post_list()
         filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
     );
 
-    wp_register_style(
-        'ca-design-system-post-list',
-        plugins_url('style.css', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    );
+    wp_register_style( 'ca-design-system-post-list-style', false );
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    wp_add_inline_style('ca-design-system-post-list-style', $style_css);
 
     register_block_type('ca-design-system/post-list', array(
-        'script' => 'ca-design-system-post-list-web-component',
+        // 'script' => 'ca-design-system-post-list-web-component',
         'editor_script' => 'ca-design-system-post-list-editor',
-        'style' => 'ca-design-system-post-list', // Not performant/render blocking by default
+        'style' => 'ca-design-system-post-list-style', // Not performant/render blocking by default
         'editor_style' => 'ca-design-system-post-list-editor-style',
         'render_callback' => 'cagov_post_list_dynamic_render_callback'
     ));
 }
-
 
 function cagov_post_list_dynamic_render_callback($block_attributes, $content)
 {
@@ -114,24 +110,23 @@ function cagov_post_list_dynamic_render_callback($block_attributes, $content)
 }
 
 
-// function cagov_register_post_list_web_component_callback()
-// {
-//     // wp_register_script(
-//     //     'ca-design-system-post-list-web-component',
-//     //     plugins_url('web-component.js', __FILE__),
-//     //     array(),
-//     //     filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
-//     // );
+function cagov_gb_register_post_list_web_component_callback()
+{
+    wp_register_script(
+        'ca-design-system-post-list-web-component',
+        plugins_url('web-component.js', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+    );
 
-//     // wp_register_style(
-//     //     'ca-design-system-post-list',
-//     //     plugins_url('style.css', __FILE__),
-//     //     array(),
-//     //     filemtime(plugin_dir_path(__FILE__) . 'style.css')
-//     // );
+    // wp_register_style(
+    //     'ca-design-system-post-list',
+    //     plugins_url('style.css', __FILE__),
+    //     array(),
+    //     filemtime(plugin_dir_path(__FILE__) . 'style.css')
+    // );
 
-//     // wp_enqueue_script('ca-design-system-post-list-web-component');
-//     // wp_enqueue_style('ca-design-system-post-list');
-// }
+    wp_enqueue_script('ca-design-system-post-list-web-component');
+    // wp_enqueue_style('ca-design-system-post-list');
+}
 
-// add_action('cagov_register_post_list_web_component', 'cagov_register_post_list_web_component_callback', 10, 2);
