@@ -58,7 +58,7 @@ class CADesignSystemGutenbergBlocks
     {
         // Load patterns, order of loading is order of appearance in patterns list.
 
-        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/event-post/plugin.php';
+        include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/patterns/event-pattern/plugin.php';
 
         // CA Design System: Utilities blocks
         // These appear in child patterns, content editors do not need to interact with these.
@@ -90,49 +90,6 @@ class CADesignSystemGutenbergBlocks
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/breadcrumb/plugin.php';
         // include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/category-label/plugin.php';
     }
-
-    /**
-     * Add required WP block scripts to front end pages.
-     * 
-     * NOTE: This is NOT optimized for performance or file loading.
-     */
-    public function ca_design_system_gutenberg_blocks_build_scripts()
-    {
-        // ***THIS IS A PERFORMANCE BOTTLENECK***
-        wp_enqueue_script(
-            'ca-design-system-blocks',
-            plugins_url('/build/index.js', dirname(__FILE__)),
-            array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
-        );
-
-        if (!is_admin()) {
-            /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
-            wp_enqueue_script(
-                'ca-design-system-blocks',
-                plugins_url('/build/index.js', dirname(__FILE__)),
-                array(),
-            );
-
-            /**
-             * Register web-component from Block child plugins. 
-             * Plugins creates hooks that lets us load that component as needed.
-             */
-            do_action("ca_design_system_gutenberg_blocks_register_announcement_list_web_component");
-            do_action("ca_design_system_gutenberg_blocks_register_post_list_web_component");
-            do_action("ca_design_system_gutenberg_blocks_register_content_navigation_web_component");
-        }
-    }
-
-    function add_type_attribute($tag, $handle, $src) {
-        // if not your script, do nothing and return original $tag
-        if ( 'your-script-handle' !== $handle ) {
-            return $tag;
-        }
-        // change the script tag by adding type="module" and return it.
-        $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
-        return $tag;
-    }
-
 
     /**
      * Register Custom Block Pattern Category.

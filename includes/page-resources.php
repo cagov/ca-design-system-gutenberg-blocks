@@ -13,8 +13,6 @@ add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
 add_action('rest_api_init', 'cagov_register_rest_field');
 
-
-
 /**
  * Add additional metadata to API for headless rendering
  *

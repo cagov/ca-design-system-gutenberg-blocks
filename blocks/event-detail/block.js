@@ -1,6 +1,6 @@
 /**
  * CAGov Event Detail
- *
+ * Developer note: Reminder to run npm start & npm run build to generate this component.
  */
 
 const {
@@ -74,12 +74,14 @@ blocks.registerBlockType("ca-design-system/event-detail", {
   },
   example: {
     attributes: {
-      // startDate: __("Start Date & Time", "ca-design-system"),
+      title: "Event Details"
     },
   },
   edit: function (props) {
+
     const [openDatePopup, setOpenDatePopup] = useState(false);
     var attributes = props.attributes;
+
     const { title, startDate, endDate, startTime, endTime, location, cost } = props.attributes;
 
     // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
@@ -88,14 +90,14 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       <div>
         <RichText
           value={title}
-          tagName="h3"
+          tagName="h2"
           className="title"
           onChange={(title) => props.setAttributes({ title })}
           placeholder={__("Event Details", "ca-design-system")}
         />
 
         <div className="cagov-event-detail cagov-stack">
-          <h4>Date &amp; time</h4>
+          <h3>Date &amp; time</h3>
           <RichText
             value={startDate}
             tagName="div"
@@ -132,7 +134,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             placeholder={__(formattedTimePlusHour, "ca-design-system")}
           />
 
-          <h4>Location</h4>
+          <h3>Location</h3>
 
           <RichText
             value={location}
@@ -143,7 +145,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             placeholder={__("Enter text...", "ca-design-system")}
           />
 
-          <h4>Cost</h4>
+          <h3>Cost</h3>
 
           <RichText
             value={cost}

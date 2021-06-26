@@ -59,15 +59,15 @@ blocks.registerBlockType("ca-design-system/event-materials", {
     var attributes = props.attributes;
     return (
       <div>
-        <h3><RichText
+        <h2><RichText
             value={attributes.title}
             tagName="div"
             className="title"
             onChange={(title) => props.setAttributes({ title })}
             placeholder={__("Event Materials", "ca-design-system")}
-          /></h3>
+          /></h2>
         <div className="cagov-event-materials cagov-stack">
-          <h4>Agenda</h4>
+          <h3>Agenda</h3>
           <RichText
             value={attributes.agenda}
             tagName="div"
@@ -76,7 +76,7 @@ blocks.registerBlockType("ca-design-system/event-materials", {
             onChange={(agenda) => props.setAttributes({ agenda })}
             placeholder={__("Link to a plain text agenda and agenda files", "ca-design-system")}
           />
-          <h4>Materials</h4>
+          <h3>Materials</h3>
           <RichText
             value={attributes.materials}
             tagName="div"
