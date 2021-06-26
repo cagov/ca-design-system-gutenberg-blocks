@@ -26,13 +26,17 @@ Templates that content editors see.
 ## /includes/templates/design-system-templates
 
 - Template short names will be available in the WP api in {design_system_fields: {template: "page"}}
-- Phase 1: breadcrumbs, socialmedia and content menu will be provided by the API as markup. Webcomponents that use the menu API need to be written for both.
+- Phase 1: 
+    - breadcrumbs, socialmedia and content menu will be provided by the API as markup. 
+        - Webcomponents that use the menu API need to be written for both.
+    - There will be some schema.org data based on custom field data from custom patterns that will be available to the API but will need alignment with design system.
 - WP API "template" field is system specific (and may change to not be an absolute path)
 - Page layouts would live on design system website and ingest data from WP API
 - They would be imported via npm & data would feed into them.
 - They would have dependencies of headers and footers
 - Any blocks and feature dependencies need to be specified, possibly in a package.json for each GB 
     - e.g. dashicons CSS vs. cagov icons
+
 
 - Container started out as a clone of the CAWeb theme, with the idea that we would not be injecting any class variables or accommodating too many options until it's clear what hooks and dependencies are required by the CA Web theme.
 - Dependencies (CSS & JS) are: #page-container, #main-container
