@@ -24,6 +24,33 @@ function cagov_gb_init()
     // Add metadata to WP-API
     add_action('rest_api_init', 'cagov_gb_register_rest_field');
     add_filter('get_the_excerpt', 'cagov_gb_excerpt');
+
+    // Performance experiment    
+    add_action( 'wp_enqueue_scripts', 'cagov_remove_wp_block_library_css', 100 );
+    add_action('init', 'cagov_remove_wp_embed_and_jquery');
+
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+    remove_action( 'admin_print_styles', 'print_emoji_styles' );
+
+}
+
+function cagov_remove_wp_block_library_css(){
+    wp_dequeue_style( 'wp-block-library' );
+    wp_dequeue_style( 'wp-block-library-theme' );
+    wp_dequeue_style( 'wc-block-style' ); // Remove WooCommerce block CSS
+} 
+
+
+// Remove jQuery Migrate Script from header and Load jQuery from Google API
+function cagov_remove_wp_embed_and_jquery() {
+	if (!is_admin()) {
+		wp_deregister_script('wp-embed');
+        wp_deregister_script('wp-emoji-release');
+		wp_deregister_script('jquery');  // Bonus: remove jquery too if it's not required
+        remove_action('wp_head', 'print_emoji_detection_script', 7);
+
+	}
 }
 
 /**
@@ -126,14 +153,9 @@ function cagov_gb_build_scripts_frontend()
             - Used for more complex blocks with more UI interaction. 
             - Generated using npm run build from src folder, which builds child blocks. 
         */
-        // Load locally for testing performance & functionality without CAWeb theme.
-        wp_enqueue_script(
-            'ca-design-system-npm-web-components-bundle',
-            "https://files.covid19.ca.gov/js/components/bundle/index.min.js",
-            array(),
-        );
 
         // Add local web components without triggering render blocking
+        
         add_action('wp_footer', 'cagov_gb_load_web_components_callback');
         add_action('wp_footer', 'cagov_gb_register_post_list_web_component_callback' );
         add_action('wp_footer', 'cagov_gb_register_content_navigation_web_component_callback' );
@@ -149,6 +171,16 @@ function cagov_gb_build_scripts_frontend()
 }
 
 function cagov_gb_load_web_components_callback() {
+
+        // Load locally for testing performance & functionality without CAWeb theme.
+        // wp_register_script(
+        //     'ca-design-system-npm-web-components-bundle-front-end',
+        //     "https://files.covid19.ca.gov/js/components/bundle/index.min.js",
+        //     false,
+        //     '1.0.10.5'
+        // );
+
+
     wp_enqueue_script(
         'ca-design-system-npm-web-components-bundle',
         "https://files.covid19.ca.gov/js/components/bundle/index.min.js",

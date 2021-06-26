@@ -2,7 +2,7 @@
  * CAGov Content Navigation
  */
 
-(function (blocks, i18n, element) {
+(function (blocks, i18n, element, data) {
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
@@ -39,15 +39,31 @@
           el("cagov-content-navigation", {
             className: "content-navigation",
             "data-selector": "article",
-            "data-editor": "textarea.block-editor-plain-text",
+            "data-editor": ".edit-post-visual-editor",
             "data-callback": "(content) => unescape(content)",
           })
         )
       );
     }
   });
+
+  // data.subscribe(function () {
+  //   var blocks = data.select("core/block-editor").getBlocks();
+
+  //   var isPostDirty = data.select("core/editor").isEditedPostDirty();
+  //   var isAutosavingPost = data.select("core/editor").isAutosavingPost();
+
+  //   if (isPostDirty && !isAutosavingPost) {
+  //     console.log("Content updates");
+  //     const event = new Event('GutenbergEditorUpdated');
+  //     // Dispatch the event.
+  //     document.dispatchEvent(event);
+  //   }
+  // });
+
 })(
   window.wp.blocks,
   window.wp.i18n,
-  window.wp.element
+  window.wp.element,
+  window.wp.data
 );

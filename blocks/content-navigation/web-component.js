@@ -6,14 +6,21 @@
 class CAGovContentNavigation extends window.HTMLElement {
   connectedCallback() {
     this.type = "wordpress";
+    console.log("loaded content navigation");
     if (this.type === "wordpress") {
       document.addEventListener("DOMContentLoaded", () =>
         this.buildContentNavigation()
       );
+
+      // Still in progress, will update content dynamically on content editing
+      // document.addEventListener("GutenbergEditorUpdated", (e) =>
+      //   this.buildContentNavigation(e)
+      // );
     }
   }
 
   buildContentNavigation() {
+    console.log("hi");
     // Parse header tags
     let markup = this.getHeaderTags();
     let label = null;
@@ -24,12 +31,14 @@ class CAGovContentNavigation extends window.HTMLElement {
     if (markup !== null) {
       content = `<div class="label">${label}</div> ${markup}`;
     }
+    console.log("con", content);
     this.template({ content }, "wordpress");
   }
 
   template(data, type) {
     if (data !== undefined && data !== null && data.content !== null) {
       if (type === "wordpress") {
+        console.log(this);
         this.innerHTML = `${data.content}`;
       }
     }
@@ -77,6 +86,7 @@ class CAGovContentNavigation extends window.HTMLElement {
     var h = ["h2"];
     var headings = [];
 
+    // console.log("reading headers");
     for (var i = 0; i < h.length; i++) {
       // Pull out the header tags, in order & render as links with anchor tags
       // auto convert h tags with tag names
@@ -92,16 +102,20 @@ class CAGovContentNavigation extends window.HTMLElement {
             return outline;
           }
         }
-      } else if (display === "editor") {
-        let editorContent = window.document.querySelector(`${editor}`);
-        let editorInnerHTML = selectorContent.innerHTML;
-        if (callback !== undefined && callback !== null) {
-          editorInnerHTML = callback(editorInnerHTML);
-        }
-
-        let outline = this.outliner(editorContent);
-        return outline;
       }
+  
+      // if (editor !== undefined && editor !== null && document.querySelector(editor) !== null) {
+      //   let editorContent = window.document.querySelector(`${editor}`);
+        
+      //   let editorInnerHTML = selectorContent.innerHTML;
+      //   if (callback !== undefined && callback !== null) {
+      //     editorInnerHTML = callback(editorInnerHTML);
+      //   }
+
+      //   let outline = this.outliner(editorContent);
+      //   return outline;
+      // }
+      
     }
     return null;
   }
@@ -134,7 +148,9 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 }
 
-window.customElements.define(
-  "cagov-content-navigation",
-  CAGovContentNavigation
-);
+if (customElements.get('cagov-content-navigation') === undefined) {
+  window.customElements.define(
+    "cagov-content-navigation",
+    CAGovContentNavigation
+  );
+}

@@ -4,7 +4,7 @@
  */
  class CAGovStandardAlert extends window.HTMLElement {
   connectedCallback() {
-    console.log("standard-alert loaded");
+    // console.log("standard-alert loaded");
   }
 }
 

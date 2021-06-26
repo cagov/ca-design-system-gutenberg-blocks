@@ -87,7 +87,7 @@
     },
     edit: function (props) {
       var attributes = props.attributes;
-      console.log("attr", attributes);
+      // console.log("attr", attributes);
       return el(
         "div",
         {
@@ -174,7 +174,7 @@
                 "ca-design-system"
               ),
               onChange: function (value) {
-                console.log("value count", value);
+                // console.log("value count", value);
                 props.setAttributes({ count: value });
               },
             }),
@@ -188,7 +188,7 @@
               checked: attributes.order === "desc" || "" ? false : true,
               value: attributes.order === "desc" || "" ? false : true,
               onChange: function (value) {
-                console.log("value", value);
+                // console.log("value", value);
                 props.setAttributes({ 
                   order: value === true ? "asc" : "desc"
                 });
@@ -234,7 +234,7 @@
               checked:  attributes.showPagination === "true" ? true : false,
               value: attributes.showPagination,
               onChange: function (value) {
-                console.log("p", value);
+                // console.log("p", value);
                 props.setAttributes({ 
                   showPagination: value === true ? "true" : "false" 
                 });

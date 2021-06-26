@@ -70,7 +70,7 @@ function cagov_register_announcement_list_web_component_callback()
     wp_register_style(
         'ca-design-system-announcement-list',
         plugins_url('style.css', __FILE__),
-        array(),
+        array('moment'),
         filemtime(plugin_dir_path(__FILE__) . 'style.css')
     );
 

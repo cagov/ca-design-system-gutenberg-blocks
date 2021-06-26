@@ -29,9 +29,16 @@ function cagov_register_content_navigation()
     }
 
     wp_register_script(
+        'ca-design-system-content-navigation-web-component',
+        plugins_url('web-component.js', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+    );
+
+    wp_register_script(
         'ca-design-system-content-navigation-editor',
         plugins_url('block.js', __FILE__),
-        array('wp-blocks', 'wp-i18n', 'wp-element'),
+        array('wp-blocks', 'wp-i18n', 'wp-element', 'ca-design-system-content-navigation-web-component'),
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
     );
 
@@ -50,12 +57,13 @@ function cagov_register_content_navigation()
         'style' => 'ca-design-system-content-navigation-style',
         'editor_script' => 'ca-design-system-content-navigation-editor',
         'editor_style' => 'ca-design-system-content-navigation-editor-style',
+        'render_callback' => 'cagov_gb_register_content_navigation_dynamic_render_callback'
     ));
 }
 
 function cagov_gb_register_content_navigation_web_component_callback()
 {
-    // @TODO move into content-navigation
+
     wp_register_script(
         'ca-design-system-content-navigation-web-component',
         plugins_url('web-component.js', __FILE__),
@@ -71,6 +79,15 @@ add_action('cagov_gb_register_content_navigation_dynamic_render', 'cagov_gb_regi
 function cagov_gb_register_content_navigation_dynamic_render_callback($block_attributes, $content)
 {
     return <<<EOT
-    <cagov-content-navigation class="content-navigation" data-selector-"article" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)"></cagov-content-navigation>
+    <div class="wp-block-ca-design-system-content-navigation cagov-stack">
+    <div>
+    <cagov-content-navigation 
+        class="content-navigation" 
+        data-selector="article" 
+        data-editor=".edit-post-visual-editor"
+        data-label="On this page"
+    ></cagov-content-navigation>
+    </div>
+    </div>
     EOT;
 }

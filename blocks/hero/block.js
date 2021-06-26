@@ -83,7 +83,7 @@
       const onSelectImage = function (media) {
         console.log("media", media);
         return props.setAttributes({
-          mediaURL: media.url,
+          mediaURL: media.sizes.large.url,
           mediaID: media.id,
           mediaAlt: media.description,
           mediaWidth: media.sizes.large.width,
@@ -112,7 +112,7 @@
                 {
                   allowedBlocks: ['core/paragraph', 'core/button'],
                   onChange: function (value) {
-                    console.log(value);
+                    // console.log(value);
                   }
                 }
               )

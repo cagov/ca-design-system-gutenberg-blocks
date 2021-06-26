@@ -93,7 +93,7 @@ class CAGovPostList extends window.HTMLElement {
                     if(!this.querySelector('.post-list-results')) {
                       this.innerHTML = `<div class="post-list-results"></div>`;
                       if (this.showPagination === true) {
-                        console.log("Trying to show pagination");
+                        // console.log("Trying to show pagination");
                         this.innerHTML = `<div class="post-list-results"></div><cagov-pagination data-current-page="${this.currentPage}" data-total-pages="${parseInt(itemCount/this.count)}"></cagov-pagination>`
                       }
                     }
@@ -158,7 +158,6 @@ class CAGovPostList extends window.HTMLElement {
   }) {
 
     let dateFormatted;
-    console.log("data", date);
     if (date !== null && window.moment !== undefined) {
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
