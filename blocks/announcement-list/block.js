@@ -56,7 +56,7 @@
       },
       readMore: {
         type: "string",
-        default: '<a href="#">View all announcements</a>',
+        // default: '<a href="#">View all announcements</a>',
       },
       noResults: {
         type: "string",
@@ -113,7 +113,7 @@
             tagName: "div",
             className: "read-more",
             inline: false,
-            placeholder: __("Link to posts (read more)", "ca-design-system"),
+            placeholder: __("Add link to read more posts", "ca-design-system"),
             value: attributes.readMore,
             onChange: function (value) {
               props.setAttributes({ readMore: value });

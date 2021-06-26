@@ -15,6 +15,7 @@ class CAGovPostList extends window.HTMLElement {
     this.noResults = this.dataset.noResults || "No results found";
     this.showPublishedDate = this.dataset.showPublishedDate || true;
     this.showPaginator = this.dataset.showPaginator === "true" ? true : false;
+    this.readMore = this.dataset.readMore || "";
     this.type = this.dataset.type || "wordpress";
     this.currentPage = 1;
     this.categoryMap = {};
@@ -113,7 +114,7 @@ class CAGovPostList extends window.HTMLElement {
           return this.renderWordpressPostTitleDate(post)
           }
         );
-        return `<div class="post-list-items">${renderedPosts.join("")}</div>`;
+        return `<div class="post-list-items">${renderedPosts.join("")}</div>${this.readMore}`;
       }
     } else {
       return `<div class="no-results">${this.noResults}</div>`;
@@ -162,7 +163,8 @@ class CAGovPostList extends window.HTMLElement {
                 </a></div>
                 ${getExcerpt}
                 ${getDate}
-            </div>`;
+            </div>
+            `;
   }
 }
 

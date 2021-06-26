@@ -29,13 +29,13 @@ function cagov_post_list_dynamic_render_callback($block_attributes, $content)
     }
 
     $domain = $host . $_SERVER['HTTP_HOST'];
-    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Recent Posts";
     $count = isset($block_attributes["count"]) ? $block_attributes["count"] : "10";
     $order = isset($block_attributes["order"]) ? $block_attributes["order"] : "desc";
     $category = isset($block_attributes["category"]) ? $block_attributes["category"] : "announcements,press-releases";
     $endpoint = isset($block_attributes["endpoint"]) ? $block_attributes["endpoint"] : "$domain/wp-json/wp/v2";
-    $readMore = isset($block_attributes["readMore"]) ? $block_attributes["readMore"] : "";
-    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noReults"] : "";
+    $readMore = isset($block_attributes["readMore"]) ? esc_html($block_attributes["readMore"]) : "";
+    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noResults"] : "No posts found";
     $showExcerpt = isset($block_attributes["showExcerpt"]) ? $block_attributes["showExcerpt"] : "true";
     $showPublishedDate = isset($block_attributes["showPublishedDate"]) ? $block_attributes["showPublishedDate"] : "true";
     $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "false";
@@ -53,12 +53,10 @@ function cagov_post_list_dynamic_render_callback($block_attributes, $content)
                 data-show-excerpt="$showExcerpt"
                 data-show-published-date="$showPublishedDate"
                 data-no-results="$noResults"
-                >
-                </cagov-post-list>
-
-                <div class="read-more">
-                $readMore
-                </div>
+                data-show-pagination="$showPagination"
+                data-read-more="$readMore"
+            >
+            </cagov-post-list>
         </div>
     </div>
     EOT;
