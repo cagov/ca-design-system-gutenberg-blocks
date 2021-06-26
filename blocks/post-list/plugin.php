@@ -117,8 +117,8 @@ function cagov_register_post_list()
 }
 add_action('init', 'cagov_register_post_list');
 
-function cagov_register_post_list_web_component_callback()
-{
+// function cagov_register_post_list_web_component_callback()
+// {
     // wp_register_script(
     //     'ca-design-system-post-list-web-component',
     //     plugins_url('web-component.js', __FILE__),
@@ -135,6 +135,6 @@ function cagov_register_post_list_web_component_callback()
 
     // wp_enqueue_script('ca-design-system-post-list-web-component');
     // wp_enqueue_style('ca-design-system-post-list');
-}
+// }
 
-add_action('cagov_register_post_list_web_component', 'cagov_register_post_list_web_component_callback', 10, 2);
+// add_action('cagov_register_post_list_web_component', 'cagov_register_post_list_web_component_callback', 10, 2);
