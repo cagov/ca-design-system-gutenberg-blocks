@@ -56,7 +56,7 @@ function ca_design_system_register_event_list() {
     );
 
     register_block_type( 'ca-design-system/event-list', array(
-        'style' => 'cagov-event-list',
+        'style' => 'ca-design-system-event-list',
         'editor_script' => 'ca-design-system-event-list',
         'render_callback' => 'cagov_event_list_dynamic_render_callback'
     ) );

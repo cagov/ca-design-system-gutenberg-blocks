@@ -11,6 +11,71 @@ add_action( 'caweb_pre_footer', 'cagov_content_menu' );
 
 add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
+add_action('rest_api_init', 'cagov_register_rest_field');
+
+
+
+/**
+ * Add additional metadata to API for headless rendering
+ *
+ * @return void
+ */
+function cagov_register_rest_field()
+{
+    register_rest_field(
+        'post',
+        'design_system_fields',
+        array(
+            'get_callback'    => 'cagov_get_custom_fields',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
+}
+
+/**
+ * Handle custom fields in API
+ *
+ * @param [type] $object
+ * @param [type] $field_name
+ * @param [type] $request
+ * @return void
+ */
+function cagov_get_custom_fields($object, $field_name, $request)
+{
+    global $post;
+    // print_r($post);
+     // $cagov_content_menu_sidebar = get_post_meta($post->ID, '_cagov_content_menu_sidebar', true);
+    $caweb_custom_post_title_display = get_post_meta($post->ID, '_ca_custom_post_title_display', true);
+    // $caweb_default_post_date_display = get_post_meta($post->ID, '_ca_default_post_date_display', true);
+
+    // Get events fields
+
+
+    // $caweb_custom_css = wp_unslash(get_option('ca_custom_css'));
+    // $meta_display_title = array(
+    //     'type'         => 'string',
+    //     'description'  => 'If the title should be visible.',
+    //     'single'       => true,
+    //     'show_in_rest' => true,
+    // );
+    // register_post_meta( 'page', 'my_meta_key', $meta_args );
+    // register_post_meta( 'post', 'my_meta_key', $meta_args );
+    // register_post_meta( 'post', 'display_title', $meta_display_title );
+
+    // featured_media: 841,
+    // template name
+
+
+    $term_meta = get_option( 'autodescription-term-meta' );
+
+    return array(
+        'display_title' => $caweb_custom_post_title_display === "on" ? true : false, 
+        'term' => $term_meta
+    );
+}
+
+
 
 /**
  * CADesignSystem Breadcrumb
@@ -156,7 +221,7 @@ function cagov_content_menu()
                 </div>
             </div>
             <div class="menu-section">
-                <ul class="content-menu-links" %3$s>
+                <ul class="content-menu-links">
                     <?php
                     $menuitems = wp_get_nav_menu_items($nav_menus['content-menu']);
 

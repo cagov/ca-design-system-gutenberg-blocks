@@ -1,7 +1,7 @@
 /**
  * News List web component
  * Supported endpoints: Wordpress v2
- * Wordpress Dependencies: window.wp.moment.
+ * Wordpress Dependencies: window.wp.moment, cagov-pagination
  */
 class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
@@ -14,7 +14,7 @@ class CAGovPostList extends window.HTMLElement {
     this.showExcerpt = this.dataset.showExcerpt || true;
     this.noResults = this.dataset.noResults || "No results found";
     this.showPublishedDate = this.dataset.showPublishedDate || true;
-    this.showPaginator = this.dataset.showPaginator === "true" ? true : false;
+    this.showPagination = this.dataset.showPagination === "true" ? true : false;
     this.filter = this.dataset.filter ? this.dataset.filter : "none"; // Accepts types of filtering
     this.readMore = this.dataset.readMore || "";
     this.type = this.dataset.type || "wordpress";
@@ -92,7 +92,8 @@ class CAGovPostList extends window.HTMLElement {
                     // Set posts content.
                     if(!this.querySelector('.post-list-results')) {
                       this.innerHTML = `<div class="post-list-results"></div>`;
-                      if (this.showPaginator === true) {
+                      if (this.showPagination === true) {
+                        console.log("Trying to show pagination");
                         this.innerHTML = `<div class="post-list-results"></div><cagov-pagination data-current-page="${this.currentPage}" data-total-pages="${parseInt(itemCount/this.count)}"></cagov-pagination>`
                       }
                     }

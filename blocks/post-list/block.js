@@ -73,20 +73,21 @@
     },
     example: {
       attributes: {
-        title: __("Events", "ca-design-system"),
-        category: __("events", "ca-design-system"),
-        readMore: __("<a href=\"#\">View all events</a>", "ca-design-system"),
+        title: __("Recent posts", "ca-design-system"),
+        category: __("announcements,press-releases", "ca-design-system"),
+        readMore: __("<a href=\"#\">View all posts</a>", "ca-design-system"),
         order: "desc",
-        count: "3",
+        count: "10",
         endpoint: `${siteUrl}/wp-json/wp/v2`,
-        showExcerpt: "false",
-        showPublishedDate: "false",
-        showPagination: "false",
-        noResults: __("No events found", "ca-design-system")
+        showExcerpt: "true",
+        showPublishedDate: "true",
+        showPagination: "true",
+        noResults: __("No posts found", "ca-design-system")
       },
     },
     edit: function (props) {
       var attributes = props.attributes;
+      console.log("attr", attributes);
       return el(
         "div",
         {
@@ -220,6 +221,22 @@
               onChange: function (value) {
                 props.setAttributes({ 
                   showPublishedDate: value === true ? "true" : "false" 
+                });
+              },
+            }),
+            el(CheckboxControl, {
+              label: "Show pagination",
+              tagName: "div", // select box + enter data
+              className: "post-list-pagination",
+              help: "Show the pagination bar",
+              inline: false,
+              placeholder: __("Show pagination", "ca-design-system"),
+              checked:  attributes.showPagination === "true" ? true : false,
+              value: attributes.showPagination,
+              onChange: function (value) {
+                console.log("p", value);
+                props.setAttributes({ 
+                  showPagination: value === true ? "true" : "false" 
                 });
               },
             }),

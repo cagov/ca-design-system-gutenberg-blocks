@@ -38,11 +38,13 @@ function cagov_post_list_dynamic_render_callback($block_attributes, $content)
     $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noResults"] : "No posts found";
     $showExcerpt = isset($block_attributes["showExcerpt"]) ? $block_attributes["showExcerpt"] : "true";
     $showPublishedDate = isset($block_attributes["showPublishedDate"]) ? $block_attributes["showPublishedDate"] : "true";
-    $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "false";
+    $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "true";
+
 
     return <<<EOT
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
         <div>
+        
             <h3>$title</h3>
             <cagov-post-list 
                 class="post-list" 
@@ -106,7 +108,8 @@ function cagov_register_post_list()
     );
 
     register_block_type('ca-design-system/post-list', array(
-        'style' => 'cagov-post-list',
+        'script' => 'ca-design-system-post-list-web-component',
+        'style' => 'ca-design-system-post-list',
         'editor_style' => 'ca-design-system-post-list-editor',
         'editor_script' => 'ca-design-system-post-list',
         'render_callback' => 'cagov_post_list_dynamic_render_callback'
@@ -116,22 +119,22 @@ add_action('init', 'cagov_register_post_list');
 
 function cagov_register_post_list_web_component_callback()
 {
-    wp_register_script(
-        'ca-design-system-post-list-web-component',
-        plugins_url('web-component.js', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
-    );
+    // wp_register_script(
+    //     'ca-design-system-post-list-web-component',
+    //     plugins_url('web-component.js', __FILE__),
+    //     array(),
+    //     filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+    // );
 
-    wp_register_style(
-        'ca-design-system-post-list',
-        plugins_url('style.css', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    );
+    // wp_register_style(
+    //     'ca-design-system-post-list',
+    //     plugins_url('style.css', __FILE__),
+    //     array(),
+    //     filemtime(plugin_dir_path(__FILE__) . 'style.css')
+    // );
 
-    wp_enqueue_script('ca-design-system-post-list-web-component');
-    wp_enqueue_style('ca-design-system-post-list');
+    // wp_enqueue_script('ca-design-system-post-list-web-component');
+    // wp_enqueue_style('ca-design-system-post-list');
 }
 
 add_action('cagov_register_post_list_web_component', 'cagov_register_post_list_web_component_callback', 10, 2);
