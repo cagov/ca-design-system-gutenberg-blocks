@@ -6,7 +6,7 @@
 class CAGovContentNavigation extends window.HTMLElement {
   connectedCallback() {
     this.type = "wordpress";
-    console.log("loaded content navigation");
+
     if (this.type === "wordpress") {
       document.addEventListener("DOMContentLoaded", () =>
         this.buildContentNavigation()
@@ -20,7 +20,6 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 
   buildContentNavigation() {
-    console.log("hi");
     // Parse header tags
     let markup = this.getHeaderTags();
     let label = null;
@@ -31,29 +30,28 @@ class CAGovContentNavigation extends window.HTMLElement {
     if (markup !== null) {
       content = `<div class="label">${label}</div> ${markup}`;
     }
-    console.log("con", content);
+
     this.template({ content }, "wordpress");
   }
 
   template(data, type) {
     if (data !== undefined && data !== null && data.content !== null) {
       if (type === "wordpress") {
-        console.log(this);
         this.innerHTML = `${data.content}`;
       }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
-        let hashval = anchor.getAttribute('href');
+        let hashval = anchor.getAttribute("href");
         let target = document.querySelector(hashval);
-        
+
         // Not working with scroll margin, has conflict with parent theme, using many overflow statements on most page element containers.
 
         target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            top: 100,
+          behavior: "smooth",
+          block: "start",
+          top: 100,
         });
 
         // We should probably switch to standard JS until CSS can be worked out.
@@ -63,7 +61,7 @@ class CAGovContentNavigation extends window.HTMLElement {
         // window.scrollTo(position.left, position.top + window.scrollY - 128);
 
         history.pushState(null, null, hashval);
-        
+
         e.preventDefault();
       });
     });
@@ -103,10 +101,10 @@ class CAGovContentNavigation extends window.HTMLElement {
           }
         }
       }
-  
+
       // if (editor !== undefined && editor !== null && document.querySelector(editor) !== null) {
       //   let editorContent = window.document.querySelector(`${editor}`);
-        
+
       //   let editorInnerHTML = selectorContent.innerHTML;
       //   if (callback !== undefined && callback !== null) {
       //     editorInnerHTML = callback(editorInnerHTML);
@@ -115,7 +113,6 @@ class CAGovContentNavigation extends window.HTMLElement {
       //   let outline = this.outliner(editorContent);
       //   return outline;
       // }
-      
     }
     return null;
   }
@@ -148,7 +145,7 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 }
 
-if (customElements.get('cagov-content-navigation') === undefined) {
+if (customElements.get("cagov-content-navigation") === undefined) {
   window.customElements.define(
     "cagov-content-navigation",
     CAGovContentNavigation
