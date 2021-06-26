@@ -23,7 +23,7 @@
       html: false,
       reusable: false,
       multiple: false,
-      inserter: false
+      inserter: true
     },
     edit: function (props) {
       var attributes = props.attributes;
@@ -38,7 +38,7 @@
           // Visual display of content
           el("cagov-content-navigation", {
             className: "content-navigation",
-            "data-selector": "#main-content",
+            "data-selector": "article",
             "data-editor": "textarea.block-editor-plain-text",
             "data-callback": "(content) => unescape(content)",
           })
@@ -59,7 +59,7 @@
           // Visual display of content
           el("cagov-content-navigation", {
             className: "content-navigation",
-            "data-selector": "#main-content",
+            "data-selector": "article",
             "data-editor": "textarea.block-editor-plain-text",
             "data-callback": "(content) => content",
           })

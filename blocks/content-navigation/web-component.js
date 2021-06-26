@@ -83,7 +83,7 @@ class CAGovContentNavigation extends window.HTMLElement {
       if (selector !== undefined && selector !== null) {
         // Dynamic for editor
         // @TODO update on save like category-label
-        // data-selector="#main-content" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)" data-js-flip="true"
+        // data-selector="article" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)" data-js-flip="true"
 
         if (display === "render") {
           let selectorContent = document.querySelector(selector);
