@@ -33,7 +33,7 @@
     attributes: {
       title: {
         type: "string",
-        // default: "",
+        default: "Recent Posts",
       },
       category: {
         type: "string",
@@ -41,6 +41,7 @@
       },
       readMore: {
         type: "string",
+        default: '<a href=\"#">Read more</a>',
       },
       order: {
         type: "string",
@@ -62,6 +63,14 @@
         type: "string",
         default: "true"
       },
+      showPagination: {
+        type: "string",
+        default: "true"
+      },
+      noResults: {
+        type: "string",
+        default: "No posts found"
+      },
     },
     example: {
       attributes: {
@@ -73,13 +82,12 @@
         endpoint: `${siteUrl}/wp-json/wp/v2`,
         showExcerpt: "false",
         showPublishedDate: "false",
+        showPagination: "false",
+        noResults: __("No events found", "ca-design-system")
       },
     },
     edit: function (props) {
       var attributes = props.attributes;
-
-      // console.log("props", attributes);
-
       return el(
         "div",
         {
@@ -98,6 +106,8 @@
               props.setAttributes({ title: value });
             },
           }),
+          // Display output of component.
+          // @TODO refresh on change
           el("cagov-post-list", {
             className: "post-list",
             "data-category": attributes.category,
@@ -105,41 +115,46 @@
             "data-order": attributes.order,
             "data-endpoint": attributes.endpoint,
             "data-show-excerpt": attributes.showExcerpt,
+            "data-show-published-date" : attributes.showPublishedDate,
+            "data-no-results": attributes.noResults,
+            "date-show-paginator": attributes.showPagination,
           }),
-          // Visual display of endpoint
-          // el(RichText, {
-          //   tagName: "div",
-          //   className: "read-more",
-          //   inline: false,
-          //   placeholder: __("Link to post page", "ca-design-system"),
-          //   value: attributes.readMore,
-          //   onChange: function (value) {
-          //     props.setAttributes({ readMore: value });
-          //   },
-          // }),
-          el(
-            "div",
-            {
-              tagName: "div",
-              className: "read-more",
-              inline: false,
-              placeholder: __("Link to post page", "ca-design-system"),
+          el(RichText, {
+            tagName: "div",
+            className: "read-more",
+            inline: false,
+            placeholder: __("Link to posts (read more)", "ca-design-system"),
+            value: attributes.readMore,
+            onChange: function (value) {
+              props.setAttributes({ readMore: value });
             },
-            el(InnerBlocks, {
-            //   value: attributes.readMore,
-              allowedBlocks: ["core/paragraph", "core/button"],
-              onChange: function (value) {
-                props.setAttributes({ readMore: value });
-              },
-            })
-          ),
+          }),
+          // el(
+          //   "div",
+          //   {
+          //     tagName: "div",
+          //     className: "read-more",
+          //     inline: false,
+          //     placeholder: __("Link to post page", "ca-design-system"),
+          //   },
+          //   el(InnerBlocks, {
+          //     value: attributes.readMore,
+          //     allowedBlocks: ["core/paragraph", "core/button"],
+          //     onChange: function (value) {
+          //       props.setAttributes({ readMore: value });
+          //     },
+          //   })
+          // ),
+          el("hr"),
+          el("h3", { children: "Post list settings"}),
           el(
             "div",
             { className: "edit" },
+            // @TODO Change to select with categories list.
             el(TextControl, {
               label: "Change post category",
               tagName: "div",
-              help: "Comma separated list of category slugs", // @TODO Will change to select box
+              help: "Comma separated list of category slugs",
               className: "post-list-category",
               inline: false,
               placeholder: __("Category", "ca-design-system"),
@@ -151,7 +166,6 @@
             el(TextControl, {
               label: "Number of items to display",
               tagName: "div",
-              
               className: "post-list-count",
               value: attributes.count,
               inline: false,
@@ -166,15 +180,17 @@
             }),
             el(ToggleControl, {
               label: "Order of posts",
-              tagName: "div", // Checkbox desc/asc
+              tagName: "div",
               className: "post-list-order",
               inline: false,
-              help: attributes.order === "asc" ?  "Oldest first" : "Newest posts first",
+              help: attributes.order === "desc" ? "Newest posts first" : "Oldest first",
               placeholder: __("Newest posts first", "ca-design-system"),
-              value: attributes.order === "desc" || "" ? true : false,
+              checked: attributes.order === "desc" || "" ? false : true,
+              value: attributes.order === "desc" || "" ? false : true,
               onChange: function (value) {
+                console.log("value", value);
                 props.setAttributes({ 
-                  order: value === true ? "desc" : "asc"
+                  order: value === true ? "asc" : "desc"
                 });
               },
             }),
@@ -219,7 +235,18 @@
               onChange: function (value) {
                 props.setAttributes({ endpoint: value });
               },
-            })
+            }),
+            el(TextControl, {
+              label: "No results message",
+              tagName: "input",
+              className: "post-list-no-results",
+              inline: false,
+              placeholder: __("No results found", "ca-design-system"),
+              value: attributes.noResults,
+              onChange: function (value) {
+                props.setAttributes({ noResults: value });
+              },
+            }),
           )
         )
       );

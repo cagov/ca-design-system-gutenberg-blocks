@@ -86,15 +86,22 @@ add_action('cagov_register_announcement_list_web_component', 'cagov_register_ann
 function cagov_announcement_dynamic_render_callback($block_attributes, $content)
 {
 
-    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
-    $count = isset( $block_attributes["count"] ) ? $block_attributes["count"] : 0;
-    $order = isset( $block_attributes["order"] ) ? $block_attributes["order"] : 'desc';
-    $category = isset( $block_attributes["category"] ) ? $block_attributes["category"] : '';
-    $endpoint = isset( $block_attributes["endpoint"] ) ? $block_attributes["endpoint"] : '';
-    $readMore = isset( $block_attributes["readMore"] ) ? $block_attributes["readMore"] : '';
-    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noReults"] : "";
-    $showExcerpt = "false";
-    $showPublishedDate = "true";
+    $host = "http://";
+    if( isset($_SERVER['HTTPS'] ) ) {
+        $host = "https://";
+    }
+
+    $domain = $host . $_SERVER['HTTP_HOST'];
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Announcements";
+    $count = isset($block_attributes["count"]) ? $block_attributes["count"] : "5";
+    $order = isset($block_attributes["order"]) ? $block_attributes["order"] : "desc";
+    $category = isset($block_attributes["category"]) ? $block_attributes["category"] : "announcements,press-releases";
+    $endpoint = isset($block_attributes["endpoint"]) ? $block_attributes["endpoint"] : "$domain/wp-json/wp/v2";
+    $readMore = isset($block_attributes["readMore"]) ? $block_attributes["readMore"] : "";
+    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noReults"] : "No posts found";
+    $showExcerpt = isset($block_attributes["showExcerpt"]) ? $block_attributes["showExcerpt"] : "false";
+    $showPublishedDate = isset($block_attributes["showPublishedDate"]) ? $block_attributes["showPublishedDate"] : "true";
+    $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "false";
 
     return <<<EOT
     <div class="wp-block-ca-design-system-announcement-list cagov-announcement-list cagov-stack">

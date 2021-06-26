@@ -32,10 +32,11 @@
     attributes: {
       title: {
         type: "string",
-        // default: "Announcements",
+        default: "Announcements",
       },
       description: {
         type: "string",
+        default: "announcements,press-releases",
       },
       category: {
         type: "string",
@@ -55,7 +56,11 @@
       },
       readMore: {
         type: "string",
-        default: '<a href="/category/announcements">View all announcements</a>',
+        default: '<a href="#">View all announcements</a>',
+      },
+      noResults: {
+        type: "string",
+        default: "No posts found"
       },
     },
     // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional
@@ -67,8 +72,9 @@
         order: "desc",
         count: "3",
         endpoint: `${siteUrl}/wp-json/wp/v2`,
-        showExcerpt: "true",
+        showExcerpt: "false",
         showPublishedDate: "true",
+        noResults: "No posts found",
       },
     },
     edit: function (props) {
@@ -82,15 +88,16 @@
           "div",
           {},
           el(RichText, {
-            tagName: "h3",
+            tagName: "h2",
             inline: false,
-            placeholder: __("Post list title", "ca-design-system"),
+            placeholder: __("Announcement list block title", "ca-design-system"),
             value: attributes.title,
             onChange: function (value) {
               props.setAttributes({ title: value });
             },
           }),
-          // Visual display of endpoint
+          // Display output of component.
+          // @TODO refresh on change
           el("cagov-post-list", {
             className: "post-list",
             "data-category": attributes.category,
@@ -106,13 +113,14 @@
             tagName: "div",
             className: "read-more",
             inline: false,
-            placeholder: __("Link to post page", "ca-design-system"),
+            placeholder: __("Link to posts (read more)", "ca-design-system"),
             value: attributes.readMore,
             onChange: function (value) {
               props.setAttributes({ readMore: value });
             },
           }),
-          // Settings, will reorganize into gear overlay or other interface (TBD)
+          el("hr"),
+          el("h3", { children: "Post list settings"}),
           el(
             "div",
             { className: "edit" },
@@ -127,8 +135,19 @@
               onChange: function (value) {
                 props.setAttributes({ category: value });
               },
-            })
-          )
+            }),
+            el(TextControl, {
+              label: "No results message",
+              tagName: "input",
+              className: "post-list-no-results",
+              inline: false,
+              placeholder: __("No results found", "ca-design-system"),
+              value: attributes.noResults,
+              onChange: function (value) {
+                props.setAttributes({ noResults: value });
+              },
+            }),
+          ),
         )
       );
     },
