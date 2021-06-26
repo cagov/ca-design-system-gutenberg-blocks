@@ -16,14 +16,15 @@ add_action( 'save_post', 'cagov_save_post', 10, 2 );
 function cagov_add_meta_boxes() {
 
     /* Page Meta Box */
-    add_meta_box(
-        'cagov_page_meta_box',
-        'CA Design System Page Settings',
-        'cagov_page_identifier_metabox_callback',
-        array( 'page' ),
-        'side',
-        'high'
-    );
+    // Disabling until someone requests this feature.
+    // add_meta_box(
+    //     'cagov_page_meta_box',
+    //     'CA Design System Page Settings',
+    //     'cagov_page_identifier_metabox_callback',
+    //     array( 'page' ),
+    //     'side',
+    //     'high'
+    // );
 }
 
 /**

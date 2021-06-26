@@ -3,6 +3,15 @@
     padding: 0 0px 0 16px;
 }
 
+.editor-styles-wrapper .message-body {
+    padding: 0 32px;
+}
+
+.editor-styles-wrapper .cagov-page-alert {
+    min-height: 64px;
+    height: auto;
+}
+
 .cagov-page-alert {
     display: flex;
     flex-direction: row;
@@ -33,9 +42,16 @@
     padding: 0 16px;
 }
 
-@media only screen and (max-width: 600px) {
+.cagov-page-alert .close-button {
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 580px) {
     .cagov-page-alert {
         min-height: 46px;
         height: auto;
+    }
+    .cagov-page-alert .body {
+        padding: 0 8px;
     }
 }

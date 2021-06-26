@@ -70,10 +70,11 @@ function cagov_page_alert_dynamic_render_callback($block_attributes, $content)
 {
     $body = isset($block_attributes["body"]) ? $block_attributes["body"] : "";
     $icon = isset($block_attributes["icon"]) ? $block_attributes["icon"] : "";
-    
+
+    //<div class="icon"><span class="dashicons dashicons-%1$s"></span></div>
     return sprintf('<div class="wp-block-ca-design-system-page-alert cagov-page-alert cagov-stack">
-        <div class="icon"><span class="dashicons dashicons-%1$s"></span></div>
+        <div class="icon"><span class="%1$s"></span></div>
         <div class="body">%2$s</div>
-        <div class="close-button"><span class="dashicons dashicons-close"></span></div>
+        <div class="close-button"><span class="ca-gov-icon-close-line"></span></div>
     </div>', $icon, $body);
 }
