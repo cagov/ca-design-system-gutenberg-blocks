@@ -78,8 +78,8 @@ function cagov_page_template_filter($template)
 
     $user_selected_template = get_page_template_slug($post->ID);
     $file_name              = pathinfo($user_selected_template, PATHINFO_BASENAME);
-    $template_dir           = CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'templates/';
-
+    $template_dir           = CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'includes/templates/';
+    
     $is_plugin = false;
     if (file_exists($template_dir . $file_name)) {
         $is_plugin = true;
@@ -89,7 +89,7 @@ function cagov_page_template_filter($template)
         $template = $user_selected_template;
     }
 
-    if (is_category()) { // and $is_plugin?) {
+    if (is_category() && $is_plugin) {
         $template = $template_dir . 'plugin/category-template.php';
     }
 

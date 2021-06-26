@@ -156,7 +156,9 @@ class CAGovPostList extends window.HTMLElement {
     // featured_media = null, // 0
     categories = null,
   }) {
+
     let dateFormatted;
+    console.log("data", date);
     if (date !== null && window.moment !== undefined) {
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }

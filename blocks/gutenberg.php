@@ -125,23 +125,17 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
             - Used for more complex blocks with more UI interaction. 
             - Generated using npm run build from src folder, which builds child blocks. 
         */
-
+        // Load locally for testing performance & functionality without CAWeb theme.
         wp_enqueue_script(
-        	'ca-design-system-npm-web-components-bundle',
-        	"https://files.covid19.ca.gov/js/components/bundle/index.min.js",
-        	array(),
+            'ca-design-system-npm-web-components-bundle',
+            "https://files.covid19.ca.gov/js/components/bundle/index.min.js",
+            array(),
         );
 
-        /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
-        wp_enqueue_script(
-            'ca-design-system-blocks',
-            CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
-            array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ), // NOT PERFORRRRMANTTTTTTT!!!
-        );
 
-        // do_action('cagov_register_announcement_list_web_component');
-        // do_action('cagov_register_post_list_web_component');
-        do_action('cagov_register_content_navigation_web_component');
+        // do_action('cagov_gutenberg_blocks_register_announcement_list_web_component');
+        // do_action('cagov_gutenberg_blocks_register_post_list_web_component');
+        do_action('cagov_gutenberg_blocks_register_content_navigation_web_component');
 
         wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
         wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
@@ -164,11 +158,19 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
 function cagov_gutenberg_blocks_build_scripts_editor()
 {
     // ***THIS IS A PERFORMANCE BOTTLENECK***
+    // wp_enqueue_script(
+    //     'ca-design-system-blocks',
+    //     plugins_url('/build/index.js', dirname(__FILE__)),
+    //     array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
+    // );
+
+    /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
     wp_enqueue_script(
         'ca-design-system-blocks',
-        plugins_url('/build/index.js', dirname(__FILE__)),
-        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
+        CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
+        // array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'), // NOT PERFORRRRMANTTTTTTT!!!
     );
+    
 
     wp_enqueue_style('ca-design-system-gutenberg-blocks-editor',  CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css', false);
 }
@@ -205,7 +207,7 @@ function cagov_gutenberg_blocks_get_custom_fields($object, $field_name, $request
 {
     global $post;
     // print_r($post);
-    // $cagov_content_menu_sidebar = get_post_meta($post->ID, '_cagov_content_menu_sidebar', true);
+    // $cagov_gutenberg_blocks_content_menu_sidebar = get_post_meta($post->ID, '_cagov_gutenberg_blocks_content_menu_sidebar', true);
     $caweb_custom_post_title_display = get_post_meta($post->ID, '_ca_custom_post_title_display', true);
     // $caweb_default_post_date_display = get_post_meta($post->ID, '_ca_default_post_date_display', true);
 
@@ -233,3 +235,74 @@ function cagov_gutenberg_blocks_get_custom_fields($object, $field_name, $request
         // 'term' => $term_meta
     );
 }
+
+
+
+function cagov_gutenberg_blocks_excerpt($excerpt)
+{
+    global $post;
+    $meta = get_post_meta($post->ID);
+    $details = $excerpt;
+    try {
+        // if (str_contains($meta['_wp_page_template'][0], "event")) {
+        // if (isset($meta['_wp_page_template'][0]) &&  == $meta['_wp_page_template'][0] === "/Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php" || isset($meta['_wp_page_template'][0]) === "/Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php") {
+        //     $blocks = parse_blocks($post->post_content);
+        //     $event_date_display = "";
+        //     $event_time = "";
+        //     $materials = "";
+        //     try {
+        //         $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+
+        //         //@TODO escape && ISO format: "2025-07-21T19:00-05:00"; // @TODO reconstruct from event-detail saved data in post body.
+
+        //         $start_date = $event_details['startDate'];
+        //         // $end_date = $event_details['endDate'];
+        //         $start_time = $event_details['startTime'];
+        //         $end_time = $event_details['endTime'];
+        //         $event_time_detail = $start_time;
+
+        //         if ($end_time) {
+        //             $event_time_detail = $event_time_detail . " – " . $end_time;
+        //         }
+
+        //         $event_date_display = "<div class=\"event-date\">" . $start_date . "</div>";
+        //         $event_time = "<div class=\"event-time\">" . $event_time_detail . "</div>";
+        //     } catch (Exception $e) {
+        //     } finally {
+        //     }
+            
+
+
+        //     try {
+        //         $event_materials = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+        //         // $event_materials_agenda = $event_materials['agenda'];
+        //         $event_materials_materials = $event_materials['materials'];
+        //         $materials = "<div class=\"event-materials\">" . $event_materials_materials . "</div>";
+        //     } catch (Exception $e) {
+        //     } finally {
+        //     }
+
+        //     // ORIGINAL: return $excerpt;
+
+        //     // @TODO smarter date handling, we can convert to ISO on date entering in GB
+        //     // For now will be text entry
+
+        //     $details = "<div class=\"event-details\">" . $event_date_display . $event_time . $materials . "</div>";
+        // }
+    } catch (Exception $e) {
+    } finally {
+    }
+    return $details;
+}
+
+
+// function _load_default_page_template_styles()
+// {
+// 	add_action('wp_enqueue_scripts', array($this, 'cagov_gutenberg_blocks_default_page_template_styles'), 100);
+// }
+
+// public function cagov_gutenberg_blocks_default_page_template_styles()
+// {
+// 	wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.7.2');
+// 	wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
+// }

@@ -11,7 +11,7 @@
 if (file_exists(get_stylesheet_directory() . '/header.php')) {
     require_once get_stylesheet_directory() . '/header.php';
 }
-if (file_exists(get_stylesheet_directory() . '/header.php')) {
+if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
     require_once get_stylesheet_directory() . '/partials/header.php';
 }
 ?>
