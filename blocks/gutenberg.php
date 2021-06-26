@@ -6,25 +6,23 @@
  * @package CADesignSystem
  */
 
-cagov_gutenberg_init();
+cagov_gutenberg_blocks_init();
 
-// add_action('rest_api_init', 'cagov_register_rest_field');
-add_action('wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100);
-add_action('enqueue_block_editor_assets', 'cagov_wp_enqueue_editor_scripts', 1);
-
-function cagov_gutenberg_init()
+function cagov_gutenberg_blocks_init()
 {
 
     // Load all block dependencies and files.
-    cagov_load_block_dependencies();
+    cagov_gutenberg_blocks_load_block_dependencies();
 
     // Create special categories for design system blocks
-    cagov_load_block_pattern_categories();
-    cagov_load_block_category();
+    cagov_gutenberg_blocks_load_block_pattern_categories();
+    cagov_gutenberg_blocks_load_block_category();
 
     // Get all scripts
     add_action('wp_enqueue_scripts', 'cagov_gutenberg_blocks_build_scripts_frontend', 100);
     add_action('enqueue_block_editor_assets', 'cagov_gutenberg_blocks_build_scripts_editor');
+
+    add_action('rest_api_init', 'cagov_gutenberg_blocks_register_rest_field');
 }
 
 /**
@@ -32,13 +30,15 @@ function cagov_gutenberg_init()
  *
  * @return void
  */
-function cagov_register_rest_field()
+function cagov_gutenberg_blocks_register_rest_field()
 {
+    // @TODO some of this will be scoped to the theme/plugin
+    // Starting with block content for API then will do other assets
     register_rest_field(
         'post',
         'design_system_fields',
         array(
-            'get_callback'    => 'cagov_get_custom_fields',
+            'get_callback'    => 'cagov_gutenberg_blocks_get_custom_fields',
             'update_callback' => null,
             'schema'          => null, // @TODO look up what our options are here
         )
@@ -53,7 +53,7 @@ function cagov_register_rest_field()
  * @param [type] $request
  * @return void
  */
-function cagov_get_custom_fields($object, $field_name, $request)
+function cagov_gutenberg_blocks_get_custom_fields($object, $field_name, $request)
 {
     global $post;
     // print_r($post);
@@ -78,18 +78,18 @@ function cagov_get_custom_fields($object, $field_name, $request)
     // template name
 
 
-    $term_meta = get_option('autodescription-term-meta');
+    // $term_meta = get_option('autodescription-term-meta');
 
     return array(
         'display_title' => $caweb_custom_post_title_display === "on" ? true : false,
-        'term' => $term_meta
+        // 'term' => $term_meta
     );
 }
 
 /**
  * Load all patterns and blocks.
  */
-function cagov_load_block_dependencies()
+function cagov_gutenberg_blocks_load_block_dependencies()
 {
 
     // CA Design System BLOCKS
@@ -138,13 +138,21 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
             array(),
         );
 
+        wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
+        wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
+    
+        // PERFORMANCE OPTION (re render blocking): inlining our CSS 
+        // Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
+        // $critical_css = file_get_contents(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css');
+        // echo '<style>' . $critical_css . '</style>';
+
         /**
          * Register web-component from Block child plugins. 
          * Plugins creates hooks that lets us load that component as needed.
          */
         // do_action("ca_design_system_gutenberg_blocks_register_announcement_list_web_component");
-        do_action("ca_design_system_gutenberg_blocks_register_post_list_web_component");
-        do_action("ca_design_system_gutenberg_blocks_register_content_navigation_web_component");
+        do_action("ca_design_system_gutenberg_register_post_list_web_component");
+        do_action("ca_design_system_gutenberg_register_content_navigation_web_component");
 
         // Front end display
 
@@ -163,12 +171,12 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
         // 	array(),
         // );
 
-        wp_enqueue_script(
-            'ca-design-system-blocks',
-            CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
-            array(),
-            // array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),
-        );
+        // wp_enqueue_script(
+        //     'ca-design-system-blocks',
+        //     CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
+        //     array(),
+        //     // array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data' ),
+        // );
 
 
 
@@ -179,9 +187,9 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
          * For Wordpress iteration and development of the components, blocks can include actions to include web component code.
          */
         // @TODO manage wp dependencies, WP's method of adding React elements causes performance hits, trying to mitigate this.
-        do_action('cagov_register_announcement_list_web_component');
-        do_action('cagov_register_post_list_web_component');
-        do_action('cagov_register_content_navigation_web_component');
+        // do_action('cagov_register_announcement_list_web_component');
+        // do_action('cagov_register_post_list_web_component');
+        // do_action('cagov_register_content_navigation_web_component');
     }
 }
 
@@ -194,27 +202,7 @@ function cagov_gutenberg_blocks_build_scripts_frontend()
  * @return void
  */
 
-/**
- * Register CADesignSystem scripts/styles with priority of 100
- *
- * Fires when scripts and styles are enqueued.
- *
- * @category add_action( 'wp_enqueue_scripts', 'cagov_wp_enqueue_scripts', 100 );
- * @link https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/
- *
- * @return void
- */
-function cagov_wp_enqueue_scripts()
-{
-    wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
-    wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
 
-    // PERFORMANCE OPTION (re render blocking): inlining our CSS 
-    // Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
-    // $critical_css = file_get_contents(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css');
-    // echo '<style>' . $critical_css . '</style>';
-
-}
 
 function cagov_gutenberg_blocks_build_scripts_editor()
 {
@@ -224,12 +212,14 @@ function cagov_gutenberg_blocks_build_scripts_editor()
         plugins_url('/build/index.js', dirname(__FILE__)),
         array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
     );
+
+    wp_enqueue_style('ca-design-system-gutenberg-blocks-editor',  CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css', false);
 }
 
 /**
  * Register Custom Block Pattern Category.
  */
-function cagov_load_block_pattern_categories()
+function cagov_gutenberg_blocks_load_block_pattern_categories()
 {
     if (function_exists('register_block_pattern_category')) {
         register_block_pattern_category(
@@ -242,7 +232,7 @@ function cagov_load_block_pattern_categories()
 /**
  * Register Custom Block Category.
  */
-function cagov_load_block_category()
+function cagov_gutenberg_blocks_load_block_category()
 {
     // This doesn't load a normal plugin function (probably syntax recommendation or scoping issue.)
     add_filter(
@@ -274,7 +264,7 @@ function cagov_load_block_category()
 // NOTES
 
 // @TODO Add script as a module
-// function cagov_add_type_attribute($tag, $handle, $src) {
+// function cagov_gutenberg_blocks_add_type_attribute($tag, $handle, $src) {
 //     // if not your script, do nothing and return original $tag
 //     if ( 'ca-design-system-externally-compiled-developement-web-components' !== $handle ) {
 //         return $tag;
