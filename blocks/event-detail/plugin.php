@@ -68,7 +68,7 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
 
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Event Details";
     $startDate = isset($block_attributes["startDate"]) ? $block_attributes["startDate"] : "";
-    $endDate = isset($block_attributes["endDate"]) ? $block_attributes["$endDate"] : "";
+    $endDate = isset($block_attributes["endDate"]) ? $block_attributes["endDate"] : "";
     $startTime = isset($block_attributes["startTime"]) ? $block_attributes["startTime"] : "";
     $endTime = isset($block_attributes["endTime"]) ? $block_attributes["endTime"] : "";
     $location = isset($block_attributes["location"]) ? $block_attributes["location"] : "";
