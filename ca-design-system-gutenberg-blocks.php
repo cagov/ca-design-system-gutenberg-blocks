@@ -99,6 +99,12 @@ function cagov_wp_enqueue_scripts()
 {
 	wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
 	wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
+
+	// PERFORMANCE OPTION (re render blocking): inlining our CSS 
+	// Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
+	// $critical_css = file_get_contents(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css');
+	// echo '<style>' . $critical_css . '</style>';
+
 }
 
 /**
