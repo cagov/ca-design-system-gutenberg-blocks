@@ -158,9 +158,6 @@ function cagov_gb_build_scripts_frontend()
         add_action('wp_footer', 'cagov_gb_register_post_list_web_component_callback' );
         add_action('wp_footer', 'cagov_gb_register_content_navigation_web_component_callback' );
 
-        // wp_register_style('ca-design-system-gutenberg-blocks-page', CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css', false, '1.0.10');
-        // wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
-
         // PERFORMANCE OPTION (re render blocking): inlining our CSS 
         // Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
         $critical_css = file_get_contents(CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/page.css');
@@ -169,15 +166,6 @@ function cagov_gb_build_scripts_frontend()
 }
 
 function cagov_gb_load_web_components_callback() {
-
-        // Load locally for testing performance & functionality without CAWeb theme.
-        // wp_register_script(
-        //     'ca-design-system-npm-web-components-bundle-front-end',
-        //     "https://files.covid19.ca.gov/js/components/bundle/index.min.js",
-        //     false,
-        //     '1.0.10.5'
-        // );
-
 
     wp_enqueue_script(
         'ca-design-system-npm-web-components-bundle',

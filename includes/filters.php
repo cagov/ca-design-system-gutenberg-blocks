@@ -27,6 +27,8 @@ add_filter('caweb_category_template', 'cagov_category_template');
 add_filter('caweb_category_template_sidebar', 'cagov_category_template_sidebar');
 
 
+
+
 /**
  * NOTE: Not needed right now
  * Overrides CAWeb Theme Custom Post Title Display Meta Data

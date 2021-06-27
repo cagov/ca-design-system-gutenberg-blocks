@@ -31,18 +31,18 @@ function cagov_register_post_list()
     }
 
     // Register custom web component with dependencies.
-    // wp_register_script(
-    //     'ca-design-system-post-list-web-component',
-    //     plugins_url('web-component.js', __FILE__),
-    //     array('moment'),
-    //     filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
-    // );
-
     wp_register_script(
-        'ca-design-system-post-list-editor',  // @TODO this scope will conflict & multiply with all component - probably needs to be registered up one level - will move when blocks are more stabilized.
-        plugins_url('block.js', __FILE__),
-        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-post-list-web-component'),
-        filemtime(plugin_dir_path(__FILE__) . 'block.js'),
+        'ca-design-system-post-list-web-component',
+        plugins_url('web-component.js', __FILE__),
+        array('moment'), // @TODO this data transformation could happen server side 
+        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
+    );
+    
+    wp_register_script(
+        'ca-design-system-post-list-editor-script',
+        plugins_url( 'block.js', __FILE__ ),
+        array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-post-list-web-component'),
+        filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
     );
 
     wp_register_style(
@@ -58,7 +58,7 @@ function cagov_register_post_list()
 
     register_block_type('ca-design-system/post-list', array(
         // 'script' => 'ca-design-system-post-list-web-component',
-        'editor_script' => 'ca-design-system-post-list-editor',
+        'editor_script' => 'ca-design-system-post-list-editor-script',
         'style' => 'ca-design-system-post-list-style', // Not performant/render blocking by default
         'editor_style' => 'ca-design-system-post-list-editor-style',
         'render_callback' => 'cagov_post_list_dynamic_render_callback'
