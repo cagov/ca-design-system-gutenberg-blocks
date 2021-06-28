@@ -83,3 +83,8 @@ function cagov_admin_init()
 	include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/core/class-ca-design-system-gutenberg-blocks-plugin-update.php';
 }
 
+if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader')) {
+	include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates.php';
+}
+
+CADesignSystemGutenbergBlocks_Plugin_Templates_Loader::get_instance();
