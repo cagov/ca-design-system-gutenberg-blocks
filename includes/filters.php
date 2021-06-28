@@ -8,9 +8,8 @@
 
 /* WP Filters */
 // add_filter( 'get_post_metadata', 'cagov_modify_ca_custom_post_title_display', 100, 3 );
-add_filter('theme_page_templates', 'cagov_register_page_post_templates', 20);
-add_filter('theme_post_templates', 'cagov_register_page_post_templates', 20);
 add_filter('template_include', 'cagov_page_template_filter');
+add_filter('theme_page_templates', 'cagov_register_page_post_templates', 20);
 add_filter('body_class', 'cagov_body_class', 20);
 add_filter('post_class', 'cagov_body_class', 20);
 
