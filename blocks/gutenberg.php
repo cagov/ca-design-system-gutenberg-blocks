@@ -36,15 +36,15 @@ function cagov_gb_init()
 }
 
 function cagov_remove_wp_block_library_css(){
-    wp_dequeue_style( 'wp-block-library' );
-    wp_dequeue_style( 'wp-block-library-theme' );
+    // wp_dequeue_style( 'wp-block-library' ); // Needed for WP layouts
+    // wp_dequeue_style( 'wp-block-library-theme' );
 } 
 
 
 // Experimental code removal
 function cagov_remove_wp_embed_and_jquery() {
 	if (!is_admin()) {
-		wp_deregister_script('wp-embed'); // 
+		// wp_deregister_script('wp-embed'); // 
         // wp_deregister_script('wp-emoji-release');
 		// wp_deregister_script('jquery');  // Bonus: remove jquery too if it's not required
         // remove_action('wp_head', 'print_emoji_detection_script', 7);
