@@ -69,6 +69,85 @@
     margin-left: 20px;
 }
 
+
+/* For custom css -- conflicts are back, these overrides set them right, but need to be re-integrated with main markup. */
+
+/* Fixing all block spacing */
+
+.page-container-ds {
+    margin: 0 auto;
+}
+
+.single-column {
+    margin: 0 auto;
+}
+
+/* First Block has a top margin */
+#main-content {
+    margin-top: 0px; /* Navigation has extra 32px */
+    margin-bottom: 32px;
+}
+
+.cagov-block {
+    margin-bottom: 64px;
+}
+
+/* Reset wp block columns spacing */
+.wp-block-columns {
+    margin-top: 0px;
+    margin-bottom: 0 !important; /* Conflict with WP styles & load order */
+}
+
+.wp-block-column {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.wp-block-column .cagov-block {
+    margin-bottom: 64px;
+}
+
+@media (min-width: 992px) {
+    #main-content.main-content-ds.landing .breadcrumb {
+        margin-top: 0px;
+        margin-bottom: 64px !important; /* conflict with divi breadcrumb class*/
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #main-content.main-content-ds.single-column .breadcrumb,
+    .with-sidebar.has-sidebar-left.page-container-ds #main-content.main-content-ds .breadcrumb {
+        margin-top: 32px;
+        margin-bottom: 64px !important;  /* conflict with divi breadcrumb class*/
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+}
+
+.cagov-block h2,
+.cagov-block h3,
+.cagov-block h4,
+.cagov-block h6,
+.cagov-block h6 {
+    margin-bottom: 24px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-bottom: 0 !important;
+}
+
+.wp-block-column h2 {
+    margin-top: 0;
+}
+
+
+
+
 /* BREADCRUMB */
 
 .with-sidebar .main-container-ds {
@@ -245,7 +324,6 @@ cagov-content-navigation a {
 
 /* Gutenberg Block alignment */
 
-
 /* TYPOGRAPHY */
 h1.page-title {
     margin: 0 0 0 0;
@@ -287,6 +365,18 @@ main ul li {
 
     article {
         display: block;
+    }
+
+
+    /* First Block has a top margin */
+
+
+    .cagov-block {
+        margin-bottom: 48px;
+    }
+
+    .wp-block-column .cagov-block {
+        margin-bottom: 48px;
     }
 
     /* BREADCRUMB */
@@ -645,8 +735,6 @@ ol.steps li:last-child {
     border: 1px solid #ededef !important;
 }
 
-/* TEMPORARY WORKING OVERRIDES, if any */
-
 .return-top:after {
     padding-right: 4px;
 }
@@ -678,114 +766,3 @@ article a {
     text-underline-position: under;
 }
 
-/* For custom css -- conflicts are back, these overrides set them right, but need to be re-integrated with main markup. */
-
-/* Fixing all block spacing */
-
-.page-container-ds {
-    margin: 0 auto;
-}
-
-.single-column {
-    margin: 0 auto;
-}
-
-/* First Block has a top margin */
-#main-content {
-    margin-top: 0px; /* Navigation has extra 32px */
-    margin-bottom: 32px;
-}
-
-.main-content-ds {
-    /* margin-bottom: 64px; */
-}
-
-#main-content.single-column.landing {
-    /* margin-top: 0px; */
-}
-
-#main-content.single-column.landing .cagov-block {
-    /* margin-top: 0px;
-    margin-bottom: 64px; */
-}
-
-.cagov-block {
-    margin-bottom: 64px;
-}
-
-/* Reset wp block columns spacing */
-.wp-block-columns {
-    margin-top: 0px;
-    margin-bottom: 0 !important; /* Conflict with WP styles & load order */
-}
-
-.wp-block-column {
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-.wp-block-column .cagov-block {
-    margin-bottom: 64px;
-}
-
-@media (min-width: 992px) {
-    #main-content.main-content-ds.landing .breadcrumb {
-        margin-top: 0px;
-        margin-bottom: 64px !important; /* conflict with divi breadcrumb class*/
-        padding-top: 0px !important;
-        padding-bottom: 0px !important;
-    }
-
-    #main-content.main-content-ds.single-column .breadcrumb,
-    .with-sidebar.has-sidebar-left.page-container-ds #main-content.main-content-ds .breadcrumb {
-        margin-top: 32px;
-        margin-bottom: 64px !important;  /* conflict with divi breadcrumb class*/
-        padding-top: 0px !important;
-        padding-bottom: 0px !important;
-    }
-}
-
-.cagov-block h2,
-.cagov-block h3,
-.cagov-block h4,
-.cagov-block h6,
-.cagov-block h6 {
-    margin-bottom: 24px;
-}
-
-/* .cagov-stack h1,
-.cagov-stack h2,
-.cagov-stack h3,
-.cagov-stack h4,
-.cagov-card h1,
-.cagov-card h2,
-.cagov-card h3,
-.cagov-card h4 {
-    margin: 0;
-} */
-
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    padding-bottom: 0 !important;
-}
-
-.cagov-stack h1,
-.cagov-stack h2,
-.cagov-stack h3,
-.cagov-stack h4,
-.cagov-card h1,
-.cagov-card h2,
-.cagov-card h3,
-.cagov-card h4 {
-    /* margin-top: 64px;
-    margin-bottom: 24px; */
-}
-
-.wp-block-column h2 {
-    margin-top: 0;
-}
