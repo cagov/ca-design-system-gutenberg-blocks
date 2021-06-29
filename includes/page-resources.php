@@ -151,8 +151,8 @@ function cagov_content_menu()
     //     $image_height = $image_meta['height'];
     // }
     // <a href="/"><img src="$image_url" alt="echo $org_footer_logo_alt_text" /></a>
-?>
-    <div class="content-footer mb-3">
+    ?>
+    <div class="per-page-feedback-container">
         <cagov-feedback data-endpoint-url="https://fa-go-feedback-001.azurewebsites.net/sendfeedback"></cagov-feedback>
     </div>
     <div class="content-footer-container">
@@ -188,7 +188,7 @@ function cagov_content_menu()
             </div>
         </div>
     </div>
-<?php
+    <?php
 }
 
 /**
