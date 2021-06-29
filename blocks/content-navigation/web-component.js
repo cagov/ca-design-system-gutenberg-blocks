@@ -45,20 +45,12 @@ class CAGovContentNavigation extends window.HTMLElement {
       anchor.addEventListener("click", function (e) {
         let hashval = anchor.getAttribute("href");
         let target = document.querySelector(hashval);
-
-        // Not working with scroll margin, has conflict with parent theme, using many overflow statements on most page element containers.
-
-        target.scrollIntoView({
+        let position = target.getBoundingClientRect();
+        window.scrollTo({
           behavior: "smooth",
-          block: "start",
-          top: 100,
+          left: position.left, 
+          top: position.top - 200
         });
-
-        // We should probably switch to standard JS until CSS can be worked out.
-        // let position = target.getBoundingClientRect();
-        // console.log("pos", position, position.top + window.scrollY - 128);
-        // scrolls to 20px above element
-        // window.scrollTo(position.left, position.top + window.scrollY - 128);
 
         history.pushState(null, null, hashval);
 
