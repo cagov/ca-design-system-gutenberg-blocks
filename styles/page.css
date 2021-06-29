@@ -11,8 +11,8 @@
 .page-container-ds {
     max-width: 1147px;
     margin: 0 auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    /* padding-left: 15px;
+    padding-right: 15px; */
 }
 
 .main-content-ds {
@@ -25,6 +25,20 @@
     max-width: 1147px;
     margin: 0 auto;
 }
+
+#main-content.single-column.landing {
+    margin-top: 0px;
+}
+
+#main-content.single-column.landing .cagov-block {
+    margin-top: 0px;
+    margin-bottom: 64px;
+}
+
+.cagov-block h2 {
+    margin-bottom: 24px;
+}
+
 
 /* SIDEBAR */
 /* (see README.md) */
@@ -85,19 +99,9 @@
 .with-sidebar .main-container-ds {
     max-width: 877px;
 }
-/* 
-.with-sidebar.page-container-default .breadcrumb {
-    margin-bottom: 0px;
-} */
-/* 
-.with-sidebar.page-container-ds .breadcrumb {
-    margin-bottom: 64px;
-} */
 
 .breadcrumb {
     display: block;
-    margin-top: 0px;
-    margin-bottom: 64px;
     background-color: #F9F9FA;
     padding: 8px 16px;
     font-size: 16px;
@@ -116,6 +120,7 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
 /* .page-container-default {
     margin-top: 210px;
     margin-bottom: -170px;
@@ -198,8 +203,8 @@ sidebar cagov-content-navigation ul li:first-child {
     max-width: 1176px !important;
     margin-right: auto;
     margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    /* padding-left: 15px;
+    padding-right: 15px; */
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -253,19 +258,12 @@ sidebar cagov-content-navigation ul li:first-child {
     display: none;
 }
 
+.landing .page-title {
+    display: none;
+}
+
 /* Gutenberg Block alignment */
 
-/* Class applied to most external element of a gutenberg block component. Controls spacing between blocks. */
-.cagov-stack {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-/* Apply same spacing mechanism as cagov-stack, but overriding default gutenberg block element classes */
-.wp-block-columns {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
 
 /* TYPOGRAPHY */
 h1.page-title {
@@ -288,18 +286,6 @@ main ul li {
     text-decoration: none;
 }
 
-/* Remove any margins from tags in Gutenberg blocks */
-
-.cagov-stack h1,
-.cagov-stack h2,
-.cagov-stack h3,
-.cagov-stack h4,
-.cagov-card h1,
-.cagov-card h2,
-.cagov-card h3,
-.cagov-card h4 {
-    margin: 0;
-}
 
 /* Fix issue with default theme that has a style we are not using */
 .non_divi_builder.title_not_displayed .main-primary {
@@ -314,6 +300,10 @@ main ul li {
         display: block;
     }
 
+    .page-container-ds {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 
     article {
         display: block;
@@ -373,6 +363,10 @@ main ul li {
         display: block;
         margin-bottom: 16px;
         margin-top: 16px;
+    }
+
+    .landing .narrow-page-title {
+        display: none;
     }
 
     /* Content Navigation */
@@ -455,36 +449,40 @@ main ul li {
 
 /* override card grid so they stack at theme breakpoint that slims main content */
 @media (max-width: 991px) {
+
     .cagov-grid,
     .cagov-grid .block-editor-block-list__layout {
-      grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
     }
-  }
-  
-  /* link underline not used in cannabis designs */
-  .main-content a.cagov-card {
+}
+
+/* link underline not used in cannabis designs */
+.main-content a.cagov-card {
     text-decoration: none;
-  }
-  
-  .cagov-stack h1,
-  .cagov-stack h2,
-  .cagov-stack h3,
-  .cagov-stack h4,
-  .cagov-card h1,
-  .cagov-card h2,
-  .cagov-card h3,
-  .cagov-card h4 {
+}
+
+.cagov-stack h1,
+.cagov-stack h2,
+.cagov-stack h3,
+.cagov-stack h4,
+.cagov-card h1,
+.cagov-card h2,
+.cagov-card h3,
+.cagov-card h4 {
     margin: 0;
-  }
-  .non_divi_builder.title_not_displayed .main-primary {
+}
+
+.non_divi_builder.title_not_displayed .main-primary {
     padding-top: 32px;
-  }
-  /* step list */
-  ol.steps {
+}
+
+/* step list */
+ol.steps {
     padding-left: 0 !important;
     margin-left: 30px !important;
-  }
-  ol.steps li {
+}
+
+ol.steps li {
     list-style: none;
     border-left: 5px solid #fec02f;
     font-size: 1.75rem;
@@ -492,8 +490,9 @@ main ul li {
     position: relative;
     padding-left: 45px;
     line-height: 1.5;
-  }
-  ol.steps li:before {
+}
+
+ol.steps li:before {
     content: "";
     font-family: "Public Sans";
     font-size: 1.75rem;
@@ -507,117 +506,243 @@ main ul li {
     left: -29px;
     top: -5px;
     margin-left: -1px;
-  }
-  ol.steps li span.has-black-color {
+}
+
+ol.steps li span.has-black-color {
     margin-top: 1rem;
     padding-bottom: 1.75rem;
     font-size: 1.125rem;
     font-weight: 500;
     display: block;
-  }
-  ol.steps li:first-child:before {
+}
+
+ol.steps li:first-child:before {
     content: "1";
     padding: 0 16px 0 16px;
-  }
-  ol.steps li:nth-child(2):before {
+}
+
+ol.steps li:nth-child(2):before {
     content: "2";
-  }
-  ol.steps li:nth-child(3):before {
+}
+
+ol.steps li:nth-child(3):before {
     content: "3";
-  }
-  ol.steps li:nth-child(4):before {
+}
+
+ol.steps li:nth-child(4):before {
     content: "4";
-  }
-  ol.steps li:nth-child(5):before {
+}
+
+ol.steps li:nth-child(5):before {
     content: "5";
-  }
-  ol.steps li:nth-child(6):before {
+}
+
+ol.steps li:nth-child(6):before {
     content: "6";
-  }
-  ol.steps li:nth-child(7):before {
+}
+
+ol.steps li:nth-child(7):before {
     content: "7";
-  }
-  ol.steps li:nth-child(8):before {
+}
+
+ol.steps li:nth-child(8):before {
     content: "8";
-  }
-  ol.steps li:nth-child(9):before {
+}
+
+ol.steps li:nth-child(9):before {
     content: "9";
-  }
-  ol.steps li:nth-child(10):before {
+}
+
+ol.steps li:nth-child(10):before {
     content: "10";
     padding: 0 7px 0 7px;
     margin-left: -1px;
-  }
-  ol.steps li:nth-child(11):before {
+}
+
+ol.steps li:nth-child(11):before {
     content: "11";
     padding: 0 10px 0 10px;
-  }
-  ol.steps li:nth-child(12):before {
+}
+
+ol.steps li:nth-child(12):before {
     content: "12";
     padding: 0 8px 0 8px;
     margin-left: -1px;
-  }
-  ol.steps li:nth-child(13):before {
+}
+
+ol.steps li:nth-child(13):before {
     content: "13";
     padding: 0 7px 0 7px;
-  }
-  ol.steps li:nth-child(14):before {
+}
+
+ol.steps li:nth-child(14):before {
     content: "14";
     padding: 0 7px 0 7px;
-  }
-  ol.steps li:nth-child(15):before {
+}
+
+ol.steps li:nth-child(15):before {
     content: "15";
     padding: 0 7px 0 8px;
-      margin-left: 3px;
-  }
-  ol.steps li:nth-child(16):before {
+    margin-left: 3px;
+}
+
+ol.steps li:nth-child(16):before {
     content: "16";
     padding: 0 7px 0 7px;
-  }
-  ol.steps li:nth-child(17):before {
+}
+
+ol.steps li:nth-child(17):before {
     content: "17";
     padding: 0 7px 0 7px;
-  }
-  ol.steps li:nth-child(18):before {
+}
+
+ol.steps li:nth-child(18):before {
     content: "18";
     padding: 0 7px 0 7px;
-  }
-  ol.steps li:nth-child(19):before {
+}
+
+ol.steps li:nth-child(19):before {
     content: "19";
     padding: 0 7px 0 7px;
-  }
-  ol.steps li:nth-child(20):before {
+}
+
+ol.steps li:nth-child(20):before {
     content: "20";
     padding: 0 5px 0 5px;
-  }
-  ol.steps li:nth-child(21):before {
+}
+
+ol.steps li:nth-child(21):before {
     content: "21";
     padding: 0 6px 0 6px;
-  }
-  ol.steps li:nth-child(22):before {
+}
+
+ol.steps li:nth-child(22):before {
     content: "22";
     padding: 0 5px 0 5px;
-  }
-  ol.steps li:nth-child(23):before {
+}
+
+ol.steps li:nth-child(23):before {
     content: "23";
     padding: 0 5px 0 5px;
-  }
-  ol.steps li:nth-child(24):before {
+}
+
+ol.steps li:nth-child(24):before {
     content: "24";
     padding: 0 5px 0 5px;
-  }
-  ol.steps li:last-child {
+}
+
+ol.steps li:last-child {
     border-left: none;
-  }
-  /* border styles */
-  .wp-block-table {
+}
+
+/* border styles */
+.wp-block-table {
     background: none !important;
-    border:none !important
-  }
-  .wp-block-table table, .wp-block-table table th, .wp-block-table table td {
-    border:1px solid #ededef !important;
-  }
-  
+    border: none !important
+}
+
+.wp-block-table table,
+.wp-block-table table th,
+.wp-block-table table td {
+    border: 1px solid #ededef !important;
+}
+
 
 
 /* TEMPORARY WORKING OVERRIDES, if any */
+
+
+/* For custom css -- conflicts are back, these overrides set them right, but need to be re-integrated with main markup. */
+
+
+cagov-content-navigation a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-position: under;
+}
+
+.top-level-nav .nav-item:hover .first-level-link, 
+.top-level-nav .nav-item:hover .first-level-btn {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-position: under;
+}
+
+li.current_page_item {
+    font-weight: 700;
+}
+
+
+
+
+.color-primary--hover:hover,
+.text-accent-p2,
+article a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-position: under;
+}
+
+.return-top {
+    margin-right: 10px;
+}
+
+.return-top:after {
+    padding-right: 4px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-bottom: 0 !important;
+}
+
+.cagov-block h2,
+.cagov-block h3,
+.cagov-block h4,
+.cagov-block h6,
+.cagov-block h6 {
+    margin-bottom: 24px;
+}
+
+.cagov-stack h1,
+.cagov-stack h2,
+.cagov-stack h3,
+.cagov-stack h4,
+.cagov-card h1,
+.cagov-card h2,
+.cagov-card h3,
+.cagov-card h4 {
+    margin-top: 64px;
+    margin-bottom: 24px;
+}
+
+
+/* Apply same spacing mechanism as cagov-stack, but overriding default gutenberg block element classes */
+.wp-block-columns {
+    margin-top: 64px;
+    margin-bottom: 0px;
+}
+
+.wp-block-column h2 {
+    margin-top: 0;
+}
+
+@media (min-width: 992px) {
+    #main-content.main-content-ds .breadcrumb {
+        margin-top: 0px;
+        margin-bottom: 64px !important;
+        /* conflict */
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .with-sidebar.has-sidebar-left.page-container-ds #main-content.main-content-ds .breadcrumb {
+        margin-bottom: 64px !important;
+        /* conflict */
+    }
+}
+

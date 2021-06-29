@@ -101,11 +101,12 @@ function cagov_announcement_dynamic_render_callback($block_attributes, $content)
     $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "false";
 
     return <<<EOT
-    <div class="wp-block-ca-design-system-announcement-list cagov-announcement-list cagov-stack">
-        <div>
-            <h2>$title</h2>
+    <div class="wp-block-ca-design-system-announcement-list cagov-announcement-list cagov-block">
+        <h2>$title</h2>    
+    
+            
             <cagov-post-list 
-                class="post-list" 
+                class="post-list cagov-stack" 
                 data-category="$category"
                 data-count="$count"
                 data-order="$order"
@@ -118,7 +119,7 @@ function cagov_announcement_dynamic_render_callback($block_attributes, $content)
                 data-filter="none"
             >
             </cagov-post-list>
-        </div>
+
     </div>
     EOT;
 }

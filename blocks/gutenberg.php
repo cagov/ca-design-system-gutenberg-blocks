@@ -26,12 +26,12 @@ function cagov_gb_init()
     add_filter('get_the_excerpt', 'cagov_gb_excerpt');
 
     // Performance experiment    
-    add_action( 'wp_enqueue_scripts', 'cagov_remove_wp_block_library_css', 100 );
-    add_action('init', 'cagov_remove_wp_embed_and_jquery');
+    // add_action( 'wp_enqueue_scripts', 'cagov_remove_wp_block_library_css', 100 );
+    // add_action('init', 'cagov_remove_wp_embed_and_jquery');
 
-    remove_action('wp_print_styles', 'print_emoji_styles');
-    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-    remove_action( 'admin_print_styles', 'print_emoji_styles' );
+    // remove_action('wp_print_styles', 'print_emoji_styles');
+    // remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+    // remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 }
 
@@ -166,12 +166,11 @@ function cagov_gb_build_scripts_frontend()
 }
 
 function cagov_gb_load_web_components_callback() {
-
-    wp_enqueue_script(
-        'ca-design-system-npm-web-components-bundle',
-        "https://files.covid19.ca.gov/js/components/bundle/index.min.js",
-        array(),
-    );
+    // wp_enqueue_script(
+    //     'ca-design-system-npm-web-components-bundle',
+    //     "https://files.covid19.ca.gov/js/components/bundle/v1/index.min.js",
+    //     array(),
+    // );
 }
 
 /**
@@ -184,21 +183,13 @@ function cagov_gb_load_web_components_callback() {
  */
 function cagov_gb_build_scripts_editor()
 {
-    // ***THIS IS A PERFORMANCE BOTTLENECK***
-    // wp_enqueue_script(
-    //     'ca-design-system-blocks',
-    //     plugins_url('/build/index.js', dirname(__FILE__)),
-    //     array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'),
-    // );
-
     /* Compiled dynamic blocks. Used for more complex blocks with more UI interaction. Generated using npm run build from src folder, which builds child blocks. */
     wp_enqueue_script(
         'ca-design-system-blocks',
         CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
-        // array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'), // NOT PERFORRRRMANTTTTTTT!!!
+        // array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'), // Performance bottleneck
     );
     
-
     wp_enqueue_style('ca-design-system-gutenberg-blocks-editor',  CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css', false);
 }
 
@@ -263,8 +254,6 @@ function cagov_gb_get_custom_fields($object, $field_name, $request)
     );
 }
 
-
-
 function cagov_gb_excerpt($excerpt)
 {
     global $post;
@@ -321,15 +310,3 @@ function cagov_gb_excerpt($excerpt)
     }
     return $details;
 }
-
-
-// function _load_default_page_template_styles()
-// {
-// 	add_action('wp_enqueue_scripts', array($this, 'cagov_gb_default_page_template_styles'), 100);
-// }
-
-// public function cagov_gb_default_page_template_styles()
-// {
-// 	wp_register_style('ca-design-system-gutenberg-blocks-page', plugins_url('styles/page.css', __DIR__), false, '1.0.7.2');
-// 	wp_enqueue_style('ca-design-system-gutenberg-blocks-page');
-// }

@@ -166,7 +166,9 @@ class CAGovPostList extends window.HTMLElement {
     let getDate = this.showPublishedDate === "true" ? `<div class="date">${dateFormatted}</div>` : ``;
 
     let category_type = "";
-    if (categories !== null && Object.keys(this.categoryMap).length > 1) {
+    let showCategoryType = false;
+    // Disabled but can enable when we have a default style.
+    if (showCategoryType && categories !== null && Object.keys(this.categoryMap).length > 1) {
         let categoryItem = this.categoryMap[[categories[0]]]; // Use first category. There should only be one set.
         if (categoryItem.name !== undefined && categoryItem.name !== null) {
           category_type = `<div class="category-type">${categoryItem.name}</div>`;

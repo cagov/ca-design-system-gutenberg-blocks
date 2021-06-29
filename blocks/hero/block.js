@@ -145,7 +145,7 @@
     },
     save: function (props) {
       const attributes = props.attributes;
-      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
+      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry cagov-block' },
         el('div', {},
           el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
             { className: 'cagov-hero cagov-stack' },

@@ -30,7 +30,12 @@
     flex: none;
     order: 1;
     flex-grow: 0;
-    margin: 32px 0px;
+    margin: 0;
+}
+
+.cagov-block .cagov-stack.cagov-page-alert  {
+    margin-top: 32px;
+    /* margin-bottom: 64px; */
 }
 
 .cagov-page-alert .icon {

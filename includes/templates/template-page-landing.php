@@ -17,7 +17,7 @@ if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
 
 <div id="page-container" class="page-container-ds">
 
-    <div id="main-content" class="main-content-ds single-column" tabindex="-1">
+    <div id="main-content" class="main-content-ds single-column landing" tabindex="-1">
         <div class="narrow-page-title">
                 <?php
                 if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
