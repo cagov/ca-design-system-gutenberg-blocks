@@ -46,19 +46,24 @@ function ca_design_system_register_page_alert()
     wp_register_script(
         'ca-design-system-page-alert',
         plugins_url('block.js', __FILE__),
-        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-page-alert-web-component'),
+        false, // array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment', 'ca-design-system-page-alert-web-component'),
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
     );
 
-    wp_register_style(
-        'ca-design-system-page-alert',
-        plugins_url('style.css', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    );
+    // wp_register_style(
+    //     'ca-design-system-page-alert',
+    //     plugins_url('style.css', __FILE__),
+    //     array(),
+    //     filemtime(plugin_dir_path(__FILE__) . 'style.css')
+    // );
+
+	wp_register_style( 'ca-design-system-page-alert-style', false );
+	$style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+	wp_add_inline_style('ca-design-system-page-alert-style', $style_css);
 
     register_block_type('ca-design-system/page-alert', array(
-        'style' => 'ca-design-system-page-alert',
+        'script' => 'ca-design-system-page-alert-web-component',
+        'style' => 'ca-design-system-page-alert-style',
         'editor_style' => 'ca-design-system-page-alert',
         'editor_script' => 'ca-design-system-page-alert',
         'render_callback' => 'cagov_page_alert_dynamic_render_callback',
@@ -70,10 +75,7 @@ function cagov_page_alert_dynamic_render_callback($block_attributes, $content)
 {
     $body = isset($block_attributes["body"]) ? $block_attributes["body"] : "";
     $icon = isset($block_attributes["icon"]) ? $block_attributes["icon"] : "";
-    
-    return sprintf('<div class="wp-block-ca-design-system-page-alert cagov-page-alert cagov-stack">
-        <div class="icon"><span class="dashicons dashicons-%1$s"></span></div>
-        <div class="body">%2$s</div>
-        <div class="close-button"><span class="dashicons dashicons-close"></span></div>
+
+    return sprintf('<div class="wp-block-ca-design-system-page-alert cagov-block"><cagov-page-alert data-icon="%1$s" data-message="%2$s"></cagov-page-alert>
     </div>', $icon, $body);
 }

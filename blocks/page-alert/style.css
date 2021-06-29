@@ -30,7 +30,12 @@
     flex: none;
     order: 1;
     flex-grow: 0;
-    margin: 32px 0px;
+    margin: 0;
+}
+
+.cagov-block .cagov-stack.cagov-page-alert  {
+    margin-top: 32px;
+    /* margin-bottom: 64px; */
 }
 
 .cagov-page-alert .icon {
@@ -42,9 +47,16 @@
     padding: 0 16px;
 }
 
-@media only screen and (max-width: 600px) {
+.cagov-page-alert .close-button {
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 580px) {
     .cagov-page-alert {
         min-height: 46px;
         height: auto;
+    }
+    .cagov-page-alert .body {
+        padding: 0 8px;
     }
 }

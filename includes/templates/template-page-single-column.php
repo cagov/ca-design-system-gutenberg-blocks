@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: DS Single Column Page
+ * Template Name: DS Page: Single Column
  * Template Post Type: page
  */
 ?>
@@ -10,7 +10,7 @@
 if (file_exists(get_stylesheet_directory() . '/header.php')) {
     require_once get_stylesheet_directory() . '/header.php';
 }
-if (file_exists(get_stylesheet_directory() . '/header.php')) {
+if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
     require_once get_stylesheet_directory() . '/partials/header.php';
 }
 ?>
@@ -20,6 +20,13 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
         <?php
             do_action("cagov_breadcrumb");
         ?>
+        <div class="narrow-page-title">
+            <?php
+            if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
+                esc_html(the_title('<h1 class="page-title">', '</h1>'));
+            }
+            ?>
+        </div>
         <div class="ds-content-layout">
             <main class="main-primary">
 

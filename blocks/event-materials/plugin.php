@@ -14,11 +14,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_event_materials' );
 
-function cagov_event_materials() {
-    load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
-}
+add_action( 'init', 'cagov_register_event_materials' );
 
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in
@@ -26,7 +23,7 @@ function cagov_event_materials() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_event_materials() {
+function cagov_register_event_materials() {
 
     if ( ! function_exists( 'register_block_type' ) ) {
         // Gutenberg is not active.
@@ -48,17 +45,22 @@ function ca_design_system_register_event_materials() {
     // 	filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
     // );
 
-    wp_register_style(
-        'ca-design-system-event-materials',
-        plugins_url( 'style.css', __FILE__ ),
-        array( ),
-        filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-    );
+    // wp_register_style(
+    //     'ca-design-system-event-materials',
+    //     plugins_url( 'style.css', __FILE__ ),
+    //     array( ),
+    //     filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
+    // );
+
+
+	wp_register_style( 'ca-design-system-event-materials-style', false );
+	$style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+	wp_add_inline_style('ca-design-system-event-materials-style', $style_css);
 
     register_block_type( 'ca-design-system/event-materials', array(
-        'style' => 'cagov-event-materials',
-        'editor_script' => 'ca-design-system-event-materials',
-        'editor_style' => 'ca-design-system-event-materials-editor',
+        'style' => 'ca-design-system-event-materials-style',
+        // 'editor_script' => 'ca-design-system-event-materials',
+        // 'editor_style' => 'ca-design-system-event-materials-editor',
         'render_callback' => 'cagov_event_materials_dynamic_render_callback'
     ) );
     
@@ -69,9 +71,8 @@ function cagov_event_materials_dynamic_render_callback($block_attributes, $conte
 {
 
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
-    $title = isset($block_attributes["agenda"]) ? $block_attributes["agenda"] : "";
-    $title = isset($block_attributes["materials"]) ? $block_attributes["materials"] : "";
-
+    $agenda = isset($block_attributes["agenda"]) ? $block_attributes["agenda"] : "";
+    $materials = isset($block_attributes["materials"]) ? $block_attributes["materials"] : "";
 
     return <<<EOT
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
@@ -85,4 +86,3 @@ function cagov_event_materials_dynamic_render_callback($block_attributes, $conte
     </div>
     EOT;
 }
-add_action( 'init', 'ca_design_system_register_event_materials' );

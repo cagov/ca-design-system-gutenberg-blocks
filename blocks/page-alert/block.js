@@ -8,26 +8,6 @@
     var RichText = editor.RichText;
 
     var { SelectControl } = components;
-    // var { withState } = compose;
-     
-    // const SelectIcon = withState( {
-    //     icon: 'bell',
-    // } )( ( { size, setState } ) => (
-    //     <SelectControl
-    //         label="Icon"
-    //         value={ icon }
-    //         options={ [
-    //             { label: 'Bell', value: 'bell' },
-    //         ] }
-    //         onChange={ ( icon ) => {
-    //             setState( { icon } );
-    //         } }
-    //     />
-    // ) );
-
-
-
-
 
     blocks.registerBlockType( 'ca-design-system/page-alert', {
         title: __( 'Page Alert', 'ca-design-system' ),
@@ -49,35 +29,42 @@
             }
         },
         supports: {
-            // html: false,
             reusable: false,
             multiple: false,
             inserter: true
-          },
+        },
         edit: function( props ) {
             var attributes = props.attributes;
+            // @TODO find url for CDT version of icon list, DFA is the result that shows up in google search.
+            // https://www.cdfa.ca.gov/v6.5/sample/icon-fonts.html
+            // @TODO has CSS dependencies on dashicons AND cagov CSS. Would be simpler if we had one, but why doesn't ca-gov have a star or flag icon & can we add these?
+            // Also need to go through the cagov icons and pick
+            // Value is the class
+            let iconOptions = [
+                { label: 'None', value: '' },
+                { label: 'Bell', value: 'ca-gov-icon-bell'},
+                { label: 'Cannabis', value: 'ca-gov-icon-cannabis'},
+                { label: 'Warning', value: 'ca-gov-icon-warning-triangle'},
+                { label: 'Question', value: 'ca-gov-icon-question-line'},
+                { label: 'Flag', value: 'dashicons dashicons-flag'}, // ca-gov doesn't have a flag icon
+                { label: 'Star', value: 'dashicons dashicons-star-filled'}, // ca-gov doesn't have a star icon
+            ];
+
             return el(
                 'div',
                 { className: 'cagov-page-alert cagov-stack' },
                 el(
                     'span',
-                    { className: `dashicons dashicons-${attributes.icon}`  },
+                    { className: `${attributes.icon}`  },
                 ),
                 el(SelectControl, {
                     label: "Icon",
                     inline: true,
                     className: "icon-select",
                     value: attributes.icon,
-                    options: [
-                        { label: 'None', value: '' },
-                        { label: 'Bell', value: 'bell' },
-                        { label: 'Warning', value: 'warning' },
-                        { label: 'Question', value: 'editor-help' },
-                        { label: 'Flag', value: 'flag' },
-                        { label: 'Star', value: 'star-filled' },
-                    ],
+                    options: iconOptions,
                     onChange: function( value ) {
-                        props.setAttributes( { icon: value } );
+                        props.setAttributes( { icon: value} );
                     },
                 }),
                 el( RichText, {

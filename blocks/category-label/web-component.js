@@ -4,7 +4,7 @@
  */
  class CAGovCategoryLabel extends window.HTMLElement {
   connectedCallback() {
-    console.log("category-label loaded");
+    // console.log("category-label loaded");
   }
 }
 

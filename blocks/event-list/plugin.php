@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name: Announcement list
+ * Plugin Name: Event list
  * Plugin URI: TBD
- * Description: List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the "Announcements" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.
- * Version: 1.1.0
+ * Description: List of recent events. Block for event pages. Allows people to see the most recent events with the "Events" tag. Includes title, hyperlink to full event, date, and a view all link to see longer list.
+ * Version: 1.0.0
  * Author: California Office of Digital Innovation
  * @package ca-design-system
  */
@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Load all translations for our plugin from the MO file.
  */
-add_action( 'init', 'cagov_announcement_list' );
+add_action( 'init', 'cagov_event_list' );
 
-function cagov_announcement_list() {
+function cagov_event_list() {
     load_plugin_textdomain( 'ca-design-system', false, basename( __DIR__ ) . '/languages' );
 }
 
@@ -26,7 +26,7 @@ function cagov_announcement_list() {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_register_announcement_list() {
+function ca_design_system_register_event_list() {
 
     if ( ! function_exists( 'register_block_type' ) ) {
         // Gutenberg is not active.
@@ -35,52 +35,52 @@ function ca_design_system_register_announcement_list() {
 
     // Register custom web component
     // wp_register_script(
-    //     'ca-design-system-announcement-list-web-component',
+    //     'ca-design-system-event-list-web-component',
     //     plugins_url( 'web-component.js', __FILE__ ),
     //     array( ),
     //     filemtime( plugin_dir_path( __FILE__ ) . 'web-component.js' ),
     // );
 
     wp_register_script(
-        'ca-design-system-announcement-list',
+        'ca-design-system-event-list',
         plugins_url( 'block.js', __FILE__ ),
         array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore', 'moment'),
         filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
     );
 
-    wp_register_style( 'ca-design-system-announcement-list-style', false );
+    wp_register_style( 'ca-design-system-event-list-style', false );
     $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
-    wp_add_inline_style('ca-design-system-announcement-list-style', $style_css);
+    wp_add_inline_style('ca-design-system-event-list-style', $style_css);
 
-    register_block_type( 'ca-design-system/announcement-list', array(
-        'style' => 'ca-design-system-announcement-list-style',
-        'editor_script' => 'ca-design-system-announcement-list',
-        'render_callback' => 'cagov_announcement_dynamic_render_callback'
+    register_block_type( 'ca-design-system/event-list', array(
+        'style' => 'ca-design-system-event-list-style',
+        'editor_script' => 'ca-design-system-event-list',
+        'render_callback' => 'cagov_event_list_dynamic_render_callback'
     ) );
 }
 
-add_action( 'init', 'ca_design_system_register_announcement_list' );
+add_action( 'init', 'ca_design_system_register_event_list' );
 
 
-function cagov_register_announcement_list_web_component_callback()
+function cagov_register_event_list_web_component_callback()
 {
 
     // Depends on post-list component.
     // Alt idea: do_action('...')
     wp_register_style(
-        'ca-design-system-announcement-list',
+        'ca-design-system-event-list',
         plugins_url('style.css', __FILE__),
-        array('moment'),
+        array(),
         filemtime(plugin_dir_path(__FILE__) . 'style.css')
     );
 
-    wp_enqueue_style('ca-design-system-announcement-list');
+    wp_enqueue_style('ca-design-system-event-list');
 }
 
-add_action('cagov_register_announcement_list_web_component', 'cagov_register_announcement_list_web_component_callback', 10, 2);
+add_action('cagov_register_event_list_web_component', 'cagov_register_event_list_web_component_callback', 10, 2);
 
 
-function cagov_announcement_dynamic_render_callback($block_attributes, $content)
+function cagov_event_list_dynamic_render_callback($block_attributes, $content)
 {
 
     $host = "http://";
@@ -89,24 +89,30 @@ function cagov_announcement_dynamic_render_callback($block_attributes, $content)
     }
 
     $domain = $host . $_SERVER['HTTP_HOST'];
-    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Announcements";
-    $count = isset($block_attributes["count"]) ? $block_attributes["count"] : "5";
+    $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Upcoming events";
+    $count = isset($block_attributes["count"]) ? $block_attributes["count"] : "3";
     $order = isset($block_attributes["order"]) ? $block_attributes["order"] : "desc";
-    $category = isset($block_attributes["category"]) ? $block_attributes["category"] : "announcements,press-releases";
+    $category = isset($block_attributes["category"]) ? $block_attributes["category"] : "events";
     $endpoint = isset($block_attributes["endpoint"]) ? $block_attributes["endpoint"] : "$domain/wp-json/wp/v2";
     $readMore = isset($block_attributes["readMore"]) ? esc_html($block_attributes["readMore"]) : "";
-    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noResults"] : "No posts found";
-    $showExcerpt = isset($block_attributes["showExcerpt"]) ? $block_attributes["showExcerpt"] : "false";
+    $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noResults"] : "No upcoming events found";
+    $showExcerpt = isset($block_attributes["showExcerpt"]) ? $block_attributes["showExcerpt"] : "true";
     $showPublishedDate = isset($block_attributes["showPublishedDate"]) ? $block_attributes["showPublishedDate"] : "true";
     $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "false";
 
+    // today-or-after or before-yesterday for events - Name the type of filtering so it's easy to set & easy to change/test.
+    // Add fields for comparison
+    // data-filter[0]=
+    // data-filter-field[0]=
+    // data-filter[1]=
+    // data-filter-field[1]=
+
     return <<<EOT
-    <div class="wp-block-ca-design-system-announcement-list cagov-announcement-list cagov-block">
-        <h2>$title</h2>    
-    
-            
+    <div class="wp-block-ca-design-system-event-list cagov-event-list cagov-stack">
+        <div>
+            <h2>$title</h2>
             <cagov-post-list 
-                class="post-list cagov-stack" 
+                class="post-list" 
                 data-category="$category"
                 data-count="$count"
                 data-order="$order"
@@ -116,10 +122,10 @@ function cagov_announcement_dynamic_render_callback($block_attributes, $content)
                 data-no-results="$noResults"
                 data-show-pagination="$showPagination"
                 data-read-more="$readMore"
-                data-filter="none"
+                data-filter="today-or-after"
             >
             </cagov-post-list>
-
+        </div>
     </div>
     EOT;
 }

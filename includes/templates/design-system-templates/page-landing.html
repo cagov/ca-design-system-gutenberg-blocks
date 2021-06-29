@@ -1,0 +1,33 @@
+<!-- <caweb-header/> -->
+{# {
+    id: 123,
+    title: {
+        rendered: "Title",
+    },
+    content: {
+        rendered: "body tag content as compiled by php"
+    },
+    excerpt: {
+        rendered: "",
+    },
+    link: "...permalink - this has the actual route, but all content has unique slug",
+
+    
+} #}
+<div id="page-container" class="page-container-ds">
+    <div id="main-content" class="main-content-ds single-column landing" tabindex="-1">
+        <div class="ds-content-layout">
+            <main class="main-primary">
+                <article id="post-${id}">
+                    <h1 class="page-title">${title.rendered}</h1>
+                    <div class="entry-content">
+                    ${content.rendered}
+                    </div>
+                </article>
+                <span class="return-top hidden-print"></span>
+            </main>
+        </div>
+    </div>
+</div>
+<!-- <caweb-content-menu /> -->
+<!-- <caweb-footer/> -->

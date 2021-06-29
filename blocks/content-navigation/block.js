@@ -2,7 +2,7 @@
  * CAGov Content Navigation
  */
 
-(function (blocks, blockEditor, i18n, element, components, _, moment) {
+(function (blocks, i18n, element, data) {
   var __ = i18n.__;
   var el = element.createElement;
   // https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
@@ -23,7 +23,7 @@
       html: false,
       reusable: false,
       multiple: false,
-      inserter: false
+      inserter: true
     },
     edit: function (props) {
       var attributes = props.attributes;
@@ -38,41 +38,32 @@
           // Visual display of content
           el("cagov-content-navigation", {
             className: "content-navigation",
-            "data-selector": "#main-content",
-            "data-editor": "textarea.block-editor-plain-text",
+            "data-selector": "article",
+            "data-editor": ".edit-post-visual-editor",
             "data-callback": "(content) => unescape(content)",
           })
         )
       );
-    },
-    // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/
-    save: function (props) {
-      var attributes = props.attributes;
-      return el(
-        "div",
-        {
-          className: "cagov-content-navigation cagov-stack",
-        },
-        el(
-          "div",
-          {},
-          // Visual display of content
-          el("cagov-content-navigation", {
-            className: "content-navigation",
-            "data-selector": "#main-content",
-            "data-editor": "textarea.block-editor-plain-text",
-            "data-callback": "(content) => content",
-          })
-        )
-      );
-    },
+    }
   });
+
+  // data.subscribe(function () {
+  //   var blocks = data.select("core/block-editor").getBlocks();
+
+  //   var isPostDirty = data.select("core/editor").isEditedPostDirty();
+  //   var isAutosavingPost = data.select("core/editor").isAutosavingPost();
+
+  //   if (isPostDirty && !isAutosavingPost) {
+  //     console.log("Content updates");
+  //     const event = new Event('GutenbergEditorUpdated');
+  //     // Dispatch the event.
+  //     document.dispatchEvent(event);
+  //   }
+  // });
+
 })(
   window.wp.blocks,
-  window.wp.blockEditor,
   window.wp.i18n,
   window.wp.element,
-  window.wp.components,
-  window._,
-  window.moment
+  window.wp.data
 );

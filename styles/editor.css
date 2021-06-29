@@ -25,16 +25,27 @@
   line-height: 1.5;
 }
 
+.editor-styles-wrapper .message-body {
+  padding: 0 32px;
+}
+
+.editor-styles-wrapper .cagov-page-alert {
+  min-height: 64px;
+  height: auto;
+}
+
 
 /* Basic block typography overrides */
 .blocks-rich-text__tinymce.mce-content-body,
 .edit-post-visual-editor,
-.edit-post-visual-editor p {
+.edit-post-visual-editor p,
+.editor-styles-wrapper .edit-post-visual-editor p,
+.block-editor-block-list__layout .is-root-container p{
   margin-bottom: .7rem;
   font-family: "Public Sans", sans-serif;
-  color: #000;
-  font-size: 18px;
-  font-size: 1rem;
+  color: #000 !important;
+  font-size: 18px !important; /* Setting with problematic important tag until we can scope this file to load AFTER the wp font reset & gutenberg editor classes, which seem to be pushed to the very end of all wordpress css */
+  font-size: 1rem !important;
   font-weight: normal;
   line-height: 1.5;
 }
@@ -91,7 +102,8 @@ div.editor-post-title__block .editor-post-title__input {
 }
 
 div.editor-post-title__block textarea.editor-post-title__input,
-.edit-post-visual-editor h1 {
+.edit-post-visual-editor h1,
+.editor-styles-wrapper .edit-post-visual-editor h1 {
   font-size: 40px;
   font-size: 2.5rem;
   font-weight: 700px;
@@ -103,56 +115,62 @@ div.editor-post-title__block textarea.editor-post-title__input,
   line-height: 1.5;
 }
 
-.edit-post-visual-editor h2 {
+.edit-post-visual-editor h2,
+.editor-styles-wrapper .edit-post-visual-editor h2 {
   font-size: 32px;
   font-size: 2rem;
   margin-top: 2.75rem;
   margin-bottom: 1.4rem;
-  color: #000;
+  color: #000 !important;
   font-family: "Public Sans", sans-serif;
   font-weight: 700;
   line-height: 1.5;
 }
 
-.edit-post-visual-editor h3 {
+.edit-post-visual-editor h3,
+.editor-styles-wrapper .edit-post-visual-editor h3 {
   font-size: 28px;
   font-size: 1.75rem;
   margin-top: 2.4rem;
   margin-bottom: 1.2rem;
-  color: #000;
+  color: #000 !important;
   font-family: "Public Sans", sans-serif;
   font-weight: 700;
   line-height: 1.5;
 }
 
-.edit-post-visual-editor h4 {
+.edit-post-visual-editor h4,
+.editor-styles-wrapper .edit-post-visual-editor h4
+ {
   font-size: 24px;
   font-size: 1.5rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: #000;
+  color: #000 !important;
   font-family: "Public Sans", sans-serif;
   font-weight: 700;
   line-height: 1.5;
 }
 
-.edit-post-visual-editor h5 {
+.edit-post-visual-editor h5,
+.editor-styles-wrapper .edit-post-visual-editor h5 {
   font-size: 20px;
   font-size: 1.25rem;
   margin-top: 1.7rem;
   margin-bottom: .8rem;
-  color: #000;
+  color: #000 !important;
   font-family: "Public Sans", sans-serif;
   font-weight: 700;
   line-height: 1.5;
 }
 
-.edit-post-visual-editor h6 {
+.edit-post-visual-editor h6,
+.editor-styles-wrapper .edit-post-visual-editor h6 {
   font-size: 16px;
   font-size: 1rem;
   margin-top: 1.4rem;
   margin-bottom: .6rem;
-  color: #000;
+  color: #000 !important;
   font-family: "Public Sans", sans-serif;
   font-weight: 700;
   line-height: 1.5;

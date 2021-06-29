@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: DS Press Release
+ * Template Name: DS Post: Press Release
  * Template Post Type: post
  */
 ?>
@@ -11,7 +11,7 @@
 if (file_exists(get_stylesheet_directory() . '/header.php')) {
     require_once get_stylesheet_directory() . '/header.php';
 }
-if (file_exists(get_stylesheet_directory() . '/header.php')) {
+if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
     require_once get_stylesheet_directory() . '/partials/header.php';
 }
 ?>

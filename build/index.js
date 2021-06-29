@@ -95,7 +95,7 @@
 
 /**
  * CAGov Event Detail
- *
+ * Developer note: Reminder to run npm start & npm run build to generate this component.
  */
 const {
   blocks,
@@ -182,7 +182,8 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     }
   },
   example: {
-    attributes: {// startDate: __("Start Date & Time", "ca-design-system"),
+    attributes: {
+      title: "Event Details"
     }
   },
   edit: function (props) {
@@ -200,7 +201,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
     return createElement("div", null, createElement(RichText, {
       value: title,
-      tagName: "h3",
+      tagName: "h2",
       className: "title",
       onChange: title => props.setAttributes({
         title
@@ -208,7 +209,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       placeholder: __("Event Details", "ca-design-system")
     }), createElement("div", {
       className: "cagov-event-detail cagov-stack"
-    }, createElement("h4", null, "Date & time"), createElement(RichText, {
+    }, createElement("h3", null, "Date & time"), createElement(RichText, {
       value: startDate,
       tagName: "div",
       className: "startDate",
@@ -244,7 +245,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         endTime
       }),
       placeholder: __(formattedTimePlusHour, "ca-design-system")
-    }), createElement("h4", null, "Location"), createElement(RichText, {
+    }), createElement("h3", null, "Location"), createElement(RichText, {
       value: location,
       tagName: "div",
       className: "location",
@@ -253,7 +254,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         location
       }),
       placeholder: __("Enter text...", "ca-design-system")
-    }), createElement("h4", null, "Cost"), createElement(RichText, {
+    }), createElement("h3", null, "Cost"), createElement(RichText, {
       value: cost,
       tagName: "div",
       className: "cost",
@@ -348,7 +349,7 @@ blocks.registerBlockType("ca-design-system/event-materials", {
   },
   edit: function (props) {
     var attributes = props.attributes;
-    return createElement("div", null, createElement("h3", null, createElement(RichText, {
+    return createElement("div", null, createElement("h2", null, createElement(RichText, {
       value: attributes.title,
       tagName: "div",
       className: "title",
@@ -358,7 +359,7 @@ blocks.registerBlockType("ca-design-system/event-materials", {
       placeholder: __("Event Materials", "ca-design-system")
     })), createElement("div", {
       className: "cagov-event-materials cagov-stack"
-    }, createElement("h4", null, "Agenda"), createElement(RichText, {
+    }, createElement("h3", null, "Agenda"), createElement(RichText, {
       value: attributes.agenda,
       tagName: "div",
       className: "agenda",
@@ -367,7 +368,7 @@ blocks.registerBlockType("ca-design-system/event-materials", {
         agenda
       }),
       placeholder: __("Link to a plain text agenda and agenda files", "ca-design-system")
-    }), createElement("h4", null, "Materials"), createElement(RichText, {
+    }), createElement("h3", null, "Materials"), createElement(RichText, {
       value: attributes.materials,
       tagName: "div",
       className: "materials",

@@ -1,6 +1,6 @@
 /**
- * CAGov Announcement list
- * "List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the ""Announcement"" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.
+ * CAGov Event list
+ * "List of recent events. Appears on the homepage. Allows people to see the most recent events with the ""Event"" tag. Includes title, hyperlink to full event, date, and a view all link to see longer list.
  * DEPENDENCY - post-list
  */
 
@@ -21,26 +21,26 @@
   // - [ ] Figure out tab navigation inside Gutenberg block. Notes: tabIndex react prop doesn't help. aria-labels added automatically, may require accessibiliy add on plugin. Navigating between blocks works with the Block List. Q: Would PlainText work better?
   // - [ ] Figure out easiest localization options
 
-  blocks.registerBlockType("ca-design-system/announcement-list", {
-    title: __("Announcement list", "ca-design-system"),
+  blocks.registerBlockType("ca-design-system/event-list", {
+    title: __("Event list", "ca-design-system"),
     icon: "format-aside",
     category: "ca-design-system",
     description: __(
-      'List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the "Announcement" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.',
+      'List of recent events. Allows people to see the most recent events with the "Event" tag. Includes title, hyperlink to full event, date, and a view all link to see longer list.',
       "ca-design-system"
     ),
     attributes: {
       title: {
         type: "string",
-        default: "Announcements",
+        default: "Upcoming events",
       },
       description: {
         type: "string",
-        default: "announcements,press-releases",
+        default: "events",
       },
       category: {
         type: "string",
-        default: "announcements,press-releases",
+        default: "events",
       },
       order: {
         type: "string",
@@ -48,7 +48,7 @@
       },
       count: {
         type: "string",
-        default: "5",
+        default: "3",
       },
       endpoint: {
         type: "string",
@@ -56,25 +56,25 @@
       },
       readMore: {
         type: "string",
-        // default: '<a href="#">View all announcements</a>',
+        // default: '<a href="#">View all events</a>',
       },
       noResults: {
         type: "string",
-        default: "No posts found"
+        default: "No upcoming events found"
       },
     },
     // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional
     example: {
       attributes: {
-        title: __("Announcements", "ca-design-system"),
-        category: __("announcements,press-releases", "ca-design-system"),
-        readMore: __("<a href=\"#\">View all posts</a>", "ca-design-system"),
+        title: __("Events", "ca-design-system"),
+        category: __("events", "ca-design-system"),
+        readMore: __("<a href=\"#\">View all events</a>", "ca-design-system"),
         order: "desc",
         count: "3",
         endpoint: `${siteUrl}/wp-json/wp/v2`,
         showExcerpt: "false",
         showPublishedDate: "true",
-        noResults: "No posts found",
+        noResults: "No events found",
       },
     },
     edit: function (props) {
@@ -82,7 +82,7 @@
       return el(
         "div",
         {
-          className: "cagov-announcement-list cagov-stack",
+          className: "cagov-event-list cagov-stack",
         },
         el(
           "div",
@@ -90,7 +90,7 @@
           el(RichText, {
             tagName: "h2",
             inline: false,
-            placeholder: __("Announcement list block title", "ca-design-system"),
+            placeholder: __("Event list block title", "ca-design-system"),
             value: attributes.title,
             onChange: function (value) {
               props.setAttributes({ title: value });

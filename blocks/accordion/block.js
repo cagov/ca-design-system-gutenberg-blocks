@@ -9,7 +9,9 @@
   let newScript = document.createElement("script");
   newScript.type="module";
   newScript.src = "https://files.covid19.ca.gov/js/components/accordion/v1/index.js";
+  newScript.defer = true;
   document.querySelector('head').appendChild(newScript);
+
 
   blocks.registerBlockType(
     "ca-design-system/accordion",
@@ -38,6 +40,9 @@
         }
       },
       edit: function (props) {
+
+
+
         const attributes = props.attributes;
         return el('cagov-accordion', { },
           el('div', { className: 'cagov-accordion-card' },
@@ -68,7 +73,7 @@
                   {
                     allowedBlocks: ['core/heading', 'core/paragraph', 'core/button', 'core/list'],
                     onChange: function (value) {
-                      console.log(value);
+                      // console.log(value);
                     }
                   }
                 )

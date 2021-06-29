@@ -1,17 +1,16 @@
 <?php
 /*
- * Template Name: DS Announcement
+ * Template Name: DS Post: Announcement
  * Template Post Type: post
  */
 ?>
-
 
 <?php
 // Pull header file from theme if it exists.
 if (file_exists(get_stylesheet_directory() . '/header.php')) {
     require_once get_stylesheet_directory() . '/header.php';
 }
-if (file_exists(get_stylesheet_directory() . '/header.php')) {
+if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
     require_once get_stylesheet_directory() . '/partials/header.php';
 }
 ?>
@@ -47,8 +46,6 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                                 printf('<p class="page-date published"><time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
                             // }
 
-
-
                             print '<div class="entry-content">';
 
                             the_content();
@@ -56,7 +53,6 @@ if (file_exists(get_stylesheet_directory() . '/header.php')) {
                             print '</div>';
 
                             ?>
-
 
                         </article>
 

@@ -5,6 +5,8 @@
  * @package CADesignSystem
  */
 
+
+
 /**
  * Return templates located in the plugins templates folder.
  *
@@ -27,3 +29,4 @@ function cagov_get_page_post_templates() {
 
 	return $templates;
 }
+

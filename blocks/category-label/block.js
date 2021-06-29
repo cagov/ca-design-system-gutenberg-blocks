@@ -29,10 +29,10 @@
   blocks.registerBlockType("ca-design-system/category-label", {
     title: __("Category Label", "ca-design-system"),
     icon: "format-aside",
-    category: 'ca-design-system-utilities',
+    category: "ca-design-system-utilities",
     // namespace: "CA Design System", // Version?
 
-	// <div class="wp-block-ca-design-system-category-label cagov-category-label cagov-stack" data-term-id="7">News</div>
+    // <div class="wp-block-ca-design-system-category-label cagov-category-label cagov-stack" data-term-id="7">News</div>
 
     attributes: {
       label: {
@@ -40,11 +40,11 @@
         source: "children",
         selector: "div.cagov-category-label",
       },
-    //   term_id: {
-    //     type: "string",
-    //     source: "attribute",
-    //     selector: "div.cagov-category-label[data-term-id]",
-    //   },
+      //   term_id: {
+      //     type: "string",
+      //     source: "attribute",
+      //     selector: "div.cagov-category-label[data-term-id]",
+      //   },
     },
     // keywords: [__("news"), __("labels")],
     example: {
@@ -56,23 +56,22 @@
     edit: function (props) {
       var attributes = props.attributes;
       return el(RichText.Content, {
-		tagName: "div",
-		className: "cagov-category-label cagov-stack",
-		value: attributes.label,
-		// "data-term-id": attributes.term_id || "",
-	  });
-
+        tagName: "div",
+        className: "cagov-category-label cagov-stack",
+        value: attributes.label,
+        // "data-term-id": attributes.term_id || "",
+      });
     },
     save: function (props) {
       var attributes = props.attributes;
-      console.log("save", attributes);
+      // console.log("save", attributes);
 
       return el(RichText.Content, {
-          tagName: "div",
-		  className: "cagov-category-label cagov-stack",
-          value: attributes.label,
-		//   "data-term-id": attributes.term_id || "",
-        });
+        tagName: "div",
+        className: "cagov-category-label cagov-stack",
+        value: attributes.label,
+        //   "data-term-id": attributes.term_id || "",
+      });
     },
   });
 
@@ -100,16 +99,16 @@
               localBlock.attributes.label !== updatedSelectedCategory[0].name &&
               typeof updatedSelectedCategory[0].name === "string"
             ) {
-              console.log("updating", updatedSelectedCategory[0].name);
-              console.log(
-                "updatedSelectedCategory[0].term_id.toString()",
-                updatedSelectedCategory[0].term_id.toString()
-              );
+              // console.log("updating", updatedSelectedCategory[0].name);
+              // console.log(
+              //   "updatedSelectedCategory[0].term_id.toString()",
+              //   updatedSelectedCategory[0].term_id.toString()
+              // );
               wp.data
                 .dispatch("core/block-editor")
                 .updateBlockAttributes(localBlock.clientId, {
                   label: updatedSelectedCategory[0].name,
-                //   term_id: updatedSelectedCategory[0].term_id.toString(),
+                  //   term_id: updatedSelectedCategory[0].term_id.toString(),
                 });
             }
           });

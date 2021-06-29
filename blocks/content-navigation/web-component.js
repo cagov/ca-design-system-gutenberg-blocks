@@ -6,10 +6,16 @@
 class CAGovContentNavigation extends window.HTMLElement {
   connectedCallback() {
     this.type = "wordpress";
+
     if (this.type === "wordpress") {
       document.addEventListener("DOMContentLoaded", () =>
         this.buildContentNavigation()
       );
+
+      // Still in progress, will update content dynamically on content editing
+      // document.addEventListener("GutenbergEditorUpdated", (e) =>
+      //   this.buildContentNavigation(e)
+      // );
     }
   }
 
@@ -24,6 +30,7 @@ class CAGovContentNavigation extends window.HTMLElement {
     if (markup !== null) {
       content = `<div class="label">${label}</div> ${markup}`;
     }
+
     this.template({ content }, "wordpress");
   }
 
@@ -36,24 +43,17 @@ class CAGovContentNavigation extends window.HTMLElement {
 
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
-        let hashval = anchor.getAttribute('href');
+        let hashval = anchor.getAttribute("href");
         let target = document.querySelector(hashval);
-        
-        // Not working with scroll margin ... weird - @TODO look for conflict with parent themes
-
-        target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            top: 100,
+        let position = target.getBoundingClientRect();
+        window.scrollTo({
+          behavior: "smooth",
+          left: position.left, 
+          top: position.top - 200
         });
 
-        // let position = target.getBoundingClientRect();
-        // console.log("pos", position, position.top + window.scrollY - 128);
-        // scrolls to 20px above element
-        // window.scrollTo(position.left, position.top + window.scrollY - 128);
-
         history.pushState(null, null, hashval);
-        
+
         e.preventDefault();
       });
     });
@@ -73,16 +73,17 @@ class CAGovContentNavigation extends window.HTMLElement {
     let display = "render";
     let callback = this.dataset.callback; // Editor only right now
 
-    var h = ["h2", "h3", "h4", "h5", "h6"];
+    var h = ["h2"];
     var headings = [];
 
+    // console.log("reading headers");
     for (var i = 0; i < h.length; i++) {
       // Pull out the header tags, in order & render as links with anchor tags
       // auto convert h tags with tag names
       if (selector !== undefined && selector !== null) {
         // Dynamic for editor
         // @TODO update on save like category-label
-        // data-selector="#main-content" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)" data-js-flip="true"
+        // data-selector="article" data-editor="textarea.block-editor-plain-text" data-callback="(content) => unescape(content)" data-js-flip="true"
 
         if (display === "render") {
           let selectorContent = document.querySelector(selector);
@@ -91,22 +92,25 @@ class CAGovContentNavigation extends window.HTMLElement {
             return outline;
           }
         }
-      } else if (display === "editor") {
-        let editorContent = window.document.querySelector(`${editor}`);
-        let editorInnerHTML = selectorContent.innerHTML;
-        if (callback !== undefined && callback !== null) {
-          editorInnerHTML = callback(editorInnerHTML);
-        }
-
-        let outline = this.outliner(editorContent);
-        return outline;
       }
+
+      // if (editor !== undefined && editor !== null && document.querySelector(editor) !== null) {
+      //   let editorContent = window.document.querySelector(`${editor}`);
+
+      //   let editorInnerHTML = selectorContent.innerHTML;
+      //   if (callback !== undefined && callback !== null) {
+      //     editorInnerHTML = callback(editorInnerHTML);
+      //   }
+
+      //   let outline = this.outliner(editorContent);
+      //   return outline;
+      // }
     }
     return null;
   }
 
   outliner(content) {
-    let headers = content.querySelectorAll("h2, h3, h4, h5, h6");
+    let headers = content.querySelectorAll("h2");
     let output = ``;
     if (headers !== undefined && headers !== null && headers.length > 0) {
       headers.forEach((tag) => {
@@ -133,7 +137,9 @@ class CAGovContentNavigation extends window.HTMLElement {
   }
 }
 
-window.customElements.define(
-  "cagov-content-navigation",
-  CAGovContentNavigation
-);
+if (customElements.get("cagov-content-navigation") === undefined) {
+  window.customElements.define(
+    "cagov-content-navigation",
+    CAGovContentNavigation
+  );
+}

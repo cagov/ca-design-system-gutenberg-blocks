@@ -25,7 +25,7 @@
   blocks.registerBlockType("ca-design-system/post-list", {
     title: __("Post list", "ca-design-system"),
     icon: "format-aside",
-    category: "ca-design-system",
+    category: "ca-design-system-utilities",
     description: __(
       'List of recent announcements. Appears on the homepage. Allows people to see the most recent announcements with the "Announcement" tag. Includes title, hyperlink to full announcement, date, and a view all link to see longer list.',
       "ca-design-system"
@@ -33,7 +33,7 @@
     attributes: {
       title: {
         type: "string",
-        // default: "",
+        default: "Recent Posts",
       },
       category: {
         type: "string",
@@ -62,24 +62,32 @@
         type: "string",
         default: "true"
       },
+      showPagination: {
+        type: "string",
+        default: "true"
+      },
+      noResults: {
+        type: "string",
+        default: "No posts found"
+      },
     },
     example: {
       attributes: {
-        title: __("Events", "ca-design-system"),
-        category: __("events", "ca-design-system"),
-        readMore: __("<a href=\"#\">View all events</a>", "ca-design-system"),
+        title: __("Recent posts", "ca-design-system"),
+        category: __("announcements,press-releases", "ca-design-system"),
+        readMore: __("<a href=\"#\">View all posts</a>", "ca-design-system"),
         order: "desc",
-        count: "3",
+        count: "10",
         endpoint: `${siteUrl}/wp-json/wp/v2`,
-        showExcerpt: "false",
-        showPublishedDate: "false",
+        showExcerpt: "true",
+        showPublishedDate: "true",
+        showPagination: "true",
+        noResults: __("No posts found", "ca-design-system")
       },
     },
     edit: function (props) {
       var attributes = props.attributes;
-
-      // console.log("props", attributes);
-
+      // console.log("attr", attributes);
       return el(
         "div",
         {
@@ -98,6 +106,8 @@
               props.setAttributes({ title: value });
             },
           }),
+          // Display output of component.
+          // @TODO refresh on change
           el("cagov-post-list", {
             className: "post-list",
             "data-category": attributes.category,
@@ -105,41 +115,46 @@
             "data-order": attributes.order,
             "data-endpoint": attributes.endpoint,
             "data-show-excerpt": attributes.showExcerpt,
+            "data-show-published-date" : attributes.showPublishedDate,
+            "data-no-results": attributes.noResults,
+            "date-show-paginator": attributes.showPagination,
           }),
-          // Visual display of endpoint
-          // el(RichText, {
-          //   tagName: "div",
-          //   className: "read-more",
-          //   inline: false,
-          //   placeholder: __("Link to post page", "ca-design-system"),
-          //   value: attributes.readMore,
-          //   onChange: function (value) {
-          //     props.setAttributes({ readMore: value });
-          //   },
-          // }),
-          el(
-            "div",
-            {
-              tagName: "div",
-              className: "read-more",
-              inline: false,
-              placeholder: __("Link to post page", "ca-design-system"),
+          el(RichText, {
+            tagName: "div",
+            className: "read-more",
+            inline: false,
+            placeholder: __("Add link to read more posts", "ca-design-system"),
+            value: attributes.readMore,
+            onChange: function (value) {
+              props.setAttributes({ readMore: value });
             },
-            el(InnerBlocks, {
-            //   value: attributes.readMore,
-              allowedBlocks: ["core/paragraph", "core/button"],
-              onChange: function (value) {
-                props.setAttributes({ readMore: value });
-              },
-            })
-          ),
+          }),
+          // el(
+          //   "div",
+          //   {
+          //     tagName: "div",
+          //     className: "read-more",
+          //     inline: false,
+          //     placeholder: __("Link to post page", "ca-design-system"),
+          //   },
+          //   el(InnerBlocks, {
+          //     value: attributes.readMore,
+          //     allowedBlocks: ["core/paragraph", "core/button"],
+          //     onChange: function (value) {
+          //       props.setAttributes({ readMore: value });
+          //     },
+          //   })
+          // ),
+          el("hr"),
+          el("h3", { children: "Post list settings"}),
           el(
             "div",
             { className: "edit" },
+            // @TODO Change to select with categories list.
             el(TextControl, {
               label: "Change post category",
               tagName: "div",
-              help: "Comma separated list of category slugs", // @TODO Will change to select box
+              help: "Comma separated list of category slugs",
               className: "post-list-category",
               inline: false,
               placeholder: __("Category", "ca-design-system"),
@@ -151,7 +166,6 @@
             el(TextControl, {
               label: "Number of items to display",
               tagName: "div",
-              
               className: "post-list-count",
               value: attributes.count,
               inline: false,
@@ -160,21 +174,23 @@
                 "ca-design-system"
               ),
               onChange: function (value) {
-                console.log("value count", value);
+                // console.log("value count", value);
                 props.setAttributes({ count: value });
               },
             }),
             el(ToggleControl, {
               label: "Order of posts",
-              tagName: "div", // Checkbox desc/asc
+              tagName: "div",
               className: "post-list-order",
               inline: false,
-              help: attributes.order === "asc" ?  "Oldest first" : "Newest posts first",
+              help: attributes.order === "desc" ? "Newest posts first" : "Oldest first",
               placeholder: __("Newest posts first", "ca-design-system"),
-              value: attributes.order === "desc" || "" ? true : false,
+              checked: attributes.order === "desc" || "" ? false : true,
+              value: attributes.order === "desc" || "" ? false : true,
               onChange: function (value) {
+                // console.log("value", value);
                 props.setAttributes({ 
-                  order: value === true ? "desc" : "asc"
+                  order: value === true ? "asc" : "desc"
                 });
               },
             }),
@@ -208,6 +224,22 @@
                 });
               },
             }),
+            el(CheckboxControl, {
+              label: "Show pagination",
+              tagName: "div", // select box + enter data
+              className: "post-list-pagination",
+              help: "Show the pagination bar",
+              inline: false,
+              placeholder: __("Show pagination", "ca-design-system"),
+              checked:  attributes.showPagination === "true" ? true : false,
+              value: attributes.showPagination,
+              onChange: function (value) {
+                // console.log("p", value);
+                props.setAttributes({ 
+                  showPagination: value === true ? "true" : "false" 
+                });
+              },
+            }),
             el(TextControl, {
               label: "Endpoint",
               tagName: "div", // select box + enter data
@@ -219,7 +251,18 @@
               onChange: function (value) {
                 props.setAttributes({ endpoint: value });
               },
-            })
+            }),
+            el(TextControl, {
+              label: "No results message",
+              tagName: "input",
+              className: "post-list-no-results",
+              inline: false,
+              placeholder: __("No results found", "ca-design-system"),
+              value: attributes.noResults,
+              onChange: function (value) {
+                props.setAttributes({ noResults: value });
+              },
+            }),
           )
         )
       );

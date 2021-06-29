@@ -12,6 +12,12 @@ add_action( 'caweb_pre_footer', 'cagov_content_menu' );
 add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
 
+// @TODO add api to make this content available
+
+
+
+
+
 /**
  * CADesignSystem Breadcrumb
  *
@@ -156,7 +162,7 @@ function cagov_content_menu()
                 </div>
             </div>
             <div class="menu-section">
-                <ul class="content-menu-links" %3$s>
+                <ul class="content-menu-links">
                     <?php
                     $menuitems = wp_get_nav_menu_items($nav_menus['content-menu']);
 

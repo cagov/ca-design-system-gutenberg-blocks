@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: CA Design System Event Post Pattern
+ * Plugin Name: CA Design System Event Pattern
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
@@ -11,9 +11,13 @@
 
 defined('ABSPATH') || exit;
 
-function ca_design_system_custom_wp_block_pattern_event_post_set_meta_data () {
+function ca_design_system_custom_wp_block_pattern_event_pattern_set_meta_data () {
     // @TODO change the category if this pattern is selected.
 }
+
+
+add_action('init', 'ca_design_system_custom_wp_block_pattern_event');
+
 
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in
@@ -21,9 +25,8 @@ function ca_design_system_custom_wp_block_pattern_event_post_set_meta_data () {
  *
  * Passes translations to JavaScript.
  */
-function ca_design_system_custom_wp_block_pattern_event_post()
+function ca_design_system_custom_wp_block_pattern_event()
 {
-
     if (!function_exists('register_block_pattern')) {
         // Gutenberg is not active.
         return;
@@ -33,9 +36,9 @@ function ca_design_system_custom_wp_block_pattern_event_post()
      * Register Block Pattern
      */
     register_block_pattern(
-        'ca-design-system/event-post',
+        'ca-design-system/event-pattern',
         array(
-            'title'       => __('Event Post', 'ca-design-system'),
+            'title'       => __('Event Pattern', 'ca-design-system'),
             'description' => __('Page layout with dynamic content navigation sidebar', 'Block pattern description', 'ca-design-system'),
             'content' => '<!-- wp:columns -->
             <div class="wp-block-columns has-2-columns">
@@ -48,9 +51,7 @@ function ca_design_system_custom_wp_block_pattern_event_post()
 
                 <!-- wp:column {"width":"33.33%"} -->
                     <div class="wp-block-column" style="flex-basis:33.33%">
-                    <!-- wp:ca-design-system/event-detail -->
-
-                    {
+                    <!-- wp:ca-design-system/event-detail {
                         "title": "Event Details",
                         "startDate":"",
                         "endDate":"",
@@ -58,18 +59,14 @@ function ca_design_system_custom_wp_block_pattern_event_post()
                         "endTime":"",
                         "location:"",
                         "cost": "",
-                    }
-
+                    } -->
                     <!-- /wp:ca-design-system/event-detail -->
 
-                    <!-- wp:ca-design-system/event-materials -->
-
-                    {
+                    <!-- wp:ca-design-system/event-materials {
                         "title": "Event Materials",
                         "agenda": "",
                         "materials": "",
-                    }
-
+                    } -->
                     <!-- /wp:ca-design-system/event-materials -->
                     </div>
                 <!-- /wp:column --> 
@@ -78,5 +75,3 @@ function ca_design_system_custom_wp_block_pattern_event_post()
         )
     );
 }
-
-add_action('init', 'ca_design_system_custom_wp_block_pattern_event_post');

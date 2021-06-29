@@ -12,7 +12,7 @@
   const RichText = editor.RichText;
   const MediaUpload = editor.MediaUpload;
 
-  blocks.registerBlockType('cagov/hero', {
+  blocks.registerBlockType('ca-design-system/hero', {
     title: __('Feature card', 'cagov-design-system'),
     category: 'ca-design-system',
     icon: "format-aside",
@@ -46,7 +46,25 @@
         source: 'attribute',
         selector: 'img',
         attribute: 'src'
-      }
+      },
+      mediaAlt: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'alt'
+      },
+      mediaWidth: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'width'
+      },
+      mediaHeight: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'height'
+      },
     },
     example: {
       attributes: {
@@ -54,15 +72,23 @@
         body: __('Registration opens November 5, 2022', 'cagov-design-system'),
         buttontext: __('Register', 'cagov-design-system'),
         buttonurl: __('https://example.com', 'cagov-design-system'),
-        mediaURL: 'http://www.fillmurray.com/720/240'
+        mediaURL: 'http://www.fillmurray.com/720/240',
+        mediaAlt: 'Image Description',
+        mediaWidth: "750",
+        mediaHeight: "500",
       }
     },
     edit: function (props) {
       const attributes = props.attributes;
       const onSelectImage = function (media) {
+        // @TODO since we have the media ID to render, could load large or small size
+        // Caching tools from WP (like WP Fastest Cache) can do lazy loading automatically
         return props.setAttributes({
-          mediaURL: media.url,
-          mediaID: media.id
+          mediaURL: media.sizes.large.url,
+          mediaID: media.id,
+          mediaAlt: media.description,
+          mediaWidth: media.sizes.large.width,
+          mediaHeight: media.sizes.large.height
         });
       };
       return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
@@ -87,7 +113,7 @@
                 {
                   allowedBlocks: ['core/paragraph', 'core/button'],
                   onChange: function (value) {
-                    console.log(value);
+                    // console.log(value);
                   }
                 }
               )
@@ -109,7 +135,7 @@
                   },
                   !attributes.mediaID
                     ? __('Upload Image', 'cagov-design-system')
-                    : el('img', { src: attributes.mediaURL, className: 'cagov-featured-image' })
+                    : el('img', { src: attributes.mediaURL, className: 'cagov-featured-image', alt:attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight  })
                 );
               }
             })
@@ -119,7 +145,7 @@
     },
     save: function (props) {
       const attributes = props.attributes;
-      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry' },
+      return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry cagov-block' },
         el('div', {},
           el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
             { className: 'cagov-hero cagov-stack' },
@@ -132,7 +158,7 @@
             )
           ),
           attributes.mediaURL && el('div', { },
-            el('img', { className: 'cagov-featured-image', src: attributes.mediaURL }
+            el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight }
             )
           )
         )
