@@ -1,10 +1,6 @@
 
 .cagov-stack h2 { padding-bottom: 0; }
 
-/* .cagov-featured-sidebar h2 {
-    margin-top: 0 !important;
-} */
-
 .cagov-p-2 {
   padding: 1rem;
 }
@@ -16,7 +12,6 @@
   max-width: 400px;
   margin-top: 0;
 }
-
 
 .cagov-featured-section {
   margin: 0 0 3rem 0;
@@ -101,8 +96,19 @@
     flex-direction: column-reverse;
   }
 } 
+
 @media (min-width: 1200px) {
   .cagov-featured-sidebar {
     max-width: 34%;
+  }
+
+  .cagov-with-sidebar-left > * > :last-child {
+    /* min-width: calc(34% - 0px); */
+    max-width: calc(66% - 0px);
+  }
+  
+  .cagov-with-sidebar-right > * > :first-child {
+    /* min-width: calc(34% - 0px); */
+    max-width: calc(66% - 0px);
   }
 }

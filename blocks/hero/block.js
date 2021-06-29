@@ -82,7 +82,7 @@
       const attributes = props.attributes;
       const onSelectImage = function (media) {
         // @TODO since we have the media ID to render, could load large or small size
-        // Caching tools from WP (like WP Fastest Cache will do lazy loading automatically)
+        // Caching tools from WP (like WP Fastest Cache) can do lazy loading automatically
         return props.setAttributes({
           mediaURL: media.sizes.large.url,
           mediaID: media.id,

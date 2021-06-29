@@ -322,13 +322,24 @@ main ul li {
         margin-left: 0;
     }
 
+    .with-sidebar.page-container-ds.has-sidebar-left main {
+        margin-left: 0;
+        margin-right: 0px;
+    }
+    
+    .with-sidebar.page-container-ds.has-sidebar-right main {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
     .with-sidebar.page-container-ds main {
         margin-left: inherit;
         margin-top: 32px;
     }
 
     /* Responsive page title */
-    .wide-page-title {
+    article .wide-page-title,
+    article h1.page-title {
         display: none;
     }
 
@@ -345,6 +356,12 @@ main ul li {
     /* Content Navigation */
     cagov-content-navigation .label {
         display: none;
+    }
+
+    .sidebar-container {
+        display: block;
+        width: 100%;
+        max-width: 100%;
     }
 
     sidebar cagov-content-navigation ul li:last-child {
@@ -720,7 +737,6 @@ article a {
 .cagov-block h6 {
     margin-bottom: 24px;
 }
-
 
 /* .cagov-stack h1,
 .cagov-stack h2,
