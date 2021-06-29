@@ -85,6 +85,10 @@
 /* First Block has a top margin */
 #main-content {
     margin-top: 0px; /* Navigation has extra 32px */
+    margin-bottom: 64px;
+}
+
+#main-content.landing {
     margin-bottom: 32px;
 }
 
@@ -95,7 +99,7 @@
 /* Reset wp block columns spacing */
 .wp-block-columns {
     margin-top: 0px;
-    margin-bottom: 0 !important; /* Conflict with WP styles & load order */
+    margin-bottom: 0px !important; /* Conflict with WP styles & load order */
 }
 
 .wp-block-column {
@@ -103,8 +107,9 @@
     margin-bottom: 0px;
 }
 
-.wp-block-column .cagov-block {
-    margin-bottom: 64px;
+
+#main-content.landing .wp-block-columns .cagov-block {
+    margin-bottom: 32px; 
 }
 
 @media (min-width: 992px) {
