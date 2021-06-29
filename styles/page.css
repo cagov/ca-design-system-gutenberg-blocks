@@ -2,43 +2,18 @@
  CA Design System Page CSS
 */
 
-/* First Block has a top margin */
-#main-content {
-    margin-top: 32px;
-    margin-bottom: 64px;
-}
-
 .page-container-ds {
     max-width: 1147px;
-    margin: 0 auto;
-    /* padding-left: 15px;
-    padding-right: 15px; */
 }
 
 .main-content-ds {
-    margin-top: 32px;
     max-width: 100%;
 }
 
 /* Single column layout */
 .single-column {
     max-width: 1147px;
-    margin: 0 auto;
 }
-
-#main-content.single-column.landing {
-    margin-top: 0px;
-}
-
-#main-content.single-column.landing .cagov-block {
-    margin-top: 0px;
-    margin-bottom: 64px;
-}
-
-.cagov-block h2 {
-    margin-bottom: 24px;
-}
-
 
 /* SIDEBAR */
 /* (see README.md) */
@@ -121,11 +96,6 @@
     padding-right: 5px;
 }
 
-/* .page-container-default {
-    margin-top: 210px;
-    margin-bottom: -170px;
-} */
-
 /* Category label */
 .page-container-ds main category-label ul:not([class*="menu"]):not([class*="nav"]):not([class*="footer-links"]),
 .page-container-ds main category-label ul {
@@ -177,8 +147,6 @@ sidebar cagov-content-navigation ul:not([class*="menu"]):not([class*="nav"]):not
 
 sidebar cagov-content-navigation ul li {
     padding-top: 16px;
-    /* padding-bottom: 16px; */
-    /* margin-bottom: 16px; */
     margin-top: 16px;
     border-top: 1px solid #EDEDEF;
     line-height: 28.2px;
@@ -186,6 +154,12 @@ sidebar cagov-content-navigation ul li {
 
 sidebar cagov-content-navigation ul li:first-child {
     margin-top: 0px;
+}
+
+cagov-content-navigation a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-position: under;
 }
 
 /* CONTENT FOOTER */
@@ -291,7 +265,6 @@ main ul li {
 .non_divi_builder.title_not_displayed .main-primary {
     padding-top: 32px;
 }
-
 
 @media only screen and (max-width: 992px) {
 
@@ -459,17 +432,6 @@ main ul li {
 /* link underline not used in cannabis designs */
 .main-content a.cagov-card {
     text-decoration: none;
-}
-
-.cagov-stack h1,
-.cagov-stack h2,
-.cagov-stack h3,
-.cagov-stack h4,
-.cagov-card h1,
-.cagov-card h2,
-.cagov-card h3,
-.cagov-card h4 {
-    margin: 0;
 }
 
 .non_divi_builder.title_not_displayed .main-primary {
@@ -647,21 +609,18 @@ ol.steps li:last-child {
     border: 1px solid #ededef !important;
 }
 
-
-
 /* TEMPORARY WORKING OVERRIDES, if any */
 
-
-/* For custom css -- conflicts are back, these overrides set them right, but need to be re-integrated with main markup. */
-
-
-cagov-content-navigation a {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-position: under;
+.return-top {
+    margin-right: 10px;
 }
 
-.top-level-nav .nav-item:hover .first-level-link, 
+.return-top:after {
+    padding-right: 4px;
+}
+
+/* Link underlining */
+.top-level-nav .nav-item:hover .first-level-link,
 .top-level-nav .nav-item:hover .first-level-btn {
     text-decoration: underline;
     text-decoration-thickness: 1px;
@@ -672,14 +631,12 @@ li.current_page_item {
     font-weight: 700;
 }
 
-a.second-level-link:hover, a.second-level-link:focus {
+a.second-level-link:hover,
+a.second-level-link:focus {
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-position: under;
 }
-
-
-
 
 .color-primary--hover:hover,
 .text-accent-p2,
@@ -689,21 +646,71 @@ article a {
     text-underline-position: under;
 }
 
-.return-top {
-    margin-right: 10px;
+/* For custom css -- conflicts are back, these overrides set them right, but need to be re-integrated with main markup. */
+
+/* Fixing all block spacing */
+
+.page-container-ds {
+    margin: 0 auto;
 }
 
-.return-top:after {
-    padding-right: 4px;
+.single-column {
+    margin: 0 auto;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    padding-bottom: 0 !important;
+/* First Block has a top margin */
+#main-content {
+    margin-top: 0px; /* Navigation has extra 32px */
+    margin-bottom: 32px;
+}
+
+.main-content-ds {
+    /* margin-bottom: 64px; */
+}
+
+#main-content.single-column.landing {
+    /* margin-top: 0px; */
+}
+
+#main-content.single-column.landing .cagov-block {
+    /* margin-top: 0px;
+    margin-bottom: 64px; */
+}
+
+.cagov-block {
+    margin-bottom: 64px;
+}
+
+/* Reset wp block columns spacing */
+.wp-block-columns {
+    margin-top: 0px;
+    margin-bottom: 0 !important; /* Conflict with WP styles & load order */
+}
+
+.wp-block-column {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.wp-block-column .cagov-block {
+    margin-bottom: 64px;
+}
+
+@media (min-width: 992px) {
+    #main-content.main-content-ds.landing .breadcrumb {
+        margin-top: 0px;
+        margin-bottom: 64px !important; /* conflict with divi breadcrumb class*/
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    #main-content.main-content-ds.single-column .breadcrumb,
+    .with-sidebar.has-sidebar-left.page-container-ds #main-content.main-content-ds .breadcrumb {
+        margin-top: 32px;
+        margin-bottom: 64px !important;  /* conflict with divi breadcrumb class*/
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
 }
 
 .cagov-block h2,
@@ -714,6 +721,28 @@ h6 {
     margin-bottom: 24px;
 }
 
+
+/* .cagov-stack h1,
+.cagov-stack h2,
+.cagov-stack h3,
+.cagov-stack h4,
+.cagov-card h1,
+.cagov-card h2,
+.cagov-card h3,
+.cagov-card h4 {
+    margin: 0;
+} */
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-bottom: 0 !important;
+}
+
 .cagov-stack h1,
 .cagov-stack h2,
 .cagov-stack h3,
@@ -722,33 +751,10 @@ h6 {
 .cagov-card h2,
 .cagov-card h3,
 .cagov-card h4 {
-    margin-top: 64px;
-    margin-bottom: 24px;
-}
-
-
-/* Apply same spacing mechanism as cagov-stack, but overriding default gutenberg block element classes */
-.wp-block-columns {
-    margin-top: 64px;
-    margin-bottom: 0px;
+    /* margin-top: 64px;
+    margin-bottom: 24px; */
 }
 
 .wp-block-column h2 {
     margin-top: 0;
 }
-
-@media (min-width: 992px) {
-    #main-content.main-content-ds .breadcrumb {
-        margin-top: 0px;
-        margin-bottom: 64px !important;
-        /* conflict */
-        padding-top: 0px !important;
-        padding-bottom: 0px !important;
-    }
-
-    .with-sidebar.has-sidebar-left.page-container-ds #main-content.main-content-ds .breadcrumb {
-        margin-bottom: 64px !important;
-        /* conflict */
-    }
-}
-

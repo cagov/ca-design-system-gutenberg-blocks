@@ -4,7 +4,6 @@
  */
 class CAGovPageAlert extends window.HTMLElement {
   connectedCallback() {
-    console.log("page-alert loaded");
     this.type = "wordpress";
     this.message = this.dataset.message || "";
     this.icon = this.dataset.icon || "";
@@ -12,18 +11,12 @@ class CAGovPageAlert extends window.HTMLElement {
     if (this.type === "wordpress") {
       document.addEventListener("DOMContentLoaded", () => {
         this.template({ message: this.message, icon: this.icon }, "wordpress");
-        console.log(document.querySelector('cagov-page-alert .close-button'));
         document.querySelector('cagov-page-alert .close-button').addEventListener('click', (e) => {
           document.querySelector('cagov-page-alert').style.display = "none";
         })
       }
       );
     }
-  }
-
-  hideElement(e) {
-
-    console.log(e);
   }
 
   template(data, type) {
