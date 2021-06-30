@@ -225,7 +225,7 @@ function cagov_content_social_menu()
                 $social_icon   = !empty($share) ? '' : '';
         ?>
                 <li>
-                    <a href="<?php echo esc_url($social_url); ?>" title="<?php echo esc_attr($title); ?>" target="<?php echo esc_attr($social_target); ?>">
+                    <a href="<?php echo esc_url($social_url); ?>" title="<?php echo esc_attr($title); ?>" target="<?php echo esc_attr($social_target); ?>" rel="noopener">
                         <?php if (!empty($share)) : ?>
                             <span class="ca-gov-icon-<?php echo esc_attr($share); ?>"></span>
                         <?php endif; ?>
