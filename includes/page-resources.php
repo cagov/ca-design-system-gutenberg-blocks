@@ -8,15 +8,9 @@
 add_action( 'caweb_pre_main_area', 'cagov_breadcrumb');
 add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary' );
 add_action( 'caweb_pre_footer', 'cagov_content_menu' );
-
+add_action( 'wp_head', 'cagov_footer_scripts');
 add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
-
-// @TODO add api to make this content available
-
-
-
-
 
 /**
  * CADesignSystem Breadcrumb
@@ -84,6 +78,12 @@ function cagov_breadcrumb()
     }
     
     echo '<div class="breadcrumb" aria-label="Breadcrumb" role="region">' . implode($separator, $crumbs) . '</div>';
+}
+function cagov_footer_scripts() {
+	/* Register cagov scripts */
+	wp_register_script( 'twitter-timeline', 'https://platform.twitter.com/widgets.js', array(), CAWEB_VERSION, false );
+
+	wp_enqueue_script( 'twitter-timeline' );
 }
 
 /**
@@ -225,7 +225,7 @@ function cagov_content_social_menu()
                 $social_icon   = !empty($share) ? '' : '';
         ?>
                 <li>
-                    <a href="<?php echo esc_url($social_url); ?>" title="<?php echo esc_attr($title); ?>" target="<?php echo esc_attr($social_target); ?>">
+                    <a href="<?php echo esc_url($social_url); ?>" title="<?php echo esc_attr($title); ?>" target="<?php echo esc_attr($social_target); ?>" rel="noopener">
                         <?php if (!empty($share)) : ?>
                             <span class="ca-gov-icon-<?php echo esc_attr($share); ?>"></span>
                         <?php endif; ?>
