@@ -8,6 +8,7 @@
 add_action( 'caweb_pre_main_area', 'cagov_breadcrumb');
 add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary' );
 add_action( 'caweb_pre_footer', 'cagov_content_menu' );
+add_action( 'wp_head', 'cagov_footer_scripts');
 add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
 
@@ -77,6 +78,12 @@ function cagov_breadcrumb()
     }
     
     echo '<div class="breadcrumb" aria-label="Breadcrumb" role="region">' . implode($separator, $crumbs) . '</div>';
+}
+function cagov_footer_scripts() {
+	/* Register cagov scripts */
+	wp_register_script( 'twitter-timeline', 'https://platform.twitter.com/widgets.js', array(), CAWEB_VERSION, false );
+
+	wp_enqueue_script( 'twitter-timeline' );
 }
 
 /**
