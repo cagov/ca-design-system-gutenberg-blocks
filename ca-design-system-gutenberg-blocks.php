@@ -6,7 +6,7 @@
  * Description: Gutenberg blocks for CA Design System
  * Author: Office of Digital Innovation
  * Author URI: https://digital.ca.gov
- * Version: 1.0.12
+ * Version: 1.0.13
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Constants.
-define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.12');
+define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__VERSION', '1.0.13');
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH', plugin_dir_path(__FILE__));
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL', plugin_dir_url(__FILE__));
 define('CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__FILE', __FILE__);
