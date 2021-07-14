@@ -1,6 +1,3 @@
-
-.cagov-stack h2 { padding-bottom: 0; }
-
 .cagov-p-2 {
   padding: 1rem;
 }
@@ -34,6 +31,19 @@
 
 /* call to action */
 /* this is some hacky css, need to figure out how to control the applied classes in the generated InnerBlocks */
+
+.cagov-hero-body-content {
+  margin-top: 24px;
+}
+
+.cagov-hero-body-content p {
+  margin-bottom: 24px
+}
+
+.cagov-hero-body-content .wp-block-button {
+  margin-bottom: 24px;
+}
+
 .cagov-hero-body-content .wp-block-button:not(.is-style-outline) .wp-block-button__link:not(:hover):not(:active):not(.has-background) {  
   background-color: #33705B;
   /* defined here for when css vars are not supported */
