@@ -367,17 +367,29 @@ main ul li {
     padding-top: 32px;
 }
 
+@media only screen and (max-width: 1215px) {
+    .page-container-ds {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+}
+
 @media only screen and (max-width: 1175px) {
+
+    /* .page-container-ds {
+        margin: 0 auto;
+    } */
+    
+    .single-column {
+        margin: 0 auto;
+    }
+
 
     .with-sidebar .main-content-default,
     .with-sidebar .ds-content-layout {
         display: block;
     }
 
-    .page-container-ds {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
 
     article {
         display: block;
