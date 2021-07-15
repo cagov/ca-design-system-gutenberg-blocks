@@ -15,8 +15,14 @@
 }
 
 /* Single column layout */
-.single-column {
+.single-column.main-content-ds .ds-content-layout {
     max-width: 876px;
+    margin: 0 auto;
+}
+
+.single-column.landing .ds-content-layout {
+    max-width: 1176px;
+    margin: 0 auto;
 }
 
 /* SIDEBAR */
@@ -161,7 +167,7 @@ h6 {
 /* BREADCRUMB */
 
 .with-sidebar .main-container-ds {
-    max-width: 877px;
+    max-width: 876px;
 }
 
 .breadcrumb {
