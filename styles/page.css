@@ -3,16 +3,26 @@
 */
 
 .page-container-ds {
-    max-width: 1147px;
+    max-width: 1176px;
 }
 
 .main-content-ds {
     max-width: 100%;
 }
 
+.single-column.landing {
+    max-width: 1176px;
+}
+
 /* Single column layout */
-.single-column {
-    max-width: 1147px;
+.single-column.main-content-ds .ds-content-layout {
+    max-width: 876px;
+    margin: 0 auto;
+}
+
+.single-column.landing .ds-content-layout {
+    max-width: 1176px;
+    margin: 0 auto;
 }
 
 /* SIDEBAR */
@@ -113,7 +123,7 @@
     margin-bottom: 32px; 
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1176px) {
     #main-content.main-content-ds.landing .breadcrumb {
         margin-top: 0px;
         margin-bottom: 64px !important; /* conflict with divi breadcrumb class*/
@@ -157,7 +167,7 @@ h6 {
 /* BREADCRUMB */
 
 .with-sidebar .main-container-ds {
-    max-width: 877px;
+    max-width: 876px;
 }
 
 .breadcrumb {
@@ -357,7 +367,7 @@ main ul li {
     padding-top: 32px;
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1175px) {
 
     .with-sidebar .main-content-default,
     .with-sidebar .ds-content-layout {
@@ -542,7 +552,7 @@ main ul li {
 }
 
 /* override card grid so they stack at theme breakpoint that slims main content */
-@media (max-width: 991px) {
+@media (max-width: 1175px) {
 
     .cagov-grid,
     .cagov-grid .block-editor-block-list__layout {
@@ -553,7 +563,7 @@ main ul li {
 /* New from manual CSS */
 
 /* override card grid so they stack at theme breakpoint that slims main content */
-@media (max-width: 991px) {
+@media (max-width: 1175px) {
 
     .cagov-grid,
     .cagov-grid .block-editor-block-list__layout {

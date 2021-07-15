@@ -138,6 +138,15 @@ if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
         <?php
         do_action("cagov_breadcrumb");
         ?>
+        <div class="narrow-page-title">
+        <?php
+        if ('on' === get_post_meta($post->ID, 'ca_custom_post_title_display', true)) {
+            $caweb_padding = get_option('ca_default_post_date_display') ? ' pb-0' : '';
+
+            esc_html(the_title(sprintf('<h1 class="page-title%1$s">', $caweb_padding), '</h1>'));
+        }
+        ?>
+        </div>
         <div class="ds-content-layout">
             <main class="main-primary">
                 <div>
