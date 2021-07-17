@@ -75,7 +75,7 @@ function cagov_page_alert_dynamic_render_callback($block_attributes, $content)
 {
     $body = isset($block_attributes["body"]) ? $block_attributes["body"] : "";
     $icon = isset($block_attributes["icon"]) ? $block_attributes["icon"] : "";
-
-    return sprintf('<div class="wp-block-ca-design-system-page-alert cagov-block"><cagov-page-alert data-icon="%1$s" data-message="%2$s"></cagov-page-alert>
-    </div>', $icon, $body);
+    
+    return '<div class="wp-block-ca-design-system-page-alert cagov-block"><cagov-page-alert data-icon="' . $icon . '" data-message="' . htmlentities($body) . '"></cagov-page-alert>
+    </div>';
 }

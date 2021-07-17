@@ -7,6 +7,8 @@
     var el = element.createElement;
     var RichText = editor.RichText;
 
+    console.log(editor);
+
     var { SelectControl } = components;
 
     blocks.registerBlockType( 'ca-design-system/page-alert', {
