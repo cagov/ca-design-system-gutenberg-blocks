@@ -13,6 +13,10 @@ class CAGovPageAlert extends window.HTMLElement {
         this.template({ message: this.message, icon: this.icon }, "wordpress");
         document.querySelector('cagov-page-alert .close-button').addEventListener('click', (e) => {
           document.querySelector('cagov-page-alert').style.display = "none";
+          // document.querySelector('cagov-page-alert').classList.add("component-closed"); // Alternative way to do this that is a little more stable - add a class, however, the :has selector is still not supported in browsers so we can't use it.
+          if (document.querySelector('cagov-page-alert').closest('.cagov-block') !== null) {
+            document.querySelector('cagov-page-alert').closest('.cagov-block').style.display = "none"; 
+          }
         })
       }
       );
