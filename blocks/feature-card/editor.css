@@ -7,7 +7,7 @@
   color: #fff;
 }
 /* editor override */
-.cagov-hero-body-content .wp-block-button.block-editor-block-list__block {
+.cagov-feature-card-body-content .wp-block-button.block-editor-block-list__block {
   background-color: #33705B;
   color: white;
   padding: 0;
@@ -16,17 +16,17 @@
   display: inline-block;
 }
 /* editor override */
-.editor-styles-wrapper .cagov-hero-body-content .block-editor-rich-text__editable.wp-block-button__link {  
+.editor-styles-wrapper .cagov-feature-card-body-content .block-editor-rich-text__editable.wp-block-button__link {  
   background-color: transparent;
   padding: 0;
 }
 /* editor override */
-.editor-styles-wrapper .cagov-hero-body-content .block-editor-rich-text__editable.wp-block-button__link:not(:hover):not(:active) {
+.editor-styles-wrapper .cagov-feature-card-body-content .block-editor-rich-text__editable.wp-block-button__link:not(:hover):not(:active) {
   background-color: transparent;
   padding: 0;
 }
 /* editor override */
-.editor-styles-wrapper .cagov-hero-body-content .wp-block-button:not(.is-style-outline) .wp-block-button__link:not(:hover):not(:active):not(.has-background) {
+.editor-styles-wrapper .cagov-feature-card-body-content .wp-block-button:not(.is-style-outline) .wp-block-button__link:not(:hover):not(:active):not(.has-background) {
   background-color: transparent;
 }
 

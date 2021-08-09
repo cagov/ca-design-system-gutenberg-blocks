@@ -1,5 +1,5 @@
 /**
- * CAGov hero
+ * CAGov feature-card
  *
  * Simple block, renders and saves the same content without interactivity.
  *
@@ -12,7 +12,7 @@
   const RichText = editor.RichText;
   const MediaUpload = editor.MediaUpload;
 
-  blocks.registerBlockType('ca-design-system/hero', {
+  blocks.registerBlockType('ca-design-system/feature-card', {
     title: __('Feature card', 'cagov-design-system'),
     category: 'ca-design-system',
     icon: "format-aside",
@@ -108,7 +108,7 @@
             }),
             el(
               'div',
-              { className: 'cagov-hero-body-content' },
+              { className: 'cagov-feature-card-body-content' },
               el(editor.InnerBlocks,
                 {
                   allowedBlocks: ['core/paragraph', 'core/button'],
@@ -148,12 +148,12 @@
       return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry cagov-block' },
         el('div', {},
           el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
-            { className: 'cagov-hero cagov-stack' },
+            { className: 'cagov-feature-card cagov-stack' },
             el(RichText.Content, {
               tagName: 'h2',
               value: attributes.title
             }),
-            el('div', { className: 'cagov-hero-body-content' },
+            el('div', { className: 'cagov-feature-card-body-content' },
               el(editor.InnerBlocks.Content)
             )
           ),
