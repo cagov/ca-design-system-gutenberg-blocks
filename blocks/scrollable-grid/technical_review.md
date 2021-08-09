@@ -95,7 +95,7 @@ This is the data structure from the CSV file we are using in Airtable to build s
 ### Performance
 *We provide a [baseline]() of tests for basic performance. Will this component present additional performance issues, and if so, how can we address them?*
 
-* Responsive image sizes. Same as `promotional-card`, can also be retroactively applied to `hero`/`feature-card`.
+* Responsive image sizes. Same as `promotional-card`, can also be retroactively applied to `feature-card`/`feature-card`.
 
 ### Testing plan
 *We provide a [baseline]() of tests for basic component features. Are there additional tests that need to happen for this component?*
