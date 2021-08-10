@@ -1,4 +1,41 @@
 /**
+ * CAGov Promotional Card Grid
+ *
+ */
+ (function (blocks, element, blockEditor, i18n) {
+  var __ = i18n.__;
+  const el = element.createElement;
+  const InnerBlocks = blockEditor.InnerBlocks;
+  const ALLOWED_BLOCKS = ['ca-design-system/promotional-card'];
+  blocks.registerBlockType('ca-design-system/promotional-card-grid', {
+    title: 'Promotional card grid',
+    icon: "format-aside",
+    category: 'ca-design-system',
+    description: __("DESCRIPTION", "ca-design-system"),
+    edit: function (props) { 
+      return el(
+        'div',
+        { className: 'cagov-grid cagov-stack cagov-block' },
+        el(InnerBlocks,
+          {
+            orientation: 'horizontal',
+            allowedBlocks: ALLOWED_BLOCKS
+          }
+        )
+      );
+    },
+    save: function (props) {
+      return el(
+        'div',
+        { className: 'cagov-grid cagov-stack cagov-block' },
+        el(InnerBlocks.Content)
+      );
+    }
+  });
+})(window.wp.blocks, window.wp.element, window.wp.blockEditor, window.wp.i18n);
+
+
+/**
  * CAGov promotional card
  *
  * Simple block, renders and saves the same content without interactivity.
@@ -14,15 +51,23 @@
   const InnerBlocks = editor.InnerBlocks;
 
   blocks.registerBlockType("ca-design-system/promotional-card", {
-    title: __("Promotional card", "cagov-design-system"),
+    title: __("Promotional card (individual)", "cagov-design-system"),
     category: "ca-design-system",
     icon: "format-aside",
     description: __("Description", "ca-design-system"),
+    supports: {
+      reusable: true,
+      multiple: true,
+      inserter: true,
+    },
     attributes: {
       title: {
         type: "string",
       },
-      date: {
+      startDate: {
+        type: "string",
+      },
+      endDate: {
         type: "string",
       },
       body: {
@@ -40,58 +85,22 @@
         source: 'children',
         selector: 'button'
       },
-      // body: {
-      //   type: "string",
-      // },
-      // button: {
-      //   type: "string",
-      // },
-      // buttontext: {
-      //   type: "string",
-      // },
-      // buttonurl: {
-      //   type: "string",
-      // },
       mediaID: {
         type: "number",
       },
-      images: {
-        type: "object",
-        // mediaAlt: {
-        //   type: "string",
-        //   source: "attribute",
-        //   selector: "img",
-        //   attribute: "alt",
-        // },
-        // desktop: {
-          // mediaURL: {
-          //   type: "string",
-          //   source: "attribute",
-          //   selector: "img",
-          //   attribute: "src",
-          // },
-          // mediaWidth: {
-          //   type: "string",
-          //   source: "attribute",
-          //   selector: "img",
-          //   attribute: "width",
-          // },
-          // mediaHeight: {
-          //   type: "string",
-          //   source: "attribute",
-          //   selector: "img",
-          //   attribute: "height",
-          // },
-        // },
-        },
+      previewMediaUrl: {
+        type: "string",
+      },
     },
     example: {
       attributes: {
         title: __("Campaign title", "cagov-design-system"),
-        date: __("Date range", "cagov-design-system"),
+        startDate: __("Start date", "cagov-design-system"),
+        endDate: __("End date", "cagov-design-system"),
         body: __("Lorem ipsum", "cagov-design-system"),
         buttontext: __("View toolkit", "cagov-design-system"),
         buttonurl: __("https://example.com", "cagov-design-system"),
+        previewMediaUrl: "http://www.fillmurray.com/576/338",
         images: {
           mediaAlt: __("Image Alt", "cagov-design-system"),
           mediaCaption: __("Image Caption", "cagov-design-system"),
@@ -131,9 +140,8 @@
       );
 
       const MediaImageElement = () => {
-        console.log("media", mediaObject, attributes);
+        // console.log("media", mediaObject);
         if (
-          images !== undefined && 
           mediaObject !== undefined &&
           mediaObject.media_details.sizes !== undefined
         ) {
@@ -144,9 +152,6 @@
           // const mediaDescription = mediaObject.description.raw;
           const mediaWidth = mediaObject.media_details.sizes.large.width;
           const mediaHeight = mediaObject.media_details.sizes.large.height;
-            // caption: mediaCaption,
-            // description: mediaDescription,
-            // title: mediaTitle,
           return el("img", {
             src: mediaURL,
             className: "cagov-card-image",
@@ -158,46 +163,25 @@
         return null;
       };
 
-      var MediaImage;
-      if (images !== undefined && images.desktop.mediaURL !== undefined) {
-        MediaImage = el("img", {
-          src: images.desktop.mediaURL,
-          className: "cagov-card-image",
-          alt: images.mediaAlt,
-          width: images.desktop.mediaWidth,
-          height: images.desktop.mediaHeight,
-        });
-      }
+      // Trying to get a quicker preview - may be slow image or local cache issue
+      var MediaImage = 
+      el("img", {
+        src: attributes.previewMediaUrl,
+        className: "cagov-card-image",
+        alt: "Alt placeholder",
+        width: 576,
+        height: 338,
+      });
 
-      MediaImage = MediaImageElement(mediaObject);
+      MediaImage = MediaImageElement(mediaObject); // async, a little slow
 
       const onSelectImage = function (media) {
+        console.log("med", media);
         // Raw media object, not formatted
-        // console.log("select media", media, media.alt_text, media.caption.raw, media.title.raw, media.description.raw);
         // Store data for local use in preview (of alt tags and responsive image sizes) (may deprecate, but not sure yet)
         return props.setAttributes({
           mediaID: media.id,
-          images: {
-            mediaAlt: media.alt, 
-            mediaCaption: media.caption,
-            mediaTitle: media.title,
-            mediaDescription: media.description,
-            desktop: {
-              mediaURL: media.sizes.large.url,
-              mediaWidth: media.sizes.large.width,
-              mediaHeight: media.sizes.large.height,
-            },
-            tablet: {
-              mediaURL: media.sizes.large.url,
-              mediaWidth: media.sizes.large.width,
-              mediaHeight: media.sizes.large.height,
-            },
-            mobile: {
-              mediaURL: media.sizes.large.url,
-              mediaWidth: media.sizes.large.width,
-              mediaHeight: media.sizes.large.height,
-            }
-          },
+          previewMediaUrl: media.sizes.thumbnail.url // Thumbnail
         });
       };
 
@@ -226,7 +210,7 @@
                       : "button button-large",
                     onClick: obj.open,
                   },
-                  !attributes.mediaID && (images === undefined || !images.desktop.mediaURL)
+                  !attributes.mediaID
                     ? __("Upload Image", "cagov-design-system")
                     : MediaImage
                 );
@@ -244,12 +228,22 @@
           }),
           el(RichText, {
             tagName: "div",
-            className: "cagov-card-date",
+            className: "cagov-card-start-date",
             inline: false,
-            placeholder: __("Write date range…", "cagov-design-system"),
-            value: attributes.date,
+            placeholder: __("Start date", "cagov-design-system"),
+            value: attributes.startDate,
             onChange: function (value) {
-              props.setAttributes({ date: value });
+              props.setAttributes({ startDate: value });
+            },
+          }),
+          el(RichText, {
+            tagName: "div",
+            className: "cagov-card-end-date",
+            inline: false,
+            placeholder: __("End date", "cagov-design-system"),
+            value: attributes.endDate,
+            onChange: function (value) {
+              props.setAttributes({ endDate: value });
             },
           }),
           el(

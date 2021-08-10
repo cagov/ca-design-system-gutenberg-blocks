@@ -106,11 +106,16 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
         }
     }
 
-    $card_date = isset( $block_attributes['date'] ) ? $block_attributes['date'] : '';
+    $card_start_date = isset( $block_attributes['startDate'] ) ? $block_attributes['startDate'] : '';
+    $card_end_date = isset( $block_attributes['endDate'] ) ? $block_attributes['endDate'] : '';
     $body = isset( $block_attributes['body'] ) ? $block_attributes['body'] : '';
-    // $buttonURL = isset( $block_attributes['buttonurl'] ) ? $block_attributes['buttonurl'] : '';
-    // $buttonText = isset( $block_attributes['buttontext'] ) ? $block_attributes['buttontext'] : '';
     $innerBlocks = do_blocks( $content );
     
-    return '<div>' . $image_html_large . '<h2>' . $title . '</h2>' . htmlentities($body) . $card_date . $innerBlocks . '</div>';
+    return '<div class="cagov-promotional-card">
+          <div class="cagov-card-image">' . $image_html_large . '</div>' .
+          '<div class="cagov-card-content">' .
+          '<h2>' . $title . '</h2>' .
+          '<p class="cagov-date-range">' . $card_start_date . '-' . $card_end_date . '</p>' .
+          $innerBlocks .
+      '</div></div>';
 }
