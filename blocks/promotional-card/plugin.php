@@ -66,18 +66,59 @@ add_action( 'init', 'cagov_design_system_register_promotional_card' );
 function cagov_promotional_card_dynamic_render_callback( $block_attributes, $content )
 {
 
+
+
     $title = isset( $block_attributes['title'] ) ? $block_attributes['title'] : '';
-    $images = isset( $block_attributes['images'] ) ? $block_attributes['images'] : '';
-    $image_html = '';
-    if ($images !== '') {
-        $image_url = isset( $images['desktop']['mediaURL']) ?  $images['desktop']['mediaURL'] : null;
-        $image_alt = isset( $images['mediaAlt']) ?  $images['mediaAlt'] : '';
-        $image_width = isset( $images['desktop']['mediaWidth']) ?  $images['desktop']['mediaWidth'] : '';
-        $image_height = isset( $images['desktop']['mediaHeight']) ?  $images['desktop']['mediaHeight'] : '';
-        if ($image_url !== null) {
-            $image_html = '<img src="' . $image_url . '" alt="' . $image_alt . '" width="' . $image_width . '" height="' . $image_height . '" />';
+
+    // // Stored images
+    // $images = isset( $block_attributes['images'] ) ? $block_attributes['images'] : '';
+
+    //get attachment meta
+    if ( !function_exists('wp_get_attachment') ) {
+        function wp_get_attachment( $attachment_id )
+        {
+            $attachment = get_post( $attachment_id );
+            $media_object = wp_get_attachment_metadata($attachment_id);
+            // print_r($media_object);
+
+            return array(
+                'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+                'caption' => $attachment->post_excerpt,
+                'description' => $attachment->post_content,
+                // 'href' => get_permalink( $attachment->ID ),
+                'src' => wp_get_attachment_image_url( $attachment_id, 'desktop' ),
+                'title' => $attachment->post_title,
+                'width' => $media_object['sizes']['large']['width'],
+                'height' => $media_object['sizes']['large']['height'],
+            );
         }
     }
+
+    // Most recent media content
+    $media_id = isset( $block_attributes['mediaID'] ) ? $block_attributes['mediaID'] : null;
+    if ($media_id !== null) {
+        $media_object = wp_get_attachment($media_id);
+    }
+
+    // $image_html = '';
+    // if ($images !== '') {
+    //     $image_url = isset( $images['desktop']['mediaURL']) ?  $images['desktop']['mediaURL'] : null;
+    //     $image_alt = isset( $images['mediaAlt']) ?  $images['mediaAlt'] : '';
+    //     $image_width = isset( $images['desktop']['mediaWidth']) ?  $images['desktop']['mediaWidth'] : '';
+    //     $image_height = isset( $images['desktop']['mediaHeight']) ?  $images['desktop']['mediaHeight'] : '';
+    //     if ($image_url !== null) {
+    //         $image_html = '<img src="' . $image_url . '" alt="' . $image_alt . '" width="' . $image_width . '" height="' . $image_height . '" />';
+    //     }
+    // }
+
+
+    $image_html = '';
+    if (isset($media_object)) {
+        if ($media_object['src'] !== null) {
+            $image_html = '<img src="' . $media_object['src'] . '" alt="' . $media_object['alt'] . '" width="' . $media_object['width'] . '" height="' . $media_object['height'] . '" />';
+        }
+    }
+
 
     $card_date = isset( $block_attributes['date'] ) ? $block_attributes['date'] : '';
     $body = isset( $block_attributes['body'] ) ? $block_attributes['body'] : '';
