@@ -29,7 +29,6 @@ function cagov_design_system_gutenberg_block_promotional_card()
  */
 function cagov_design_system_register_promotional_card()
 {
-
     if (!function_exists('register_block_type')) {
         // Gutenberg is not active.
         return;
@@ -63,62 +62,49 @@ function cagov_design_system_register_promotional_card()
 
 add_action( 'init', 'cagov_design_system_register_promotional_card' );
 
+function cagov_promotional_card_wp_get_attachment( $attachment_id, $size = 'large')
+{
+    $attachment = get_post( $attachment_id );
+    $media_object = wp_get_attachment_metadata($attachment_id);
+    // print_r($media_object);
+
+    return array(
+        'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+        'caption' => $attachment->post_excerpt,
+        'description' => $attachment->post_content,
+        'src' => wp_get_attachment_image_url( $attachment_id, $size ),
+        'title' => $attachment->post_title,
+        'width' => $media_object['sizes'][$size]['width'],
+        'height' => $media_object['sizes'][$size]['height'],
+    );
+}
+
 function cagov_promotional_card_dynamic_render_callback( $block_attributes, $content )
 {
-
-
-
     $title = isset( $block_attributes['title'] ) ? $block_attributes['title'] : '';
-
-    // // Stored images
-    // $images = isset( $block_attributes['images'] ) ? $block_attributes['images'] : '';
-
-    //get attachment meta
+    // Get media object
     if ( !function_exists('wp_get_attachment') ) {
-        function wp_get_attachment( $attachment_id )
-        {
-            $attachment = get_post( $attachment_id );
-            $media_object = wp_get_attachment_metadata($attachment_id);
-            // print_r($media_object);
-
-            return array(
-                'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-                'caption' => $attachment->post_excerpt,
-                'description' => $attachment->post_content,
-                // 'href' => get_permalink( $attachment->ID ),
-                'src' => wp_get_attachment_image_url( $attachment_id, 'desktop' ),
-                'title' => $attachment->post_title,
-                'width' => $media_object['sizes']['large']['width'],
-                'height' => $media_object['sizes']['large']['height'],
-            );
-        }
     }
 
     // Most recent media content
     $media_id = isset( $block_attributes['mediaID'] ) ? $block_attributes['mediaID'] : null;
     if ($media_id !== null) {
-        $media_object = wp_get_attachment($media_id);
+        $media_object_large = cagov_promotional_card_wp_get_attachment($media_id, 'large');
+        $media_object_medium = cagov_promotional_card_wp_get_attachment($media_id, 'medium');
     }
-
-    // $image_html = '';
-    // if ($images !== '') {
-    //     $image_url = isset( $images['desktop']['mediaURL']) ?  $images['desktop']['mediaURL'] : null;
-    //     $image_alt = isset( $images['mediaAlt']) ?  $images['mediaAlt'] : '';
-    //     $image_width = isset( $images['desktop']['mediaWidth']) ?  $images['desktop']['mediaWidth'] : '';
-    //     $image_height = isset( $images['desktop']['mediaHeight']) ?  $images['desktop']['mediaHeight'] : '';
-    //     if ($image_url !== null) {
-    //         $image_html = '<img src="' . $image_url . '" alt="' . $image_alt . '" width="' . $image_width . '" height="' . $image_height . '" />';
-    //     }
-    // }
-
-
-    $image_html = '';
-    if (isset($media_object)) {
-        if ($media_object['src'] !== null) {
-            $image_html = '<img src="' . $media_object['src'] . '" alt="' . $media_object['alt'] . '" width="' . $media_object['width'] . '" height="' . $media_object['height'] . '" />';
+    $image_html_large = '';
+    if (isset($media_object_large)) {
+        if ($media_object_large['src'] !== null) {
+            $image_html_large = '<img src="' . $media_object_large['src'] . '" alt="' . $media_object_large['alt'] . '" width="' . $media_object_large['width'] . '" height="' . $media_object_large['height'] . '" />';
         }
     }
 
+    $image_html_medium = '';
+    if (isset($media_object_medium)) {
+        if ($media_object_medium['src'] !== null) {
+            $image_html_medium = '<img src="' . $media_object_medium['src'] . '" alt="' . $media_object_medium['alt'] . '" width="' . $media_object_medium['width'] . '" height="' . $media_object_medium['height'] . '" />';
+        }
+    }
 
     $card_date = isset( $block_attributes['date'] ) ? $block_attributes['date'] : '';
     $body = isset( $block_attributes['body'] ) ? $block_attributes['body'] : '';
@@ -126,15 +112,5 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
     // $buttonText = isset( $block_attributes['buttontext'] ) ? $block_attributes['buttontext'] : '';
     $innerBlocks = do_blocks( $content );
     
-    return '<div>' . $image_html. '<h2>' . $title . '</h2>' . htmlentities($body) . $card_date . $innerBlocks . '</div>';
-
-//     <!-- wp:ca-design-system/promotional-card {"title":"Get #weedwise","mediaID":9032} -->
-// <div class="wp-block-ca-design-system-promotional-card"><div class="cagov-card-body-content"><!-- wp:paragraph -->
-// <p>asdfasdasdfasdf</p>
-// <!-- /wp:paragraph -->
-
-// <!-- wp:button -->
-// <div class="wp-block-button"><a class="wp-block-button__link" href="/link">View toolkit</a></div>
-// <!-- /wp:button --></div></div>
-// <!-- /wp:ca-design-system/promotional-card -->
+    return '<div>' . $image_html_large . '<h2>' . $title . '</h2>' . htmlentities($body) . $card_date . $innerBlocks . '</div>';
 }
