@@ -68,10 +68,15 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
 
     $title = isset( $block_attributes['title'] ) ? $block_attributes['title'] : '';
     $images = isset( $block_attributes['images'] ) ? $block_attributes['images'] : '';
-    // print_r($images);
     $image_html = '';
     if ($images !== '') {
-        $image_html = '<img src="" alt="" />';
+        $image_url = isset( $images['desktop']['mediaURL']) ?  $images['desktop']['mediaURL'] : null;
+        $image_alt = isset( $images['mediaAlt']) ?  $images['mediaAlt'] : '';
+        $image_width = isset( $images['desktop']['mediaWidth']) ?  $images['desktop']['mediaWidth'] : '';
+        $image_height = isset( $images['desktop']['mediaHeight']) ?  $images['desktop']['mediaHeight'] : '';
+        if ($image_url !== null) {
+            $image_html = '<img src="' . $image_url . '" alt="' . $image_alt . '" width="' . $image_width . '" height="' . $image_height . '" />';
+        }
     }
 
     $card_date = isset( $block_attributes['date'] ) ? $block_attributes['date'] : '';
@@ -80,7 +85,7 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
     // $buttonText = isset( $block_attributes['buttontext'] ) ? $block_attributes['buttontext'] : '';
     $innerBlocks = do_blocks( $content );
     
-    return '<div><h2>' . $title . '</h2>' . htmlentities($body) . $card_date . $innerBlocks . '</div>';
+    return '<div>' . $image_html. '<h2>' . $title . '</h2>' . htmlentities($body) . $card_date . $innerBlocks . '</div>';
 
 //     <!-- wp:ca-design-system/promotional-card {"title":"Get #weedwise","mediaID":9032} -->
 // <div class="wp-block-ca-design-system-promotional-card"><div class="cagov-card-body-content"><!-- wp:paragraph -->

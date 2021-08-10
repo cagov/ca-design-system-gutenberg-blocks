@@ -160,7 +160,6 @@
 
       var MediaImage;
       if (images !== undefined && images.desktop.mediaURL !== undefined) {
-        console.log("making preview");
         MediaImage = el("img", {
           src: images.desktop.mediaURL,
           className: "cagov-card-image",
@@ -243,16 +242,16 @@
               props.setAttributes({ title: value });
             },
           }),
-          // el(RichText, {
-          //   tagName: "div",
-          //   className: "cagov-card-date",
-          //   inline: false,
-          //   placeholder: __("Write date range…", "cagov-design-system"),
-          //   value: attributes.date,
-          //   onChange: function (value) {
-          //     props.setAttributes({ date: value });
-          //   },
-          // }),
+          el(RichText, {
+            tagName: "div",
+            className: "cagov-card-date",
+            inline: false,
+            placeholder: __("Write date range…", "cagov-design-system"),
+            value: attributes.date,
+            onChange: function (value) {
+              props.setAttributes({ date: value });
+            },
+          }),
           el(
             "div",
             { className: "cagov-card-body" },
