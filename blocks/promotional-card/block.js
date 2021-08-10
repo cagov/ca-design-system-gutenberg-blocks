@@ -11,22 +11,7 @@
   const el = element.createElement;
   const RichText = editor.RichText;
   const MediaUpload = editor.MediaUpload;
-
-  // <div class="cagov-promotional-card">
-  //         <div class="card-image"><img="{attributes.mediaURL}" alt="{attributes.mediaAlt}" /></div>
-  //         <div class="card-content">
-  //         <h2>{title}</h2>
-  //         <p class="date-range">{startDate: Month Year}-{endDate: Month Year (or present)}</p>
-  //         <p class="description>{description}</p>
-  //         <div class="wp-block-button">
-  //             <a
-  //                 class="wp-block-button__link"
-  //                 href="{buttonLink}">
-  //                     {buttonLabel}
-  //             </a>
-  //         </div>
-  //         </div>
-  //     </div>
+  const InnerBlocks = editor.InnerBlocks;
 
   blocks.registerBlockType("ca-design-system/promotional-card", {
     title: __("Promotional card", "cagov-design-system"),
@@ -37,156 +22,192 @@
       title: {
         type: "string",
       },
-      body: {
+      date: {
         type: "string",
       },
+      body: {
+        type: 'array',
+        source: 'children',
+        selector: 'p'
+      },
       buttontext: {
-        type: "array",
-        source: "children",
-        selector: "a",
+        type: 'array',
+        source: 'children',
+        selector: 'a'
       },
       buttonurl: {
-        type: "array",
-        source: "children",
-        selector: "button",
+        type: 'array',
+        source: 'children',
+        selector: 'button'
       },
+      // body: {
+      //   type: "string",
+      // },
+      // button: {
+      //   type: "string",
+      // },
+      // buttontext: {
+      //   type: "string",
+      // },
+      // buttonurl: {
+      //   type: "string",
+      // },
       mediaID: {
         type: "number",
       },
-      mediaURL: {
-        type: "string",
-        source: "attribute",
-        selector: "img",
-        attribute: "src",
-      },
-      mediaAlt: {
-        type: "string",
-        source: "attribute",
-        selector: "img",
-        attribute: "alt",
-      },
-      mediaWidth: {
-        type: "string",
-        source: "attribute",
-        selector: "img",
-        attribute: "width",
-      },
-      mediaHeight: {
-        type: "string",
-        source: "attribute",
-        selector: "img",
-        attribute: "height",
-      },
+      images: {
+        type: "object",
+        // mediaAlt: {
+        //   type: "string",
+        //   source: "attribute",
+        //   selector: "img",
+        //   attribute: "alt",
+        // },
+        // desktop: {
+          // mediaURL: {
+          //   type: "string",
+          //   source: "attribute",
+          //   selector: "img",
+          //   attribute: "src",
+          // },
+          // mediaWidth: {
+          //   type: "string",
+          //   source: "attribute",
+          //   selector: "img",
+          //   attribute: "width",
+          // },
+          // mediaHeight: {
+          //   type: "string",
+          //   source: "attribute",
+          //   selector: "img",
+          //   attribute: "height",
+          // },
+        // },
+        },
     },
     example: {
       attributes: {
         title: __("Campaign title", "cagov-design-system"),
+        date: __("Date range", "cagov-design-system"),
         body: __("Lorem ipsum", "cagov-design-system"),
         buttontext: __("View toolkit", "cagov-design-system"),
         buttonurl: __("https://example.com", "cagov-design-system"),
-        mediaURL: "http://www.fillmurray.com/720/240",
-        mediaAlt: "Image Description",
-        mediaWidth: "576",
-        mediaHeight: "338",
+        images: {
+          mediaAlt: __("Image Alt", "cagov-design-system"),
+          mediaCaption: __("Image Caption", "cagov-design-system"),
+          mediaDescription: __("Image Description", "cagov-design-system"),
+          mediaTitle: __("Image Title", "cagov-design-system"),
+          desktop: {
+            mediaURL: "http://www.fillmurray.com/576/338",
+            mediaWidth: "576",
+            mediaHeight: "338",
+          },
+          tablet: {
+            mediaURL: "http://www.fillmurray.com/576/338",
+            mediaWidth: "576",
+            mediaHeight: "338",
+          },
+          mobile: {
+            mediaURL: "http://www.fillmurray.com/576/338",
+            mediaWidth: "576",
+            mediaHeight: "338",
+          },
+        },
       },
     },
     edit: function (props) {
       const attributes = props.attributes;
+
       var id = attributes.mediaID;
+      var images = attributes.images;
       const { useSelect } = data;
-  
-      // var mediaObject = data.select("core").getMedia(attributes.mediaID);
-      console.log('id', id);
-      var mediaObject = useSelect( ( select ) => {
-        return select( 'core' ).getMedia( id );
-     }, [ id ] );
 
-
-      console.log("mo", mediaObject);
-
-
-      // const { withSelect } = data;
+      // Auto update media preview alt & captions;
+      var mediaObject = useSelect(
+        (select) => {
+          return select("core").getMedia(id);
+        },
+        [id]
+      );
 
       const MediaImageElement = () => {
         console.log("media", mediaObject, attributes);
-        return el("img", {
-          src: attributes.mediaURL,
+        if (
+          images !== undefined && 
+          mediaObject !== undefined &&
+          mediaObject.media_details.sizes !== undefined
+        ) {
+          const mediaURL = mediaObject.media_details.sizes.large.source_url;
+          const mediaAlt = mediaObject.alt_text;
+          // const mediaCaption = mediaObject.caption.raw;
+          // const mediaTitle = mediaObject.title.raw;
+          // const mediaDescription = mediaObject.description.raw;
+          const mediaWidth = mediaObject.media_details.sizes.large.width;
+          const mediaHeight = mediaObject.media_details.sizes.large.height;
+            // caption: mediaCaption,
+            // description: mediaDescription,
+            // title: mediaTitle,
+          return el("img", {
+            src: mediaURL,
+            className: "cagov-card-image",
+            alt: mediaAlt,
+            width: mediaWidth,
+            height: mediaHeight,
+          });
+        }
+        return null;
+      };
+
+      var MediaImage;
+      if (images !== undefined && images.desktop.mediaURL !== undefined) {
+        console.log("making preview");
+        MediaImage = el("img", {
+          src: images.desktop.mediaURL,
           className: "cagov-card-image",
-          alt: attributes.mediaAlt,
-          // title: media.title,
-          // caption: media.caption,
-          width: attributes.mediaWidth,
-          height: attributes.mediaHeight,
+          alt: images.mediaAlt,
+          width: images.desktop.mediaWidth,
+          height: images.desktop.mediaHeight,
         });
       }
 
-      const MediaImage = MediaImageElement(mediaObject);
-
-      // const MediaImage = withSelect((select) => {
-      //   console.log('select', select);
-      //   console.log('attributes',attributes); 
-      //   return {
-      //     media: select("core").getMedia(attributes.mediaID),
-      //   }
-      // })(MediaImageElement);
-
-
-
-      // return props.setAttributes({
-      //   mediaID: media.id,
-
-      //   mediaURL: media.sizes.large.url,
-      //   mediaAlt: media.description,
-      //   mediaWidth: media.sizes.large.width,
-      //   mediaHeight: media.sizes.large.height,
-      //   // media: media,
-      //   // sizeAssignments: {
-      //   //   mobile: 'thumbnail',
-      //   //   tablet: 'full',
-      //   //   desktop: 'full'
-      //   // }
-      // });
-
-
-      // console.log(" MediaImage", MediaImage);
+      MediaImage = MediaImageElement(mediaObject);
 
       const onSelectImage = function (media) {
-        // @TODO since we have the media ID to render, could load large or small size
-        // Caching tools from WP (like WP Fastest Cache) can do lazy loading automatically
+        // Raw media object, not formatted
+        // console.log("select media", media, media.alt_text, media.caption.raw, media.title.raw, media.description.raw);
+        // Store data for local use in preview (of alt tags and responsive image sizes) (may deprecate, but not sure yet)
         return props.setAttributes({
           mediaID: media.id,
-
-          mediaURL: media.sizes.large.url,
-          mediaAlt: media.description,
-          mediaWidth: media.sizes.large.width,
-          mediaHeight: media.sizes.large.height,
-          // media: media,
-          // sizeAssignments: {
-          //   mobile: 'thumbnail',
-          //   tablet: 'full',
-          //   desktop: 'full'
-          // }
+          images: {
+            mediaAlt: media.alt, 
+            mediaCaption: media.caption,
+            mediaTitle: media.title,
+            mediaDescription: media.description,
+            desktop: {
+              mediaURL: media.sizes.large.url,
+              mediaWidth: media.sizes.large.width,
+              mediaHeight: media.sizes.large.height,
+            },
+            tablet: {
+              mediaURL: media.sizes.large.url,
+              mediaWidth: media.sizes.large.width,
+              mediaHeight: media.sizes.large.height,
+            },
+            mobile: {
+              mediaURL: media.sizes.large.url,
+              mediaWidth: media.sizes.large.width,
+              mediaHeight: media.sizes.large.height,
+            }
+          },
         });
       };
+
       // removed: cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry
       // @TODO cards need their own pattern conventions, simplifying this so we have the cagov-block & css only namespace
 
-      // const currentMediaImage = data.withSelect( ( select, ownProps ) => {
-      //   console.log('ownprops', ownProps);
-      //   const { localMedia } = data.select( 'core' ).getMedia(ownProps.mediaID);
-
-      //   console.log(localMedia);
-
-      //   return {
-      //     localMedia
-      //   };
-      // } )( );
-
-      // console.log('currentMediaImage', currentMediaImage);
-
       return el(
         "div",
-        { className: "cagov-promotional-card cagov-block" },
+        { className: "wp-block-ca-design-system-promotional-card cagov-promotional-card cagov-block" },
         el(
           "div",
           { className: "cagov-stack" },
@@ -206,17 +227,9 @@
                       : "button button-large",
                     onClick: obj.open,
                   },
-                  !attributes.mediaID
+                  !attributes.mediaID && (images === undefined || !images.desktop.mediaURL)
                     ? __("Upload Image", "cagov-design-system")
-                    : el("img", {
-                      src: attributes.mediaURL,
-                      className: "cagov-card-image",
-                      alt: attributes.mediaAlt,
-                      // title: media.title,
-                      // caption: media.caption,
-                      width: attributes.mediaWidth,
-                      height: attributes.mediaHeight,
-                    })
+                    : MediaImage
                 );
               },
             })
@@ -230,40 +243,57 @@
               props.setAttributes({ title: value });
             },
           }),
+          // el(RichText, {
+          //   tagName: "div",
+          //   className: "cagov-card-date",
+          //   inline: false,
+          //   placeholder: __("Write date range…", "cagov-design-system"),
+          //   value: attributes.date,
+          //   onChange: function (value) {
+          //     props.setAttributes({ date: value });
+          //   },
+          // }),
           el(
             "div",
-            { className: "cagov-promotional-card-body-content" },
+            { className: "cagov-card-body" },
             el(editor.InnerBlocks, {
               allowedBlocks: ["core/paragraph", "core/button"],
               onChange: function (value) {
-                // console.log(value);
+                console.log(value);
               },
             })
           )
         )
       );
     },
-    // save: function (props) {
-    //   const attributes = props.attributes;
-    //   return el('div', { className: 'cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry cagov-block' },
-    //     el('div', {},
-    //       el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
-    //         { className: 'cagov-promotional-card cagov-stack' },
-    //         el(RichText.Content, {
-    //           tagName: 'h2',
-    //           value: attributes.title
-    //         }),
-    //         el('div', { className: 'cagov-promotional-card-body-content' },
-    //           el(editor.InnerBlocks.Content)
-    //         )
-    //       ),
-    //       attributes.mediaURL && el('div', { },
-    //         el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight }
-    //         )
-    //       )
-    //     )
-    //   );
-    // }
+    save: function (props) {
+      const attributes = props.attributes;  
+
+      return el('div', {},
+            el('div', { className: 'cagov-card-body-content' },
+              el(editor.InnerBlocks.Content)
+            )
+      );
+
+      // return el('div', { className: 'wp-block-ca-design-system-promotional-card cagov-promotional-card cagov-block' },
+      //   el('div', {},
+      //     el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
+      //       { className: 'cagov-promotional-card cagov-stack' },
+      //       el(RichText.Content, {
+      //         tagName: 'h2',
+      //         value: attributes.title
+      //       }),
+      //       el('div', { className: 'cagov-promotional-card-body-content' },
+      //         el(editor.InnerBlocks.Content)
+      //       )
+      //     ),
+      //     attributes.mediaURL && el('div', { },
+      //       el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight }
+      //       )
+      //     )
+      //   )
+      // );
+    }
   });
 })(
   window.wp.blocks,

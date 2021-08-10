@@ -53,11 +53,11 @@ function cagov_design_system_register_promotional_card()
     $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
     wp_add_inline_style('ca-design-system-promotional-card-style', $style_css);
 
-    register_block_type('cagov/promotional-card', array(
+    register_block_type('ca-design-system/promotional-card', array(
         'style' => 'ca-design-system-promotional-card-style',
         'editor_style' => 'ca-design-system-promotional-card-style-editor',
         'editor_script' => 'ca-design-system-promotional-card-block',
-        'render_callback' => 'cagov_promotional_card_dynamic_render_callback',
+        'render_callback' => 'cagov_promotional_card_dynamic_render_callback'
     ));
 }
 
@@ -65,9 +65,30 @@ add_action( 'init', 'cagov_design_system_register_promotional_card' );
 
 function cagov_promotional_card_dynamic_render_callback( $block_attributes, $content )
 {
+
     $title = isset( $block_attributes['title'] ) ? $block_attributes['title'] : '';
-    // $card_date = isset( $block_attributes['date'] ) ? $block_attributes['date'] : '';
+    $images = isset( $block_attributes['images'] ) ? $block_attributes['images'] : '';
+    // print_r($images);
+    $image_html = '';
+    if ($images !== '') {
+        $image_html = '<img src="" alt="" />';
+    }
+
+    $card_date = isset( $block_attributes['date'] ) ? $block_attributes['date'] : '';
     $body = isset( $block_attributes['body'] ) ? $block_attributes['body'] : '';
+    // $buttonURL = isset( $block_attributes['buttonurl'] ) ? $block_attributes['buttonurl'] : '';
+    // $buttonText = isset( $block_attributes['buttontext'] ) ? $block_attributes['buttontext'] : '';
+    $innerBlocks = do_blocks( $content );
     
-    return '<div class="cagov-promotional-card cagov-block cagov-block">CONTENT' . $title . htmlentities( $body ) . '</div>';
+    return '<div><h2>' . $title . '</h2>' . htmlentities($body) . $card_date . $innerBlocks . '</div>';
+
+//     <!-- wp:ca-design-system/promotional-card {"title":"Get #weedwise","mediaID":9032} -->
+// <div class="wp-block-ca-design-system-promotional-card"><div class="cagov-card-body-content"><!-- wp:paragraph -->
+// <p>asdfasdasdfasdf</p>
+// <!-- /wp:paragraph -->
+
+// <!-- wp:button -->
+// <div class="wp-block-button"><a class="wp-block-button__link" href="/link">View toolkit</a></div>
+// <!-- /wp:button --></div></div>
+// <!-- /wp:ca-design-system/promotional-card -->
 }

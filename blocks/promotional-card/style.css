@@ -1,0 +1,27 @@
+.cagov-card-image {
+    min-height: 400px;
+}
+
+.cagov-promotional-card .cagov-stack {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.cagov-promotional-card .components-button {
+    display: block;
+}
+
+
+.cagov-promotional-card .cagov-card-title {
+    margin-bottom: 16px;
+}
+
+.cagov-promotional-card .cagov-card-date {
+    margin-bottom: 16px;
+}
+
+.cagov-promotional-card .cagov-card-body {
+    margin-bottom: 16px;
+}
+
+.cagov-promotional-card .cagov-card-button {}
