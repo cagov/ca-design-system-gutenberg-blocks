@@ -1,21 +1,26 @@
-.cagov-grid, .cagov-grid .block-editor-block-list__layout {
+.cagov-grid,
+.cagov-grid .block-editor-block-list__layout {
     display: grid;
     grid-gap: 1.5rem;
-  }
+}
+
 /* editor override */
 .cagov-grid .block-editor-block-list__block {
-margin: 0;
+    margin: 0;
 }
+
 @supports (width: min(250px, 100%)) {
-.cagov-grid, .cagov-grid .block-editor-block-list__layout {
-    grid-template-columns: repeat(auto-fit, minmax(min(576px, 100%), 1fr));
-}
+
+    .cagov-grid,
+    .cagov-grid .block-editor-block-list__layout {
+        grid-template-columns: repeat(auto-fit, minmax(min(576px, 100%), 1fr));
+    }
 }
 
 
 
 .cagov-card-image {
-    min-height: 400px;
+    /* min-height: 400px; */
 }
 
 .cagov-promotional-card .cagov-stack {
@@ -82,4 +87,4 @@ margin: 0;
         max-width: 550px;
 
     }
-  } 
+}
