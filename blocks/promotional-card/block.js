@@ -15,7 +15,9 @@
     edit: function (props) { 
       return el(
         'div',
-        { className: 'cagov-grid cagov-stack cagov-block' },
+        { 
+          className: 'cagov-grid cagov-stack cagov-block',
+        },
         el(InnerBlocks,
           {
             orientation: 'horizontal',
@@ -47,6 +49,7 @@
   const __ = i18n.__;
   const el = element.createElement;
   const RichText = editor.RichText;
+  const TextControl = components.TextControl;
   const MediaUpload = editor.MediaUpload;
   const InnerBlocks = editor.InnerBlocks;
 
@@ -161,9 +164,6 @@
         });
       };
 
-      // removed: cagov-with-sidebar cagov-with-sidebar-left cagov-featured-section cagov-bkgrd-gry
-      // @TODO cards need their own pattern conventions, simplifying this so we have the cagov-block & css only namespace
-
       return el(
         "div",
         { className: "wp-block-ca-design-system-promotional-card cagov-promotional-card cagov-block" },
@@ -192,11 +192,15 @@
                 );
               },
             }),
-            !attributes.mediaID ?  __("Dimensions: 576px x 338px", "cagov-design-system") : el(RichText, {
-              { className: "cagov-card-image-set-link" },
+            !attributes.mediaID ?  el("span", {
+                className: "ui-label", 
+                value: __("Dimensions: 576px x 338px", "cagov-design-system")
+              }) : el(TextControl, {
+              className: "cagov-card-image-set-link",
               tagName: "a",
               inline: true,
-              placeholder: __("Image Link", "cagov-design-system"),
+              placeholder: __("e.g. /path-to-page", "cagov-design-system"),
+              label: __("Image link", "cagov-design-system"),
               value: attributes.cardLink,
               onChange: function (value) {
                 props.setAttributes({ cardLink: value });
@@ -215,26 +219,30 @@
                 props.setAttributes({ title: value });
               },
             }),
-            el(RichText, {
-              tagName: "div",
-              className: "cagov-card-start-date",
-              inline: true,
-              placeholder: __("Start date", "cagov-design-system"),
-              value: attributes.startDate,
-              onChange: function (value) {
-                props.setAttributes({ startDate: value });
-              },
-            }),
-            el(RichText, {
-              tagName: "div",
-              className: "cagov-card-end-date",
-              inline: true,
-              placeholder: __("End date", "cagov-design-system"),
-              value: attributes.endDate,
-              onChange: function (value) {
-                props.setAttributes({ endDate: value });
-              },
-            }),
+            el("div", {
+                className: 'cagov-date-range-container',
+              }, 
+              el(RichText, {
+                tagName: "div",
+                className: "cagov-card-date cagov-card-start-date",
+                inline: true,
+                placeholder: __("Start date", "cagov-design-system"),
+                value: attributes.startDate,
+                onChange: function (value) {
+                  props.setAttributes({ startDate: value });
+                },
+              }),
+              el(RichText, {
+                tagName: "div",
+                className: "cagov-card-date cagov-card-end-date",
+                inline: true,
+                placeholder: __("End date", "cagov-design-system"),
+                value: attributes.endDate,
+                onChange: function (value) {
+                  props.setAttributes({ endDate: value });
+                },
+              })
+            ),
             el(
               "div",
               { className: "cagov-card-body" },

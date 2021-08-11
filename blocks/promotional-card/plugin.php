@@ -90,7 +90,7 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
         $media_object_medium = cagov_promotional_card_wp_get_attachment( $media_id, 'medium' );
     }
 
-    $card_link = isset( $block_attributes['cardLink'] ) ? $block_attributes['cardLink'] : null;
+
     $image_html_large = '';
     if (isset( $media_object_large ) ) {
         if (null !== $media_object_large['src']) {
@@ -109,14 +109,15 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
     $card_start_date = isset( $block_attributes['startDate'] ) ? $block_attributes['startDate'] : '';
     $card_end_date = isset( $block_attributes['endDate'] ) ? $block_attributes['endDate'] : '';
 
-    if ('' === $card_end_date ) {
-        $card_start_date = $card_start_date . "—"; 
+    if ('' !== $card_end_date ) {
+        $card_start_date = $card_start_date . "-"; 
     }
 
     $card_image = null;
     if ('' !== $image_html_large ) {
-        if ($card_link !== null ) {
-            $card_image = '<div class="cagov-card-image">' . '<a href="' . $cardLink . '">' . $image_html_large . '</a>' .'</div>';
+        $card_link = isset( $block_attributes['cardLink'] ) ? $block_attributes['cardLink'] : null;
+        if (null !== $card_link) {
+            $card_image = '<div class="cagov-card-image">' . '<a href="' . $card_link . '">' . $image_html_large . '</a>' .'</div>';
         } else {
             $card_image = '<div class="cagov-card-image">' . $image_html_large . '</div>';
         }

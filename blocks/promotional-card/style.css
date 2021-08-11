@@ -10,10 +10,9 @@
 }
 
 @supports (width: min(250px, 100%)) {
-
     .cagov-grid,
     .cagov-grid .block-editor-block-list__layout {
-        grid-template-columns: repeat(auto-fit, minmax(min(576px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(576px, 576px));
     }
 }
 
@@ -23,9 +22,9 @@
     /* min-height: 400px; */
 }
 
-.cagov-promotional-card .cagov-stack {
-    margin-top: 24px;
-    margin-bottom: 24px;
+.cagov-promotional-card  {
+    margin-top: 0px;
+    margin-bottom: 64px;
 }
 
 .cagov-promotional-card {
