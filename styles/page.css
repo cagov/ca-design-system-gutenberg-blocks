@@ -14,6 +14,8 @@
     max-width: 1176px;
 }
 
+
+
 /* Single column layout */
 .single-column.main-content-ds .ds-content-layout {
     max-width: 876px;
@@ -21,6 +23,11 @@
 }
 
 .single-column.landing .ds-content-layout {
+    max-width: 1176px;
+    margin: 0 auto;
+}
+
+.single-column.single-column-wide .ds-content-layout{
     max-width: 1176px;
     margin: 0 auto;
 }
