@@ -16,7 +16,7 @@
       return el(
         'div',
         { 
-          className: 'cagov-grid cagov-stack cagov-block',
+          className: 'cagov-grid cagov-promotional-card-grid cagov-stack cagov-block',
         },
         el(InnerBlocks,
           {

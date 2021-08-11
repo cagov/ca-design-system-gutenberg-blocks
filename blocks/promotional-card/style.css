@@ -2,7 +2,13 @@
 .cagov-grid .block-editor-block-list__layout {
     display: grid;
     grid-gap: 1.5rem;
+    grid-row-gap: 64px;
 }
+
+.cagov-promotional-card-grid {
+    margin-top: 48px;
+}
+
 
 /* editor override */
 .cagov-grid .block-editor-block-list__block {

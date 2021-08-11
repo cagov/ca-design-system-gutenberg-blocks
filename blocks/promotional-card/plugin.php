@@ -65,18 +65,21 @@ add_action( 'init', 'cagov_design_system_register_promotional_card' );
 function cagov_promotional_card_wp_get_attachment( $attachment_id, $size = 'large')
 {
     $attachment = get_post( $attachment_id );
-    $media_object = wp_get_attachment_metadata($attachment_id);
-    // print_r($media_object);
+    if (isset($attachment)) {
+        $media_object = wp_get_attachment_metadata($attachment_id);
+        // print_r($media_object);
 
-    return array(
-        'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-        'caption' => $attachment->post_excerpt,
-        'description' => $attachment->post_content,
-        'src' => wp_get_attachment_image_url( $attachment_id, $size ),
-        'title' => $attachment->post_title,
-        'width' => $media_object['sizes'][$size]['width'],
-        'height' => $media_object['sizes'][$size]['height'],
-    );
+        return array(
+            'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+            'caption' => $attachment->post_excerpt,
+            'description' => $attachment->post_content,
+            'src' => wp_get_attachment_image_url( $attachment_id, $size ),
+            'title' => $attachment->post_title,
+            'width' => $media_object['sizes'][$size]['width'],
+            'height' => $media_object['sizes'][$size]['height'],
+        );
+    } 
+    return null;
 }
 
 function cagov_promotional_card_dynamic_render_callback( $block_attributes, $content )
