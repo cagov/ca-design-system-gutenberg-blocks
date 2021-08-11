@@ -1,0 +1,111 @@
+.cagov-grid,
+.cagov-grid .block-editor-block-list__layout {
+    display: grid;
+    grid-gap: 1.5rem;
+}
+
+/* editor override */
+.cagov-grid .block-editor-block-list__block {
+    margin: 0;
+}
+
+@supports (width: min(250px, 100%)) {
+    .cagov-grid,
+    .cagov-grid .block-editor-block-list__layout {
+        grid-template-columns: repeat(auto-fit, minmax(min(576px, 100%), 1fr));
+    }
+}
+
+/**/
+
+.cagov-card-image {
+    height: auto;
+    min-height: 338px;
+}
+
+.edit-post-visual-editor .components-button {
+    padding: 0;
+    height: auto;
+    width: auto;
+    font-size: 18px;
+    display: inline-block;
+}
+.cagov-card-image-set-link {
+    padding: 24px;
+}
+
+.cagov-promotional-card {
+    height: 100%;
+}
+
+.cagov-promotional-card .cagov-stack {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.cagov-promotional-card {
+    background-color: #F9F9FA;
+    border-radius: 5px;
+    max-width: 576px;
+}
+
+.wp-block {
+    max-width: 1200px !important;
+}
+
+.cagov-promotional-card .cagov-card-content {
+    padding: 24px;
+}
+
+.cagov-promotional-card .components-button {
+    display: block;
+}
+
+
+.cagov-promotional-card h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.cagov-promotional-card .cagov-date-range {
+    margin-bottom: 16px;
+    font-size: 23px;
+    line-height: 39px;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.cagov-promotional-card .cagov-card-body-content p {
+    margin-bottom: 16px;
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
+.cagov-promotional-card {
+    margin: 0;
+    padding: 0;
+}
+
+.cagov-promotional-card .wp-block-button {
+    background-color: transparent;
+}
+.block-editor-rich-text__editable wp-block-button__link.rich-text,
+.cagov-promotional-card .wp-block-button .wp-block-button__link {
+    background-color: #064E66;
+    padding: 24px 10px !important;
+    border-radius: 5px;
+}
+
+.block-editor-rich-text__editable wp-block-button__link.rich-text,
+.cagov-promotional-card .wp-block-button a.wp-block-button__link {
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 700 !important;
+}
+
+@media (max-width: 719px) {
+    .cagov-promotional-card .cagov-card-body-content p {
+        max-width: 550px;
+
+    }
+}

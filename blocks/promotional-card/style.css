@@ -34,7 +34,7 @@
 }
 
 .cagov-promotional-card .cagov-card-content {
-    margin: 24px;
+    padding: 24px;
 }
 
 .cagov-promotional-card .components-button {
@@ -74,9 +74,10 @@
     background-color: #064E66;
     padding: 10px;
     border-radius: 5px;
+    margin: 0;
 }
 
-.cagov-promotional-card .wp-block-button .wp-block-button__link a {
+.cagov-promotional-card .wp-block-button a.wp-block-button__link {
     font-size: 18px;
     line-height: 30px;
     font-weight: 700;
@@ -85,6 +86,5 @@
 @media (max-width: 719px) {
     .cagov-promotional-card .cagov-card-body-content p {
         max-width: 550px;
-
     }
 }

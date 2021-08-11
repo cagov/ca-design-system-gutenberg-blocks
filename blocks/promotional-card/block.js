@@ -88,6 +88,9 @@
       mediaID: {
         type: "number",
       },
+      cardLink: {
+        type: "string",
+      },
       previewMediaUrl: {
         type: "string",
       },
@@ -100,37 +103,15 @@
         body: __("Lorem ipsum", "cagov-design-system"),
         buttontext: __("View toolkit", "cagov-design-system"),
         buttonurl: __("https://example.com", "cagov-design-system"),
+        cardLink: __("https://example.com", "cagov-design-system"),
         previewMediaUrl: "http://www.fillmurray.com/576/338",
-        images: {
-          mediaAlt: __("Image Alt", "cagov-design-system"),
-          mediaCaption: __("Image Caption", "cagov-design-system"),
-          mediaDescription: __("Image Description", "cagov-design-system"),
-          mediaTitle: __("Image Title", "cagov-design-system"),
-          desktop: {
-            mediaURL: "http://www.fillmurray.com/576/338",
-            mediaWidth: "576",
-            mediaHeight: "338",
-          },
-          tablet: {
-            mediaURL: "http://www.fillmurray.com/576/338",
-            mediaWidth: "576",
-            mediaHeight: "338",
-          },
-          mobile: {
-            mediaURL: "http://www.fillmurray.com/576/338",
-            mediaWidth: "576",
-            mediaHeight: "338",
-          },
-        },
       },
     },
     edit: function (props) {
       const attributes = props.attributes;
 
       var id = attributes.mediaID;
-      var images = attributes.images;
       const { useSelect } = data;
-
       // Auto update media preview alt & captions;
       var mediaObject = useSelect(
         (select) => {
@@ -138,7 +119,6 @@
         },
         [id]
       );
-
       const MediaImageElement = () => {
         // console.log("media", mediaObject);
         if (
@@ -162,7 +142,6 @@
         }
         return null;
       };
-
       // Trying to get a quicker preview - may be slow image or local cache issue
       var MediaImage = 
       el("img", {
@@ -172,11 +151,8 @@
         width: 576,
         height: 338,
       });
-
       MediaImage = MediaImageElement(mediaObject); // async, a little slow
-
       const onSelectImage = function (media) {
-        console.log("med", media);
         // Raw media object, not formatted
         // Store data for local use in preview (of alt tags and responsive image sizes) (may deprecate, but not sure yet)
         return props.setAttributes({
@@ -215,77 +191,70 @@
                     : MediaImage
                 );
               },
-            })
+            }),
+            !attributes.mediaID ?  __("Dimensions: 576px x 338px", "cagov-design-system") : el(RichText, {
+              { className: "cagov-card-image-set-link" },
+              tagName: "a",
+              inline: true,
+              placeholder: __("Image Link", "cagov-design-system"),
+              value: attributes.cardLink,
+              onChange: function (value) {
+                props.setAttributes({ cardLink: value });
+              },
+            }),
           ),
-          el(RichText, {
-            tagName: "h2",
-            inline: true,
-            placeholder: __("Write title…", "cagov-design-system"),
-            value: attributes.title,
-            onChange: function (value) {
-              props.setAttributes({ title: value });
-            },
-          }),
-          el(RichText, {
-            tagName: "div",
-            className: "cagov-card-start-date",
-            inline: false,
-            placeholder: __("Start date", "cagov-design-system"),
-            value: attributes.startDate,
-            onChange: function (value) {
-              props.setAttributes({ startDate: value });
-            },
-          }),
-          el(RichText, {
-            tagName: "div",
-            className: "cagov-card-end-date",
-            inline: false,
-            placeholder: __("End date", "cagov-design-system"),
-            value: attributes.endDate,
-            onChange: function (value) {
-              props.setAttributes({ endDate: value });
-            },
-          }),
           el(
             "div",
-            { className: "cagov-card-body" },
-            el(editor.InnerBlocks, {
-              allowedBlocks: ["core/paragraph", "core/button"],
+            { className: "cagov-card-content" },
+            el(RichText, {
+              tagName: "h2",
+              inline: true,
+              placeholder: __("Write title…", "cagov-design-system"),
+              value: attributes.title,
               onChange: function (value) {
-                console.log(value);
+                props.setAttributes({ title: value });
               },
-            })
+            }),
+            el(RichText, {
+              tagName: "div",
+              className: "cagov-card-start-date",
+              inline: true,
+              placeholder: __("Start date", "cagov-design-system"),
+              value: attributes.startDate,
+              onChange: function (value) {
+                props.setAttributes({ startDate: value });
+              },
+            }),
+            el(RichText, {
+              tagName: "div",
+              className: "cagov-card-end-date",
+              inline: true,
+              placeholder: __("End date", "cagov-design-system"),
+              value: attributes.endDate,
+              onChange: function (value) {
+                props.setAttributes({ endDate: value });
+              },
+            }),
+            el(
+              "div",
+              { className: "cagov-card-body" },
+              el(editor.InnerBlocks, {
+                allowedBlocks: ["core/paragraph", "core/button"],
+                onChange: function (value) {
+                  console.log(value);
+                },
+              })
+            )
           )
         )
       );
     },
     save: function (props) {
-      const attributes = props.attributes;  
-
       return el('div', {},
             el('div', { className: 'cagov-card-body-content' },
               el(editor.InnerBlocks.Content)
             )
       );
-
-      // return el('div', { className: 'wp-block-ca-design-system-promotional-card cagov-promotional-card cagov-block' },
-      //   el('div', {},
-      //     el('div', { className: 'cagov-stack cagov-p-2 cagov-featured-sidebar' },
-      //       { className: 'cagov-promotional-card cagov-stack' },
-      //       el(RichText.Content, {
-      //         tagName: 'h2',
-      //         value: attributes.title
-      //       }),
-      //       el('div', { className: 'cagov-promotional-card-body-content' },
-      //         el(editor.InnerBlocks.Content)
-      //       )
-      //     ),
-      //     attributes.mediaURL && el('div', { },
-      //       el('img', { className: 'cagov-featured-image', src: attributes.mediaURL, alt: attributes.mediaAlt, width: attributes.mediaWidth, height: attributes.mediaHeight }
-      //       )
-      //     )
-      //   )
-      // );
     }
   });
 })(
