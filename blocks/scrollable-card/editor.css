@@ -1,0 +1,34 @@
+/* Gutenberg interface overrides */
+/* Grid */
+.cagov-scrollable-card-grid.cagov-grid .block-editor-block-list__layout {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-row-gap: 64px;
+}
+
+.cagov-scrollable-card-grid .block-editor-rich-text__editable .rich-text {
+    margin-top: 16px;
+}
+
+@media (min-width: 719px) {
+    .cagov-scrollable-card .cagov-card-image {
+        min-width: 366px;
+    }
+}
+
+.cagov-scrollable-card.cagov-grid .block-editor-block-list__block {
+    margin: 0;
+    max-width: calc(366px - 48px);
+}
+
+.cagov-scrollable-card .block-editor-inner-blocks p,
+.cagov-scrollable-card .block-editor-inner-blocks .wp-block-button {
+    margin: 0 0 16px 0;
+}
+
+
+
+/* Buttons */
+.cagov-scrollable-card .components-button {
+    display: block;
+}

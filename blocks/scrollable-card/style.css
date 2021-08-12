@@ -1,33 +1,33 @@
-/* Promotional card styles */
+/* Scrollable card styles */
 
 /* Grid styles, layout */
-.cagov-promotional-card-grid.cagov-grid {
-    display: grid;
-    grid-gap: 1.5rem;
-    grid-row-gap: 64px;
+.cagov-scrollable-card-grid.cagov-grid {
+    /* display: grid; */
+    /* grid-gap: 1.5rem; */
+    /* grid-row-gap: 64px; */
 }
 
 @supports (width: min(250px, 100%)) {
-    .cagov-promotional-card-grid.cagov-grid {
-        grid-template-columns: repeat(auto-fit, minmax(576px, 576px));
+    .cagov-scrollable-card-grid.cagov-grid {
+        /* grid-template-columns: repeat(auto-fit, minmax(366px, 366px)); */
     }
 }
 
 @media (max-width: 719px) {
-    .cagov-promotional-card .cagov-card-body-content p {
-        max-width: 550px;
+    .cagov-scrollable-card .cagov-card-body-content p {
+        max-width: 350px;
     }
 }
 
-.cagov-promotional-card-grid {
+.cagov-scrollable-card-grid {
     margin-top: 48px;
 }
 
-.cagov-promotional-card {
+.cagov-scrollable-card {
     height: 100%;
     background-color: #F9F9FA;
     border-radius: 5px;
-    max-width: 576px;
+    max-width: 366px;
     margin: 24px 0;
 /* 
     margin-top: 0px;
@@ -36,34 +36,34 @@
     border-radius: 5px;
 }
 
-.cagov-promotional-card .cagov-card-image {
+.cagov-scrollable-card .cagov-card-image {
     height: auto;
-    min-height: 338px;
+    min-height: 260px;
 }
 
-.cagov-promotional-card .cagov-card-content {
+.cagov-scrollable-card .cagov-card-content {
     padding: 24px;
 }
 
 /* Card typography */
-.cagov-promotional-card h2,
-.cagov-promotional-card .card-title {
+.cagov-scrollable-card.cagov-stack h2,
+.cagov-scrollable-card.cagov-stack .card-title {
     font-size: 28px;
     margin-bottom: 16px;
 }
 
-.cagov-promotional-card .cagov-card-body-content p {
+.cagov-scrollable-card .cagov-card-body-content p {
     margin-bottom: 16px;
     font-size: 18px;
     line-height: 28.8px;
 }
 
-.cagov-promotional-card .cagov-card-content {
+.cagov-scrollable-card .cagov-card-content {
     padding: 24px;
 }
 
 @media (max-width: 719px) {
-    .cagov-promotional-card .cagov-card-body-content p {
+    .cagov-scrollable-card .cagov-card-body-content p {
         max-width: 550px;
     }
 }
@@ -118,19 +118,19 @@
 }
 
 /* UI Button */
-.cagov-promotional-card .wp-block-button {
+.cagov-scrollable-card .wp-block-button {
     background-color: transparent;
 }
 
-.cagov-promotional-card .block-editor-rich-text__editable wp-block-button__link.rich-text,
-.cagov-promotional-card .wp-block-button .wp-block-button__link {
+.cagov-scrollable-card .block-editor-rich-text__editable wp-block-button__link.rich-text,
+.cagov-scrollable-card .wp-block-button .wp-block-button__link {
     background-color: #064E66;
     padding: 24px 10px !important;
     border-radius: 5px;
 }
 
-.cagov-promotional-card .block-editor-rich-text__editable wp-block-button__link.rich-text,
-.cagov-promotional-card .wp-block-button a.wp-block-button__link {
+.cagov-scrollable-card .block-editor-rich-text__editable wp-block-button__link.rich-text,
+.cagov-scrollable-card .wp-block-button a.wp-block-button__link {
     font-size: 18px;
     line-height: 30px;
     font-weight: 700 !important;
