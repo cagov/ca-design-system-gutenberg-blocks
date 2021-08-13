@@ -51,7 +51,8 @@
 /* Card typography */
 .cagov-scrollable-card.cagov-stack h2,
 .cagov-scrollable-card.cagov-stack .card-title {
-    font-size: 28px;
+    font-size: 18px;
+    font-weight: 700;
     margin-bottom: 16px;
 }
 

@@ -11,10 +11,10 @@
 
         var createGlider = () => {
             console.log('creating glider')
-            let slideShowCount = 3;
+            let countToAddGlider = 3;
 
             if (window.innerWidth <= 770) {
-                slideShowCount = 1;
+                countToAddGlider = 1;
             }
             console.log(document.querySelector('.glider'));
             // Has a glider at all
@@ -25,12 +25,12 @@
                 Object.keys(gliders).map((index) => {
                     var glider = gliders[index];
                     var cardCount = glider.children.length;
-                    console.log("Glider has ", cardCount, " cards", slideShowCount);
-                    if (cardCount !== undefined && cardCount >= slideShowCount) {
+                    console.log("Glider has ", cardCount, " cards", countToAddGlider);
+                    if (cardCount !== undefined && cardCount > countToAddGlider) {
                         console.log("Adding Glider interaction");
                             // For each
                             new Glider(glider, {
-                                // slidesToShow: slideShowCount,
+                                // slidesToShow: countToAddGlider,
                                 // slidesToScroll: 1,
                                 slidesToShow: 'auto',
                                 slidesToScroll: 'auto',
