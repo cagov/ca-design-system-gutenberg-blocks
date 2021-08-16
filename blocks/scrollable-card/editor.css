@@ -1,4 +1,15 @@
 /* Gutenberg interface overrides */
+
+@supports (width: min(250px, 100%)) {
+    .block-editor-block-list__layout.is-root-container .cagov-scrollable-card-grid.cagov-grid {
+        grid-template-columns: none;
+    }
+
+    .cagov-scrollable-card-grid.cagov-grid .block-editor-block-list__layout {
+        grid-template-columns: repeat(auto-fit, minmax(366px, 366px));
+    }
+}
+
 /* Grid */
 .cagov-scrollable-card-grid.cagov-grid .block-editor-block-list__layout {
     display: grid;
@@ -16,7 +27,17 @@
     }
 }
 
-.cagov-scrollable-card.cagov-grid .block-editor-block-list__block {
+.wp-block:has(.cagov-scrollable-card) {
+    height: 100%;
+    background-color: #F9F9FA;
+    border-radius: 5px;
+    max-width: 366px;
+    margin: 24px 0;
+    background-color: #F9F9FA;
+    border-radius: 5px;
+}
+
+.cagov-scrollable-card.cagov-grid .wp-block {
     margin: 0;
     max-width: calc(366px - 48px);
 }
@@ -25,8 +46,6 @@
 .cagov-scrollable-card .block-editor-inner-blocks .wp-block-button {
     margin: 0 0 16px 0;
 }
-
-
 
 /* Buttons */
 .cagov-scrollable-card .components-button {

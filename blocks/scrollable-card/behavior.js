@@ -1,8 +1,6 @@
 
 (function() {
     window.addEventListener('load', function(){
-
-
         window.addEventListener('resize', () => {
             // @TODO & not already created
             console.log("resized");
