@@ -68,7 +68,7 @@ function cagov_gb_load_block_dependencies()
 
     // CA Design System PATTERNS
     // - Load patterns, order of loading is order of appearance in patterns list.
-    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'patterns/event-pattern/plugin.php';
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . 'patterns/events/plugin.php';
 
     // Default Gutenberg block construction method
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/page-alert/plugin.php'; // Renamed
@@ -214,6 +214,66 @@ function cagov_gb_register_rest_field()
             'schema'          => null, // @TODO look up what our options are here
         )
     );
+
+    register_rest_field(
+        'post',
+        'site_settings',
+        array(
+            'get_callback'    => 'cagov_site_settings',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
+
+    register_rest_field(
+        'post',
+        'og_meta',
+        array(
+            'get_callback'    => 'cagov_og_meta',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
+
+
+    register_rest_field(
+        'page',
+        'design_system_fields',
+        array(
+            'get_callback'    => 'cagov_gb_get_custom_fields',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
+
+    register_rest_field(
+        'page',
+        'og_meta',
+        array(
+            'get_callback'    => 'cagov_og_meta',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
+
+    register_rest_field(
+        'page',
+        'site_settings',
+        array(
+            'get_callback'    => 'cagov_site_settings',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
+
+    // $meta_args = array(
+    //     'type'         => 'string',
+    //     'description'  => 'A meta key associated with a string meta value.',
+    //     'single'       => true,
+    //     'show_in_rest' => true,
+    // );
+    // register_post_meta( 'page', 'my_meta_key', $meta_args );
+
 }
 
 /**
@@ -227,35 +287,159 @@ function cagov_gb_register_rest_field()
 function cagov_gb_get_custom_fields($object, $field_name, $request)
 {
     global $post;
-    // print_r($post);
-    // $cagov_gb_content_menu_sidebar = get_post_meta($post->ID, '_cagov_gb_content_menu_sidebar', true);
+    
     $caweb_custom_post_title_display = get_post_meta($post->ID, '_ca_custom_post_title_display', true);
-    // $caweb_default_post_date_display = get_post_meta($post->ID, '_ca_default_post_date_display', true);
 
-    // Get events fields
+    $template_name = "page"; // Default template for any post.
+    try {
+        $current_page_template = get_page_template_slug();
+        
+        if (isset($current_page_template) && "" === $current_page_template) {
+            if ($post->post_type === "post") {
+                $current_template = "post";
+            } else if  ($post->post_type === "page") {
+                $current_template = "page";
+            }
+        } else {
+            $split_template_path = isset($current_page_template) ? preg_split("/\//", $current_page_template) : "page";
+            $template_file = $split_template_path[count($split_template_path) - 1];
+            
+            $template_name = preg_split("/\./", $template_file);
+            $current_template = $template_name[0];
 
-    // $caweb_custom_css = wp_unslash(get_option('ca_custom_css'));
-    // $meta_display_title = array(
-    //     'type'         => 'string',
-    //     'description'  => 'If the title should be visible.',
-    //     'single'       => true,
-    //     'show_in_rest' => true,
-    // );
-    // register_post_meta( 'page', 'my_meta_key', $meta_args );
-    // register_post_meta( 'post', 'my_meta_key', $meta_args );
-    // register_post_meta( 'post', 'display_title', $meta_display_title );
+            if ($current_template === "cagov-content-page") {
+                $current_template = "page";
+            } else if ($current_template === "cagov-content-single") {
+                $current_template = "post";
+            } else if ($current_template === "template-page-landing") {
+                $current_template = "landing";
+            }
+        }
+    } catch (Exception $e) {
+    } finally {
+    }
 
-    // featured_media: 841,
-    // template name
+    if ($post->post_type === "post") {
+        $post_settings = cagov_post_fields($post);
+        return array(
+            // 'display_title' => true, // $caweb_custom_post_title_display === "on" ? true : false,
+            'template' => $current_template,
+            'post' => $post_settings,
+        );
+    } else {
+        return array(
+            // 'display_title' => true, // $caweb_custom_post_title_display === "on" ? true : false,
+            'template' => $current_template,
+        );
+    }
+}
 
 
-    // $term_meta = get_option('autodescription-term-meta');
+function cagov_post_fields($post) {
+    // print_r($post);
+    $custom_post_link = get_post_meta($post->ID, '_ca_custom_post_link', true);
+    $custom_post_date = get_post_meta($post->ID, '_ca_custom_post_date', true);
+    $custom_post_location = get_post_meta($post->ID, '_ca_custom_post_location', true);
+    $custom_event_date = get_post_meta($post->ID, '_ca_custom_event_date', true);
+    $custom_event_end_date = get_post_meta($post->ID, '_ca_custom_event_end_date', true);
+    $custom_event_start_time = get_post_meta($post->ID, '_ca_custom_event_start_time', true);
+    $custom_event_end_time = get_post_meta($post->ID, '_ca_custom_event_end_time', true);
 
     return array(
-        'display_title' => $caweb_custom_post_title_display === "on" ? true : false,
-        // 'term' => $term_meta
+        'post_link' => $custom_post_link,
+        'post_date' => $custom_post_date,
+        'locale' => get_locale(),
+        'gmt_offset' => get_option('gmt_offset'),
+        'timezone' => get_option('timezone_string'),
+        'post_published_date_display' => array(
+            'i18n_locale_date' => date_i18n('F j, Y',  strtotime( $post->post_date ) , false ),
+            'i18n_locale_date_gmt' => date_i18n('F j, Y', strtotime( $post->post_date_gmt ) , true ),
+            'i18n_locale_date_time' => date_i18n('F j, Y g:i a',  strtotime( $post->post_date ) , false ),
+            'i18n_locale_date_time_gmt' => date_i18n('F j, Y g:i a', strtotime( $post->post_date_gmt ) , true ),
+        ),
+        'post_modified_date_display' => array(
+            'i18n_locale_date' => date_i18n('F j, Y',  strtotime( $post->post_modified ) , false ),
+            'i18n_locale_date_gmt' => date_i18n('F j, Y', strtotime( $post->post_modified_gmt ) , true ),
+            'i18n_locale_date_time' => date_i18n('F j, Y g:i a',  strtotime( $post->post_modified ) , false ),
+            'i18n_locale_date_time_gmt' => date_i18n('F j, Y g:i a', strtotime( $post->post_modified_gmt ) , true ),
+            
+        ),
+        'post_location' => $custom_post_location,
+        'event_date' => $custom_event_date,
+        'event_end_date' => $custom_event_end_date,
+        'event_start_time' => $custom_event_start_time,
+        'event_end_time' => $custom_event_end_time
     );
 }
+
+function cagov_site_settings($object, $field_name, $request) {
+    return array(
+        'site_name' => get_bloginfo('name'),
+        'site_description' => get_bloginfo('description'),
+        'url' => get_bloginfo('url'),
+        'wpurl' => get_bloginfo('wpurl'),
+    );
+}
+
+function cagov_og_meta($object, $field_name, $request) {
+    global $post;
+    $post_meta = get_post_meta($post->ID);
+        $seo_framework_output = "";
+    try {
+        if (function_exists('the_seo_framework')) {
+            $tsf = \the_seo_framework();
+            $seo_framework_output = $tsf->the_description()
+            . $tsf->og_image()
+            . $tsf->og_locale()
+            . $tsf->og_type()
+            . $tsf->og_title()
+            . $tsf->og_description()
+            . $tsf->og_url()
+            . $tsf->og_sitename()
+            . $tsf->facebook_publisher()
+            . $tsf->facebook_author()
+            . $tsf->facebook_app_id()
+            . $tsf->article_published_time()
+            . $tsf->article_modified_time()
+            . $tsf->twitter_card()
+            . $tsf->twitter_site()
+            . $tsf->twitter_creator()
+            . $tsf->twitter_title()
+            . $tsf->twitter_description()
+            . $tsf->twitter_image()
+            . $tsf->theme_color()
+            . $tsf->shortlink()
+            . $tsf->canonical()
+            . $tsf->paged_urls()
+            . $tsf->ld_json()
+            . $tsf->google_site_output()
+            . $tsf->bing_site_output()
+            . $tsf->yandex_site_output()
+            . $tsf->baidu_site_output()
+            . $tsf->pint_site_output()
+            . $tsf->get_social_image_url_from_seo_settings();
+        }
+    } catch (Exception $e) {
+        
+    } finally {
+    }
+
+    // /wp-content/plugins/autodescription/inc/classes/site-options.class.php
+    return array(
+        "_genesis_title" => isset($post_meta["_genesis_title"]) ? $post_meta["_genesis_title"] : "",
+        "_genesis_description" => isset($post_meta["_genesis_description"]) ? $post_meta["_genesis_description"] : "",
+        "_genesis_canonical_uri" => isset($post_meta["_genesis_canonical_uri"]) ? $post_meta["_genesis_canonical_uri"] : "",
+        "_social_image_url" => isset($post_meta["_social_image_url"]) ? $post_meta["_social_image_url"] : "",
+        // "_homepage_social_image_url" => isset($post_meta["_homepage_social_image_url"]) ? $post_meta["_homepage_social_image_url"] : "",
+        "_open_graph_title" => isset($post_meta["_open_graph_title"]) ? $post_meta["_open_graph_title"] : "",
+        "_open_graph_description" => isset($post_meta["_open_graph_description"]) ? $post_meta["_open_graph_description"] : "",
+        "_twitter_title" => isset($post_meta["_twitter_title"]) ? $post_meta["_twitter_title"] : "",
+        " _tsf_title_no_blogname" => isset($post_meta[" _tsf_title_no_blogname"]) ? $post_meta[" _tsf_title_no_blogname"] : "",
+        "og_rendered" => $seo_framework_output
+
+    );
+}
+
 
 function cagov_gb_excerpt($excerpt)
 {

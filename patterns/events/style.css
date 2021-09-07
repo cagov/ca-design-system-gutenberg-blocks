@@ -1,0 +1,8 @@
+.wp-block-columns.has-two-columns #main-content.wp-block-column {
+    width: 876px;
+}
+
+.wp-block-columns.has-two-columns .wp-block-column:not(#main-content) {
+    width: 276px;
+    margin-left: 20px;
+}

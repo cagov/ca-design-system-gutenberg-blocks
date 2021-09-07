@@ -64,7 +64,9 @@ function cagov_init()
 	}
 
 	/* Add content menu navigation */
-	register_nav_menu('content-menu', 'Content Menu');
+	register_nav_menu('content-menu', 'Content Footer Menu');
+	register_nav_menu('social-media-links', 'Social Media Links');
+	register_nav_menu('statewide-footer-menu', 'Statewide Footer Menu');
 }
 
 /**

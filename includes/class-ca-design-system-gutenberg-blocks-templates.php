@@ -1,5 +1,8 @@
 <?php
 
+
+// Note: can't merge this with the newer version until we are able to move correct templates to the theme layer. (Won't happen for Flywheel instance.)
+
 /**
  * Register custom templates for the CA Design System
  * 

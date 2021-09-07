@@ -15,13 +15,18 @@ function cagov_post_schema($post, $type)
     $blocks = parse_blocks($post->post_content);
     $start_date = "";
     $end_date = "";
+    
     try {
         $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
         // $event_materials = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
         // @TODO escape && ISO format: "2025-07-21T19:00-05:00"; 
         // @TODO reconstruct from event-detail saved data in post body.
-        $start_date = $event_details['startDate'];
-        $end_date = $event_details['endDate'];
+        if (isset($event_details['startDate'])) {
+            $start_date = $event_details['startDate'];
+        }
+        if (isset($event_details['endDate'])) {
+            $end_date = $event_details['endDate'];
+        }
     } catch (Exception $e) {
         // echo 'Caught exception: ',  $e->getMessage(), "\n";
     } finally {
@@ -134,7 +139,7 @@ if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
 ?>
 
 <div id="page-container" class="page-container-ds">
-    <div id="main-content" class="main-content-ds single-column" tabindex="-1">
+    <div id="main-content" class="main-content-ds single-column single-column-wide" tabindex="-1">
         <?php
         do_action("cagov_breadcrumb");
         ?>
@@ -171,7 +176,7 @@ if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
 
                             the_content();
 
-                            printf('<p class="page-date">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
+                            // printf('<p class="page-date">Published <time datetime="%1$s">%1$s</time></p>', get_the_date('M d, Y'));
                             print '</div>';
                             ?>
                         </article>

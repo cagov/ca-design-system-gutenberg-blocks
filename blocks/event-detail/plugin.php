@@ -58,10 +58,17 @@ function cagov_register_event_detail()
 	$style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
 	wp_add_inline_style('ca-design-system-event-detail-style', $style_css);
 
+    wp_register_style(
+        'ca-design-system-event-detail-editor',
+        plugins_url('editor.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'editor.css')
+    );
+
     register_block_type('ca-design-system/event-detail', array(
         'style' => 'ca-design-system-event-detail-style',
         'editor_script' => 'ca-design-system-event-detail',
-        // 'editor_style' => 'ca-design-system-event-detail-editor',
+        'editor_style' => 'ca-design-system-event-detail-editor',
         'render_callback' => 'cagov_event_detail_dynamic_render_callback'
     ));
 }
@@ -75,25 +82,30 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
     $endTime = isset($block_attributes["endTime"]) ? $block_attributes["endTime"] : "";
     $location = isset($block_attributes["location"]) ? $block_attributes["location"] : "";
     $cost = isset($block_attributes["cost"]) ? $block_attributes["cost"] : "";
-
-    return <<<EOT
-    <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
+    
+    // @TODO The labels don't belong in this code & need a translated string registry.
+    return '<div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
         <div>
-            <h3>$title</h3>
+            <h3>' . $title . '</h3>
             <div class="wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack">
-                <h4>Date &amp; time</h4>
-                <div class="startDate">$startDate</div>
-                <div class="endDate">$endDate</div>
+                <div class="detail-section">
+                    <h4>Date &amp; time</h4>
 
-                <div class="startTime">$startTime</div>
-                <div class="endTime">$endTime</div>
-                <h4>Location</h4>
-                <div class="location">$location</div>
+                    <div class="start-date field-data">' . $startDate . '</div>
+                    <div class="end-date field-data">' . $endDate . '</div>
 
-                <h4>Cost</h4>
-                <div class="cost">$cost</div>
+                    <div class="start-time field-data">' . $startTime . '</div>
+                    <div class="end-time field-data">' . $endTime . '</div>
+                </div>
+                <div class="detail-section">
+                    <h4>Location</h4>
+                    <div class="location field-data">' . $location . '</div>
+                </div>
+                <div class="detail-section">
+                    <h4>Cost</h4>
+                    <div class="cost field-data">' . $cost . '</div>
+                </div>
             </div>
         </div>
-    </div>
-    EOT;
+    </div>';
 }

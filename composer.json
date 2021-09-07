@@ -15,6 +15,6 @@
     },
     "require": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-        "squizlabs/php_codesniffer": "3.*"
+        "squizlabs/php_codesniffer": "3.*",
     }
 }

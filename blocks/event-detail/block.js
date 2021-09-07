@@ -3,7 +3,7 @@
  * Developer note: Reminder to run npm start & npm run build to generate this component.
  */
 
-const {
+ const {
   blocks,
   blockEditor,
   i18n,
@@ -70,7 +70,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     },
     cost: {
       type: "string",
-    },
+    }
   },
   example: {
     attributes: {
@@ -97,64 +97,71 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         />
 
         <div className="cagov-event-detail cagov-stack">
-          <h3>Date &amp; time</h3>
-          <RichText
-            value={startDate}
-            tagName="div"
-            className="startDate"
-            value={startDate}
-            onChange={(startDate) => props.setAttributes({ startDate })}
-            placeholder={__(formattedDate, "ca-design-system")}
-          />
+          <div class="detail-section">
+            <h4>{__("Date & time", "ca-design-system")}</h4>
+            <RichText
+              value={startDate}
+              tagName="div"
+              className="startDate"
+              value={startDate}
+              onChange={(startDate) => props.setAttributes({ startDate })}
+              placeholder={__(formattedDate, "ca-design-system")}
+            />
 
-          <RichText
-            value={endDate}
-            tagName="div"
-            className="endDate"
-            value={endDate}
-            onChange={(endDate) => props.setAttributes({ endDate })}
-            placeholder={__(formattedDate, "ca-design-system")}
-          />
+            <RichText
+              value={endDate}
+              tagName="div"
+              className="endDate"
+              value={endDate}
+              onChange={(endDate) => props.setAttributes({ endDate })}
+              placeholder={__(formattedDate, "ca-design-system")}
+            />
 
-          <RichText
-            value={startTime}
-            tagName="div"
-            className="startTime"
-            value={startTime}
-            onChange={(startTime) => props.setAttributes({ startTime })}
-            placeholder={__(formattedTime, "ca-design-system")}
-          />
+            <RichText
+              value={startTime}
+              tagName="div"
+              className="startTime"
+              value={startTime}
+              onChange={(startTime) => props.setAttributes({ startTime })}
+              placeholder={__(formattedTime, "ca-design-system")}
+            />
 
-          <RichText
-            value={endTime}
-            tagName="div"
-            className="endTime"
-            value={endTime}
-            onChange={(endTime) => props.setAttributes({ endTime })}
-            placeholder={__(formattedTimePlusHour, "ca-design-system")}
-          />
+            <RichText
+              value={endTime}
+              tagName="div"
+              className="endTime"
+              value={endTime}
+              onChange={(endTime) => props.setAttributes({ endTime })}
+              placeholder={__(formattedTimePlusHour, "ca-design-system")}
+            />
+          </div>
+          <div class="detail-section">
 
-          <h3>Location</h3>
+            <h4>{__("Location", "ca-design-system")}</h4>
 
-          <RichText
-            value={location}
-            tagName="div"
-            className="location"
-            value={location}
-            onChange={(location) => props.setAttributes({ location })}
-            placeholder={__("Enter text...", "ca-design-system")}
-          />
+            <RichText
+              value={location}
+              tagName="div"
+              className="location"
+              value={location}
+              onChange={(location) => props.setAttributes({ location })}
+              placeholder={__("Enter text...", "ca-design-system")}
+            />
 
-          <h3>Cost</h3>
+          </div>
+          <div class="detail-section">
+            <h4>{__("Cost", "ca-design-system")}</h4>
 
-          <RichText
-            value={cost}
-            tagName="div"
-            className="cost"
-            value={cost}
-            onChange={(cost) => props.setAttributes({ cost })}
-            placeholder={__("Enter text...", "ca-design-system")}
-          />
+            <RichText
+              value={cost}
+              tagName="div"
+              className="cost"
+              value={cost}
+              onChange={(cost) => props.setAttributes({ cost })}
+              placeholder={__("Enter text...", "ca-design-system")}
+            />
+
+          </div>
         </div>
       </div>
     );

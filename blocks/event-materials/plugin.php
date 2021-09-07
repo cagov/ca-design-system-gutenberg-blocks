@@ -74,15 +74,16 @@ function cagov_event_materials_dynamic_render_callback($block_attributes, $conte
     $agenda = isset($block_attributes["agenda"]) ? $block_attributes["agenda"] : "";
     $materials = isset($block_attributes["materials"]) ? $block_attributes["materials"] : "";
 
-    return <<<EOT
+    return '
     <div class="wp-block-ca-design-system-post-list cagov-post-list cagov-stack">
         <div>
-            <h3>$title</h3>
+            <h3>' . $title . '</h3>
             <div class="wp-block-ca-design-system-event-materials cagov-event-materials cagov-stack">
-                <div class="agenda">$agenda</div>
-                <div class="materials">$materials</div>
+                <div class="agenda">' . $agenda . '</div>
+                <div class="materials">' . $materials . '</div>
             </div>
         </div>
-    </div>
-    EOT;
+    </div>';
 }
+
+

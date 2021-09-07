@@ -61,13 +61,6 @@ function ca_design_system_custom_wp_block_pattern_event()
                         "cost": "",
                     } -->
                     <!-- /wp:ca-design-system/event-detail -->
-
-                    <!-- wp:ca-design-system/event-materials {
-                        "title": "Event Materials",
-                        "agenda": "",
-                        "materials": "",
-                    } -->
-                    <!-- /wp:ca-design-system/event-materials -->
                     </div>
                 <!-- /wp:column --> 
         </div><!-- /wp:columns -->',
@@ -75,3 +68,4 @@ function ca_design_system_custom_wp_block_pattern_event()
         )
     );
 }
+

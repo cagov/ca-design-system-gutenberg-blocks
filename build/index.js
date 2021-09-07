@@ -209,7 +209,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       placeholder: __("Event Details", "ca-design-system")
     }), createElement("div", {
       className: "cagov-event-detail cagov-stack"
-    }, createElement("h3", null, "Date & time"), createElement(RichText, {
+    }, createElement("div", {
+      class: "detail-section"
+    }, createElement("h4", null, __("Date & time", "ca-design-system")), createElement(RichText, {
       value: startDate,
       tagName: "div",
       className: "startDate",
@@ -245,7 +247,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         endTime
       }),
       placeholder: __(formattedTimePlusHour, "ca-design-system")
-    }), createElement("h3", null, "Location"), createElement(RichText, {
+    })), createElement("div", {
+      class: "detail-section"
+    }, createElement("h4", null, __("Location", "ca-design-system")), createElement(RichText, {
       value: location,
       tagName: "div",
       className: "location",
@@ -254,7 +258,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         location
       }),
       placeholder: __("Enter text...", "ca-design-system")
-    }), createElement("h3", null, "Cost"), createElement(RichText, {
+    })), createElement("div", {
+      class: "detail-section"
+    }, createElement("h4", null, __("Cost", "ca-design-system")), createElement(RichText, {
       value: cost,
       tagName: "div",
       className: "cost",
@@ -263,7 +269,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         cost
       }),
       placeholder: __("Enter text...", "ca-design-system")
-    })));
+    }))));
   }
 });
 
