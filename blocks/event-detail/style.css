@@ -1,3 +1,5 @@
+/* Rough pass at CSS */
+
 .cagov-event-detail {
     margin-top: 32px;
 }
@@ -15,6 +17,14 @@
     line-height: 28.8px;
 }
 
+.cagov-event-detail .start-time {
+    text-transform: uppercase;
+}
+
+.cagov-event-detail .end-time {
+    text-transform: uppercase;
+}
+
 .cagov-event-detail .detail-section {
     margin-top: 16px;
     padding-top: 16px;
@@ -24,4 +34,12 @@
 .cagov-event-detail .detail-section:last-child {
     padding-bottom: 16px;
     border-bottom: 1px solid #EDEDEF;
+}
+
+.cagov-event-detail .wp-block-button .wp-block-button__link {
+    background-color: #064E66;
+    border-radius: 5px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 16px
 }

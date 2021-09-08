@@ -208,7 +208,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       }),
       placeholder: __("Event Details", "ca-design-system")
     }), createElement("div", {
-      className: "cagov-event-detail cagov-stack"
+      className: "cagov-grid cagov-event-detail cagov-stack cagov-block"
     }, createElement("div", {
       class: "detail-section"
     }, createElement("h4", null, __("Date & time", "ca-design-system")), createElement(RichText, {
@@ -269,7 +269,15 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         cost
       }),
       placeholder: __("Enter text...", "ca-design-system")
-    }))));
+    })), el(InnerBlocks, {
+      orientation: 'horizontal',
+      allowedBlocks: ["core/paragraph", "core/button"]
+    })));
+  },
+  save: function (props) {
+    return el('div', {
+      className: 'cagov-grid cagov-event-detail cagov-stack cagov-block'
+    }, el(InnerBlocks.Content));
   }
 });
 

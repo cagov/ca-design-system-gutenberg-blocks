@@ -96,7 +96,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
           placeholder={__("Event Details", "ca-design-system")}
         />
 
-        <div className="cagov-event-detail cagov-stack">
+        <div className="cagov-grid cagov-event-detail cagov-stack cagov-block">
           <div class="detail-section">
             <h4>{__("Date & time", "ca-design-system")}</h4>
             <RichText
@@ -149,6 +149,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             />
 
           </div>
+
           <div class="detail-section">
             <h4>{__("Cost", "ca-design-system")}</h4>
 
@@ -162,8 +163,22 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             />
 
           </div>
+          
+          {el(InnerBlocks,
+            {
+              orientation: 'horizontal',
+              allowedBlocks: ["core/paragraph", "core/button"],
+            }
+          )}
         </div>
       </div>
     );
   },
+  save: function (props) {
+    return el(
+      'div',
+      { className: 'cagov-grid cagov-event-detail cagov-stack cagov-block' },
+      el(InnerBlocks.Content)
+    );
+  }
 });
