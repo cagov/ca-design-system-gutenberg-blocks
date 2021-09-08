@@ -31,7 +31,14 @@ const {
 } = components;
 
 const { Fragment, useState, useEffect, createElement, Component } = element;
-const { InspectorControls, RichText, InnerBlocks, useBlockProps } = blockEditor;
+const {
+  InspectorControls,
+  RichText,
+  InnerBlocks,
+  useBlockProps,
+  AlignmentToolbar,
+  BlockControls,
+} = blockEditor;
 const { useSelect, useDispatch } = data;
 const { withState } = compose;
 
@@ -46,95 +53,130 @@ var formattedTimePlusHour = moment(defaultDate)
   .add(moment.duration(1, "hours"))
   .format("hh:mm a");
 
-class OptionsExample extends Component {
-  constructor() {
-    super(...arguments);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
-    this.state = {
-      exampleText: "",
-      isAPILoaded: false,
-    };
-  }
+const StartDateTimePicker = ({startDate}) => {
+  
 
-  componentDidMount() {
+  return (
+    <DateTimePicker
+      currentDate={startDate}
+      onChange={(newDate) => setStartDate(newDate)}
+      is12Hour={true}
+    />
+  );
+};
 
-    data.subscribe(() => {
-      const { exampleText } = this.state;
+const EndDateTimePicker = ({endDate}) => {
 
-      const isSavingPost = data.select("core/editor").isSavingPost();
-      const isAutosavingPost = data.select("core/editor").isAutosavingPost();
 
-      if (isAutosavingPost) {
-        return;
-      }
+  // const onUpdateDate = ( dateTime ) => {
+  //   console.log("dateTime", dateTime);
+  //   var newDateTime = moment(dateTime).format( 'YYYY-MM-DD HH:mm' );
+  //   setAttributes( { datetime: newDateTime } );
+  // };
 
-      if (!isSavingPost) {
-        return;
-      }
+  return (
+    <DateTimePicker
+      currentDate={endDate}
+      onChange={(newDate) => setEndDate(newDate)}
+      is12Hour={true}
+    />
+  );
+};
 
-      const settings = new window.wp.api.models.Settings({
-        ["cagov_event_detail_example_text"]: exampleText,
-      });
-      settings.save();
-    });
+// class OptionsExample extends Component {
+//   constructor() {
+//     super(...arguments);
 
-    // @TODO This is recommended in guide to this pattern ... but api not registered to window.wp
+//     this.state = {
+//       exampleText: "",
+//       isAPILoaded: false,
+//     };
+//   }
 
-    window.wp.api.loadPromise.then(() => {
-      this.settings = new window.wp.api.models.Settings();
+//   // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
 
-      const { isAPILoaded } = this.state;
+//   componentDidMount() {
 
-      console.log("isAPILoaded", isAPILoaded);
+//     data.subscribe(() => {
+//       const { exampleText } = this.state;
 
-      if (isAPILoaded === false) {
-        this.settings.fetch().then((response) => {
-          console.log("api response", response.cagov_event_detail_example_text);
-          this.setState({
-            exampleText: response.cagov_event_detail_example_text,
-            isAPILoaded: true,
-          }, () => console.log("set the state", this.state));
-        });
-      }
-    });
-  }
+//       const isSavingPost = data.select("core/editor").isSavingPost();
+//       const isAutosavingPost = data.select("core/editor").isAutosavingPost();
 
-  render() {
-    const { exampleText, isAPILoaded } = this.state;
+//       if (isAutosavingPost) {
+//         return;
+//       }
 
-    const { setAttributes } = this.props;
+//       if (!isSavingPost) {
+//         return;
+//       }
 
-    console.log("setAttributes", setAttributes);
+//       const settings = new window.wp.api.models.Settings({
+//         ["cagov_event_detail_example_text"]: exampleText,
+//       });
+//       settings.save();
+//     });
 
-    if (!isAPILoaded) {
-      return (
-        <Placeholder>
-          <Spinner />
-        </Placeholder>
-      );
-    }
+//     // @TODO This is recommended in guide to this pattern ... but api not registered to window.wp
 
-    console.log(this.state);
-    return (
-      <Panel>
-        <PanelBody
-          title={__("Example Meta Box", "cagov_event_detail")}
-          icon="admin-plugins"
-        >
-          <TextControl
-            help={__("This is an example text field.", "cagov-event-detail")}
-            label={__("Example Text", "cagov_event_detail")}
-            onChange={(exampleText) => {
-              this.setState({ exampleText });
-              setAttributes({ exampleText });
-            }}
-            value={exampleText}
-          />
-        </PanelBody>
-      </Panel>
-    );
-  }
-}
+//     window.wp.api.loadPromise.then(() => {
+//       this.settings = new window.wp.api.models.Settings();
+
+//       const { isAPILoaded } = this.state;
+
+//       // console.log("isAPILoaded", isAPILoaded);
+
+//       if (isAPILoaded === false) {
+//         this.settings.fetch().then((response) => {
+//           // console.log("api response", response.cagov_event_detail_example_text);
+//           this.setState({
+//             exampleText: response.cagov_event_detail_example_text,
+//             isAPILoaded: true,
+//           }, () => console.log("set the state", this.state));
+//         });
+//       }
+//     });
+//   }
+
+//   render() {
+//     const { exampleText, isAPILoaded } = this.state;
+
+//     const { setAttributes } = this.props;
+
+//     // console.log("setAttributes", setAttributes);
+
+//     if (!isAPILoaded) {
+//       return (
+//         <Placeholder>
+//           <Spinner />
+//         </Placeholder>
+//       );
+//     }
+
+//     console.log(this.state);
+//     return (
+//       <Panel>
+//         <PanelBody
+//           title={__("Example Meta Box", "cagov_event_detail")}
+//           icon="admin-plugins"
+//         >
+//           <TextControl
+//             help={__("This is an example text field.", "cagov-event-detail")}
+//             label={__("Example Text", "cagov_event_detail")}
+//             onChange={(exampleText) => {
+//               this.setState({ exampleText });
+//               setAttributes({ exampleText });
+//             }}
+//             value={exampleText}
+//           />
+//         </PanelBody>
+//       </Panel>
+//     );
+//   }
+// }
 
 // export default function Edit( props ) {
 // 	return (
@@ -183,8 +225,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     },
   },
   edit: function (props) {
-    const [openDatePopup, setOpenDatePopup] = useState(false);
-    var attributes = props.attributes;
+    const [openDatePopup, setOpenDatePopup] = useState(false); // @TODO unimplemented can re-implement.
 
     const {
       title,
@@ -196,11 +237,15 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       cost,
     } = props.attributes;
 
+    let formattedStartDate = startDate;
+    let formattedEndDate = endDate;
+    let formattedStartTime = startTime;
+    let formattedEndTime = endTime;
+
     // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
-    //
+    // <OptionsExample {...props} />
     return (
       <div {...useBlockProps()}>
-        <OptionsExample {...props} />
         <RichText
           value={title}
           tagName="h2"
@@ -212,16 +257,39 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         <div className="cagov-grid cagov-event-detail cagov-stack cagov-block">
           <div class="detail-section">
             <h4>{__("Date & time", "ca-design-system")}</h4>
+            
+            <div class="startDate">{formattedStartDate}</div>
+            <div class="endDate">{formattedEndDate}</div> <br />
+            <div class="startTime">{formattedStartTime}</div>
+            <div class="endTime">{formattedEndTime}</div>
 
-            <RichText
+            <InspectorControls key="setting">
+              <div id="datetime-controls">
+                <fieldset>
+                  <legend className="blocks-base-control__label">
+                    {__("Start Date & Time", "ca-design-system")}
+                  </legend>
+                  <StartDateTimePicker />
+                </fieldset>
+                <fieldset>
+                  <legend className="blocks-base-control__label">
+                    {__("End Date & Time", "ca-design-system")}
+                  </legend>
+                  <em>End date and time are optional.</em>
+                  <EndDateTimePicker />
+                </fieldset>
+              </div>
+            </InspectorControls>
+
+            {/* <RichText
               value={startDate}
               tagName="div"
               className="startDate"
               value={startDate}
               onChange={(startDate) => props.setAttributes({ startDate })}
               placeholder={__(formattedDate, "ca-design-system")}
-            />
-
+            /> 
+            
             <RichText
               value={endDate}
               tagName="div"
@@ -247,7 +315,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
               value={endTime}
               onChange={(endTime) => props.setAttributes({ endTime })}
               placeholder={__(formattedTimePlusHour, "ca-design-system")}
-            />
+            /> */}
           </div>
           <div class="detail-section">
             <h4>{__("Location", "ca-design-system")}</h4>

@@ -7,6 +7,14 @@
     padding-right: 16px !important;
 }
 
+#datetime-controls legend {
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+
 .cagov-event-detail .startDate {
     display: inline-block;
     font-size: 18px;
