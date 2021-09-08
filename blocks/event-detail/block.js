@@ -45,47 +45,251 @@ const { withState } = compose;
 var __ = i18n.__;
 var el = createElement;
 
-var defaultDate = new Date();
-var formattedDate = moment(defaultDate).format("MMMM DD, YYYY");
-var formattedTime = moment(defaultDate).startOf("hour").format("hh:mm a");
-var formattedTimePlusHour = moment(defaultDate)
-  .startOf("hour")
-  .add(moment.duration(1, "hours"))
-  .format("hh:mm a");
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-
-const StartDateTimePicker = ({startDate}) => {
-  
+const EventDateTimePicker = ({ dateTime, setDateTime }) => {
 
   return (
     <DateTimePicker
-      currentDate={startDate}
-      onChange={(newDate) => setStartDate(newDate)}
+      currentDate={dateTime}
+      onChange={(newDate) => { 
+        console.log("changed date time", newDate);
+        setDateTime(newDate);
+      }}
       is12Hour={true}
     />
   );
 };
 
-const EndDateTimePicker = ({endDate}) => {
 
 
-  // const onUpdateDate = ( dateTime ) => {
-  //   console.log("dateTime", dateTime);
-  //   var newDateTime = moment(dateTime).format( 'YYYY-MM-DD HH:mm' );
-  //   setAttributes( { datetime: newDateTime } );
-  // };
+blocks.registerBlockType("ca-design-system/event-detail", {
+  title: __("Event Detail", "ca-design-system"),
+  icon: "format-aside",
+  category: "ca-design-system-utilities",
+  description: __("Block for details about an event"),
+  attributes: {
+    title: {
+      type: "string",
+      default: "Event Details",
+    },
+    startDateTime: {
+      type: "string",
+      // default: formattedDateTime,
+    },
+    endDateTime: {
+      type: "string",
+      // default: formattedDateTime,
+    },
+    // @TODO may deprecate
+    startDate: {
+      type: "string",
+      // default: formattedDate,
+    },
+    endDate: {
+      type: "string",
+      // default: formattedDate,
+    },
+    startTime: {
+      type: "string",
+      // default: formattedTime
+    },
+    endTime: {
+      type: "string",
+      // default: formattedTimePlusHour
+    },
+    location: {
+      type: "string",
+    },
+    cost: {
+      type: "string",
+    },
+  },
+  example: {
+    attributes: {
+      title: "Event Details",
+    },
+  },
+  edit: function (props) {
+    // const [openDatePopup, setOpenDatePopup] = useState(false); // @TODO unimplemented can re-implement.
 
-  return (
-    <DateTimePicker
-      currentDate={endDate}
-      onChange={(newDate) => setEndDate(newDate)}
-      is12Hour={true}
-    />
-  );
-};
+    const {
+      title,
+      startDateTime,
+      endDateTime,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      location,
+      cost,
+    } = props.attributes;
 
+    // @TODO Validation (start time before)
+    const setStartDateTime = (dateTime) => {
+
+      var formattedStartDate = null;
+      var formattedStartTime = null;
+      if (startDateTime !== null) {
+        formattedStartDate = moment(startDateTime).format("MMMM DD, YYYY");
+        formattedStartTime = moment(startDateTime).format("hh:mm a");
+      }
+
+      props.setAttributes({
+        startDateTime: dateTime,
+        startDate: formattedStartDate,
+        startTime: formattedStartTime,
+      });
+    };
+    
+    const setEndDateTime = (dateTime) => {
+      var formattedEndDate = null;
+      var formattedEndTime = null;
+      if (endDateTime !== null) {
+        formattedEndDate = moment(endDateTime).format("MMMM DD, YYYY");
+        formattedEndTime = moment(endDateTime).format("hh:mm a");
+      }
+
+      props.setAttributes({
+        endDateTime: dateTime,
+        endDate: formattedEndDate,
+        endTime: formattedEndTime,
+      });
+    };
+    
+
+    // let formattedStartDate = startDate;
+    // let formattedEndDate = endDate;
+    // let formattedStartTime = startTime;
+    // let formattedEndTime = endTime;
+
+    return (
+      <div {...useBlockProps()}>
+        <RichText
+          value={title}
+          tagName="h2"
+          className="title"
+          onChange={(title) => props.setAttributes({ title })}
+          placeholder={__("Event Details", "ca-design-system")}
+        />
+
+        <div className="cagov-grid cagov-event-detail cagov-stack cagov-block">
+          <div class="detail-section">
+            <h4>{__("Date & time", "ca-design-system")}</h4>
+            {/** We can make these text strings interactive. */}
+            <div class="startDate">{startDate}</div>
+            <div class="endDate">{endDate}</div> 
+            <br />
+            <div class="startTime">{startTime}</div>
+            <div class="endTime">{endTime}</div>
+
+            <InspectorControls key="setting">
+              <div id="datetime-controls">
+                <fieldset>
+                  <legend className="blocks-base-control__label">
+                    {__("Start Date & Time", "ca-design-system")}
+                  </legend>
+                  <EventDateTimePicker 
+                    dateTime={startDateTime} 
+                    setDateTime={(startDateTime) => setStartDateTime(startDateTime)} 
+                  />
+                </fieldset>
+                <fieldset>
+                  <legend className="blocks-base-control__label">
+                    {__("End Date & Time", "ca-design-system")}
+                  </legend>
+                  <EventDateTimePicker 
+                    dateTime={endDateTime} 
+                    setDateTime={(endDateTime) => setEndDateTime(endDateTime)} 
+                  />
+                </fieldset>
+              </div>
+            </InspectorControls>
+          </div>
+
+          <div class="detail-section">
+            <h4>{__("Location", "ca-design-system")}</h4>
+            <RichText
+              value={location}
+              tagName="div"
+              className="location"
+              value={location}
+              onChange={(location) => props.setAttributes({ location })}
+              placeholder={__("Enter text...", "ca-design-system")}
+            />
+          </div>
+
+          <div class="detail-section">
+            <h4>{__("Cost", "ca-design-system")}</h4>
+            <RichText
+              value={cost}
+              tagName="div"
+              className="cost"
+              value={cost}
+              onChange={(cost) => props.setAttributes({ cost })}
+              placeholder={__("Enter text...", "ca-design-system")}
+            />
+          </div>
+          <div class="detail-section-more-info">
+            {el(InnerBlocks, {
+              orientation: "horizontal",
+              allowedBlocks: ["core/paragraph", "core/button"],
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  },
+  save: function (props) {
+    return el(
+      "div",
+      {
+        className:
+          "wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack",
+      },
+      el(InnerBlocks.Content)
+    );
+  },
+});
+
+// REFERENCE
+
+// Checks we need to do:
+// -
+// https://bebroide.medium.com/how-to-easily-develop-with-react-your-own-custom-fields-within-gutenberg-wordpress-editor-b868c1e193a9
+
+// Sync date and time field with post custom field data.
+// data.subscribe(function () {
+//   var blocks = data.select("core/block-editor").getBlocks();
+
+//   var isPostDirty = data.select("core/editor").isEditedPostDirty();
+//   var isAutosavingPost = data.select("core/editor").isAutosavingPost();
+
+//   if (isPostDirty && !isAutosavingPost) {
+//     blocks.map((block) => {
+//       if (block.name === "ca-design-system/cagov-event-detail") {
+//         let eventDetailBlock = data
+//           .select("core/block-editor")
+//           .getBlocksByClientId(block.clientId);
+
+//         console.log(eventDetailBlock);
+
+//         eventDetailBlock.map((localBlock) => {
+//           if (
+
+//             localBlock.attributes !== undefined &&
+//             localBlock.attributes.label !== null &&
+//             // typeof updatedSelectedCategory[0].name === "string"
+//           ) {
+//             console.log("updating", localBlock);
+
+//           }
+//         });
+//       }
+//     });
+//   }
+// });
+// https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
+// <OptionsExample {...props} />
 // class OptionsExample extends Component {
 //   constructor() {
 //     super(...arguments);
@@ -186,102 +390,14 @@ const EndDateTimePicker = ({endDate}) => {
 // 	);
 // }
 
-blocks.registerBlockType("ca-design-system/event-detail", {
-  title: __("Event Detail", "ca-design-system"),
-  icon: "format-aside",
-  category: "ca-design-system-utilities",
-  description: __("Block for details about an event"),
-  attributes: {
-    title: {
-      type: "string",
-      default: "Event Details",
-    },
-    startDate: {
-      type: "string",
-      // default: formattedDate,
-    },
-    endDate: {
-      type: "string",
-      // default: formattedDate,
-    },
-    startTime: {
-      type: "string",
-      // default: formattedTime
-    },
-    endTime: {
-      type: "string",
-      // default: formattedTimePlusHour
-    },
-    location: {
-      type: "string",
-    },
-    cost: {
-      type: "string",
-    },
-  },
-  example: {
-    attributes: {
-      title: "Event Details",
-    },
-  },
-  edit: function (props) {
-    const [openDatePopup, setOpenDatePopup] = useState(false); // @TODO unimplemented can re-implement.
+// const onUpdateDate = ( dateTime ) => {
+//   console.log("dateTime", dateTime);
+//   var newDateTime = moment(dateTime).format( 'YYYY-MM-DD HH:mm' );
+//   setAttributes( { datetime: newDateTime } );
+// };
 
-    const {
-      title,
-      startDate,
-      endDate,
-      startTime,
-      endTime,
-      location,
-      cost,
-    } = props.attributes;
-
-    let formattedStartDate = startDate;
-    let formattedEndDate = endDate;
-    let formattedStartTime = startTime;
-    let formattedEndTime = endTime;
-
-    // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
-    // <OptionsExample {...props} />
-    return (
-      <div {...useBlockProps()}>
-        <RichText
-          value={title}
-          tagName="h2"
-          className="title"
-          onChange={(title) => props.setAttributes({ title })}
-          placeholder={__("Event Details", "ca-design-system")}
-        />
-
-        <div className="cagov-grid cagov-event-detail cagov-stack cagov-block">
-          <div class="detail-section">
-            <h4>{__("Date & time", "ca-design-system")}</h4>
-            
-            <div class="startDate">{formattedStartDate}</div>
-            <div class="endDate">{formattedEndDate}</div> <br />
-            <div class="startTime">{formattedStartTime}</div>
-            <div class="endTime">{formattedEndTime}</div>
-
-            <InspectorControls key="setting">
-              <div id="datetime-controls">
-                <fieldset>
-                  <legend className="blocks-base-control__label">
-                    {__("Start Date & Time", "ca-design-system")}
-                  </legend>
-                  <StartDateTimePicker />
-                </fieldset>
-                <fieldset>
-                  <legend className="blocks-base-control__label">
-                    {__("End Date & Time", "ca-design-system")}
-                  </legend>
-                  <em>End date and time are optional.</em>
-                  <EndDateTimePicker />
-                </fieldset>
-              </div>
-            </InspectorControls>
-
-            {/* <RichText
+{
+  /* <RichText
               value={startDate}
               tagName="div"
               className="startDate"
@@ -315,87 +431,5 @@ blocks.registerBlockType("ca-design-system/event-detail", {
               value={endTime}
               onChange={(endTime) => props.setAttributes({ endTime })}
               placeholder={__(formattedTimePlusHour, "ca-design-system")}
-            /> */}
-          </div>
-          <div class="detail-section">
-            <h4>{__("Location", "ca-design-system")}</h4>
-
-            <RichText
-              value={location}
-              tagName="div"
-              className="location"
-              value={location}
-              onChange={(location) => props.setAttributes({ location })}
-              placeholder={__("Enter text...", "ca-design-system")}
-            />
-          </div>
-
-          <div class="detail-section">
-            <h4>{__("Cost", "ca-design-system")}</h4>
-
-            <RichText
-              value={cost}
-              tagName="div"
-              className="cost"
-              value={cost}
-              onChange={(cost) => props.setAttributes({ cost })}
-              placeholder={__("Enter text...", "ca-design-system")}
-            />
-          </div>
-          <div class="detail-section-more-info">
-            {el(InnerBlocks, {
-              orientation: "horizontal",
-              allowedBlocks: ["core/paragraph", "core/button"],
-            })}
-          </div>
-        </div>
-      </div>
-    );
-  },
-  save: function (props) {
-    return el(
-      "div",
-      {
-        className:
-          "wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack",
-      },
-      el(InnerBlocks.Content)
-    );
-  },
-
-  // Checks we need to do:
-  // -
-  // https://bebroide.medium.com/how-to-easily-develop-with-react-your-own-custom-fields-within-gutenberg-wordpress-editor-b868c1e193a9
-
-  // Sync date and time field with post custom field data.
-  // data.subscribe(function () {
-  //   var blocks = data.select("core/block-editor").getBlocks();
-
-  //   var isPostDirty = data.select("core/editor").isEditedPostDirty();
-  //   var isAutosavingPost = data.select("core/editor").isAutosavingPost();
-
-  //   if (isPostDirty && !isAutosavingPost) {
-  //     blocks.map((block) => {
-  //       if (block.name === "ca-design-system/cagov-event-detail") {
-  //         let eventDetailBlock = data
-  //           .select("core/block-editor")
-  //           .getBlocksByClientId(block.clientId);
-
-  //         console.log(eventDetailBlock);
-
-  //         eventDetailBlock.map((localBlock) => {
-  //           if (
-
-  //             localBlock.attributes !== undefined &&
-  //             localBlock.attributes.label !== null &&
-  //             // typeof updatedSelectedCategory[0].name === "string"
-  //           ) {
-  //             console.log("updating", localBlock);
-
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }
-  // });
-});
+            /> */
+}

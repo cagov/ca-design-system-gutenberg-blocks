@@ -25,6 +25,36 @@
     text-transform: uppercase;
 }
 
+.cagov-event-detail .start-date {
+    display: inline-block;
+    font-size: 18px;
+}
+
+.cagov-event-detail .end-date::before {
+    content: ' — ';
+}
+
+.cagov-event-detail .end-date {
+    display: inline-block;
+    font-size: 18px;
+}
+
+.cagov-event-detail .start-time {
+    display: inline-block;
+}
+
+.cagov-event-detail .end-time::before {
+    content: ' — ';
+}
+
+.cagov-event-detail .end-time {
+    display: inline-block;
+
+}
+.cagov-event-detail {
+    font-size: 18px;
+}
+
 .cagov-event-detail .detail-section,
 .cagov-event-detail .detail-section-more-info {
     margin-top: 16px;

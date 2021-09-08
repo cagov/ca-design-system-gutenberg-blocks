@@ -81,9 +81,9 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
     $location = isset($block_attributes["location"]) ? $block_attributes["location"] : "";
     $cost = isset($block_attributes["cost"]) ? $block_attributes["cost"] : "";
 
-
-    $example_text = get_option( 'cagov_event_detail_example_text' );
-
+    // Testing API integration
+    // $example_text = get_option( 'cagov_event_detail_example_text' );
+    // '<p class="cagov-event-detail-example">' . $example_text . '</p>' .
 
     // @TODO The text string labels don't belong in this code & need a translated string registry. 
     return '<div class="wp-block-ca-design-system-event-detail-block cagov-event-detail-block cagov-stack">
@@ -95,8 +95,6 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
             cagov_event_detail_get_cost_block($string_cost, $cost) .
             cagov_event_detail_get_more_info_block($block_attributes, $content) .
         '</div>' .
-
-        '<p class="cagov-event-detail-example">' . $example_text . '</p>' .
         '</div>
     </div>';
 }
@@ -111,7 +109,7 @@ function cagov_event_detail_get_date_time_block($string_date_time, $startDate, $
             <span class="start-date field-data">' . $startDate . '</span>' .
             '<span class="end-date field-data">' . $endDate . '</span>' .
             '</div>';
-    } else if ("" !== $startDate && "" === $endDate) {
+    } else if ("" !== $startDate && $startDate === $endDate) {
         $block_date = '<div class="start-date">
             <span class="start-date field-data">' . $startDate . '</span>' .
             '</div>';
@@ -120,10 +118,10 @@ function cagov_event_detail_get_date_time_block($string_date_time, $startDate, $
     $block_time = "";
     if ("" !== $startTime && "" !== $endTime) {
         $block_time = '<div class="start-time">
-            <span class="start-time field-data">' . $startTime . '</span> — 
+            <span class="start-time field-data">' . $startTime . '</span>
             <span class="end-time field-data">' . $endTime . '</span>
         </div>';
-    } else if ("" !== $startTime && "" === $endTime) {
+    } else if ("" !== $startTime && $startTime && $endTime) {
         $block_time = '<div class="start-time">
             <span class="start-time field-data">' . $startTime . '</span>
         </div>';

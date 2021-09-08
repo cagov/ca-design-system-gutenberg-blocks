@@ -14,6 +14,18 @@
     margin-right: 16px;
 }
 
+#datetime-controls .legend-label {
+    font-style: italic;
+    margin: 16px;
+}
+
+.cagov-event-detail .startTime {
+    text-transform: uppercase;
+}
+
+.cagov-event-detail .endTime {
+    text-transform: uppercase;
+}
 
 .cagov-event-detail .startDate {
     display: inline-block;
