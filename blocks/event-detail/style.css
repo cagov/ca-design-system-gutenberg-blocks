@@ -25,7 +25,8 @@
     text-transform: uppercase;
 }
 
-.cagov-event-detail .detail-section {
+.cagov-event-detail .detail-section,
+.cagov-event-detail .detail-section-more-info {
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid #EDEDEF;

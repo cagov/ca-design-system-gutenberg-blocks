@@ -38,13 +38,10 @@ function cagov_add_meta_boxes()
  */
 function cagov_page_identifier_metabox_callback($post)
 {
+    // @NOTE: We may move this around & try to associate this with a press release pattern
     $custom_post_link = get_post_meta($post->ID, '_ca_custom_post_link', true);
     $custom_post_date = get_post_meta($post->ID, '_ca_custom_post_date', true);
     $custom_post_location = get_post_meta($post->ID, '_ca_custom_post_location', true);
-    $custom_event_date = get_post_meta($post->ID, '_ca_custom_event_date', true);
-    $custom_event_end_date = get_post_meta($post->ID, '_ca_custom_event_end_date', true);
-    $custom_event_start_time = get_post_meta($post->ID, '_ca_custom_event_start_time', true);
-    $custom_event_end_time = get_post_meta($post->ID, '_ca_custom_event_end_time', true);
 
     if ('' === get_post_meta($post->ID, '_ca_custom_post_link', true)) {
         update_post_meta($post->ID, '_ca_custom_post_link', get_option('_ca_custom_post_link'));
@@ -58,27 +55,8 @@ function cagov_page_identifier_metabox_callback($post)
         update_post_meta($post->ID, '_ca_custom_post_location', get_option('_ca_custom_post_location'));
     }
 
-    if ('' === get_post_meta($post->ID, '_ca_custom_event_date', true)) {
-        update_post_meta($post->ID, '_ca_custom_event_date', get_option('_ca_custom_event_date'));
-    }
-
-    if ('' === get_post_meta($post->ID, '_ca_custom_event_end_date', true)) {
-        update_post_meta($post->ID, '_ca_custom_event_end_date', get_option('_ca_custom_event_end_date'));
-    }
-
-    if ('' === get_post_meta($post->ID, '_ca_custom_event_start_time', true)) {
-        update_post_meta($post->ID, '_ca_custom_event_start_time', get_option('_ca_custom_event_start_time'));
-    }
-
-    if ('' === get_post_meta($post->ID, '_ca_custom_event_end_time', true)) {
-        update_post_meta($post->ID, '_ca_custom_event_end_time', get_option('_ca_custom_event_end_time'));
-    }
-
     wp_nonce_field(basename(__FILE__), 'cagov_page_meta_item_identifier_nonce');
 ?>
-
-    <p>Data for posts can be set here or in block pattern.</p> 
-
 
     <label for="ca_custom_post_link">Post redirects to URL</label><br />
     <input type="text" id="ca_custom_post_link" name="ca_custom_post_link" value="<?php print $custom_post_link; ?>" /><br />
@@ -90,18 +68,6 @@ function cagov_page_identifier_metabox_callback($post)
 
     <label for="ca_custom_post_location">Post location</label><br />
     <input type="text" id="ca_custom_post_location" name="ca_custom_post_location" value="<?php print $custom_post_location; ?>" /><br />
-
-    <label for="ca_custom_event_date">Event start date</label><br />
-    <input type="text" id="ca_custom_event_date" name="ca_custom_event_date" value="<?php print $custom_event_date; ?>" /><br />
-
-    <label for="ca_custom_event_end_date">Event end date</label><br />
-    <input type="text" id="ca_custom_event_end_date" name="ca_custom_event_end_date" value="<?php print $custom_event_end_date; ?>" /><br />
-
-    <label for="ca_custom_event_start_time">Event start time</label><br />
-    <input type="text" id="ca_custom_event_start_time" name="ca_custom_event_start_time" value="<?php print $custom_event_start_time; ?>" /><br />
-
-    <label for="ca_custom_event_end_time">Event end time</label><br />
-    <input type="text" id="ca_custom_event_end_time" name="ca_custom_event_end_time" value="<?php print $custom_event_end_time; ?>" /><br />
     
 <?php
 }
@@ -133,7 +99,6 @@ function cagov_save_post($post_id, $post)
         return $post_id;
     }
 
-
     $ca_custom_post_link = isset($_POST['ca_custom_post_link']) ? sanitize_text_field(wp_unslash($_POST['ca_custom_post_link'])) : '';
 
     update_post_meta($post->ID, '_ca_custom_post_link', $ca_custom_post_link);
@@ -147,23 +112,5 @@ function cagov_save_post($post_id, $post)
     $ca_custom_post_location = isset($_POST['ca_custom_post_location']) ? sanitize_text_field(wp_unslash($_POST['ca_custom_post_location'])) : '';
 
     update_post_meta($post->ID, '_ca_custom_post_location', $ca_custom_post_location);
-
-
-    $ca_custom_event_date = isset($_POST['ca_custom_event_date']) ? sanitize_text_field(wp_unslash($_POST['ca_custom_event_date'])) : '';
-
-    update_post_meta($post->ID, '_ca_custom_event_date', $ca_custom_event_date);
-
-    $ca_custom_event_end_date = isset($_POST['ca_custom_event_end_date']) ? sanitize_text_field(wp_unslash($_POST['ca_custom_event_end_date'])) : '';
-
-    update_post_meta($post->ID, '_ca_custom_event_end_date', $ca_custom_event_end_date);
-
-
-    $ca_custom_event_start_time = isset($_POST['ca_custom_event_start_time']) ? sanitize_text_field(wp_unslash($_POST['ca_custom_event_start_time'])) : '';
-
-    update_post_meta($post->ID, '_ca_custom_event_start_time', $ca_custom_event_start_time);
-
-    $ca_custom_event_end_time = isset($_POST['ca_custom_event_end_time']) ? sanitize_text_field(wp_unslash($_POST['ca_custom_event_end_time'])) : '';
-
-    update_post_meta($post->ID, '_ca_custom_event_end_time', $ca_custom_event_end_time);
 }
 ?>
