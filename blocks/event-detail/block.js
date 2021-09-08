@@ -1,9 +1,10 @@
 /**
  * CAGov Event Detail
- * Developer note: Reminder to run npm start & npm run build to generate this component.
+ * Developer note:
+ * Reminder to run npm start & npm run build to generate this component  (wp-scripts build also works)
  */
 
- const {
+const {
   blocks,
   blockEditor,
   i18n,
@@ -12,7 +13,6 @@
   date,
   data,
   compose,
-  api
 } = wp;
 const { moment, _ } = window;
 
@@ -27,11 +27,11 @@ const {
   Panel,
   PanelBody,
   Placeholder,
-	Spinner,
+  Spinner,
 } = components;
 
 const { Fragment, useState, useEffect, createElement, Component } = element;
-const { InspectorControls, RichText, InnerBlocks } = blockEditor;
+const { InspectorControls, RichText, InnerBlocks, useBlockProps } = blockEditor;
 const { useSelect, useDispatch } = data;
 const { withState } = compose;
 
@@ -40,66 +40,73 @@ var el = createElement;
 
 var defaultDate = new Date();
 var formattedDate = moment(defaultDate).format("MMMM DD, YYYY");
-var formattedTime = moment(defaultDate).startOf('hour').format("hh:mm a");
-var formattedTimePlusHour = moment(defaultDate).startOf('hour').add(moment.duration(1, 'hours')).format("hh:mm a");
+var formattedTime = moment(defaultDate).startOf("hour").format("hh:mm a");
+var formattedTimePlusHour = moment(defaultDate)
+  .startOf("hour")
+  .add(moment.duration(1, "hours"))
+  .format("hh:mm a");
 
 class OptionsExample extends Component {
-	constructor() {
-		super( ...arguments );
-		this.state = { 
-      exampleText: '',
+  constructor() {
+    super(...arguments);
+
+    this.state = {
+      exampleText: "",
       isAPILoaded: false,
-     };
-	}
+    };
+  }
 
   componentDidMount() {
 
-    data.subscribe( () => {
+    data.subscribe(() => {
       const { exampleText } = this.state;
-    
-      const isSavingPost = data.select('core/editor').isSavingPost();
-      const isAutosavingPost = data.select('core/editor').isAutosavingPost();
-    
-      if ( isAutosavingPost ) {
+
+      const isSavingPost = data.select("core/editor").isSavingPost();
+      const isAutosavingPost = data.select("core/editor").isAutosavingPost();
+
+      if (isAutosavingPost) {
         return;
       }
-    
-      if ( ! isSavingPost ) {
+
+      if (!isSavingPost) {
         return;
       }
-    
-      const settings = new api.models.Settings( {
-        [ 'cagov_event_detail_example_text' ]: exampleText,
-      } );
+
+      const settings = new window.wp.api.models.Settings({
+        ["cagov_event_detail_example_text"]: exampleText,
+      });
       settings.save();
     });
 
+    // @TODO This is recommended in guide to this pattern ... but api not registered to window.wp
 
-    api.loadPromise.then( () => {
-      this.settings = new api.models.Settings();
-      
+    window.wp.api.loadPromise.then(() => {
+      this.settings = new window.wp.api.models.Settings();
+
       const { isAPILoaded } = this.state;
-  
-      if ( isAPILoaded === false ) {
-        this.settings.fetch().then( ( response ) => {
-          this.setState( {
-            exampleText: response[ 'cagov_event_detail_plugin_example_text' ],
+
+      console.log("isAPILoaded", isAPILoaded);
+
+      if (isAPILoaded === false) {
+        this.settings.fetch().then((response) => {
+          console.log("api response", response.cagov_event_detail_example_text);
+          this.setState({
+            exampleText: response.cagov_event_detail_example_text,
             isAPILoaded: true,
-          } );
-        } );
+          }, () => console.log("set the state", this.state));
+        });
       }
-    } );
+    });
   }
 
-	render() {
-		const {
-      exampleText,
-      isAPILoaded,
-    } = this.state;
-    
+  render() {
+    const { exampleText, isAPILoaded } = this.state;
+
     const { setAttributes } = this.props;
 
-    if ( ! isAPILoaded ) {
+    console.log("setAttributes", setAttributes);
+
+    if (!isAPILoaded) {
       return (
         <Placeholder>
           <Spinner />
@@ -107,22 +114,26 @@ class OptionsExample extends Component {
       );
     }
 
-		return (
-			<Panel>
-				<PanelBody
-					title={ __( 'Example Meta Box', 'cagov_event_detail' ) }
-					icon="admin-plugins"
-				>
-					<TextControl
-						help={ __( 'This is an example text field.', 'cagov-event-detail' ) }
-						label={ __( 'Example Text', 'cagov_event_detail' ) }
-						onChange={ ( exampleText ) => { this.setState( { exampleText } ); setAttributes( { exampleText } ) } }
-						value={ exampleText }
-					/>
-				</PanelBody>
-			</Panel>
-		)
-	}
+    console.log(this.state);
+    return (
+      <Panel>
+        <PanelBody
+          title={__("Example Meta Box", "cagov_event_detail")}
+          icon="admin-plugins"
+        >
+          <TextControl
+            help={__("This is an example text field.", "cagov-event-detail")}
+            label={__("Example Text", "cagov_event_detail")}
+            onChange={(exampleText) => {
+              this.setState({ exampleText });
+              setAttributes({ exampleText });
+            }}
+            value={exampleText}
+          />
+        </PanelBody>
+      </Panel>
+    );
+  }
 }
 
 // export default function Edit( props ) {
@@ -164,24 +175,32 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     },
     cost: {
       type: "string",
-    }
+    },
   },
   example: {
     attributes: {
-      title: "Event Details"
+      title: "Event Details",
     },
   },
   edit: function (props) {
-
     const [openDatePopup, setOpenDatePopup] = useState(false);
     var attributes = props.attributes;
 
-    const { title, startDate, endDate, startTime, endTime, location, cost } = props.attributes;
+    const {
+      title,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      location,
+      cost,
+    } = props.attributes;
 
     // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
-
+    //
     return (
-      <div>
+      <div {...useBlockProps()}>
+        <OptionsExample {...props} />
         <RichText
           value={title}
           tagName="h2"
@@ -231,7 +250,6 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             />
           </div>
           <div class="detail-section">
-
             <h4>{__("Location", "ca-design-system")}</h4>
 
             <RichText
@@ -242,7 +260,6 @@ blocks.registerBlockType("ca-design-system/event-detail", {
               onChange={(location) => props.setAttributes({ location })}
               placeholder={__("Enter text...", "ca-design-system")}
             />
-
           </div>
 
           <div class="detail-section">
@@ -256,15 +273,12 @@ blocks.registerBlockType("ca-design-system/event-detail", {
               onChange={(cost) => props.setAttributes({ cost })}
               placeholder={__("Enter text...", "ca-design-system")}
             />
-
           </div>
           <div class="detail-section-more-info">
-            {el(InnerBlocks,
-              {
-                orientation: 'horizontal',
-                allowedBlocks: ["core/paragraph", "core/button"],
-              }
-            )}
+            {el(InnerBlocks, {
+              orientation: "horizontal",
+              allowedBlocks: ["core/paragraph", "core/button"],
+            })}
           </div>
         </div>
       </div>
@@ -272,14 +286,17 @@ blocks.registerBlockType("ca-design-system/event-detail", {
   },
   save: function (props) {
     return el(
-      'div',
-      { className: 'wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack' },
+      "div",
+      {
+        className:
+          "wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack",
+      },
       el(InnerBlocks.Content)
     );
-  }
+  },
 
   // Checks we need to do:
-  // - 
+  // -
   // https://bebroide.medium.com/how-to-easily-develop-with-react-your-own-custom-fields-within-gutenberg-wordpress-editor-b868c1e193a9
 
   // Sync date and time field with post custom field data.
@@ -297,23 +314,20 @@ blocks.registerBlockType("ca-design-system/event-detail", {
   //           .getBlocksByClientId(block.clientId);
 
   //         console.log(eventDetailBlock);
-        
 
   //         eventDetailBlock.map((localBlock) => {
   //           if (
-      
+
   //             localBlock.attributes !== undefined &&
   //             localBlock.attributes.label !== null &&
   //             // typeof updatedSelectedCategory[0].name === "string"
   //           ) {
   //             console.log("updating", localBlock);
 
-   
   //           }
   //         });
   //       }
   //     });
   //   }
   // });
-
 });

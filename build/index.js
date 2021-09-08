@@ -90,15 +90,13 @@
 /*!**************************************!*\
   !*** ./blocks/event-detail/block.js ***!
   \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Edit; });
 /**
  * CAGov Event Detail
- * Developer note: Reminder to run npm start & npm run build to generate this component.
+ * Developer note:
+ * Reminder to run npm start & npm run build to generate this component  (wp-scripts build also works)
  */
 const {
   blocks,
@@ -108,8 +106,7 @@ const {
   components,
   date,
   data,
-  compose,
-  api
+  compose
 } = wp;
 const {
   moment,
@@ -140,7 +137,8 @@ const {
 const {
   InspectorControls,
   RichText,
-  InnerBlocks
+  InnerBlocks,
+  useBlockProps
 } = blockEditor;
 const {
   useSelect,
@@ -153,14 +151,14 @@ var __ = i18n.__;
 var el = createElement;
 var defaultDate = new Date();
 var formattedDate = moment(defaultDate).format("MMMM DD, YYYY");
-var formattedTime = moment(defaultDate).startOf('hour').format("hh:mm a");
-var formattedTimePlusHour = moment(defaultDate).startOf('hour').add(moment.duration(1, 'hours')).format("hh:mm a");
+var formattedTime = moment(defaultDate).startOf("hour").format("hh:mm a");
+var formattedTimePlusHour = moment(defaultDate).startOf("hour").add(moment.duration(1, "hours")).format("hh:mm a");
 
 class OptionsExample extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      exampleText: '',
+      exampleText: "",
       isAPILoaded: false
     };
   }
@@ -170,8 +168,8 @@ class OptionsExample extends Component {
       const {
         exampleText
       } = this.state;
-      const isSavingPost = data.select('core/editor').isSavingPost();
-      const isAutosavingPost = data.select('core/editor').isAutosavingPost();
+      const isSavingPost = data.select("core/editor").isSavingPost();
+      const isAutosavingPost = data.select("core/editor").isAutosavingPost();
 
       if (isAutosavingPost) {
         return;
@@ -181,23 +179,26 @@ class OptionsExample extends Component {
         return;
       }
 
-      const settings = new api.models.Settings({
-        ['cagov_event_detail_example_text']: exampleText
+      const settings = new window.wp.api.models.Settings({
+        ["cagov_event_detail_example_text"]: exampleText
       });
       settings.save();
-    });
-    api.loadPromise.then(() => {
-      this.settings = new api.models.Settings();
+    }); // @TODO This is recommended in guide to this pattern ... but api not registered to window.wp
+
+    window.wp.api.loadPromise.then(() => {
+      this.settings = new window.wp.api.models.Settings();
       const {
         isAPILoaded
       } = this.state;
+      console.log("isAPILoaded", isAPILoaded);
 
       if (isAPILoaded === false) {
         this.settings.fetch().then(response => {
+          console.log("api response", response.cagov_event_detail_example_text);
           this.setState({
-            exampleText: response['cagov_event_detail_plugin_example_text'],
+            exampleText: response.cagov_event_detail_example_text,
             isAPILoaded: true
-          });
+          }, () => console.log("set the state", this.state));
         });
       }
     });
@@ -211,17 +212,19 @@ class OptionsExample extends Component {
     const {
       setAttributes
     } = this.props;
+    console.log("setAttributes", setAttributes);
 
     if (!isAPILoaded) {
       return createElement(Placeholder, null, createElement(Spinner, null));
     }
 
+    console.log(this.state);
     return createElement(Panel, null, createElement(PanelBody, {
-      title: __('Example Meta Box', 'cagov_event_detail'),
+      title: __("Example Meta Box", "cagov_event_detail"),
       icon: "admin-plugins"
     }, createElement(TextControl, {
-      help: __('This is an example text field.', 'cagov-event-detail'),
-      label: __('Example Text', 'cagov_event_detail'),
+      help: __("This is an example text field.", "cagov-event-detail"),
+      label: __("Example Text", "cagov_event_detail"),
       onChange: exampleText => {
         this.setState({
           exampleText
@@ -234,11 +237,15 @@ class OptionsExample extends Component {
     })));
   }
 
-}
+} // export default function Edit( props ) {
+// 	return (
+// 		<div { ...useBlockProps() }>
+// 			<OptionsExample { ...props }/>
+// 		</div>
+// 	);
+// }
 
-function Edit(props) {
-  return createElement("div", useBlockProps(), createElement(OptionsExample, props));
-}
+
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
   icon: "format-aside",
@@ -289,8 +296,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       location,
       cost
     } = props.attributes; // https://developer.wordpress.org/block-editor/reference-guides/components/date-time/
+    //
 
-    return createElement("div", null, createElement(RichText, {
+    return createElement("div", useBlockProps(), createElement(OptionsExample, props), createElement(RichText, {
       value: title,
       tagName: "h2",
       className: "title",
@@ -363,16 +371,16 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     })), createElement("div", {
       class: "detail-section-more-info"
     }, el(InnerBlocks, {
-      orientation: 'horizontal',
+      orientation: "horizontal",
       allowedBlocks: ["core/paragraph", "core/button"]
     }))));
   },
   save: function (props) {
-    return el('div', {
-      className: 'cagov-grid cagov-event-detail cagov-stack cagov-block'
+    return el("div", {
+      className: "wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack"
     }, el(InnerBlocks.Content));
   } // Checks we need to do:
-  // - 
+  // -
   // https://bebroide.medium.com/how-to-easily-develop-with-react-your-own-custom-fields-within-gutenberg-wordpress-editor-b868c1e193a9
   // Sync date and time field with post custom field data.
   // data.subscribe(function () {
@@ -528,6 +536,7 @@ blocks.registerBlockType("ca-design-system/event-materials", {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../blocks/event-detail/block.js */ "./blocks/event-detail/block.js");
+/* harmony import */ var _blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_blocks_event_detail_block_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _blocks_event_materials_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../blocks/event-materials/block.js */ "./blocks/event-materials/block.js");
 /* harmony import */ var _blocks_event_materials_block_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_blocks_event_materials_block_js__WEBPACK_IMPORTED_MODULE_1__);
 // Build ES-Next Gutenberg Blocks

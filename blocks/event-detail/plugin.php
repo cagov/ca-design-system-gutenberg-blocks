@@ -41,8 +41,12 @@ function cagov_register_event_detail()
         filemtime(plugin_dir_path(__FILE__) . 'editor.css')
     );
 
-    include_once plugin_dir_path(__FILE__) .  '/meta.php';
+    // include_once plugin_dir_path(__FILE__) .  '/meta.php';
     // cagov_event_detail_meta_init(); // Initialize meta content & backend field support.
+
+    wp_enqueue_script( 'wp-api' ); // Make the wp-api available directly
+    // wp_enqueue_script( 'my_script', 'path/to/my/script', array( 'wp-api' ) ); (Alt: dependency)
+
 
     register_block_type('ca-design-system/event-detail', array(
         'style' => 'ca-design-system-event-detail-style',
