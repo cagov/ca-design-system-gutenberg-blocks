@@ -152,6 +152,8 @@ const {
 var __ = i18n.__;
 var el = createElement;
 
+const AddToCalendar = ({}) => {};
+
 const EventDateTimePicker = ({
   dateTime,
   setDateTime
@@ -176,11 +178,11 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       type: "string",
       default: "Event Details"
     },
-    startDateTime: {
-      type: "string" // default: formattedDateTime,
+    startDateTimeUTC: {
+      type: "string" // default: formattedDateTime, // In UTC
 
     },
-    endDateTime: {
+    endDateTimeUTC: {
       type: "string" // default: formattedDateTime,
 
     },
@@ -201,6 +203,14 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       type: "string" // default: formattedTimePlusHour
 
     },
+    localTimezone: {
+      type: "string" // default: formattedTimePlusHour
+
+    },
+    localTimezoneLabel: {
+      type: "string" // default: formattedTimePlusHour
+
+    },
     location: {
       type: "string"
     },
@@ -217,29 +227,34 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     // const [openDatePopup, setOpenDatePopup] = useState(false); // @TODO unimplemented can re-implement.
     const {
       title,
-      startDateTime,
-      endDateTime,
+      startDateTimeUTC,
+      endDateTimeUTC,
       startDate,
       endDate,
       startTime,
       endTime,
+      localTimezone,
+      localTimezoneLabel,
       location,
       cost
     } = props.attributes; // @TODO Validation (start time before)
 
     const setStartDateTime = dateTime => {
+      // @TODO TZ settings & label
       var formattedStartDate = null;
       var formattedStartTime = null;
 
       if (dateTime !== null) {
-        formattedStartDate = moment(startDateTime).format("MMMM DD, YYYY");
-        formattedStartTime = moment(startDateTime).format("hh:mm a");
+        formattedStartDate = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("MMMM DD, YYYY");
+        formattedStartTime = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("hh:mm a");
       }
 
       props.setAttributes({
-        startDateTime: dateTime,
+        startDateTimeUTC: dateTime,
         startDate: formattedStartDate,
-        startTime: formattedStartTime
+        startTime: formattedStartTime,
+        localTimezone: 'America/Los_Angeles',
+        localTimezoneLabel: 'PST'
       });
     };
 
@@ -248,12 +263,12 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       var formattedEndTime = null;
 
       if (dateTime !== null) {
-        formattedEndDate = moment(endDateTime).format("MMMM DD, YYYY");
-        formattedEndTime = moment(endDateTime).format("hh:mm a");
+        formattedEndDate = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("MMMM DD, YYYY");
+        formattedEndTime = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("hh:mm a");
       }
 
       props.setAttributes({
-        endDateTime: dateTime,
+        endDateTimeUTC: dateTime,
         endDate: formattedEndDate,
         endTime: formattedEndTime
       });
@@ -273,26 +288,28 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       class: "detail-section"
     }, createElement("h4", null, __("Date & time", "ca-design-system")), createElement("div", {
       class: "startDate"
-    }, startDate), endDate !== startDate && endDate !== null && createElement("div", {
+    }, startDate !== null ? startDate : __("Choose date in block settings", "ca-design-system")), endDate !== startDate && endDate !== null && createElement("div", {
       class: "endDate"
     }, endDate), createElement("br", null), createElement("div", {
       class: "startTime"
     }, startTime), endTime !== startTime && endTime !== null && createElement("div", {
       class: "endTime"
-    }, endTime), createElement(InspectorControls, {
+    }, endTime), createElement("div", {
+      class: "timezone-label"
+    }, localTimezoneLabel), createElement(InspectorControls, {
       key: "setting"
     }, createElement("div", {
       id: "datetime-controls"
     }, createElement("fieldset", null, createElement("legend", {
       className: "blocks-base-control__label"
     }, __("Start Date & Time", "ca-design-system")), createElement(EventDateTimePicker, {
-      dateTime: startDateTime,
-      setDateTime: startDateTime => setStartDateTime(startDateTime)
+      dateTime: startDateTimeUTC,
+      setDateTime: startDateTimeUTC => setStartDateTime(startDateTimeUTC)
     })), createElement("fieldset", null, createElement("legend", {
       className: "blocks-base-control__label"
     }, __("End Date & Time", "ca-design-system")), createElement(EventDateTimePicker, {
-      dateTime: endDateTime,
-      setDateTime: endDateTime => setEndDateTime(endDateTime)
+      dateTime: endDateTimeUTC,
+      setDateTime: endDateTimeUTC => setEndDateTime(endDateTimeUTC)
     }))))), createElement("div", {
       class: "detail-section"
     }, createElement("h4", null, __("Location", "ca-design-system")), createElement(RichText, {

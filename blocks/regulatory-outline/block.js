@@ -7,14 +7,14 @@
     'core/list',
     [
       {
-        name: 'step-list',
-        title: 'Step list',
+        name: 'regulatory-outline',
+        title: 'Regulatory outline',
         attributes: {
-          className: 'step-list'
+          className: 'regulatory-outline'
         },
         icon: "format-aside",
         category: 'ca-design-system',
-        description: "List styling for a process list.", 
+        description: "List styling for a regulatory outline", 
     }
     ]
   );

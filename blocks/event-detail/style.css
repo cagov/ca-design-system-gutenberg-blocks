@@ -25,6 +25,10 @@
     text-transform: uppercase;
 }
 
+.cagov-event-detail .timezone-label {
+    padding-left: 8px;
+}
+
 .cagov-event-detail .start-date {
     display: inline-block;
     font-size: 18px;

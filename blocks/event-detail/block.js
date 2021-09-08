@@ -45,6 +45,10 @@ const { withState } = compose;
 var __ = i18n.__;
 var el = createElement;
 
+const AddToCalendar = ({}) => {
+
+};
+
 
 const EventDateTimePicker = ({ dateTime, setDateTime }) => {
 
@@ -60,8 +64,6 @@ const EventDateTimePicker = ({ dateTime, setDateTime }) => {
   );
 };
 
-
-
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
   icon: "format-aside",
@@ -72,11 +74,11 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       type: "string",
       default: "Event Details",
     },
-    startDateTime: {
+    startDateTimeUTC: {
       type: "string",
-      // default: formattedDateTime,
+      // default: formattedDateTime, // In UTC
     },
-    endDateTime: {
+    endDateTimeUTC: {
       type: "string",
       // default: formattedDateTime,
     },
@@ -97,6 +99,14 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       type: "string",
       // default: formattedTimePlusHour
     },
+    localTimezone: {
+      type: "string",
+      // default: formattedTimePlusHour
+    },
+    localTimezoneLabel: {
+      type: "string",
+      // default: formattedTimePlusHour
+    },
     location: {
       type: "string",
     },
@@ -114,30 +124,37 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
     const {
       title,
-      startDateTime,
-      endDateTime,
+      startDateTimeUTC,
+      endDateTimeUTC,
       startDate,
       endDate,
       startTime,
       endTime,
+      localTimezone,
+      localTimezoneLabel,
       location,
       cost,
     } = props.attributes;
 
     // @TODO Validation (start time before)
     const setStartDateTime = (dateTime) => {
+      
+      // @TODO TZ settings & label
 
       var formattedStartDate = null;
       var formattedStartTime = null;
       if (dateTime !== null) {
-        formattedStartDate = moment(startDateTime).format("MMMM DD, YYYY");
-        formattedStartTime = moment(startDateTime).format("hh:mm a");
+        formattedStartDate = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("MMMM DD, YYYY");
+        formattedStartTime = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("hh:mm a");
       }
 
+
       props.setAttributes({
-        startDateTime: dateTime,
+        startDateTimeUTC: dateTime,
         startDate: formattedStartDate,
         startTime: formattedStartTime,
+        localTimezone: 'America/Los_Angeles',
+        localTimezoneLabel: 'PST',
       });
     };
     
@@ -145,12 +162,12 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       var formattedEndDate = null;
       var formattedEndTime = null;
       if (dateTime !== null) {
-        formattedEndDate = moment(endDateTime).format("MMMM DD, YYYY");
-        formattedEndTime = moment(endDateTime).format("hh:mm a");
+        formattedEndDate = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("MMMM DD, YYYY");
+        formattedEndTime = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("hh:mm a");
       }
 
       props.setAttributes({
-        endDateTime: dateTime,
+        endDateTimeUTC: dateTime,
         endDate: formattedEndDate,
         endTime: formattedEndTime,
       });
@@ -171,11 +188,12 @@ blocks.registerBlockType("ca-design-system/event-detail", {
           <div class="detail-section">
             <h4>{__("Date & time", "ca-design-system")}</h4>
             {/** We can make these text strings interactive. */}
-            <div class="startDate">{startDate}</div>
+            <div class="startDate">{startDate !== null ? startDate : __("Choose date in block settings", "ca-design-system")}</div>
             {endDate !== startDate && endDate !== null && <div class="endDate">{endDate}</div>}
             <br />
             <div class="startTime">{startTime}</div>
             {endTime !== startTime && endTime !== null && <div class="endTime">{endTime}</div>}
+            <div class="timezone-label">{localTimezoneLabel}</div>
 
             <InspectorControls key="setting">
               <div id="datetime-controls">
@@ -184,8 +202,8 @@ blocks.registerBlockType("ca-design-system/event-detail", {
                     {__("Start Date & Time", "ca-design-system")}
                   </legend>
                   <EventDateTimePicker 
-                    dateTime={startDateTime} 
-                    setDateTime={(startDateTime) => setStartDateTime(startDateTime)} 
+                    dateTime={startDateTimeUTC} 
+                    setDateTime={(startDateTimeUTC) => setStartDateTime(startDateTimeUTC)} 
                   />
                 </fieldset>
                 <fieldset>
@@ -193,8 +211,8 @@ blocks.registerBlockType("ca-design-system/event-detail", {
                     {__("End Date & Time", "ca-design-system")}
                   </legend>
                   <EventDateTimePicker 
-                    dateTime={endDateTime} 
-                    setDateTime={(endDateTime) => setEndDateTime(endDateTime)} 
+                    dateTime={endDateTimeUTC} 
+                    setDateTime={(endDateTimeUTC) => setEndDateTime(endDateTimeUTC)} 
                   />
                 </fieldset>
               </div>

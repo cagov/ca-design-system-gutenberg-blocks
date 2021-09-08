@@ -45,6 +45,11 @@
     display: inline-block;
 }
 
+.cagov-event-detail .timezone-label {
+    display: inline-block;
+    padding-left: 8px;
+}
+
 .cagov-event-detail .endTime::before {
     content: ' — ';
 }

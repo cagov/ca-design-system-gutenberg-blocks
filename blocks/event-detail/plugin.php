@@ -74,10 +74,14 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
     $string_location = "Location";
     $string_cost = "Cost";
     $title = isset($block_attributes["title"]) ? $block_attributes["title"] : "Event Details";
+    $startDateTimeUTC = isset($block_attributes["startDateTimeUTC"]) ? $block_attributes["startDateTimeUTC"] : "";
+    $endDateTimeUTC = isset($block_attributes["endDateTimeUTC"]) ? $block_attributes["endDateTimeUTC"] : "";
     $startDate = isset($block_attributes["startDate"]) ? $block_attributes["startDate"] : "";
     $endDate = isset($block_attributes["endDate"]) ? $block_attributes["endDate"] : "";
     $startTime = isset($block_attributes["startTime"]) ? $block_attributes["startTime"] : "";
     $endTime = isset($block_attributes["endTime"]) ? $block_attributes["endTime"] : "";
+    $localTimezone = isset($block_attributes["localTimezone"]) ? $block_attributes["localTimezone"] : "";
+    $localTimezoneLabel = isset($block_attributes["localTimezoneLabel"]) ? $block_attributes["localTimezoneLabel"] : "";
     $location = isset($block_attributes["location"]) ? $block_attributes["location"] : "";
     $cost = isset($block_attributes["cost"]) ? $block_attributes["cost"] : "";
 
@@ -90,7 +94,7 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
         <div>
             <h3>' . $title . '</h3>
             <div class="wp-block-ca-design-system-event-detail cagov-event-detail cagov-stack">' .
-            cagov_event_detail_get_date_time_block($string_date_time, $startDate, $endDate, $startTime, $endTime) .
+            cagov_event_detail_get_date_time_block($string_date_time, $startDate, $endDate, $startTime, $endTime, $localTimezoneLabel) .
             cagov_event_detail_get_location_block($string_location, $location) .
             cagov_event_detail_get_cost_block($string_cost, $cost) .
             cagov_event_detail_get_more_info_block($block_attributes, $content) .
@@ -99,10 +103,9 @@ function cagov_event_detail_dynamic_render_callback($block_attributes, $content)
     </div>';
 }
 
-function cagov_event_detail_get_date_time_block($string_date_time, $startDate, $endDate, $startTime, $endTime)
+function cagov_event_detail_get_date_time_block($string_date_time, $startDate, $endDate, $startTime, $endTime, $localTimezoneLabel)
 {
     $block_date = "";
-
 
     if ("" !== $startDate && "" !== $endDate && $startDate !== $endDate) {
         $block_date = '<div class="start-date">
@@ -124,6 +127,7 @@ function cagov_event_detail_get_date_time_block($string_date_time, $startDate, $
     } else if ("" !== $startTime && $startTime && $endTime) {
         $block_time = '<div class="start-time">
             <span class="start-time field-data">' . $startTime . '</span>
+            <span class="timezone-label">' . $localTimezoneLabel  . '</span>
         </div>';
     }
 
