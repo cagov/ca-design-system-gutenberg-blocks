@@ -144,8 +144,8 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       var formattedStartDate = null;
       var formattedStartTime = null;
       if (dateTime !== null) {
-        formattedStartDate = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("MMMM DD, YYYY");
-        formattedStartTime = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("hh:mm a");
+        formattedStartDate = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("MMMM D, YYYY");
+        formattedStartTime = moment.utc(startDateTimeUTC).tz('America/Los_Angeles').format("h:mm A");
       }
 
 
@@ -162,8 +162,8 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       var formattedEndDate = null;
       var formattedEndTime = null;
       if (dateTime !== null) {
-        formattedEndDate = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("MMMM DD, YYYY");
-        formattedEndTime = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("hh:mm a");
+        formattedEndDate = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("MMMM D, YYYY");
+        formattedEndTime = moment.utc(endDateTimeUTC).tz('America/Los_Angeles').format("h:mm A");
       }
 
       props.setAttributes({

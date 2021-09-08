@@ -17,14 +17,6 @@
     line-height: 28.8px;
 }
 
-.cagov-event-detail .start-time {
-    text-transform: uppercase;
-}
-
-.cagov-event-detail .end-time {
-    text-transform: uppercase;
-}
-
 .cagov-event-detail .timezone-label {
     padding-left: 8px;
 }
@@ -35,7 +27,7 @@
 }
 
 .cagov-event-detail .end-date::before {
-    content: ' — ';
+    content: ' –⁠ ';
 }
 
 .cagov-event-detail .end-date {
@@ -48,7 +40,7 @@
 }
 
 .cagov-event-detail .end-time::before {
-    content: ' — ';
+    content: ' –⁠ ';
 }
 
 .cagov-event-detail .end-time {
