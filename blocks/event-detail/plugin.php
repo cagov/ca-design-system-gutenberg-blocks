@@ -104,19 +104,19 @@ function cagov_event_detail_get_date_time_block($string_date_time, $startDate, $
     $block_date = "";
 
 
-    if ("" !== $startDate && "" !== $endDate) {
+    if ("" !== $startDate && "" !== $endDate && $startDate !== $endDate) {
         $block_date = '<div class="start-date">
             <span class="start-date field-data">' . $startDate . '</span>' .
             '<span class="end-date field-data">' . $endDate . '</span>' .
-            '</div>';
+            '</div> <br />';
     } else if ("" !== $startDate && $startDate === $endDate) {
         $block_date = '<div class="start-date">
             <span class="start-date field-data">' . $startDate . '</span>' .
-            '</div>';
+            '</div> <br />';
     }
 
     $block_time = "";
-    if ("" !== $startTime && "" !== $endTime) {
+    if ("" !== $startTime && "" !== $endTime && $startTime !== $endTime) {
         $block_time = '<div class="start-time">
             <span class="start-time field-data">' . $startTime . '</span>
             <span class="end-time field-data">' . $endTime . '</span>

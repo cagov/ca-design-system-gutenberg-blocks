@@ -129,7 +129,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
 
       var formattedStartDate = null;
       var formattedStartTime = null;
-      if (startDateTime !== null) {
+      if (dateTime !== null) {
         formattedStartDate = moment(startDateTime).format("MMMM DD, YYYY");
         formattedStartTime = moment(startDateTime).format("hh:mm a");
       }
@@ -144,7 +144,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     const setEndDateTime = (dateTime) => {
       var formattedEndDate = null;
       var formattedEndTime = null;
-      if (endDateTime !== null) {
+      if (dateTime !== null) {
         formattedEndDate = moment(endDateTime).format("MMMM DD, YYYY");
         formattedEndTime = moment(endDateTime).format("hh:mm a");
       }
@@ -156,11 +156,6 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       });
     };
     
-
-    // let formattedStartDate = startDate;
-    // let formattedEndDate = endDate;
-    // let formattedStartTime = startTime;
-    // let formattedEndTime = endTime;
 
     return (
       <div {...useBlockProps()}>
@@ -177,10 +172,10 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             <h4>{__("Date & time", "ca-design-system")}</h4>
             {/** We can make these text strings interactive. */}
             <div class="startDate">{startDate}</div>
-            <div class="endDate">{endDate}</div> 
+            {endDate !== startDate && endDate !== null && <div class="endDate">{endDate}</div>}
             <br />
             <div class="startTime">{startTime}</div>
-            <div class="endTime">{endTime}</div>
+            {endTime !== startTime && endTime !== null && <div class="endTime">{endTime}</div>}
 
             <InspectorControls key="setting">
               <div id="datetime-controls">

@@ -231,7 +231,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       var formattedStartDate = null;
       var formattedStartTime = null;
 
-      if (startDateTime !== null) {
+      if (dateTime !== null) {
         formattedStartDate = moment(startDateTime).format("MMMM DD, YYYY");
         formattedStartTime = moment(startDateTime).format("hh:mm a");
       }
@@ -247,7 +247,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       var formattedEndDate = null;
       var formattedEndTime = null;
 
-      if (endDateTime !== null) {
+      if (dateTime !== null) {
         formattedEndDate = moment(endDateTime).format("MMMM DD, YYYY");
         formattedEndTime = moment(endDateTime).format("hh:mm a");
       }
@@ -257,11 +257,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
         endDate: formattedEndDate,
         endTime: formattedEndTime
       });
-    }; // let formattedStartDate = startDate;
-    // let formattedEndDate = endDate;
-    // let formattedStartTime = startTime;
-    // let formattedEndTime = endTime;
-
+    };
 
     return createElement("div", useBlockProps(), createElement(RichText, {
       value: title,
@@ -277,11 +273,11 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       class: "detail-section"
     }, createElement("h4", null, __("Date & time", "ca-design-system")), createElement("div", {
       class: "startDate"
-    }, startDate), createElement("div", {
+    }, startDate), endDate !== startDate && endDate !== null && createElement("div", {
       class: "endDate"
     }, endDate), createElement("br", null), createElement("div", {
       class: "startTime"
-    }, startTime), createElement("div", {
+    }, startTime), endTime !== startTime && endTime !== null && createElement("div", {
       class: "endTime"
     }, endTime), createElement(InspectorControls, {
       key: "setting"
