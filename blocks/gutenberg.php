@@ -23,32 +23,8 @@ function cagov_gb_init()
 
     // Add metadata to WP-API
     add_action('rest_api_init', 'cagov_gb_register_rest_field');
+    // Adjust excerpt behavior to return intended excerpts.
     add_filter('get_the_excerpt', 'cagov_gb_excerpt');
-
-    // Performance experiment    
-    // add_action( 'wp_enqueue_scripts', 'cagov_remove_wp_block_library_css', 100 );
-    // add_action('init', 'cagov_remove_wp_embed_and_jquery');
-
-    // remove_action('wp_print_styles', 'print_emoji_styles');
-    // remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-    // remove_action( 'admin_print_styles', 'print_emoji_styles' );
-
-}
-
-function cagov_remove_wp_block_library_css(){
-    // wp_dequeue_style( 'wp-block-library' ); // Needed for WP layouts
-    // wp_dequeue_style( 'wp-block-library-theme' );
-} 
-
-
-// Experimental code removal
-function cagov_remove_wp_embed_and_jquery() {
-	if (!is_admin()) {
-		// wp_deregister_script('wp-embed'); // 
-        // wp_deregister_script('wp-emoji-release');
-		// wp_deregister_script('jquery');  // Bonus: remove jquery too if it's not required
-        // remove_action('wp_head', 'print_emoji_detection_script', 7);
-	}
 }
 
 /**
@@ -80,6 +56,7 @@ function cagov_gb_load_block_dependencies()
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/promotional-card/plugin.php'; 
 
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/step-list/plugin.php'; 
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/regulatory-outline/plugin.php'; 
     
     // CA Design System: UTILITY BLOCKS, default Gutenberg block construction method
     // - These appear in child patterns, content editors do not need to interact with these.
@@ -169,11 +146,6 @@ function cagov_gb_build_scripts_frontend()
 }
 
 function cagov_gb_load_web_components_callback() {
-    // wp_enqueue_script(
-    //     'ca-design-system-npm-web-components-bundle',
-    //     "https://files.covid19.ca.gov/js/components/bundle/v1/index.min.js",
-    //     array(),
-    // );
 }
 
 /**
@@ -340,10 +312,10 @@ function cagov_post_fields($post) {
     $custom_post_link = get_post_meta($post->ID, '_ca_custom_post_link', true);
     $custom_post_date = get_post_meta($post->ID, '_ca_custom_post_date', true);
     $custom_post_location = get_post_meta($post->ID, '_ca_custom_post_location', true);
-    $custom_event_date = get_post_meta($post->ID, '_ca_custom_event_date', true);
-    $custom_event_end_date = get_post_meta($post->ID, '_ca_custom_event_end_date', true);
-    $custom_event_start_time = get_post_meta($post->ID, '_ca_custom_event_start_time', true);
-    $custom_event_end_time = get_post_meta($post->ID, '_ca_custom_event_end_time', true);
+    // $custom_event_date = get_post_meta($post->ID, '_ca_custom_event_date', true);
+    // $custom_event_end_date = get_post_meta($post->ID, '_ca_custom_event_end_date', true);
+    // $custom_event_start_time = get_post_meta($post->ID, '_ca_custom_event_start_time', true);
+    // $custom_event_end_time = get_post_meta($post->ID, '_ca_custom_event_end_time', true);
 
     return array(
         'post_link' => $custom_post_link,
@@ -365,10 +337,10 @@ function cagov_post_fields($post) {
             
         ),
         'post_location' => $custom_post_location,
-        'event_date' => $custom_event_date,
-        'event_end_date' => $custom_event_end_date,
-        'event_start_time' => $custom_event_start_time,
-        'event_end_time' => $custom_event_end_time
+        // 'event_date' => $custom_event_date,
+        // 'event_end_date' => $custom_event_end_date,
+        // 'event_start_time' => $custom_event_start_time,
+        // 'event_end_time' => $custom_event_end_time
     );
 }
 
@@ -441,59 +413,67 @@ function cagov_og_meta($object, $field_name, $request) {
 }
 
 
+
 function cagov_gb_excerpt($excerpt)
 {
     global $post;
     $meta = get_post_meta($post->ID);
     $details = $excerpt;
     try {
-        // if (str_contains($meta['_wp_page_template'][0], "event")) {
-        // if (isset($meta['_wp_page_template'][0]) &&  == $meta['_wp_page_template'][0] === "/Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php" || isset($meta['_wp_page_template'][0]) === "/Users/chachasikes/Work/ca.gov/wordpress/wordpress/wp-content/plugins/ca-design-system-gutenberg-blocks/includes/templates/template-single-event.php") {
-        //     $blocks = parse_blocks($post->post_content);
-        //     $event_date_display = "";
-        //     $event_time = "";
-        //     $materials = "";
-        //     try {
-        //         $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
-
-        //         //@TODO escape && ISO format: "2025-07-21T19:00-05:00"; // @TODO reconstruct from event-detail saved data in post body.
-
-        //         $start_date = $event_details['startDate'];
-        //         // $end_date = $event_details['endDate'];
-        //         $start_time = $event_details['startTime'];
-        //         $end_time = $event_details['endTime'];
-        //         $event_time_detail = $start_time;
-
-        //         if ($end_time) {
-        //             $event_time_detail = $event_time_detail . " – " . $end_time;
-        //         }
-
-        //         $event_date_display = "<div class=\"event-date\">" . $start_date . "</div>";
-        //         $event_time = "<div class=\"event-time\">" . $event_time_detail . "</div>";
-        //     } catch (Exception $e) {
-        //     } finally {
-        //     }
-            
-
-
-        //     try {
-        //         $event_materials = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
-        //         // $event_materials_agenda = $event_materials['agenda'];
-        //         $event_materials_materials = $event_materials['materials'];
-        //         $materials = "<div class=\"event-materials\">" . $event_materials_materials . "</div>";
-        //     } catch (Exception $e) {
-        //     } finally {
-        //     }
-
-        //     // ORIGINAL: return $excerpt;
-
-        //     // @TODO smarter date handling, we can convert to ISO on date entering in GB
-        //     // For now will be text entry
-
-        //     $details = "<div class=\"event-details\">" . $event_date_display . $event_time . $materials . "</div>";
-        // }
+        if (0 < mb_strpos(strval($meta['_wp_page_template'][0]), "event")) {
+            $details = cagov_gb_excerpt_event($post, $meta, $excerpt);
+        }
     } catch (Exception $e) {
     } finally {
     }
     return $details;
+}
+
+function cagov_gb_excerpt_event($post, $meta, $excerpt) {     
+    $blocks = parse_blocks($post->post_content);
+    $event_date_display = "";
+    $event_time = "";
+    $materials = "";
+    $event_excerpt = $excerpt;
+    try {
+        $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+
+        // @TODO escape && ISO format: "2025-07-21T19:00-05:00"; // @TODO reconstruct from event-detail saved data in post body.
+        // Note: there is also startDateTimeUTC available, but the PST display values are precalculated.
+        $start_date = $event_details['startDate'];
+        $end_date = $event_details['endDate'];
+        $start_time = $event_details['startTime'];
+        $end_time = $event_details['endTime'];
+        $event_location = isset($event_details['location']) ? $event_details['location'] : "";
+        $localTimezoneLabel = $event_details['localTimezoneLabel'];
+        
+
+        // $start_datetime_utc = new DateTime($event_details['startDateTimeUTC']);
+        // $start_datetime_pst = $start_datetime_utc->setTimezone(new DateTimeZone('North America/Los Angeles'));
+        // $start_date = $start_datetime_pst; // date_format($start_datetime_pst, "Y-m-d"); // H:i:s
+        
+
+        $date_display = $start_date . " - " . $end_date;
+        $time_display = $start_time . " - " . $end_time;
+        if ($start_date === $end_date) {
+            $date_display = $start_date;
+        }
+        if ($start_time === $end_time) {
+            $time_display = $start_time;
+        }
+        $event_date_display = '<div class="event-date">' . $date_display . '</div>';
+        $event_time_display = '<div class="event-time">' . $time_display . ' ' . $localTimezoneLabel . '</div>';
+
+        $event_excerpt = '<div class="event-details">' . 
+            $event_date_display . 
+            '<br />' . 
+            $event_time_display . 
+            '<br />' . 
+            $event_location . 
+        '</div>';
+
+    } catch (Exception $e) {
+    } finally {
+    }
+    return $event_excerpt;
 }

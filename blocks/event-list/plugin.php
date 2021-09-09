@@ -97,7 +97,7 @@ function cagov_event_list_dynamic_render_callback($block_attributes, $content)
     $readMore = isset($block_attributes["readMore"]) ? esc_html($block_attributes["readMore"]) : "";
     $noResults = isset($block_attributes["noResults"]) ? $block_attributes["noResults"] : "No upcoming events found";
     $showExcerpt = isset($block_attributes["showExcerpt"]) ? $block_attributes["showExcerpt"] : "true";
-    $showPublishedDate = isset($block_attributes["showPublishedDate"]) ? $block_attributes["showPublishedDate"] : "true";
+    $showPublishedDate = "false"; // don't use date, special date is set in block isset($block_attributes["showPublishedDate"]) ? $block_attributes["showPublishedDate"] : "true";
     $showPagination = isset($block_attributes["showPagination"]) ? $block_attributes["showPagination"] : "false";
 
     // today-or-after or before-yesterday for events - Name the type of filtering so it's easy to set & easy to change/test.

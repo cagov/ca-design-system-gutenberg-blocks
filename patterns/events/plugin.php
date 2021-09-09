@@ -60,6 +60,7 @@ function ca_design_system_custom_wp_block_pattern_event()
                         "location:"",
                         "cost": "",
                     } -->
+                    <div class="wp-block-ca-design-system-event-detail"><div class="cagov-card-body-content"></div></div>
                     <!-- /wp:ca-design-system/event-detail -->
                     </div>
                 <!-- /wp:column --> 

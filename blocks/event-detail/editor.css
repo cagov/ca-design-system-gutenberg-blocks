@@ -7,6 +7,12 @@
     padding-right: 16px !important;
 }
 
+span[data-rich-text-placeholder]::after {
+    opacity: 0.8 !important;
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
 #datetime-controls legend {
     font-size: 24px;
     font-weight: 700;
@@ -16,12 +22,18 @@
 
 #datetime-controls .legend-label {
     font-style: italic;
-    margin: 16px;
+    margin: 32px 16px;
+}
+
+.cagov-event-detail {
+    font-size: 18px;
+    line-height: 28.8px;
 }
 
 .cagov-event-detail .startDate {
     display: inline-block;
     font-size: 18px;
+    line-height: 28.8px;
 }
 
 .cagov-event-detail .endDate::before {
@@ -31,19 +43,11 @@
 .cagov-event-detail .endDate {
     display: inline-block;
     font-size: 18px;
+    line-height: 28.8px;
 }
 
 .cagov-event-detail .startTime {
     display: inline-block;
-}
-
-.cagov-event-detail .timezone-label {
-    display: inline-block;
-    padding-left: 8px;
-}
-
-.cagov-event-detail .endTime::before {
-    content: ' –⁠ ';
 }
 
 .cagov-event-detail .endTime {
@@ -51,8 +55,15 @@
     padding-left: 0.2rem;
 }
 
-.cagov-event-detail {
+.cagov-event-detail .endTime::before {
+    content: ' –⁠ ';
+}
+
+.cagov-event-detail .timezone-label {
+    display: inline-block;
+    padding-left: 8px;
     font-size: 18px;
+    line-height: 28.8px;
 }
 
 /* Rough pass at CSS */

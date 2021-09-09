@@ -21,11 +21,11 @@ function cagov_post_schema($post, $type)
         // $event_materials = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
         // @TODO escape && ISO format: "2025-07-21T19:00-05:00"; 
         // @TODO reconstruct from event-detail saved data in post body.
-        if (isset($event_details['startDate'])) {
-            $start_date = $event_details['startDate'];
+        if (isset($event_details['startDateTimeUTC'])) {
+            $start_date = $event_details['startDateTimeUTC'];
         }
-        if (isset($event_details['endDate'])) {
-            $end_date = $event_details['endDate'];
+        if (isset($event_details['endDateTimeUTC'])) {
+            $end_date = $event_details['endDateTimeUTC'];
         }
     } catch (Exception $e) {
         // echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -34,9 +34,6 @@ function cagov_post_schema($post, $type)
     }
 
     $description = $post->post_excerpt;
-    // if location is fielded out with different types of data
-    // $location = "";
-    // $image
 
     return <<<EOT
     <script type="application/ld+json">
@@ -52,79 +49,6 @@ function cagov_post_schema($post, $type)
     }
     //</script>
     EOT;
-
-    // "organizer": "$organizer",
-    // "offers": "$offers",
-    // "location": "$location",
-    // "image": "$image",
-
-    // @TODO write new github issue
-
-    // SCHEMA notes: 
-    // https://schema.org/EventAttendanceModeEnumeration: online/offline/mix)
-
-    // Event status
-
-    // Location - address GB?
-
-    // Image (phase 2)
-
-    // Description - event body
-
-    // Cost -> Offers
-
-    // Organizer
-
-    // Performers (is there a speakers type?)
-
-    // <script type="application/ld+json">
-    // https://schema.org/Event
-    // Google example: https://developers.google.com/search/docs/data-types/event
-    // {
-    //     "@context": "https://schema.org",
-    //     "@type": "Event",
-    //     "name": "The Adventures of Kira and Morrison",
-    //     "startDate": "2025-07-21T19:00-05:00",
-    //     "endDate": "2025-07-21T23:00-05:00",
-    //     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    //     "eventStatus": "https://schema.org/EventScheduled",
-    //     "location": {
-    //       "@type": "Place",
-    //       "name": "Snickerpark Stadium",
-    //       "address": {
-    //         "@type": "PostalAddress",
-    //         "streetAddress": "100 West Snickerpark Dr",
-    //         "addressLocality": "Snickertown",
-    //         "postalCode": "19019",
-    //         "addressRegion": "PA",
-    //         "addressCountry": "US"
-    //       }
-    //     },
-    //     "image": [
-    //       "https://example.com/photos/1x1/photo.jpg",
-    //       "https://example.com/photos/4x3/photo.jpg",
-    //       "https://example.com/photos/16x9/photo.jpg"
-    //      ],
-    //     "description": "The Adventures of Kira and Morrison is coming to Snickertown in a can't miss performance.",
-    //     "offers": {
-    //       "@type": "Offer",
-    //       "url": "https://www.example.com/event_offer/12345_201803180430",
-    //       "price": "30",
-    //       "priceCurrency": "USD",
-    //       "availability": "https://schema.org/InStock",
-    //       "validFrom": "2024-05-21T12:00"
-    //     },
-    //     "performer": {
-    //       "@type": "PerformingGroup",
-    //       "name": "Kira and Morrison"
-    //     },
-    //     "organizer": {
-    //       "@type": "Organization",
-    //       "name": "Kira and Morrison Music",
-    //       "url": "https://kiraandmorrisonmusic.com"
-    //     }
-    //   }
-    // </script>
 }
 ?>
 
@@ -181,7 +105,10 @@ if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
                             ?>
                         </article>
 
-                        <?php echo cagov_post_schema($post, "event") ?>
+                        <?php 
+                        // Include schema.org
+                        // echo cagov_post_schema($post, "event") 
+                        ?>
 
                     <?php endwhile; ?>
                     <span class="return-top hidden-print"></span>

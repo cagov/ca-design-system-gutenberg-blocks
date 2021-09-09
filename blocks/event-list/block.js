@@ -90,7 +90,7 @@
           el(RichText, {
             tagName: "h2",
             inline: false,
-            placeholder: __("Event list block title", "ca-design-system"),
+            placeholder: __("", "ca-design-system"),
             value: attributes.title,
             onChange: function (value) {
               props.setAttributes({ title: value });
@@ -107,7 +107,7 @@
             "data-show-excerpt" : "false",
             "data-show-published-date" : "true",
             "data-no-results": "No results found",
-            "date-show-paginator": "false"
+            "date-show-paginator": "false",
           }),
           el(RichText, {
             tagName: "div",
