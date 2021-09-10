@@ -7,7 +7,7 @@ Phase 1
 * Make event data availabel to WordPress API.
 * Migrate custom fields into this plugin so block specific data fields can be made available to custom field data set
 
-Project board: 
+Project board: https://github.com/cagov/design-system/projects/3
 
 Next steps:
 * Make custom block datetime field sortable in the WordPress API
@@ -27,3 +27,4 @@ Next steps:
     * Connect event type and list content response for formatted teasers
 * Compare markup output to original CDT event api spec and make new markup recommendation for design system
      * update plugin renderer to match.
+* Sync CSS with design system CSS

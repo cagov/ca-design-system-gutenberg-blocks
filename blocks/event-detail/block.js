@@ -47,6 +47,8 @@ const { withState } = compose;
 var __ = i18n.__;
 var el = createElement;
 
+// @TODO: Using the data available, create a button that will generate an ICS file.
+// Note: Add to calendar could be a new web component.
 const AddToCalendar = ({}) => {};
 
 const EventDateTimePicker = ({ dateTime, setDateTime }) => {
@@ -62,6 +64,7 @@ const EventDateTimePicker = ({ dateTime, setDateTime }) => {
   );
 };
 
+// Make the block available to the Gutenberg Block library editor
 blocks.registerBlockType("ca-design-system/event-detail", {
   title: __("Event Detail", "ca-design-system"),
   icon: "format-aside",
@@ -79,13 +82,13 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     },
     startDateTimeUTC: {
       type: "string",
-      // default: formattedDateTime, // In UTC
+      // default: formattedDateTime, // In UTC - disabled because default feature can be buggy.
     },
     endDateTimeUTC: {
       type: "string",
       // default: formattedDateTime,
     },
-    // @TODO may deprecate
+    // Utility local time display fields
     startDate: {
       type: "string",
       // default: formattedDate,
@@ -104,11 +107,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     },
     localTimezone: {
       type: "string",
-      // default: formattedTimePlusHour
     },
     localTimezoneLabel: {
       type: "string",
-      // default: formattedTimePlusHour
     },
     location: {
       type: "string",
@@ -119,18 +120,27 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     body: {
       type: 'array',
       source: 'children',
-      selector: '.cagov-card-body-content'
+      selector: '.cagov-card-body-content' // @TODO rename to .cagov-inner-block-content
     },
   },
   example: {
     attributes: {
       title: "Event Details",
-      body: __("Lorem ipsum", "cagov-design-system"),
+      startDateTimeUTC: "2020-09-08T17:00:00",
+      endDateTimeUTC: "2020-09-08T16:00:00",
+      // Utility local time display fields
+      startDate: "September 9, 2021",
+      endDate: "September 9, 2021",
+      startTime: "10:00 AM",
+      endTime: "11:00 AM",
+      localTimezone: "America/Los_Angeles",
+      localTimezoneLabel: "PST",
+      location: "",
+      cost: "",
     },
   },
   edit: function (props) {
-    // const [openDatePopup, setOpenDatePopup] = useState(false); // @TODO unimplemented can re-implement.
-
+    // Get local props
     let {
       title,
       startDateTimeUTC,
@@ -139,14 +149,14 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       endDate,
       startTime,
       endTime,
-      localTimezone,
       localTimezoneLabel,
       location,
       cost,
     } = props.attributes;
 
+    // When datetime is selected, update the local start date props.
+    // Note: we can also hook into the wp api to double store the data to post meta, or a custom field or another field handler.
     const setStartDateTime = (dateTime) => {
-
       var formattedStartDate = null;
       var formattedStartTime = null;
 
@@ -171,6 +181,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       }
     };
 
+    // When datetime is selected, update the local end date props
     const setEndDateTime = (dateTime) => {
       var formattedEndDate = null;
       var formattedEndTime = null;
@@ -193,9 +204,10 @@ blocks.registerBlockType("ca-design-system/event-detail", {
       });
     };
 
+    // Create block editor display along with the block options display.
     return (
       <div {...useBlockProps()}>
-
+        {/** Editable block title */}
         <RichText
           value={title}
           tagName="h2"
@@ -204,7 +216,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
           placeholder={__("Event Details", "ca-design-system")}
         />
 
+        {/** Event detail content */}
         <div class="cagov-event-detail">
+           {/** Date and time */}
           <div class="detail-section">
             <h4>{__("Date & time", "ca-design-system")}</h4>
             <div class="startDate">
@@ -222,6 +236,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             )}
             <div class="timezone-label">{localTimezoneLabel}</div>
 
+            {/** Date and time block options UI */}
             <InspectorControls key="setting">
               <div id="datetime-controls">
                 <fieldset>
@@ -250,6 +265,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             </InspectorControls>
           </div>
 
+          {/** Location */}
           <div class="detail-section">
             <h4>{__("Location", "ca-design-system")}</h4>
             <RichText
@@ -262,6 +278,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
             />
           </div>
 
+          {/** Cost */}
           <div class="detail-section">
             <h4>{__("Cost", "ca-design-system")}</h4>
             <RichText
@@ -273,6 +290,7 @@ blocks.registerBlockType("ca-design-system/event-detail", {
               placeholder={__("What is the cost of this event?", "ca-design-system")}
             />
           </div>
+          {/** Additional blocks */}
           <div class="detail-section-more-info">
             <div class="cagov-card-body">
               {el(InnerBlocks, {
@@ -286,8 +304,9 @@ blocks.registerBlockType("ca-design-system/event-detail", {
     );
   },
   save: function (props) {
+    // Store the inner blocks
     return el('div', {},
-          el('div', { className: 'cagov-card-body-content' },
+          el('div', { className: 'cagov-card-body-content' }, // @TODO rename to .cagov-inner-block-content
             el(InnerBlocks.Content)
           )
     );
