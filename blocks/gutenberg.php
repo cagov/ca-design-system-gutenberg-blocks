@@ -530,7 +530,9 @@ function cagov_gb_excerpt_event($post, $meta, $excerpt)
                 '<br />' .
                 $event_time_display .
                 '<br />' .
+                '<div class="event-location">' .
                 $event_location .
+                '</div>' .
                 '</div>';
         }
     } catch (Exception $e) {
