@@ -51,13 +51,13 @@ function cagov_gb_load_block_dependencies()
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/card/plugin.php'; // Planning to rename to: 'call-to-action-button' - Renamed in GB interface labels but not code
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/card-grid/plugin.php'; // Planning to rename to: 'call-to-action-grid' - Renamed in GB interface labels but not code
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/feature-card/plugin.php'; // Planning to rename to feature-card - Renamed in GB interface labels but not code
-    
-    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/scrollable-card/plugin.php';
-    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/promotional-card/plugin.php'; 
 
-    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/step-list/plugin.php'; 
-    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/regulatory-outline/plugin.php'; 
-    
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/scrollable-card/plugin.php';
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/promotional-card/plugin.php';
+
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/step-list/plugin.php';
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/regulatory-outline/plugin.php';
+
     // CA Design System: UTILITY BLOCKS, default Gutenberg block construction method
     // - These appear in child patterns, content editors do not need to interact with these.
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/content-navigation/plugin.php';
@@ -133,10 +133,10 @@ function cagov_gb_build_scripts_frontend()
         */
 
         // Add local web components without triggering render blocking
-        
+
         add_action('wp_footer', 'cagov_gb_load_web_components_callback');
-        add_action('wp_footer', 'cagov_gb_register_post_list_web_component_callback' );
-        add_action('wp_footer', 'cagov_gb_register_content_navigation_web_component_callback' );
+        add_action('wp_footer', 'cagov_gb_register_post_list_web_component_callback');
+        add_action('wp_footer', 'cagov_gb_register_content_navigation_web_component_callback');
 
         // PERFORMANCE OPTION (re render blocking): inlining our CSS 
         // Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
@@ -145,7 +145,8 @@ function cagov_gb_build_scripts_frontend()
     }
 }
 
-function cagov_gb_load_web_components_callback() {
+function cagov_gb_load_web_components_callback()
+{
 }
 
 /**
@@ -164,7 +165,7 @@ function cagov_gb_build_scripts_editor()
         CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'build/index.js',
         // array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-date', 'wp-compose', 'underscore', 'moment', 'wp-data'), // Performance bottleneck
     );
-    
+
     wp_enqueue_style('ca-design-system-gutenberg-blocks-editor',  CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__ADMIN_URL . 'styles/editor.css', false);
 }
 
@@ -199,14 +200,23 @@ function cagov_gb_register_rest_field()
 
     register_rest_field(
         'post',
-        'og_meta',
+        'autodescription_meta',
         array(
-            'get_callback'    => 'cagov_og_meta',
+            'get_callback'    => 'cagov_autodescription_meta',
             'update_callback' => null,
             'schema'          => null, // @TODO look up what our options are here
         )
     );
 
+    register_rest_field(
+        'post',
+        'redirection_meta',
+        array(
+            'get_callback'    => 'cagov_redirection_meta',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
 
     register_rest_field(
         'page',
@@ -220,9 +230,9 @@ function cagov_gb_register_rest_field()
 
     register_rest_field(
         'page',
-        'og_meta',
+        'autodescription_meta',
         array(
-            'get_callback'    => 'cagov_og_meta',
+            'get_callback'    => 'cagov_autodescription_meta',
             'update_callback' => null,
             'schema'          => null, // @TODO look up what our options are here
         )
@@ -238,14 +248,15 @@ function cagov_gb_register_rest_field()
         )
     );
 
-    // $meta_args = array(
-    //     'type'         => 'string',
-    //     'description'  => 'A meta key associated with a string meta value.',
-    //     'single'       => true,
-    //     'show_in_rest' => true,
-    // );
-    // register_post_meta( 'page', 'my_meta_key', $meta_args );
-
+    register_rest_field(
+        'page',
+        'redirection_meta',
+        array(
+            'get_callback'    => 'cagov_redirection_meta',
+            'update_callback' => null,
+            'schema'          => null, // @TODO look up what our options are here
+        )
+    );
 }
 
 /**
@@ -259,23 +270,23 @@ function cagov_gb_register_rest_field()
 function cagov_gb_get_custom_fields($object, $field_name, $request)
 {
     global $post;
-    
+
     $caweb_custom_post_title_display = get_post_meta($post->ID, '_ca_custom_post_title_display', true);
 
     $template_name = "page"; // Default template for any post.
     try {
         $current_page_template = get_page_template_slug();
-        
+
         if (isset($current_page_template) && "" === $current_page_template) {
             if ($post->post_type === "post") {
                 $current_template = "post";
-            } else if  ($post->post_type === "page") {
+            } else if ($post->post_type === "page") {
                 $current_template = "page";
             }
         } else {
             $split_template_path = isset($current_page_template) ? preg_split("/\//", $current_page_template) : "page";
             $template_file = $split_template_path[count($split_template_path) - 1];
-            
+
             $template_name = preg_split("/\./", $template_file);
             $current_template = $template_name[0];
 
@@ -307,16 +318,13 @@ function cagov_gb_get_custom_fields($object, $field_name, $request)
 }
 
 
-function cagov_post_fields($post) {
+function cagov_post_fields($post)
+{
     // print_r($post);
     $custom_post_link = get_post_meta($post->ID, '_ca_custom_post_link', true);
     $custom_post_date = get_post_meta($post->ID, '_ca_custom_post_date', true);
     $custom_post_location = get_post_meta($post->ID, '_ca_custom_post_location', true);
-    // $custom_event_date = get_post_meta($post->ID, '_ca_custom_event_date', true);
-    // $custom_event_end_date = get_post_meta($post->ID, '_ca_custom_event_end_date', true);
-    // $custom_event_start_time = get_post_meta($post->ID, '_ca_custom_event_start_time', true);
-    // $custom_event_end_time = get_post_meta($post->ID, '_ca_custom_event_end_time', true);
-
+    $custom_fields = cagov_gb_get_post_custom_fields($post);
     return array(
         'post_link' => $custom_post_link,
         'post_date' => $custom_post_date,
@@ -324,27 +332,24 @@ function cagov_post_fields($post) {
         'gmt_offset' => get_option('gmt_offset'),
         'timezone' => get_option('timezone_string'),
         'post_published_date_display' => array(
-            'i18n_locale_date' => date_i18n('F j, Y',  strtotime( $post->post_date ) , false ),
-            'i18n_locale_date_gmt' => date_i18n('F j, Y', strtotime( $post->post_date_gmt ) , true ),
-            'i18n_locale_date_time' => date_i18n('F j, Y g:i a',  strtotime( $post->post_date ) , false ),
-            'i18n_locale_date_time_gmt' => date_i18n('F j, Y g:i a', strtotime( $post->post_date_gmt ) , true ),
+            'i18n_locale_date' => date_i18n('F j, Y',  strtotime($post->post_date), false),
+            'i18n_locale_date_gmt' => date_i18n('F j, Y', strtotime($post->post_date_gmt), true),
+            'i18n_locale_date_time' => date_i18n('F j, Y g:i a',  strtotime($post->post_date), false),
+            'i18n_locale_date_time_gmt' => date_i18n('F j, Y g:i a', strtotime($post->post_date_gmt), true),
         ),
         'post_modified_date_display' => array(
-            'i18n_locale_date' => date_i18n('F j, Y',  strtotime( $post->post_modified ) , false ),
-            'i18n_locale_date_gmt' => date_i18n('F j, Y', strtotime( $post->post_modified_gmt ) , true ),
-            'i18n_locale_date_time' => date_i18n('F j, Y g:i a',  strtotime( $post->post_modified ) , false ),
-            'i18n_locale_date_time_gmt' => date_i18n('F j, Y g:i a', strtotime( $post->post_modified_gmt ) , true ),
-            
+            'i18n_locale_date' => date_i18n('F j, Y',  strtotime($post->post_modified), false),
+            'i18n_locale_date_gmt' => date_i18n('F j, Y', strtotime($post->post_modified_gmt), true),
+            'i18n_locale_date_time' => date_i18n('F j, Y g:i a',  strtotime($post->post_modified), false),
+            'i18n_locale_date_time_gmt' => date_i18n('F j, Y g:i a', strtotime($post->post_modified_gmt), true),
         ),
         'post_location' => $custom_post_location,
-        // 'event_date' => $custom_event_date,
-        // 'event_end_date' => $custom_event_end_date,
-        // 'event_start_time' => $custom_event_start_time,
-        // 'event_end_time' => $custom_event_end_time
+        'custom_fields' => $custom_fields,
     );
 }
 
-function cagov_site_settings($object, $field_name, $request) {
+function cagov_site_settings($object, $field_name, $request)
+{
     return array(
         'site_name' => get_bloginfo('name'),
         'site_description' => get_bloginfo('description'),
@@ -352,47 +357,53 @@ function cagov_site_settings($object, $field_name, $request) {
         'wpurl' => get_bloginfo('wpurl'),
     );
 }
+function cagov_redirection_meta($object, $field_name, $request)
+{
+    return array(
+        'redirects' => ''
+    );
+}
 
-function cagov_og_meta($object, $field_name, $request) {
+function cagov_autodescription_meta($object, $field_name, $request)
+{
     global $post;
     $post_meta = get_post_meta($post->ID);
-        $seo_framework_output = "";
+    $seo_framework_output = "";
     try {
         if (function_exists('the_seo_framework')) {
             $tsf = \the_seo_framework();
             $seo_framework_output = $tsf->the_description()
-            . $tsf->og_image()
-            . $tsf->og_locale()
-            . $tsf->og_type()
-            . $tsf->og_title()
-            . $tsf->og_description()
-            . $tsf->og_url()
-            . $tsf->og_sitename()
-            . $tsf->facebook_publisher()
-            . $tsf->facebook_author()
-            . $tsf->facebook_app_id()
-            . $tsf->article_published_time()
-            . $tsf->article_modified_time()
-            . $tsf->twitter_card()
-            . $tsf->twitter_site()
-            . $tsf->twitter_creator()
-            . $tsf->twitter_title()
-            . $tsf->twitter_description()
-            . $tsf->twitter_image()
-            . $tsf->theme_color()
-            . $tsf->shortlink()
-            . $tsf->canonical()
-            . $tsf->paged_urls()
-            . $tsf->ld_json()
-            . $tsf->google_site_output()
-            . $tsf->bing_site_output()
-            . $tsf->yandex_site_output()
-            . $tsf->baidu_site_output()
-            . $tsf->pint_site_output()
-            . $tsf->get_social_image_url_from_seo_settings();
+                . $tsf->og_image()
+                . $tsf->og_locale()
+                . $tsf->og_type()
+                . $tsf->og_title()
+                . $tsf->og_description()
+                . $tsf->og_url()
+                . $tsf->og_sitename()
+                . $tsf->facebook_publisher()
+                . $tsf->facebook_author()
+                . $tsf->facebook_app_id()
+                . $tsf->article_published_time()
+                . $tsf->article_modified_time()
+                . $tsf->twitter_card()
+                . $tsf->twitter_site()
+                . $tsf->twitter_creator()
+                . $tsf->twitter_title()
+                . $tsf->twitter_description()
+                . $tsf->twitter_image()
+                . $tsf->theme_color()
+                . $tsf->shortlink()
+                . $tsf->canonical()
+                . $tsf->paged_urls()
+                . $tsf->ld_json()
+                . $tsf->google_site_output()
+                . $tsf->bing_site_output()
+                . $tsf->yandex_site_output()
+                . $tsf->baidu_site_output()
+                . $tsf->pint_site_output()
+                . $tsf->get_social_image_url_from_seo_settings();
         }
     } catch (Exception $e) {
-        
     } finally {
     }
 
@@ -412,15 +423,13 @@ function cagov_og_meta($object, $field_name, $request) {
     );
 }
 
-
-
 function cagov_gb_excerpt($excerpt)
 {
     global $post;
     $meta = get_post_meta($post->ID);
     $details = $excerpt;
     try {
-        if (0 < mb_strpos(strval($meta['_wp_page_template'][0]), "event")) {
+        if (isset($meta['_wp_page_template']) && 0 < mb_strpos(strval($meta['_wp_page_template'][0]), "event")) {
             $details = cagov_gb_excerpt_event($post, $meta, $excerpt);
         }
     } catch (Exception $e) {
@@ -429,49 +438,101 @@ function cagov_gb_excerpt($excerpt)
     return $details;
 }
 
-function cagov_gb_excerpt_event($post, $meta, $excerpt) {     
+function cagov_gb_get_post_custom_fields($post)
+{
+    global $post;
+    $meta = get_post_meta($post->ID);
+    try {
+        if (isset($meta['_wp_page_template']) && 0 < mb_strpos(strval($meta['_wp_page_template'][0]), "event")) {
+            return cagov_gb_custom_fields_event($post);
+        }
+    } catch (Exception $e) {
+    } finally {
+    }
+    return null;
+}
+
+function cagov_gb_custom_fields_event($post)
+{
+    $blocks = parse_blocks($post->post_content);
+    try {
+        if (isset($blocks[0]['innerBlocks']) && isset($blocks[0]['innerBlocks'][1])) {
+            $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+            return $event_details;
+        }
+        
+    } catch (Exception $e) {
+    } finally {
+    }
+    return null;
+}
+// https://wordpress.stackexchange.com/questions/251037/wp-rest-api-order-posts-by-meta-value-acf
+// function cagov_gb_add_meta_vars ($current_vars) {
+//     $current_vars = array_merge ($current_vars, array ('meta_key', 'meta_value'));
+//     return $current_vars;
+// }
+// add_filter ('rest_query_vars', 'my_add_meta_vars');
+
+// function order_rest_user_query($query_vars, $request) {
+//     $orderby = $request->get_param('orderby');
+//     if (isset($orderby) && $orderby === 'activo') {
+//         $query_vars["orderby"] = "meta_value";
+//         $query_vars["meta_key"] = "activo";
+//     }
+//     if (isset($orderby) && $orderby === 'fecha_alta') {
+//         $query_vars["orderby"] = "meta_value_num";
+//         $query_vars["meta_key"] = "fecha_alta";
+//     }
+//     return $query_vars;
+// }
+
+// add_filter( 'rest_user_query', 'order_rest_user_query', 10, 2);
+
+function cagov_gb_excerpt_event($post, $meta, $excerpt)
+{
     $blocks = parse_blocks($post->post_content);
     $event_date_display = "";
     $event_time = "";
     $materials = "";
     $event_excerpt = $excerpt;
     try {
-        $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
+        if (isset($blocks[0]['innerBlocks']) && isset($blocks[0]['innerBlocks'][1])) {
+            $event_details = $blocks[0]['innerBlocks'][1]['innerBlocks'][0]['attrs'];
 
-        // @TODO escape && ISO format: "2025-07-21T19:00-05:00"; // @TODO reconstruct from event-detail saved data in post body.
-        // Note: there is also startDateTimeUTC available, but the PST display values are precalculated.
-        $start_date = $event_details['startDate'];
-        $end_date = $event_details['endDate'];
-        $start_time = $event_details['startTime'];
-        $end_time = $event_details['endTime'];
-        $event_location = isset($event_details['location']) ? $event_details['location'] : "";
-        $localTimezoneLabel = $event_details['localTimezoneLabel'];
-        
+            // @TODO escape && ISO format: "2025-07-21T19:00-05:00"; // @TODO reconstruct from event-detail saved data in post body.
+            // Note: there is also startDateTimeUTC available, but the PST display values are precalculated.
+            $start_date = isset($event_details['startDate']) ? $event_details['startDate'] : "";
+            $end_date = isset($event_details['endDate']) ? $event_details['endDate'] : "";
+            $start_time = isset($event_details['startTime']) ? $event_details['startTime'] : "";
+            $end_time = isset($event_details['endTime']) ? $event_details['endTime'] : "";
+            $event_location = isset($event_details['location']) ? $event_details['location'] : "";
+            $localTimezoneLabel = isset($event_details['localTimezoneLabel']) ? $event_details['localTimezoneLabel'] : "";
 
-        // $start_datetime_utc = new DateTime($event_details['startDateTimeUTC']);
-        // $start_datetime_pst = $start_datetime_utc->setTimezone(new DateTimeZone('North America/Los Angeles'));
-        // $start_date = $start_datetime_pst; // date_format($start_datetime_pst, "Y-m-d"); // H:i:s
-        
 
-        $date_display = $start_date . " - " . $end_date;
-        $time_display = $start_time . " - " . $end_time;
-        if ($start_date === $end_date) {
-            $date_display = $start_date;
+            // $start_datetime_utc = new DateTime($event_details['startDateTimeUTC']);
+            // $start_datetime_pst = $start_datetime_utc->setTimezone(new DateTimeZone('North America/Los Angeles'));
+            // $start_date = $start_datetime_pst; // date_format($start_datetime_pst, "Y-m-d"); // H:i:s
+
+
+            $date_display = $start_date . " - " . $end_date;
+            $time_display = $start_time . " - " . $end_time;
+            if ($start_date === $end_date) {
+                $date_display = $start_date;
+            }
+            if ($start_time === $end_time) {
+                $time_display = $start_time;
+            }
+            $event_date_display = '<div class="event-date">' . $date_display . '</div>';
+            $event_time_display = '<div class="event-time">' . $time_display . ' ' . $localTimezoneLabel . '</div>';
+
+            $event_excerpt = '<div class="event-details">' .
+                $event_date_display .
+                '<br />' .
+                $event_time_display .
+                '<br />' .
+                $event_location .
+                '</div>';
         }
-        if ($start_time === $end_time) {
-            $time_display = $start_time;
-        }
-        $event_date_display = '<div class="event-date">' . $date_display . '</div>';
-        $event_time_display = '<div class="event-time">' . $time_display . ' ' . $localTimezoneLabel . '</div>';
-
-        $event_excerpt = '<div class="event-details">' . 
-            $event_date_display . 
-            '<br />' . 
-            $event_time_display . 
-            '<br />' . 
-            $event_location . 
-        '</div>';
-
     } catch (Exception $e) {
     } finally {
     }
