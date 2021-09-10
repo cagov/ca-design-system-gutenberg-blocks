@@ -1,8 +1,11 @@
 /**
  * CAGov Event Detail
- * Developer note: run `wp-scripts build` at root of this plugin folder to compile & test this code, which is written as ES6
+ * To compile: run `wp-scripts build` at root of this plugin folder to compile this JSX-friendlier code.
+ * Notes: We are still exploring best practices and there are many flavors of Gutenberg Block creation. 
+ * We can adapt this to match what we can maintain for the design system. 
  */
 
+// Get pre-registered WordPress block editor API methods.
 const {
   blocks,
   blockEditor,
@@ -15,6 +18,7 @@ const {
 } = wp;
 const { moment, _ } = window;
 
+// Extract components from API interface to use in this mini-app.
 const { dateI18n } = date;
 const {
   DateTimePicker,
@@ -28,7 +32,6 @@ const {
   Placeholder,
   Spinner,
 } = components;
-
 const { Fragment, useState, useEffect, createElement, Component } = element;
 const {
   InspectorControls,
