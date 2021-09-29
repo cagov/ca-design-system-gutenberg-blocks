@@ -60,6 +60,7 @@ function cagov_gb_load_block_dependencies()
     // CA Design System BLOCKS
     // Requires webcomponents from external design system
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/accordion/plugin.php';
+    include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/regulatory-outline/plugin.php';
 
     // Uses local webcomponents not yet integrated with external design system
     include_once CA_DESIGN_SYSTEM_GUTENBERG_BLOCKS__BLOCKS_DIR_PATH . '/blocks/announcement-list/plugin.php'; // Block, uses post-list webcomponent
