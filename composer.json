@@ -1,5 +1,5 @@
 {
-    "name": "ca-design-system/ca-design-system-gutenberg-blocks",
+    "name": "cagov/ca-design-system-gutenberg-blocks",
     "description": "Packages to help enforce WordPress Coding Standards",
     "require-dev": {
         "wp-coding-standards/wpcs": "^2.3",
@@ -15,6 +15,6 @@
     },
     "require": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-        "squizlabs/php_codesniffer": "3.*"
+        "squizlabs/php_codesniffer": "3.*",
     }
 }

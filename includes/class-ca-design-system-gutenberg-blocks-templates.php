@@ -1,5 +1,8 @@
 <?php
 
+
+// Note: can't merge this with the newer version until we are able to move correct templates to the theme layer. (Won't happen for Flywheel instance.)
+
 /**
  * Register custom templates for the CA Design System
  * 
@@ -20,7 +23,7 @@ if (!defined('ABSPATH')) {
  * https://medium.com/@eudestwt/wordpress-how-to-make-available-page-templates-from-your-plugin-6a6a56846b51
  * 
  */
-class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
+class CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader
 {
 
     protected static $_instance = null;
@@ -181,3 +184,4 @@ class CADesignSystemGutenbergBlocks_Plugin_Templates_Loader
         return $template;
     }
 }
+
