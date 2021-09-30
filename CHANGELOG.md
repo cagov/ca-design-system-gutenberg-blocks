@@ -8,5 +8,5 @@
 * Events system (Event detail, Events Post List, REST support)
 * Campaign toolkit feature (`promotional-card` and `scrollable-card`)
 
-## * - 1.017
+## * - 1.0.17
 Build on initial support of early design system component for WordPress monolith
