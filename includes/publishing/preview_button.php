@@ -22,3 +22,17 @@ function cagov_headless_preview() {
         . $post_slug . '&wpnonce='
         . wp_create_nonce('wp_rest');
 }
+
+// New metabox, toggle button or check box to start
+
+// Setting a custom field
+
+// Render an API endpoint with that data
+
+// Revision preview link?
+
+// alternate draft mode
+
+// Internal queue page for WP
+
+
