@@ -1,7 +1,7 @@
 {
-  "name": "ca-design-system-gutenberg-blocks",
-  "version": "1.0.2",
-  "description": "Gutenberg Blocks to be used in WordPress that are compatible with the State of California's design system.",
+  "name": "cagov-design-system-headless-wordpress",
+  "version": "1.1.0",
+  "description": "WordPress publishing features for implementing the California Design System headlessly",
   "main": "index.js",
   "scripts": {
     "lint": "semistandard",
@@ -11,24 +11,36 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ca-design-system/ca-design-system-gutenberg-blocks.git"
+    "url": "git+https://github.com/cagov/ca-design-system-gutenberg-blocks.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ca-design-system/ca-design-system-gutenberg-blocks/issues"
+    "url": "https://github.com/cagov/ca-design-system-gutenberg-blocks/issues"
   },
-  "homepage": "https://github.com/ca-design-system/ca-design-system-gutenberg-blocks#readme",
+  "homepage": "https://github.com/cagov/ca-design-system-gutenberg-blocks#README",
   "devDependencies": {
     "@wordpress/scripts": "^16.1.2",
     "semistandard": "^16.0.0"
   },
   "dependencies": {
-    "@cagov/accordion": "^2.0.11",
+    "@cagov/ds-accordion": "^1.0.6",
+    "@cagov/ds-base-css": "^1.0.3",
+    "@cagov/ds-card-grid": "^1.0.2",
+    "@cagov/ds-content-navigation": "^1.0.3",
+    "@cagov/ds-feature-card": "^1.0.2",
+    "@cagov/ds-feedback": "^1.0.6",
+    "@cagov/ds-minus": "^1.0.0",
+    "@cagov/ds-pagination": "^1.0.4",
+    "@cagov/ds-pdf-icon": "^1.0.0",
+    "@cagov/ds-plus": "^1.0.0",
+    "@cagov/ds-step-list": "^1.0.1",
     "@wordpress/block-editor": "^6.1.3",
     "@wordpress/blocks": "^9.1.3",
     "@wordpress/components": "^14.1.2",
+    "@wordpress/compose": "^5.0.2",
+    "@wordpress/data": "^6.1.0",
     "@wordpress/date": "^4.1.1",
     "@wordpress/element": "^3.1.1",
     "@wordpress/i18n": "^4.1.1",
