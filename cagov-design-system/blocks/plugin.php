@@ -76,7 +76,7 @@ function cagov_design_system_load_block_category()
 {
     // This doesn't load a normal plugin function (probably syntax recommendation or scoping issue.)
     add_filter(
-        'block_categories',
+        'block_categories_all',
         function ($categories, $post) {
             return array_merge(
                 array(
