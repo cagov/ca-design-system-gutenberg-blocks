@@ -3,7 +3,7 @@
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment, cagov-pagination
  */
-class CAGovPostList extends window.HTMLElement {
+class CAGovEventPostList extends window.HTMLElement {
   connectedCallback() {
 
     let siteUrl = window.location.origin;
@@ -191,5 +191,5 @@ class CAGovPostList extends window.HTMLElement {
 }
 
 if (customElements.get("cagov-event-post-list") === undefined) {
-  window.customElements.define("cagov-event-post-list", CAGovPostList);
+  window.customElements.define("cagov-event-post-list", CAGovEventPostList);
 }
