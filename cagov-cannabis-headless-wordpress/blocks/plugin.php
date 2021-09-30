@@ -48,8 +48,8 @@ function cagov_cannabis_library_build_scripts_frontend()
 
         // Add local web components without triggering render blocking
 
-        add_action('wp_footer', 'cagov_cannabis_register_post_list_web_component_callback');
-        add_action('wp_footer', 'cagov_cannabis_register_content_navigation_web_component_callback');
+        // add_action('wp_footer', 'cagov_cannabis_register_post_list_web_component_callback');
+        // add_action('wp_footer', 'cagov_cannabis_register_content_navigation_web_component_callback');
 
         // PERFORMANCE OPTION (re render blocking): inlining our CSS 
         // Note: only bother with this if a plugin isn't available to automatically doing this, and also change this rendering for our blocks
