@@ -62,7 +62,7 @@ function cagov_design_system_register_promotional_card()
 
 add_action( 'init', 'cagov_design_system_register_promotional_card' );
 
-function cagov_promotional_card_wp_get_attachment( $attachment_id, $size = 'large')
+function cagov_promotional_card_wp_get_attachment( $attachment_id, $size = 'medium')
 {
     $attachment = get_post( $attachment_id );
     if (isset($attachment)) {
@@ -119,12 +119,12 @@ function cagov_promotional_card_dynamic_render_callback( $block_attributes, $con
     }
 
     $card_image = null;
-    if ('' !== $image_html_large ) {
+    if ('' !== $image_html_medium ) {
         $card_link = isset( $block_attributes['cardLink'] ) ? $block_attributes['cardLink'] : null;
         if (null !== $card_link) {
-            $card_image = '<div class="cagov-card-image">' . '<a href="' . $card_link . '">' . $image_html_large . '</a>' .'</div>';
+            $card_image = '<div class="cagov-card-image">' . '<a href="' . $card_link . '">' . $image_html_medium . '</a>' .'</div>';
         } else {
-            $card_image = '<div class="cagov-card-image">' . $image_html_large . '</div>';
+            $card_image = '<div class="cagov-card-image">' . $image_html_medium . '</div>';
         }
     }
 

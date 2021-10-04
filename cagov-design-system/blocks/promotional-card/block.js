@@ -128,13 +128,13 @@
           mediaObject !== undefined &&
           mediaObject.media_details.sizes !== undefined
         ) {
-          const mediaURL = mediaObject.media_details.sizes.large.source_url;
+          const mediaURL = mediaObject.media_details.sizes.medium.source_url;
           const mediaAlt = mediaObject.alt_text;
           // const mediaCaption = mediaObject.caption.raw;
           // const mediaTitle = mediaObject.title.raw;
           // const mediaDescription = mediaObject.description.raw;
-          const mediaWidth = mediaObject.media_details.sizes.large.width;
-          const mediaHeight = mediaObject.media_details.sizes.large.height;
+          const mediaWidth = mediaObject.media_details.sizes.medium.width;
+          const mediaHeight = mediaObject.media_details.sizes.medium.height;
           return el("img", {
             src: mediaURL,
             className: "cagov-card-image",
