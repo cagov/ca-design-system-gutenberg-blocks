@@ -1,0 +1,112 @@
+.cagov-event-detail .block-editor-rich-text__editable {
+    line-height: 28.8px;
+}
+
+.block-editor-rich-text__editable.wp-block-button__link.rich-text {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
+
+span[data-rich-text-placeholder]::after {
+    opacity: 0.8 !important;
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
+#datetime-controls legend {
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+#datetime-controls .legend-label {
+    font-style: italic;
+    margin: 32px 16px;
+}
+
+.cagov-event-detail {
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
+.cagov-event-detail .startDate {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
+.cagov-event-detail .endDate::before {
+    content: ' –⁠ ';
+}
+
+.cagov-event-detail .endDate {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
+.cagov-event-detail .startTime {
+    display: inline-block;
+}
+
+.cagov-event-detail .endTime {
+    display: inline-block;
+    padding-left: 0.2rem;
+}
+
+.cagov-event-detail .endTime::before {
+    content: ' –⁠ ';
+}
+
+.cagov-event-detail .timezone-label {
+    display: inline-block;
+    padding-left: 8px;
+    font-size: 18px;
+    line-height: 28.8px;
+}
+
+/* Rough pass at CSS */
+
+.cagov-event-detail {
+    margin-top: 32px;
+}
+
+.cagov-event-detail h4 {
+    margin-bottom: 8px;
+}
+
+.cagov-event-detail.cagov-stack {
+    margin-top: 0;
+}
+
+.cagov-event-detail .field-data {
+    font-size: 18px;
+    line-height: 28.8px;
+    
+}
+
+.cagov-event-detail .detail-section {
+    color: #000;
+    line-height: 28.8px;
+}
+
+.cagov-event-detail .detail-section,
+.cagov-event-detail .detail-section-more-info {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #EDEDEF;
+}
+
+.cagov-event-detail .detail-section:last-child {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #EDEDEF;
+}
+
+.cagov-event-detail .wp-block-button .wp-block-button__link {
+    background-color: #064E66;
+    border-radius: 5px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 16px
+}

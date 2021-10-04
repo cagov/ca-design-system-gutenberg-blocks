@@ -1,0 +1,24 @@
+.wp-block-ca-design-system-event-list {
+    margin-bottom: 64px;
+}
+
+.cagov-event-list cagov-post-list .link-title a {
+    font-weight: 700;
+    font-size: 29px;
+    line-height: 48px;
+    margin-bottom: 24px;
+}
+
+.cagov-event-list cagov-post-list .event-details .event-date {
+    font-weight: 700;
+    font-size: 29px;
+}
+
+.cagov-event-list cagov-post-list .event-details .event-time {
+    font-size: 18px;
+    line-height: 32px;
+}
+
+.cagov-event-list cagov-post-list .event-details .event-location {
+    line-height: 32px;
+}
