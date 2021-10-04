@@ -121,6 +121,34 @@ function cagov_autodescription_meta($object, $field_name, $request)
                 'twitter_title' => "" !== $tsf_post_meta['_twitter_title'] ? $tsf_post_meta['_twitter_title'] : $page_meta['page_title'],
                 'twitter_description' => "" !== $tsf_post_meta['_twitter_description'] ? $tsf_post_meta['_twitter_description'] : $page_meta['page_description'],
             );
+        } else {
+            $featured_media_url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+            return array(
+                'editor' => array(
+                    'platform' => 'WordPress',
+                    'plugin' => 'none',
+                    'plugin_name' => 'Core WordPress',
+                    'plugin_version' => '5.7.*',
+                    'editor_url' => get_bloginfo('wpurl'),
+                ),
+                'site_name' => get_bloginfo('name'),
+                'site_description' => get_bloginfo('description'),
+                'site_url' => get_bloginfo('url'),
+                'canonical_url' => get_permalink($post->ID),
+                'page_title' => $post->post_title,
+                'page_description' => get_bloginfo('description'),
+                'page_social_image_url' => $featured_media_url,
+                'page_social_image_width' => "", // @TODO Try to access this
+                'page_social_image_height' => "", // @TODO Try to access this
+                'page_social_image_alt' => "", // @TODO Try to access this
+                'meta_title' => "" !== $post->post_title,
+                'meta_description' => get_bloginfo('description'),
+                'meta_canonical_url' => $featured_media_url,
+                'open_graph_title' => $post->post_title,
+                'open_graph_description' => get_bloginfo('description'),
+                'twitter_title' => $post->post_title,
+                'twitter_description' => get_bloginfo('description'),
+            );
         }
     } catch (Exception $e) {
     } finally {

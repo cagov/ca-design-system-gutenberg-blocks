@@ -8,13 +8,13 @@
         })
 
         var createGlider = () => {
-            console.log('creating glider')
+            // console.log('creating glider');
             let countToAddGlider = 3;
 
             if (window.innerWidth <= 770) {
                 countToAddGlider = 1;
             }
-            console.log(document.querySelector('.glider'));
+            // console.log(document.querySelector('.glider'));
             // Has a glider at all
             if (document.querySelector('.glider') !== null) {
                 let gliders = document.querySelectorAll('.glider');
@@ -23,9 +23,9 @@
                 Object.keys(gliders).map((index) => {
                     var glider = gliders[index];
                     var cardCount = glider.children.length;
-                    console.log("Glider has ", cardCount, " cards", countToAddGlider);
+                    // console.log("Glider has ", cardCount, " cards", countToAddGlider);
                     if (cardCount !== undefined && cardCount > countToAddGlider) {
-                        console.log("Adding Glider interaction");
+                        // console.log("Adding Glider interaction");
                             // For each
                             new Glider(glider, {
                                 // slidesToShow: countToAddGlider,
@@ -66,11 +66,7 @@
 
         createGlider();
 
-        var removeGlider = () => {
-
-        }
-
-
+        // @TODO Remove glider
       })
 })();
 
