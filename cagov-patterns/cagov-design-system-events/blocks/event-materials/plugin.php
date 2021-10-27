@@ -47,14 +47,14 @@ function cagov_register_event_materials() {
 
     // wp_register_style(
     //     'ca-design-system-event-materials',
-    //     plugins_url( 'style.css', __FILE__ ),
+    //     plugins_url( 'index.css', __FILE__ ),
     //     array( ),
-    //     filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
+    //     filemtime( plugin_dir_path( __FILE__ ) . 'index.css' )
     // );
 
 
 	wp_register_style( 'ca-design-system-event-materials-style', false );
-	$style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+	$style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
 	wp_add_inline_style('ca-design-system-event-materials-style', $style_css);
 
     register_block_type( 'ca-design-system/event-materials', array(

@@ -1,7 +1,8 @@
 <?php
 /*
- * Template Name: DS Page: Default
+ * Template Name: DS Default page
  * Template Post Type: page
+ * Template Machine Name: page
  */
 ?>
 

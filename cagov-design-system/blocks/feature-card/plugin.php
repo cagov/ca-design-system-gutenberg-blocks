@@ -47,7 +47,7 @@ function cagov_design_system_register_feature_card() {
     );
 
     wp_register_style( 'ca-design-system-feature-card-style', false );
-    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-feature-card-style', $style_css);
 
     register_block_type( 'ca-design-system/feature-card', array(

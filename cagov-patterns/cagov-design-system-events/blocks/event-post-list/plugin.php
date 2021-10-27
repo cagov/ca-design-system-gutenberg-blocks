@@ -54,7 +54,7 @@ function cagov_design_system_register_event_post_list()
     );
 
     wp_register_style( 'ca-design-system-event-post-list-style', false );
-    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-event-post-list-style', $style_css);
 
     register_block_type('ca-design-system/event-post-list', array(
@@ -120,14 +120,6 @@ function cagov_design_system_gb_register_event_post_list_web_component_callback(
         filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
     );
 
-    // wp_register_style(
-    //     'ca-design-system-event-post-list',
-    //     plugins_url('style.css', __FILE__),
-    //     array(),
-    //     filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    // );
-
     wp_enqueue_script('ca-design-system-event-post-list-web-component');
-    // wp_enqueue_style('ca-design-system-post-list');
 }
 

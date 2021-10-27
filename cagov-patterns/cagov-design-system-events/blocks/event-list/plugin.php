@@ -49,7 +49,7 @@ function ca_design_system_register_event_list() {
     );
 
     wp_register_style( 'ca-design-system-event-list-style', false );
-    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-event-list-style', $style_css);
 
     register_block_type( 'ca-design-system/event-list', array(
@@ -69,9 +69,9 @@ function cagov_register_event_list_web_component_callback()
     // Alt idea: do_action('...')
     wp_register_style(
         'ca-design-system-event-list',
-        plugins_url('style.css', __FILE__),
+        plugins_url('index.css', __FILE__),
         array(),
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
+        filemtime(plugin_dir_path(__FILE__) . 'index.css')
     );
 
     wp_enqueue_style('ca-design-system-event-list');
