@@ -23,8 +23,8 @@ sidebar cagov-content-navigation .label {
   
   sidebar cagov-content-navigation ul li {
     padding-top: 16px;
-    margin-top: 16px;
-    border-top: 1px solid #ededef;
+    /* margin-top: 16px; */
+    /* border-top: 1px solid #ededef; */
     line-height: 28.2px;
   }
   

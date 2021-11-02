@@ -112,7 +112,8 @@ if ( 'CAWeb' == $theme->name) {
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-filters.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-functions.php';
 } else {
-	// Add page templates for Pantheon version
+	// @NOTE: if there is a third theme option or version number of the theme, we can handle that around here.
+	// Add page templates for "Pantheon version" of theme (currently: @cagov/cagov-wp-theme-generate-press)
 	if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon')) {
 		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates-pantheon.php';
 	}

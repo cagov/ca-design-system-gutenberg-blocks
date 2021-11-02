@@ -119,21 +119,13 @@ function cagov_design_system_build_scripts_frontend()
             // Let's try versioning these changes going forward so that we start to build more communication with updates & releases of design system code and package changes. We will need some smoother way to bring in code without requiring node_modules, can be as simple as popping a dist file in the plugin & testing it. 
             
             wp_enqueue_style('ca-design-system-caweb-override-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/manual/manual-caweb.v1.0.2.css', false);
-
-            // wp_enqueue_style('ca-design-system-base-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/dist/index.css', false); Need base css for pantheon version, no need for caweb override.
-
+            
             wp_enqueue_style('ca-design-system-design-system-color-scheme-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/manual/colorscheme-cannabis.v1.0.8.min.css', false);            
 
+            // Locally override css.
+            wp_enqueue_style('ca-design-system-design-system-components-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/components/index.css', array(), "1.1.2.1");
 
-            
-
-            // wp_enqueue_style('ca-design-system-design-system-compiled-components-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.css', false);
-
-            // local overrides
-            wp_enqueue_style('ca-design-system-design-system-components-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/components/index.css', false);
-
-
-            // @TODO anything to do with these?
+            // @TODO do we want to do anything to do with these? Maybe put them in an agency specific location?
             // import './../node_modules/@cagov/ds-feedback/dist/index.js';
             // import './../node_modules/@cagov/ds-minus/index.js';
             // import './../node_modules/@cagov/ds-pagination/dist/index.js';
@@ -141,40 +133,15 @@ function cagov_design_system_build_scripts_frontend()
             // import './../node_modules/@cagov/ds-plus/index.js';
         }
 
-        // Add compiled, versioned design system web component code. 
-        // Requires compilation with npm, see README notes. @DOCS
-        // wp_enqueue_script(
-        //     'ca-design-system-blocks-web-components',
-        //     CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.js',
-        //     array()
-        // );
-
-
-
-        // This needs to load after page is rendered.
+    // This needs to load after page is rendered.
     wp_register_script(
         'ca-design-system-blocks-web-components',
         // plugins_url('behavior.js', __FILE__),
         CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.js',
-        array(), "1.1.12.11", true
+        array(), "1.1.2.1", true
     );
 
     wp_enqueue_script('ca-design-system-blocks-web-components');
-
-
-
-        // This is what's compiled from cannabis.ca.gov
-        // wp_enqueue_script(
-        //     'ca-design-system-blocks-web-components-accordion-not-broken',
-        //     CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/dist/index.min.covid19.js',
-        //     array()
-        // );
-
-        // wp_enqueue_script(
-        //     'ca-design-system-blocks-web-components',
-        //     CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/styles/design-system/dist/built.js',
-        //     array()
-        // );
     }
 }
 

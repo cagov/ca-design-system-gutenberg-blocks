@@ -253,7 +253,6 @@ document.querySelector('head').appendChild(style);
 class CAGovContentNavigation extends window.HTMLElement {
   connectedCallback() {
     this.type = "wordpress";
-    console.log("hi");
     /* https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js */
 
     /* Smooth scroll polyfill for safari, since it does not support scroll behaviors yet - can be moved to a dependency bundle split out by browser support later or in headless implementation */
@@ -486,8 +485,6 @@ class CAGovContentNavigation extends window.HTMLElement {
         if (tagId !== undefined && tagId !== null) {
           anchor = tagId;
         }
-
-        console.log("t", title, "endt");
 
         if (title !== "" && title !== null) {
           output += `<li><a href="#${encodeURI(anchor)}">${title}</a></li>`;

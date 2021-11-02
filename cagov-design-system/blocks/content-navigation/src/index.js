@@ -374,7 +374,6 @@ class CAGovContentNavigation extends window.HTMLElement {
         if (tagId !== undefined && tagId !== null) {
           anchor = tagId;
         }
-        console.log("t", title, "endt");
         if (title !== "" && title !== null) {
           output += `<li><a href="#${encodeURI(anchor)}">${title}</a></li>`;
 
