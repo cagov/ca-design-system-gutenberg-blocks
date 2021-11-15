@@ -16,7 +16,7 @@ function cagov_design_system_load()
 {
     // Load all block dependencies and files.
     cagov_design_system_load_block_dependencies();
-    
+
     // Get all scripts
     add_action('wp_enqueue_scripts', 'cagov_design_system_build_scripts_frontend', 100);
     add_action('enqueue_block_editor_assets', 'cagov_design_system_build_scripts_editor', 100);
@@ -33,15 +33,14 @@ function cagov_design_system_load_block_dependencies()
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/card/plugin.php'; // Planning to rename to: 'call-to-action-button' - Renamed in GB interface labels but not code
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/card-grid/plugin.php'; // Planning to rename to: 'call-to-action-grid' - Renamed in GB interface labels but not code
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/content-navigation/plugin.php';
-    
+
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/feature-card/plugin.php';
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/page-alert/plugin.php';
-    
+
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/promotional-card/plugin.php';
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/regulatory-outline/plugin.php';
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/step-list/plugin.php';
     include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/scrollable-card/plugin.php';
-
 }
 /**
  * Create special categories for design system blocks
@@ -74,10 +73,13 @@ function cagov_design_system_load_block_pattern_categories()
  */
 function cagov_design_system_load_block_category()
 {
-    // This doesn't load a normal plugin function (probably syntax recommendation or scoping issue.)
-    add_filter(
-        'block_categories_all',
-        function ($categories, $post) {
+
+    global $wp_version;
+
+    $is_under_5_8 = version_compare($wp_version, "5.8", '<');
+
+    if ($is_under_5_8) {
+        add_filter('block_categories', function ($categories, $post) {
             return array_merge(
                 array(
                     array(
@@ -93,10 +95,59 @@ function cagov_design_system_load_block_category()
                 ),
                 $categories,
             );
-        },
-        10,
-        2
-    );
+        }, 10, 2);
+    } else {
+        add_filter('block_categories_all', function ($categories, $post) {
+            return array_merge(
+                array(
+                    array(
+                        'slug'  => 'ca-design-system',
+                        'title' => 'CA Design System',
+                    ),
+                ),
+                array(
+                    array(
+                        'slug'  => 'ca-design-system-utilities',
+                        'title' => 'CA Design System: Utilities',
+                    ),
+                ),
+                $categories,
+            );
+        }, 10, 2);
+    }
+
+    // add_filter('allowed_block_types', 'cagov_design_system_allowed_block_types');
+}
+
+function cagov_design_system_allowed_block_types($allowed_blocks)
+{
+
+    // remove_theme_support('core-block-patterns');
+    // return array(
+    //     'core/image',
+    //     'core/paragraph',
+    //     'core/heading',
+    //     'core/list',
+    //     // 'core/custom-html',
+    //     'core/classic',      
+    //     'ca-design-system/accordion',
+    //     'ca-design-system/card',
+    //     'ca-design-system/card-grid',
+    //     'ca-design-system/content-navigation',
+    //     'ca-design-system/feature-card',
+    //     'ca-design-system/page-alert',
+    //     'ca-design-system/promotional-card',
+    //     'ca-design-system/regulatory-outline',
+    //     'ca-design-system/scrollable-card',
+    //     'ca-design-system/step-list',
+    //     'ca-design-system/table',
+    //     // @TODO move to patterns
+    //     'ca-design-system/post-list',
+    //     'ca-design-system/event-detail',
+    //     'ca-design-system/event-materials',
+    //     'ca-design-system/event-list',
+    //     'ca-design-system/event-pattern'
+    // );
 }
 
 /**
@@ -112,15 +163,15 @@ function cagov_design_system_build_scripts_frontend()
         $theme = wp_get_theme();
         // If we are using the CAWeb theme (hosted on Flywheel)
         // These styles are moved into the performant theme for new version.
-        if ( 'CAWeb' == $theme->name) {
+        if ('CAWeb' == $theme->name) {
             $critical_css = file_get_contents(CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'styles/page.css');
             echo '<style>' . $critical_css . '</style>';
 
             // Let's try versioning these changes going forward so that we start to build more communication with updates & releases of design system code and package changes. We will need some smoother way to bring in code without requiring node_modules, can be as simple as popping a dist file in the plugin & testing it. 
-            
+
             wp_enqueue_style('ca-design-system-caweb-override-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/manual/manual-caweb.v1.0.2.css', false);
-            
-            wp_enqueue_style('ca-design-system-design-system-color-scheme-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/manual/colorscheme-cannabis.v1.0.8.min.css', false);            
+
+            wp_enqueue_style('ca-design-system-design-system-color-scheme-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/manual/colorscheme-cannabis.v1.0.8.min.css', false);
 
             // Locally override css.
             wp_enqueue_style('ca-design-system-design-system-components-css-style',  CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/blocks/styles/components/index.css', array(), "1.1.2.1");
@@ -133,15 +184,17 @@ function cagov_design_system_build_scripts_frontend()
             // import './../node_modules/@cagov/ds-plus/index.js';
         }
 
-    // This needs to load after page is rendered.
-    wp_register_script(
-        'ca-design-system-blocks-web-components',
-        // plugins_url('behavior.js', __FILE__),
-        CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.js',
-        array(), "1.1.2.1", true
-    );
+        // This needs to load after page is rendered.
+        wp_register_script(
+            'ca-design-system-blocks-web-components',
+            // plugins_url('behavior.js', __FILE__),
+            CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.js',
+            array(),
+            "1.1.2.1",
+            true
+        );
 
-    wp_enqueue_script('ca-design-system-blocks-web-components');
+        wp_enqueue_script('ca-design-system-blocks-web-components');
     }
 }
 
