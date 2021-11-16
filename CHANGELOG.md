@@ -3,8 +3,14 @@
 * Check for CAWeb theme & deliver CAWeb specific page templates, otherwise default to Pantheon cagov theme option.
 * Clean up folder structure
 * Add more notes/suggestions about the structure and direction of this code for keeping flexibility with development coming from agency partners.
-* Copy editing
 * Removed some reference code
+* Apply same template hiding filter used for pantheon template handler to CAweb template handlers
+* Redirection API extension script
+* OG Meta API extension script
+* Fix Accordion display in editor mode
+* Fix block category listing for WP versions 5.8 and up.
+* Support local builds of newly published design system components
+* Update design system packages to latest versions
 ### 1.1.1
 * Rename `ca-design-system` block namespace to `cagov-design-system.`
 * Add `patterns/template-pattern-extension` - Structure a starter plugin for adding structured data and blocks for specific State publishing content patterns.
