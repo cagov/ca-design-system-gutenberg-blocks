@@ -59,18 +59,6 @@ function cagov_design_system_headless_wordpress_admin_init()
 /* Include publishing system integrations and features */
 // Convert The SEO Framework data to OG_meta spec for the design system
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_autodescription.php';
-
-
-function cagov_redirection_start_rest() {
-
-
-
-
-	// Redirection_Api::init();
-
-	// remove_action( 'rest_api_init', 'red_start_rest' );
-}
-
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_redirection.php';
 
 // Deliver page template names in safe location that does not break the WP API
@@ -118,7 +106,6 @@ $theme = wp_get_theme();
 
 // If we are using the CAWeb theme (hosted on Flywheel)
 if ( 'CAWeb' == $theme->name) {
-		
 	// Add page templates
 	if (!class_exists('CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader')) {
 		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates.php';

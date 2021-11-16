@@ -51,6 +51,8 @@ function cagov_design_system_init()
 {
     cagov_design_system_load_block_pattern_categories();
     cagov_design_system_load_block_category();
+    add_action( 'admin_enqueue_scripts', 'cagov_design_system_add_admin_scripts', 10, 1 );
+
 }
 
 add_action('init', 'cagov_design_system_init');
@@ -187,14 +189,34 @@ function cagov_design_system_build_scripts_frontend()
         // This needs to load after page is rendered.
         wp_register_script(
             'ca-design-system-blocks-web-components',
-            // plugins_url('behavior.js', __FILE__),
             CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.js',
             array(),
-            "1.1.2.1",
+            "1.1.2.3",
             true
         );
 
         wp_enqueue_script('ca-design-system-blocks-web-components');
+    }
+}
+
+function cagov_design_system_add_admin_scripts( $hook ) {
+
+    global $post;
+
+    if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+        if ( 'post' === $post->post_type || 'page' === $post->post_type ) {     
+            wp_register_script(
+                'ca-design-system-blocks-web-components-editor',
+                CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL . 'cagov-design-system/build/index.js',
+                array(),
+                "1.1.2.4",
+                true
+            );
+       
+    
+            wp_enqueue_script('ca-design-system-blocks-web-components-editor');
+            
+        }
     }
 }
 

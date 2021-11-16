@@ -7,6 +7,7 @@
   var __ = i18n.__;
   var el = element.createElement;
   var RichText = editor.RichText;
+
   blocks.registerBlockType(
     "ca-design-system/accordion",
     {
@@ -87,3 +88,5 @@
   window.wp.components,
   window._
 );
+
+

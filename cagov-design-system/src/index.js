@@ -4,8 +4,8 @@
 
 // import './../node_modules/@cagov/ds-base-css';
 
-// import './../node_modules/@cagov/ds-accordion/dist/index.js'; // 1.0.6 not working 
-import './../blocks/accordion/dist/index.js';
+import './../node_modules/@cagov/ds-accordion/dist/index.js'; // 1.0.6 not working 
+// import './../blocks/accordion/dist/index.js';
 // import './../node_modules/@cagov/ds-card-grid'; // Just CSS - has css grid issues
 // import './../node_modules/@cagov/ds-content-navigation/src/index.js';
 import './../blocks/content-navigation/src/index.js';

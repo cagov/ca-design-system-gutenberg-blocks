@@ -3,11 +3,11 @@
 }
 
 /* accordion component specific classes */
-.edit-post-visual-editor cagov-accordion ..edit-post-visual-editor cagov-accordion-card {
-    border-radius: .3rem !important;
+.edit-post-visual-editor cagov-accordion .edit-post-visual-editor cagov-accordion-card {
+    border-radius: 0.3rem !important;
     margin-bottom: 0;
     min-height: 3rem;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     border: solid 1px #ededef !important;
 }
 
@@ -22,18 +22,28 @@
     align-items: center;
     padding: 0 0 0 1rem;
     background-clip: border-box;
-    background-color: #EDEDEF;
+    background-color: #ededef;
     border: none;
     position: relative;
     width: 100%;
     line-height: 3rem;
 }
 
-.edit-post-visual-editor cagov-accordion button.accordion-card-header *,
-.edit-post-visual-editor cagov-accordion .accordion-title {
+.edit-post-visual-editor cagov-accordion button.accordion-card-header .plus-minus {
+    /* text-align: left; */
+    margin-bottom: 0;
+    color: var(--primary-color, #064e66);
+    margin-right: 0;
+    /* width: 90%; */
+    /* padding: 0 0.5rem 0 0 !important; */
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+.edit-post-visual-editor cagov-accordion button.accordion-card-header .block-editor-rich-text__editable {
     text-align: left;
     margin-bottom: 0;
-    color: var(--primary-color, #064E66);
+    color: var(--primary-color, #064e66);
     margin-right: auto;
     width: 90%;
     padding: 0 0.5rem 0 0 !important;
@@ -48,7 +58,18 @@
 
 .edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-card-container .card-body {
     padding-left: 1rem;
+    margin-top: 8px;
 }
+
+.edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-card-container .card-body .block-editor-block-list__layout .wp-block {
+    margin: 16px 0px;
+}
+
+.edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-card-container .card-body ul {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  
 
 .edit-post-visual-editor cagov-accordion .collapsed {
     display: block;
@@ -64,7 +85,7 @@
     margin-bottom: 0 !important;
     font-size: 1.2rem !important;
     font-weight: 700;
-    color: var(--primary-color, #064E66);
+    color: var(--primary-color, #064e66);
     text-align: left !important;
 }
 
@@ -84,27 +105,28 @@
     stroke-width: 4px;
 }
 
-.edit-post-visual-editor .prog-enhanced .accordion-alpha .plus-minus {
+.edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-alpha .plus-minus {
     width: 2.125rem;
     height: 2.125rem;
     border: none;
     overflow: hidden;
     margin-left: 1rem;
-    color: var(--primary-color, #064E66);
+    color: var(--primary-color, #064e66);
     align-self: flex-start;
+    margin-top: 8px;
 }
 
-.edit-post-visual-editor .prog-enhanced .accordion-alpha .plus-minus svg {
+.edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-alpha .plus-minus svg {
     fill: var(--primary-color, #064E66);
     width: 25px;
     height: 25px;
 }
 
-.edit-post-visual-editor .prog-enhanced .accordion-alpha-open cagov-plus .accordion-icon {
+.edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-alpha-open cagov-plus .accordion-icon {
     display: none !important;
 }
 
-.edit-post-visual-editor .prog-enhanced .accordion-alpha-open cagov-minus .accordion-icon {
+.edit-post-visual-editor cagov-accordion.prog-enhanced .accordion-alpha-open cagov-minus .accordion-icon {
     display: block !important;
 }
 
