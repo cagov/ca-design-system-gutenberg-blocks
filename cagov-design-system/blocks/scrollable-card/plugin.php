@@ -37,9 +37,9 @@ function cagov_design_system_register_scrollable_card()
     // Temporary staging for testing, (belongs in a set of design system behaviors)
     wp_register_script(
         'ca-design-system-behavior-glider-js',
-        plugins_url('glider.js/glider.min.js', __FILE__),
+        plugins_url('glider.min.js', __FILE__),
         array(),
-        filemtime(plugin_dir_path(__FILE__) . 'glider.js/glider.min.js')
+        filemtime(plugin_dir_path(__FILE__) . 'glider.min.js')
     );
     wp_enqueue_script('ca-design-system-behavior-glider-js');
 
@@ -50,9 +50,9 @@ function cagov_design_system_register_scrollable_card()
 
     wp_register_style(
 		'ca-design-system-behavior-glider-css',
-		plugins_url('glider.js/glider.css', __FILE__),
+		plugins_url('glider.min.css', __FILE__),
 		array(),
-		filemtime(plugin_dir_path(__FILE__) . 'glider.js/glider.css')
+		filemtime(plugin_dir_path(__FILE__) . 'glider.min.css')
 	);
     wp_enqueue_style('ca-design-system-behavior-glider-css');
 
@@ -71,7 +71,7 @@ function cagov_design_system_register_scrollable_card()
     );
 
     wp_register_style('ca-design-system-scrollable-card-style', false);
-    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-scrollable-card-style', $style_css);
 
 

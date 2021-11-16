@@ -1,5 +1,30 @@
 # cagov-design-system-headless-wordpress
 
+QUESTION:
+* Can we switch OFF the injected design system build code & go to a managed option (requires a more agile WP update flow, which we don't have except for the drought site)
+
+@TODO
+- Include note about running monolith AND headless
+
+- These notes:
+# Gutenberg Blocks for the California Design System from ca.gov
+### Add a new block or pattern
+* Blocks should be created one per design system component. 
+* New blocks NOT in design system can use `_proposed/design-system-proposals/plugin.php`
+* Patterns are more extensive and could become their own separate plugin. 
+* Patterns include Gutenberg Patterns as well as content types, REST API integration for headless rendering. 
+* To develop ES6 UI interfaces, register the block.js file and run `npm run build` to compile before release.
+
+## Build mode (confusing, @TODO make it not confusing)
+- npm install @wordpress/scripts --save-dev, https://www.npmjs.com/package/@wordpress/scripts
+- npm run build - update packages
+
+Q: where is the code loaded & can we stop using the WP theme JS function 
+
+
+---
+## OLD README CONTENT
+
 Headless WordPress editor integrations for the California Design System.
 
 * California Design System support

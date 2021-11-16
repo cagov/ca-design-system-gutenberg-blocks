@@ -6,7 +6,7 @@
  * Description: Create content with the California Design System.
  * Author: Office of Digital Innovation
  * Author URI: https://digital.ca.gov
- * Version: 1.1.0
+ * Version: 1.1.2
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin Constants.
-define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION', '1.1.0');
+define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION', '1.1.2');
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH', plugin_dir_path(__FILE__));
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL', plugin_dir_url(__FILE__));
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__FILE', __FILE__);
@@ -57,47 +57,72 @@ function cagov_design_system_headless_wordpress_admin_init()
 }
 
 /* Include publishing system integrations and features */
+// Convert The SEO Framework data to OG_meta spec for the design system
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_autodescription.php';
+require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_redirection.php';
+
+// Deliver page template names in safe location that does not break the WP API
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_page_templates.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_meta_categories.php';
-require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_rest_api_headless.php'; // Clean up api
+require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_rest_api_headless.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_meta_tags.php';
+// Headless publishing features
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_publishing.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_preview.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/preview_button.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/site_options.php';
 
 /* Include Gutenberg blocks and patterns. */
+// Core design system blocks (periodically synced with design system changes)
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/plugin.php';
-require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-agency-content/plugin.php';
-// Will can create these as separately managed components for all sites & split this out sensibly for new theme (keeping an eye on the structured data & migratability/flexibility)
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-statewide/plugin.php';
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-systems-feedback/plugin.php';
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-systems-translations/plugin.php';
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-systems-search/plugin.php';
-
-require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-events/plugin.php';
+// Connect content modules/patterns 
+// Patterns have more data & API requirements and multiple layouts.
+require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-events/plugin.php'; // @TODO NEW Fix event api sorting
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-posts/plugin.php';
-// Future home of campaign toolkits. Unpublish from design system until it actually lives in design system.
+
+
+// Future campaign toolkits may require more, but currently we are including the components in the design system, so disabling this interface for now.
 // require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-campaigns/plugin.php';
 
-// @TODO, we will allow agencies to extend the block library. Make sure this works with render order.
+// Add design system proposals
+// include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/design-system-proposals/plugin.php';
 
-// Add page templates
-if (!class_exists('CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader')) {
-	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates.php';
+// An agency could also create a new plugin similar to this one & include agency specific blocks, services and patterns as needed.
+
+// @PLACEHOLDER for connecting agency specific site settings without CAWeb theme.
+// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-agency-content/plugin.php';
+// @PLACEHOLDER Statewide integrations
+// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-statewide/plugin.php';
+// @SUGGESTION: Services integrations
+// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-services-feedback/plugin.php';
+// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-services-translations/plugin.php';
+// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-services-search/plugin.php';
+
+// We host this plugin on multiple platforms and WordPress base installs. Accomodate the differences in themes, and support monolithic WordPress as well as ODI Publishing headless wordpress.
+
+include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/roles.php';
+
+$theme = wp_get_theme();
+
+// If we are using the CAWeb theme (hosted on Flywheel)
+if ( 'CAWeb' == $theme->name) {
+	// Add page templates
+	if (!class_exists('CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader')) {
+		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates.php';
+	}
+
+	CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader::get_instance();
+	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-page-resources.php';
+	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-filters.php';
+	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-functions.php';
+} else {
+	// @NOTE: if there is a third theme option or version number of the theme, we can handle that around here.
+	// Add page templates for "Pantheon version" of theme (currently: @cagov/cagov-wp-theme-generate-press)
+	if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon')) {
+		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates-pantheon.php';
+	}
+
+	CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon::get_instance();
+	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-filters.php';
+	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-functions.php';
 }
-
-CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader::get_instance();
-
-// Overrides for CAWeb theme
-include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-page-resources.php';
-include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-filters.php';
-include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-functions.php';
-
-// Future
-// - namespace rename migration function
-// - Convert all blocks to static HTML
-
-// Add cannabis only code (subplugin needs some work)
-include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-cannabis-headless-wordpress/plugin.php';

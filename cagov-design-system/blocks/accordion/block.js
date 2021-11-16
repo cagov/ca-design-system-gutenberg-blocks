@@ -1,17 +1,12 @@
 /**
  * CAGov Accordion
+ * web component compiled from node_modules
+ * CSS copied from design system and added as an inline script until there is a compiled CSS file from the design system we can load in to WordPress.
  */
 (function (blocks, editor, i18n, element, components, _) {
   var __ = i18n.__;
   var el = element.createElement;
   var RichText = editor.RichText;
-
-  let newScript = document.createElement("script");
-  newScript.type="module";
-  newScript.src = "https://files.covid19.ca.gov/js/components/accordion/v1/index.js";
-  newScript.defer = true;
-  document.querySelector('head').appendChild(newScript);
-
 
   blocks.registerBlockType(
     "ca-design-system/accordion",
@@ -40,9 +35,6 @@
         }
       },
       edit: function (props) {
-
-
-
         const attributes = props.attributes;
         return el('cagov-accordion', { },
           el('div', { className: 'cagov-accordion-card' },
@@ -84,7 +76,7 @@
       },
       save: function (props) {
         const attributes = props.attributes;
-        return el(editor.InnerBlocks.Content)
+        return el(editor.InnerBlocks.Content);
       }
     }
   );
@@ -96,3 +88,5 @@
   window.wp.components,
   window._
 );
+
+

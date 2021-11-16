@@ -31,7 +31,7 @@ function cagov_design_system_register_event_detail()
     }
 
     wp_register_style('ca-design-system-event-detail-style', false);
-    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
+    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-event-detail-style', $style_css);
 
     wp_register_style(

@@ -13,8 +13,6 @@ defined('ABSPATH') || exit;
 
 add_action('init', 'cagov_register_content_navigation');
 
-add_action('cagov_design_system_register_content_navigation_web_component', 'cagov_design_system_register_content_navigation_web_component_callback', 10, 2);
-
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in
  * the corresponding context.
@@ -28,12 +26,12 @@ function cagov_register_content_navigation()
         return;
     }
 
-    wp_register_script(
-        'ca-design-system-content-navigation-web-component',
-        plugins_url('web-component.js', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
-    );
+    // wp_register_script(
+    //     'ca-design-system-content-navigation-web-component',
+    //     plugins_url('index.js', __FILE__),
+    //     array(),
+    //     filemtime(plugin_dir_path(__FILE__) . 'index.js'),
+    // );
 
     wp_register_script(
         'ca-design-system-content-navigation-editor',
@@ -41,10 +39,6 @@ function cagov_register_content_navigation()
         array('wp-blocks', 'wp-i18n', 'wp-element', 'ca-design-system-content-navigation-web-component'),
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
     );
-
-    wp_register_style('ca-design-system-content-navigation-style', false);
-    $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/style.css', __FILE__);
-    wp_add_inline_style('ca-design-system-content-navigation-style', $style_css);
 
     wp_register_style(
         'ca-design-system-content-navigation-editor-style',
@@ -60,19 +54,6 @@ function cagov_register_content_navigation()
         'editor_style' => 'ca-design-system-content-navigation-editor-style',
         'render_callback' => 'cagov_design_system_register_content_navigation_dynamic_render_callback'
     ));
-}
-
-function cagov_design_system_register_content_navigation_web_component_callback()
-{
-
-    wp_register_script(
-        'ca-design-system-content-navigation-web-component',
-        plugins_url('web-component.js', __FILE__),
-        array(),
-        filemtime(plugin_dir_path(__FILE__) . 'web-component.js'),
-    );
-
-    wp_enqueue_script('ca-design-system-content-navigation-web-component');
 }
 
 add_action('cagov_design_system_register_content_navigation_dynamic_render', 'cagov_design_system_register_content_navigation_dynamic_render_callback', 10, 2);

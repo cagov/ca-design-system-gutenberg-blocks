@@ -1,7 +1,8 @@
 <?php
 /*
- * Template Name: DS Post: Press Release
+ * Template Name: Press Release
  * Template Post Type: post
+ * Template Machine Name: press-release
  */
 ?>
 

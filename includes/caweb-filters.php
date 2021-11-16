@@ -40,6 +40,8 @@ function cagov_register_page_post_templates($theme_templates)
     return array_merge($theme_templates, cagov_get_page_post_templates());
 }
 
+
+
 /**
  * Include plugin's template if there's one chosen for the rendering page.
  *

@@ -39,7 +39,7 @@ function cagov_design_system_events_load_block_dependencies()
     include_once plugin_dir_path(__FILE__) . 'blocks/event-materials/plugin.php';
 
     include_once plugin_dir_path(__FILE__) . 'api.php';
-    // include_once plugin_dir_path(__FILE__) . 'meta.php';
+    // include_once plugin_dir_path(__FILE__) . 'metabox.php';
 
 }
 
