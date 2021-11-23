@@ -53,7 +53,7 @@ add_action('admin_init', 'cagov_design_system_headless_wordpress_admin_init');
  */
 function cagov_design_system_headless_wordpress_admin_init()
 {
-	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/core/class-ca-design-system-gutenberg-blocks-update.php';
+	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/core/class-ca-design-system-gutenberg-blocks-plugin-update.php';
 }
 
 /* Include publishing system integrations and features */

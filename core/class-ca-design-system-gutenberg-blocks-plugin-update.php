@@ -1,17 +1,17 @@
 <?php
 /**
- * CAGOVDesignSystemHeadlessWordPress Plugin Updater
+ * CADesignSystemGutenbergBlocks Plugin Updater
  *
  * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/update.php
  * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/class-theme-upgrader.php
  * @see https://github.com/WordPress/WordPress/blob/master/wp-admin/includes/class-wp-upgrader.php
  *
- * @package CAGOVDesignSystemHeadlessWordPress
+ * @package CADesignSystemGutenbergBlocks
  */
 
 if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 	/**
-	 * CAGOVDesignSystemHeadlessWordPress Plugin Upgrader
+	 * CADesignSystemGutenbergBlocks Plugin Upgrader
 	 */
 	class CADesignSystemGutenbergBlocks_Plugin_Update {
 
@@ -47,14 +47,14 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @var string $transient_name Name of update transient.
 		 */
-		protected $transient_name = 'ca_design_system_gutenberg_blocks_update_plugins';
+		protected $transient_name = 'cagov_design_system_gutenberg_blocks_update_plugins';
 
 		/**
 		 * Member Variable
-		 * 
+		 *
 		 * @var string $repo Plugin repo location.
 		 */
-		protected $repo = 'https://api.github.com/repos/cagov/ca-design-system-gutenberg-blocks.git';
+		protected $repo = 'https://api.github.com/repos/cagov/ca-design-system-gutenberg-blocks';
 
 		/**
 		 * Member Variable
@@ -68,7 +68,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @param string $plugin_slug Plugin slug name.
 		 */
-		public function __construct( $plugin_slug ) {		
+		public function __construct( $plugin_slug ) {
 			$plugin_data = get_plugin_data( sprintf( '%1$s/%2$s/%2$s.php', WP_PLUGIN_DIR, $plugin_slug ) );
 
 			// Set the class public variables.
@@ -86,18 +86,19 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 			);
 
 			// define the alternative API for plugin update checking.
-			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'ca_design_system_gutenberg_blocks_check_plugin_update' ) );
+			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'cagov_design_system_gutenberg_blocks_check_plugin_update' ) );
 
 			// Define the alternative response for information checking.
-			add_filter( 'site_transient_update_plugins', array( $this, 'ca_design_system_gutenberg_blocks_add_plugins_to_update_notification' ) );
+			add_filter( 'site_transient_update_plugins', array( $this, 'cagov_design_system_gutenberg_blocks_add_plugins_to_update_notification' ) );
 
-			add_filter( 'plugins_api', array( $this, 'ca_design_system_gutenberg_blocks_update_plugins_changelog' ), 20, 3 );
+			add_filter( 'plugins_api', array( $this, 'cagov_design_system_gutenberg_blocks_update_plugins_changelog' ), 20, 3 );
 
 			// Define the alternative response for download_package which gets called during theme upgrade.
 			add_filter( 'upgrader_pre_download', array( $this, 'download_package' ), 10, 3 );
 
 			// Define the alternative response for upgrader_pre_install.
-			add_filter( 'upgrader_source_selection', array( $this, 'ca_design_system_gutenberg_blocks_upgrader_source_selection' ), 10, 4 );
+			add_filter( 'upgrader_source_selection', array( $this, 'cagov_design_system_gutenberg_blocks_upgrader_source_selection' ), 10, 4 );
+
 		}
 
 		/**
@@ -114,16 +115,12 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		public function download_package( $reply, $package, $upgrader ) {
 			if ( isset( $upgrader->skin->plugin_info ) && $upgrader->skin->plugin_info['Name'] === $this->plugin_name ) {
 				$theme = wp_remote_retrieve_body( wp_remote_get( $package, array_merge( $this->args, array( 'timeout' => 60 ) ) ) );
-				// Now use the standard PHP file functions to get the latest release
-				try {
-					$fp = fopen( sprintf( '%1$s/%2$s.zip', plugin_dir_path( __DIR__ ), $this->slug ), 'w' );
-					fwrite( $fp, $theme );
-					fclose( $fp );
+				// Now use the standard PHP file functions.
+				$fp = fopen( sprintf( '%1$s/%2$s.zip', plugin_dir_path( __DIR__ ), $this->slug ), 'w' );
+				fwrite( $fp, $theme );
+				fclose( $fp );
 
-					return sprintf( '%1$s/%2$s.zip', plugin_dir_path( __DIR__ ), $this->slug );
-				} catch (Exception $e) {
-				} finally {
-				}
+				return sprintf( '%1$s/%2$s.zip', plugin_dir_path( __DIR__ ), $this->slug );
 			}
 			return $reply;
 		}
@@ -135,7 +132,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @return array
 		 */
-		public function ca_design_system_gutenberg_blocks_check_plugin_update( $update_transient ) {
+		public function cagov_design_system_gutenberg_blocks_check_plugin_update( $update_transient ) {
 			if ( ! isset( $update_transient->checked ) ) {
 				return $update_transient;
 			}
@@ -144,6 +141,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 
 			$last_update = new stdClass();
 
+			// Example: https://api.github.com/repos/cagov/ca-design-system-gutenberg-blocks/releases/latest
 			$payload = wp_remote_get( sprintf( '%1$s/releases/latest', $this->repo ), $this->args );
 
 			if ( ! is_wp_error( $payload ) && wp_remote_retrieve_response_code( $payload ) === 200 ) {
@@ -157,7 +155,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 					$obj->new_version    = $payload->tag_name;
 					$obj->published_date = ( new DateTime( $payload->published_at ) )->format( 'm/d/Y' );
 					$obj->package        = str_replace( 'zipball', 'zipball/refs/tags', $payload->zipball_url );
-					$obj->tested         = '5.8.1';
+					$obj->tested         = '5.4.1';
 
 					$theme_response = array( $this->plugin_file => $obj );
 
@@ -169,7 +167,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 					delete_site_transient( $this->transient_name );
 				}
 			}
-
+			
 			$last_update->last_checked = time();
 			set_site_transient( $this->transient_name, $last_update );
 
@@ -183,9 +181,9 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @return array
 		 */
-		public function ca_design_system_gutenberg_blocks_add_plugins_to_update_notification( $update_transient ) {
-			$ca_design_system_gutenberg_blocks_update_plugins = get_site_transient( $this->transient_name );
-			if ( ! is_object( $ca_design_system_gutenberg_blocks_update_plugins ) || ! isset( $ca_design_system_gutenberg_blocks_update_plugins->response ) ) {
+		public function cagov_design_system_gutenberg_blocks_add_plugins_to_update_notification( $update_transient ) {
+			$cagov_design_system_gutenberg_blocks_update_plugins = get_site_transient( $this->transient_name );
+			if ( ! is_object( $cagov_design_system_gutenberg_blocks_update_plugins ) || ! isset( $cagov_design_system_gutenberg_blocks_update_plugins->response ) ) {
 				return $update_transient;
 			}
 			// Fix for warning messages on Dashboard / Updates page.
@@ -195,7 +193,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 
 			$update_transient->response = array_merge(
 				! empty( $update_transient->response ) ? $update_transient->response : array(),
-				$ca_design_system_gutenberg_blocks_update_plugins->response
+				$cagov_design_system_gutenberg_blocks_update_plugins->response
 			);
 
 			return $update_transient;
@@ -212,16 +210,16 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @return false|object|array
 		 */
-		public function ca_design_system_gutenberg_blocks_update_plugins_changelog( $result, $action, $args ) {
+		public function cagov_design_system_gutenberg_blocks_update_plugins_changelog( $result, $action, $args ) {
 			if ( isset( $args->slug ) && $args->slug === $this->slug ) {
-				$ca_design_system_gutenberg_blocks_update_plugins = get_site_transient( $this->transient_name );
-				if ( isset( $ca_design_system_gutenberg_blocks_update_plugins->response ) && isset( $ca_design_system_gutenberg_blocks_update_plugins->response[ $this->plugin_file ] ) ) {
+				$cagov_design_system_gutenberg_blocks_update_plugins = get_site_transient( $this->transient_name );
+				if ( isset( $cagov_design_system_gutenberg_blocks_update_plugins->response ) && isset( $cagov_design_system_gutenberg_blocks_update_plugins->response[ $this->plugin_file ] ) ) {
 					$tmp = $this->plugin_details();
 
-					$tmp['version']      = $ca_design_system_gutenberg_blocks_update_plugins->response[ $this->plugin_file ]->new_version;
-					$tmp['last_updated'] = $ca_design_system_gutenberg_blocks_update_plugins->response[ $this->plugin_file ]->published_date;
+					$tmp['version']      = $cagov_design_system_gutenberg_blocks_update_plugins->response[ $this->plugin_file ]->new_version;
+					$tmp['last_updated'] = $cagov_design_system_gutenberg_blocks_update_plugins->response[ $this->plugin_file ]->published_date;
 
-					$tmp['sections']['Changelog'] = $this->ca_design_system_gutenberg_blocks_get_plugin_changelog( $tmp['version'] );
+					$tmp['sections']['Changelog'] = $this->cagov_design_system_gutenberg_blocks_get_plugin_changelog( $tmp['version'] );
 
 					return (object) $tmp;
 				}
@@ -236,7 +234,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @return string
 		 */
-		public function ca_design_system_gutenberg_blocks_get_plugin_changelog( $ver = 'master' ) {
+		public function cagov_design_system_gutenberg_blocks_get_plugin_changelog( $ver = 'master' ) {
 			$logurl = sprintf( '%1$s/contents/changelog.txt?ref=%2$s', $this->repo, $ver );
 
 			$changelog = wp_remote_get( $logurl, $this->args );
@@ -260,7 +258,7 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		 *
 		 * @return string
 		 */
-		public function ca_design_system_gutenberg_blocks_upgrader_source_selection( $src, $rm_src, $upgr, $options ) {
+		public function cagov_design_system_gutenberg_blocks_upgrader_source_selection( $src, $rm_src, $upgr, $options ) {
 
 			if ( ! isset( $options['plugin'] ) || $options['plugin'] !== $this->plugin_file ) {
 				return $src;
@@ -286,13 +284,13 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 		public function plugin_details() {
 			$view_details = array(
 				'slug'     => plugin_basename( plugin_dir_path( __DIR__ ) ),
-				'author'   => 'Office of Digital Innovation',
-				'name'     => 'ca.gov Design System Headless Wordpress',
+				'author'   => 'TBD',
+				'name'     => 'CA Design System Gutenberg Blocks',
 				'sections' => array(
-					'Description' => 'Create content with the California Design System.',
+					'Description' => 'Gutenberg blocks to be used in WordPress that are compatible with the California\'s design system',
 				),
-				'requires' => '5.8.1',
-				'tested' => '5.8.1',
+				'requires' => '5.4.1',
+				'tested' => '5.4.1',
 			);
 
 			return $view_details;
@@ -302,4 +300,3 @@ if ( ! class_exists( 'CADesignSystemGutenbergBlocks_Plugin_Update' ) ) {
 }
 
 new CADesignSystemGutenbergBlocks_Plugin_Update( plugin_basename( plugin_dir_path( __DIR__ ) ) );
-
