@@ -4,11 +4,13 @@
  * Page and post template overrides for CA Design System content
  * @package CADesignSystem
  */
- 
-add_action( 'caweb_pre_main_area', 'cagov_breadcrumb');
-add_action( 'caweb_pre_main_primary', 'cagov_pre_main_primary' );
-add_action( 'caweb_pre_footer', 'cagov_content_menu' );
-add_action( 'wp_head', 'cagov_footer_scripts');
+
+
+add_action('after_setup_theme', 'cagov_init');
+add_action('caweb_pre_main_area', 'cagov_breadcrumb');
+add_action('caweb_pre_main_primary', 'cagov_pre_main_primary');
+add_action('caweb_pre_footer', 'cagov_content_menu');
+add_action('wp_head', 'cagov_footer_scripts');
 add_action('cagov_breadcrumb', 'cagov_breadcrumb');
 add_action('cagov_content_menu', 'cagov_content_menu');
 
@@ -24,15 +26,15 @@ add_action('cagov_content_menu', 'cagov_content_menu');
  */
 function cagov_init()
 {
-	/* Include functionality */
-	foreach (glob(__DIR__ . '/includes/*.php') as $file) {
-		require_once $file;
-	}
+    /* Include functionality */
+    foreach (glob(__DIR__ . '/includes/*.php') as $file) {
+        require_once $file;
+    }
 
-	/* Add content menu navigation */
-	register_nav_menu('content-menu', 'Content Footer Menu');
-	register_nav_menu('social-media-links', 'Social Media Links');
-	register_nav_menu('statewide-footer-menu', 'Statewide Footer Menu');
+    /* Add content menu navigation */
+    register_nav_menu('content-menu', __('Content Footer Menu'));
+    register_nav_menu('social-media-links', __('Social Media Links'));
+    register_nav_menu('statewide-footer-menu', __('Statewide Footer Menu'));
 }
 
 /**
@@ -99,14 +101,15 @@ function cagov_breadcrumb()
             $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
         }
     }
-    
+
     echo '<div class="breadcrumb" aria-label="Breadcrumb" role="region">' . implode($separator, $crumbs) . '</div>';
 }
-function cagov_footer_scripts() {
-	/* Register cagov scripts */
-	wp_register_script( 'twitter-timeline', 'https://platform.twitter.com/widgets.js', array(), CAWEB_VERSION, false );
+function cagov_footer_scripts()
+{
+    /* Register cagov scripts */
+    wp_register_script('twitter-timeline', 'https://platform.twitter.com/widgets.js', array(), CAWEB_VERSION, false);
 
-	wp_enqueue_script( 'twitter-timeline' );
+    wp_enqueue_script('twitter-timeline');
 }
 
 /**
@@ -145,13 +148,8 @@ function cagov_pre_main_primary()
  */
 function cagov_content_menu()
 {
-    $nav_links = '';
-    $nav_menus = get_nav_menu_locations();
 
-    if (!isset($nav_menus['content-menu'])) {
-        return;
-    }
-    ?>
+?>
     <div class="per-page-feedback-container">
         <cagov-feedback data-endpoint-url="https://fa-go-feedback-001.azurewebsites.net/sendfeedback"></cagov-feedback>
     </div>
@@ -164,18 +162,22 @@ function cagov_content_menu()
             <div class="menu-section">
                 <ul class="content-menu-links">
                     <?php
-                    $menuitems = wp_get_nav_menu_items($nav_menus['content-menu']);
-
-                    foreach ($menuitems as $item) {
-                        if (!$item->menu_item_parent) {
-                            $class  = !empty($item->classes) ? implode(' ', $item->classes) : '';
-                            $rel    = !empty($item->xfn) ? $item->xfn : '';
-                            $target = !empty($item->target) ? $item->target : '_blank';
+                    $nav_links = '';
+                    $nav_menus = get_registered_nav_menus();
+                    if (isset($nav_menus) && isset($nav_menus['content-menu'])) {
+                        // return;
+                        $menuitems = wp_get_nav_menu_items('content-menu');
+                        foreach ($menuitems as $item) {
+                            if (!$item->menu_item_parent) {
+                                $class  = !empty($item->classes) ? implode(' ', $item->classes) : '';
+                                $rel    = !empty($item->xfn) ? $item->xfn : '';
+                                $target = !empty($item->target) ? $item->target : '_blank';
                     ?>
-                            <li class="<?php echo esc_attr($class); ?>" title="<?php echo esc_attr($item->attr_title); ?>" rel="<?php echo esc_attr($rel); ?>">
-                                <a href="<?php echo esc_url($item->url); ?>" target="<?php echo esc_attr($target); ?>"><?php echo esc_attr($item->title); ?></a>
-                            </li>
+                                <li class="<?php echo esc_attr($class); ?>" title="<?php echo esc_attr($item->attr_title); ?>" rel="<?php echo esc_attr($rel); ?>">
+                                    <a href="<?php echo esc_url($item->url); ?>" target="<?php echo esc_attr($target); ?>"><?php echo esc_attr($item->title); ?></a>
+                                </li>
                     <?php
+                            }
                         }
                     }
                     ?>
@@ -188,7 +190,7 @@ function cagov_content_menu()
             </div>
         </div>
     </div>
-    <?php
+<?php
 }
 
 /**
@@ -240,6 +242,3 @@ function cagov_content_social_menu()
     </ul>
 <?php
 }
-
-
-
