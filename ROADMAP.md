@@ -7,16 +7,14 @@ Include issue board if available.
 ## 1.1.13+
 * Update the README based on the template (README_DRAFT.md has some information).
 * Create a composer.json file for all the design system install profile plugins
-* Continuously update design system packages (and write docs on how to manage this)
+* Update design system packages
 * Update notes on "DEVELOPMENT.md" and include a link to the wiki
-* Update styles to use latest typography
-* Enable Gutenberg block suppression
+* Update styles to use evolved typography
+* Split WP code out in design system and figure out a communication pattern on how to show changes
 * Stop using columns, even turn them off completely - too confusing for editors & it doesn't reinforce our grid
-
-## 1.1.14+
 * Media Alt support all GB blocks, requires spec coming from Design system
 * Update any new component names
-
+* Apply same template hiding filter used for pantheon template handler to CAweb template handlers
 * Page feedback is hard coded in this plugin & that seems unscalble
 * Delete category-template (or disable the category rendering?)
 ## Far future changes
