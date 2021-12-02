@@ -170,16 +170,6 @@
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
     
-    // if (meta !== null && meta.custom_post_date !== "") {
-    //   try {
-    //     dateFormatted = moment(meta.custom_post_date).format("MMMM DD, YYYY");
-    //     console.log("dateFormatted", dateFormatted);
-    //   } catch(error) {
-    //     console.error(error);
-    //   }
-    // }
-
-    // Alternate for API testing:
     if (custom_post_date !== null && custom_post_date !== "") {
       try {
         dateFormatted = moment(custom_post_date).format("MMMM DD, YYYY");
