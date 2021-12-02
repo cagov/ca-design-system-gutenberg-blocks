@@ -3,7 +3,7 @@
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment, cagov-pagination
  */
-class CAGovPostList extends window.HTMLElement {
+ class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
     let siteUrl = window.location.origin;
     this.endpoint = this.dataset.endpoint || `${siteUrl}/wp-json/wp/v2`;
@@ -161,18 +161,18 @@ class CAGovPostList extends window.HTMLElement {
     // featured_media = null, // 0
     categories = null,
     format = null,
-    meta = null
+    meta = null,
+    custom_post_date = null
   }) {
   
     let dateFormatted;
     if (date !== null && window.moment !== undefined) {
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
-
-    if (meta !== null && meta.custom_post_date !== "") {
+    
+    if (custom_post_date !== null && custom_post_date !== "") {
       try {
-        dateFormatted = moment(meta.custom_post_date).format("MMMM DD, YYYY");
-        console.log("dateFormatted", dateFormatted);
+        dateFormatted = moment(custom_post_date).format("MMMM DD, YYYY");
       } catch(error) {
         console.error(error);
       }
