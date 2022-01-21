@@ -10,7 +10,7 @@ function cagov_design_system_start_rest_redirection()
 {    
     $redirection_plugin = WP_PLUGIN_DIR . '/redirection';
 
-    if (is_dir($redirection_plugin)) {
+    if (is_dir($redirection_plugin) && is_plugin_active( "redirection" ) ) {
         // plugin directory found!
         require_once $redirection_plugin . '/api/api.php';
         require_once $redirection_plugin . '/redirection-admin.php';
