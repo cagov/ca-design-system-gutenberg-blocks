@@ -71,6 +71,7 @@ require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publi
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/api_preview.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/preview_button.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/site_options.php';
+require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publishing/headless_mime_types.php';
 
 /* Include Gutenberg blocks and patterns. */
 // Core design system blocks (periodically synced with design system changes)
