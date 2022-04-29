@@ -11,3 +11,5 @@ https://github.com/cagov/design-system-wordpress-gutenberg
 
 *WordPress Theme* - Divi-less, performant WordPress theme will live at: https://github.com/cagov/design-system-wordpress-theme
 * Code for theme page layout will move to this WordPress Theme
+
+*Content Patterns* - Will move to own repo, since code requires system integrations.
