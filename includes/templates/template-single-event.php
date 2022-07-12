@@ -58,8 +58,8 @@ function cagov_post_schema($post, $type)
 if (file_exists(get_stylesheet_directory() . '/header.php')) {
     require_once get_stylesheet_directory() . '/header.php';
 }
-if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
-    require_once get_stylesheet_directory() . '/partials/header.php';
+if (file_exists(get_stylesheet_directory() . '/partials/content/header.php')) {
+    require_once get_stylesheet_directory() . '/partials/content/header.php';
 }
 ?>
 
