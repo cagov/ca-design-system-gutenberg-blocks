@@ -168,7 +168,7 @@ function cagov_page_main_content_class($class)
         }
     }
 
-    return "main-content-default$main_content";
+    return "main-content$main_content";
 }
 
 /**
@@ -211,7 +211,7 @@ function cagov_post_main_content_class($class)
     global $post;
     $main_content = ' single-column-default';
 
-    return "main-content-default$main_content";
+    return "main-content$main_content";
 }
 
 /**
