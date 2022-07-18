@@ -26,22 +26,12 @@ function cagov_accordion_dynamic_render_callback($block_attributes, $content)
 {
 	$title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
 	return <<<EOT
-		<cagov-accordion>
-			<div class="cagov-accordion-card">
-			<button class="accordion-card-header accordion-alpha" type="button" aria-expanded="false">
-				<div class="accordion-title">$title</div>
-				<div class="plus-minus">
-				<cagov-plus></cagov-plus>
-				<cagov-minus></cagov-minus>
-				</div>
-			</button>
-			<div class="accordion-card-container">
-				<div class="card-body">
-					$content
-				</div>
-			</div>
-			</div>
-		</cagov-accordion>
+	<cagov-accordion>
+		<details>
+			<summary>$title</summary>
+			<div class="accordion-body">$content</div>
+		</details>
+	</cagov-accordion>
 	EOT;
 }
 
