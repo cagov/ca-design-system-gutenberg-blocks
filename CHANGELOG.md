@@ -4,6 +4,12 @@
 
 - Added references to partial header file to be compatible with CAWeb ^1.6.3.
 
+### 1.1.6
+- Correct instructions in docs.
+
+### 1.1.5
+- Updated accordion component to depend on v2 of the <a href="https://designsystem.webstandards.ca.gov/components/accordion/readme/">CA design system accordion component</a>. Since this is a breaking change requiring markup modification all sites using this component headlessly should coordinate an update to the frontend accordion component with this block update.
+
 ### 1.1.2
 
 - Check for CAWeb theme & deliver CAWeb specific page templates, otherwise default to Pantheon cagov theme option.
