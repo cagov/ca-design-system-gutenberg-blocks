@@ -8,11 +8,22 @@
 
 <?php
 // Pull header file from theme if it exists.
-if (file_exists(get_stylesheet_directory() . '/header.php')) {
-    require_once get_stylesheet_directory() . '/header.php';
+$caweb_header = get_stylesheet_directory() .'/header.php';
+$caweb_header_partial_163 = get_stylesheet_directory() . '/partials/content/header.php';
+$caweb_header_partial_162 = get_stylesheet_directory() . '/partials/header.php';
+
+if (file_exists($caweb_header)) {
+   require_once $caweb_header;
 }
-if (file_exists(get_stylesheet_directory() . '/partials/header.php')) {
-    require_once get_stylesheet_directory() . '/partials/header.php';
+
+// CAWeb ^1.6.3a
+if (file_exists($caweb_header_partial_163)) {
+    require_once $caweb_header_partial_163;
+}  
+
+// CAWeb ^1.6.2
+elseif (file_exists($caweb_header_partial_162)) {
+    require_once $caweb_header_partial_162;
 }
 ?>
 
