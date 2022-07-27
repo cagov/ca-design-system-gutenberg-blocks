@@ -47,7 +47,6 @@ function cagov_design_system_register_scrollable_card()
     // $glider_style_css = file_get_contents(plugin_dir_path(__FILE__) . '/glider.js/glider.css', __FILE__);
     // wp_add_inline_style('ca-design-system-behavior-glider-css', $glider_style_css);
 
-
     wp_register_style(
 		'ca-design-system-behavior-glider-css',
 		plugins_url('glider.min.css', __FILE__),
@@ -73,9 +72,6 @@ function cagov_design_system_register_scrollable_card()
     wp_register_style('ca-design-system-scrollable-card-style', false);
     $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-scrollable-card-style', $style_css);
-
-
-
 
     wp_register_script(
         'ca-design-system-scrollable-card-behavior',
@@ -151,7 +147,7 @@ function cagov_scrollable_card_dynamic_render_callback( $block_attributes, $cont
     return '<div class="wp-block-ca-design-system-scrollable-card cagov-scrollable-card cagov-stack">' .
           $card_image .
           '<div class="cagov-card-content">' .
-          '<h2>' . $title . '</h2>' .
+          '<h3>' . $title . '</h3>' .
           $inner_blocks .
       '</div></div>';
 }

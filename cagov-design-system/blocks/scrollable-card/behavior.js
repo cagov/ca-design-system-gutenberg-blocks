@@ -8,7 +8,6 @@
         })
 
         var createGlider = () => {
-            // console.log('creating glider');
             let countToAddGlider = 3;
 
             if (window.innerWidth <= 770) {
@@ -32,8 +31,8 @@
                                 // slidesToScroll: 1,
                                 slidesToShow: 'auto',
                                 slidesToScroll: 'auto',
-                                itemWidth: 336,
-                                dots: '.dots',
+                                itemWidth: 376,
+                                dots: glider.parentNode.querySelector('.dots'),
                                 draggable: true,
                                 responsive: [
                                     {
@@ -43,16 +42,16 @@
                                         // Set to `auto` and provide item width to adjust to viewport
                                         slidesToShow: 'auto',
                                         slidesToScroll: 'auto',
-                                        itemWidth: 336,
+                                        itemWidth: 376,
                                         duration: 0.25
                                       }
                                     },{
                                       // screens greater than >= 1024px
                                       breakpoint: 1024,
                                       settings: {
-                                        slidesToShow: 3,
+                                        slidesToShow: 2,
                                         slidesToScroll: 1,
-                                        itemWidth: 336,
+                                        itemWidth: 376,
                                         duration: 0.25
                                       }
                                     }
@@ -65,8 +64,6 @@
         }
 
         createGlider();
-
-        // @TODO Remove glider
       })
 })();
 

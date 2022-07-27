@@ -6,7 +6,7 @@
     }
 
     .cagov-scrollable-card-grid.cagov-grid .block-editor-block-list__layout {
-        grid-template-columns: repeat(auto-fit, minmax(366px, 366px));
+        grid-template-columns: repeat(auto-fit, minmax(376px, 376px));
     }
 }
 
@@ -14,7 +14,7 @@
 .cagov-scrollable-card-grid.cagov-grid .block-editor-block-list__layout {
     display: grid;
     grid-gap: 1.5rem;
-    grid-row-gap: 64px;
+    /* grid-row-gap: 64px; */
 }
 
 .cagov-scrollable-card-grid .block-editor-rich-text__editable .rich-text {
@@ -23,7 +23,7 @@
 
 @media (min-width: 719px) {
     .cagov-scrollable-card .cagov-card-image {
-        min-width: 366px;
+        min-width: 376px;
     }
 }
 
@@ -31,7 +31,7 @@
     height: 100%;
     background-color: #F9F9FA;
     border-radius: 5px;
-    max-width: 366px;
+    max-width: 376px;
     margin: 24px 0;
     background-color: #F9F9FA;
     border-radius: 5px;
@@ -39,10 +39,12 @@
 
 .cagov-scrollable-card.cagov-grid .wp-block {
     margin: 0;
-    max-width: calc(366px - 48px);
+    max-width: calc(376px - 48px);
 }
 
-.cagov-scrollable-card .block-editor-inner-blocks p,
+.cagov-scrollable-card .block-editor-inner-blocks p {
+    margin: 0;
+}
 .cagov-scrollable-card .block-editor-inner-blocks .wp-block-button {
     margin: 0 0 16px 0;
 }
