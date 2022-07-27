@@ -33,7 +33,7 @@
                                 slidesToScroll: 'auto',
                                 itemWidth: 376,
                                 dots: glider.parentNode.querySelector('.dots'),
-                                draggable: true,
+                                draggable: false,
                                 responsive: [
                                     {
                                       // screens greater than >= 775px

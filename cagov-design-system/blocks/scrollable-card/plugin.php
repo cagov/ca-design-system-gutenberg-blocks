@@ -144,10 +144,14 @@ function cagov_scrollable_card_dynamic_render_callback( $block_attributes, $cont
     $body = isset( $block_attributes['body'] ) ? $block_attributes['body'] : '';
     $inner_blocks = do_blocks( $content );
     
+    if ( isset( $block_attributes['cardLink'] )) {
+
+    }
+    
     return '<div class="wp-block-ca-design-system-scrollable-card cagov-scrollable-card cagov-stack">' .
           $card_image .
           '<div class="cagov-card-content">' .
-          '<h3>' . $title . '</h3>' .
+          '<h3>' . $title_link . '</h3>' .
           $inner_blocks .
       '</div></div>';
 }
