@@ -1,3 +1,18 @@
 # Scrollable Grid Card
 
-## Description
+## What is it?
+Card for content. Designed for page content. Provides image asset, name, description and hyperlink.
+A set of layout cards that can be scrolled through using an accessible Glider.
+
+
+## Behaviors
+### Glider
+*  http://nickpiscitelli.github.io/Glider.js - "A blazingly fast, crazy small, fully responsive, mobile-friendly, dependency free, native scrolling list with paging controls!"
+* Design decision - Glider-like behaviors were preferred when initially designing this component.
+
+
+## Editor features
+* Connect to media asset
+* Add title (be able to specify heading level)
+* Include free rich text for card body
+

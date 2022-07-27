@@ -32,7 +32,7 @@
                                 // slidesToScroll: 1,
                                 slidesToShow: 'auto',
                                 slidesToScroll: 'auto',
-                                itemWidth: 336,
+                                itemWidth: 376,
                                 dots: '.dots',
                                 draggable: true,
                                 responsive: [
@@ -43,7 +43,7 @@
                                         // Set to `auto` and provide item width to adjust to viewport
                                         slidesToShow: 'auto',
                                         slidesToScroll: 'auto',
-                                        itemWidth: 336,
+                                        itemWidth: 376,
                                         duration: 0.25
                                       }
                                     },{
@@ -52,7 +52,7 @@
                                       settings: {
                                         slidesToShow: 3,
                                         slidesToScroll: 1,
-                                        itemWidth: 336,
+                                        itemWidth: 376,
                                         duration: 0.25
                                       }
                                     }
