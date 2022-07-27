@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "cagov-design-system/ds-scrollable-card",
+	"version": "2.1.0",
+	"title": "Scrollable Card",
+	"category": "cagov-design-system",
+	"icon": "format-aside",
+	"description": "",
+	"supports": {
+		"html": true
+	},
+	"attributes": {
+		"title":{
+			"type": "string",
+			"source": "text",
+			"selector": "div"
+		}
+	},
+	"textdomain": "cagov-design-system",
+	"editorScript": "cagov-design-system-gutenberg",
+	"editorStyle": "cagov-design-system-gutenberg",
+	"style": "cagov-design-system-gutenberg-style"
+}
