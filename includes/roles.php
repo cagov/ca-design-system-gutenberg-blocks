@@ -1,6 +1,6 @@
 <?php
 
-function cagov_design_system_headless_wordpress_new_role() {  
+function cagov_design_system_gutenberg_new_role() {  
     $editor_role_set = get_role( 'editor' )->capabilities;
     $role = 'content_admin';
     $display_name = 'Content Admin';
@@ -51,9 +51,9 @@ function cagov_design_system_headless_wordpress_new_role() {
 
     // Option to make this Content Admin only...if approved.
     $content_admin_role->add_cap( 'publish_pages' );
-    // Upcoming: 'cagov_design_system_headless_wordpress_approvals' => true,
+    // Upcoming: 'cagov_design_system_gutenberg_approvals' => true,
     // Add menu
     $content_admin_role->add_cap( 'edit_theme_options' );
  
 }
-add_action('admin_init', 'cagov_design_system_headless_wordpress_new_role');
+add_action('admin_init', 'cagov_design_system_gutenberg_new_role');

@@ -33,7 +33,7 @@ function cagov_init()
 
 function cagov_footer_scripts() {
 	/* Register cagov scripts */
-	wp_register_script( 'twitter-timeline', 'https://platform.twitter.com/widgets.js', array(), CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION, false );
+	wp_register_script( 'twitter-timeline', 'https://platform.twitter.com/widgets.js', array(), CAGOV_DESIGN_SYSTEM_GUTENBERG__VERSION, false );
 
 	wp_enqueue_script( 'twitter-timeline' );
 }

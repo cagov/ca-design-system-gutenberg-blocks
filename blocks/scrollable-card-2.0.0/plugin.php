@@ -64,7 +64,6 @@ function cagov_design_system_register_scrollable_card()
         return;
     }
 
-    // Temporary staging for testing, (belongs in a set of design system behaviors)
     wp_register_script(
         'ca-design-system-behavior-glider-js',
         plugins_url('dist/glider.js/glider.min.js', __FILE__),

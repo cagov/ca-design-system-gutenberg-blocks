@@ -1,7 +1,6 @@
 # Changelog
 
-### 1.1.6-dev
-
+### 1.1.7
 - Added references to partial header file to be compatible with CAWeb ^1.6.3.
 
 ### 1.1.6
@@ -10,8 +9,13 @@
 ### 1.1.5
 - Updated accordion component to depend on v2 of the <a href="https://designsystem.webstandards.ca.gov/components/accordion/readme/">CA design system accordion component</a>. Since this is a breaking change requiring markup modification all sites using this component headlessly should coordinate an update to the frontend accordion component with this block update.
 
-### 1.1.2
+### 1.1.4
 
+
+### 1.1.3
+
+
+### 1.1.2
 - Check for CAWeb theme & deliver CAWeb specific page templates, otherwise default to Pantheon cagov theme option.
 - Clean up folder structure
 - Add more notes/suggestions about the structure and direction of this code for keeping flexibility with development coming from agency partners.
@@ -19,7 +23,6 @@
 - Removed some reference code
 
 ### 1.1.1
-
 - Rename `ca-design-system` block namespace to `cagov-design-system.`
 - Add `patterns/template-pattern-extension` - Structure a starter plugin for adding structured data and blocks for specific State publishing content patterns.
 - Add `template-custom-blocks-extension` - Structure a starter plugin that shows how to support custom Gutenberg Blocks as extensions of the California Design System.
@@ -35,7 +38,6 @@
 - Campaign toolkit feature (`promotional-card` and `scrollable-card`)
 
 ### 1.1.0
-
 - Refactored single plugin for any WordPress environment.
 - Improve plugin naming conventions.
 - Decide to keep `ca-design-system` as the block namespace as markup on sites are mapped to this naming convention. Will think this through for design-system version upgrades and validate the long-term usage of this block-library key. The name is mapped to the specific library name, prefixed with ca. The name should be `cagov-design-system` to be accurate to the GitHub repository name and project name. This has migration requirements, so postponing this to the future.
@@ -66,5 +68,4 @@ We started with a monolithic WordPress instance for the Department of Cannabis C
 Using the same REST API, we built a headless clone off of the original WordPress site and began repackaging the initial plugin code for installation in a variety of WordPress environments and future collaboration, and separating out some of the special adaptations that were necessary to work with the CAWeb theme.
 
 ### Prior work
-
-This modular approach to a design system uses the accumulated knowledge of the Office of Digital Innovation team's static-site, headless WordPress implementation for https://covid19.ca.gov and combining it with the CAWeb theme that implements the State Template.
+This modular approach to a design system uses the accumulated knowledge of the Office of Data and Innovation team's static-site, headless WordPress implementation for https://covid19.ca.gov and combining it with the CAWeb theme that implements the State Template.

@@ -60,7 +60,7 @@ function cagov_page_template_filter($template)
 
     $user_selected_template = get_page_template_slug($post->ID);
     $file_name              = pathinfo($user_selected_template, PATHINFO_BASENAME);
-    $template_dir           = CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . 'includes/templates/';
+    $template_dir           = CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . 'includes/templates/';
     
     $is_plugin = false;
     if (file_exists($template_dir . $file_name)) {

@@ -1,0 +1,57 @@
+{
+  "name": "ca-design-system-gutenberg-blocks",
+  "version": "2.0.0-dev",
+  "description": "Gutenberg Blocks integration for the California Design System",
+  "main": "index.js",
+  "scripts": {
+    "lint": "semistandard",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start",
+    "build": "gulp build",
+    "new-block": "cd blocks/ && npx @wordpress/create-block $npm_config_name --template ../template/index.js && cd ../",
+    "postnew-block": "npm run build",
+    "prebuild": "gulp build-blocks",
+    "install": "npm i -g npm-check-updates",
+    "postinstall": "npm config set gulp-cli --global && npm rebuild node-sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cagov/ca-design-system-gutenberg-blocks.git"
+  },
+  "keywords": [
+    "California Design System"
+  ],
+  "author": "Office of Data and Innovation",
+  "website": "https://designsystem.webstandards.ca.gov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cagov/ca-design-system-gutenberg-blocks/issues"
+  },
+  "homepage": "https://github.com/cagov/ca-design-system-gutenberg-blocks#README",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "workspaces": [
+    "./blocks/*"
+  ],
+  "devDependencies": {
+    "semistandard": "^16.0.0",
+    "del": "^6.0.0",
+    "fancy-log": "^2.0.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-html-beautify": "^1.0.1",
+    "gulp-line-ending-corrector": "^1.0.3",
+    "gulp-run-command": "^0.0.10",
+    "gulp-sass": "^5.1.0",
+    "gulp-shell": "^0.8.0",
+    "gulp-tap": "^2.0.0",
+    "gulp-uglify-es": "^3.0.0",
+    "gulp-watch": "^5.0.1",
+    "node-sass": "^7.0.1",
+    "npm-check-updates": "^12.5.9",
+    "yargs": "^17.4.1"
+  }
+}

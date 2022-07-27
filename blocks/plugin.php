@@ -38,8 +38,8 @@ function cagov_design_system_load_block_dependencies()
     include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks/promotional-card/plugin.php';
     include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks/regulatory-outline/plugin.php';
     include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks/step-list/plugin.php';
-    // include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks/scrollable-card/plugin.php';
-    include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks/scrollable-card-2.0.0/plugin.php';
+    include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks-archive/scrollable-card/plugin.php';
+    // include_once CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/blocks/scrollable-card-2.0.0/plugin.php';
 }
 /**
  * Create special categories for design system blocks
@@ -140,7 +140,7 @@ function cagov_design_system_build_scripts_frontend()
         // This needs to load after page is rendered.
         wp_register_script(
             'ca-design-system-blocks-web-components',
-            CAGOV_DESIGN_SYSTEM_GUTENBERG__ADMIN_URL . 'build/index.js',
+            CAGOV_DESIGN_SYSTEM_GUTENBERG__ADMIN_URL . 'components/build/components/build/cagov-design-system-core.1.1.7.js',
             array(),
             "1.1.7.1",
             true

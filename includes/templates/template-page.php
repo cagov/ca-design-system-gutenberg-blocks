@@ -42,7 +42,7 @@ elseif (file_exists($caweb_header_partial_162)) {
         <div class="ds-content-layout">
             <div class="sidebar-container everylayout" style="z-index: 1;">
                 <sidebar space="0" side="left">
-                    <cagov-content-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-content-navigation>
+                    <cagov-page-navigation data-selector="main" data-type="wordpress" data-label="On this page"></cagov-page-navigation>
                 </sidebar>
             </div>
 

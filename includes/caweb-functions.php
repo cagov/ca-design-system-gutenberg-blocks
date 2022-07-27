@@ -13,7 +13,7 @@
 function cagov_get_page_post_templates() {
 	$templates = array();
 
-	foreach ( glob( CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/templates/*.php' ) as $file ) {
+	foreach ( glob( CAGOV_DESIGN_SYSTEM_GUTENBERG__DIR_PATH . '/templates/*.php' ) as $file ) {
 		// Gets Template Name from the file.
 
 
