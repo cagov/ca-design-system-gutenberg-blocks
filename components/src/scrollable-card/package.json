@@ -1,0 +1,21 @@
+{
+    "name": "@cagov/cagov-scrollable-card",
+    "version": "1.0.0",
+    "description": "Card for content. Designed for page content. Provides image asset, name, description and hyperlink.",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "web-test-runner test/test.index.js --node-resolve",
+        "test:visual": "web-test-runner test/test.index.js --node-resolve --config test/test.config.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@open-wc/testing": "^2.5.33",
+        "@web/test-runner": "^0.13.17",
+        "@web/test-runner-puppeteer": "^0.10.2"
+    },
+    "dependencies": {
+        "glider-js": "^1.7.7"
+    }
+}

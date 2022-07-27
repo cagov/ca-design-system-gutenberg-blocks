@@ -1,0 +1,38 @@
+{
+  "name": "cagov-design-system",
+  "version": "1.1.7",
+  "description": "CA Design System components",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "semistandard",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup src/index.js --format iife --file build/cagov-design-system-core.1.1.7.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cagov/ca-design-system-gutenberg-blocks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cagov/ca-design-system-gutenberg-blocks/issues"
+  },
+  "homepage": "https://github.com/cagov/ca-design-system-gutenberg-blocks#README",
+  "devDependencies": {
+    "semistandard": "^16.0.0"
+  },
+  "dependencies": {
+    "@cagov/ds-accordion": "^2.0.1",
+    "@cagov/ds-base-css": "^1.0.19",
+    "@cagov/ds-link-grid": "^2.1.1",
+    "@cagov/ds-page-navigation": "^2.1.0",
+    "@cagov/ds-feature-card": "^1.0.7",
+    "@cagov/ds-feedback": "^1.0.12",
+    "@cagov/ds-pagination": "^2.0.1",
+    "@cagov/ds-link-icon": "^1.0.1",
+    "@cagov/ds-regulatory-outline": "^1.0.1",
+    "@cagov/ds-step-list": "^2.0.2",
+    "@cagov/ds-table": "^1.0.1"
+  }
+}
