@@ -27,6 +27,10 @@
     }
 }
 
+.cagov-scrollable-card .cagov-card-content .block-editor-rich-text__editable.card-title {
+    margin-bottom: 16px;
+}
+
 .wp-block:has(.cagov-scrollable-card) {
     height: 100%;
     background-color: #F9F9FA;
@@ -44,7 +48,9 @@
 
 .cagov-scrollable-card .block-editor-inner-blocks p {
     margin: 0;
+    width: calc(376px - 48px);
 }
+
 .cagov-scrollable-card .block-editor-inner-blocks .wp-block-button {
     margin: 0 0 16px 0;
 }

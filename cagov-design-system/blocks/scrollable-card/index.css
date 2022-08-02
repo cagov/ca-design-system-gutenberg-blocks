@@ -6,18 +6,15 @@
     grid-gap: 1.5rem;
     grid-row-gap: 64px;
 }
-.cagov-scrollable-card-grid .glider-slide {
-    margin-right: 1.5rem;
-}
-
-.cagov-scrollable-card-grid.glider.cagov-block {
-    margin-bottom: 0;
-}
 
 @supports (width: min(250px, 100%)) {
     .cagov-scrollable-card-grid.cagov-grid {
         grid-template-columns: repeat(auto-fit, minmax(376px, 376px));
     }
+}
+
+.cagov-scrollable-card .cagov-card-body-content p {
+    overflow-wrap: break-word;
 }
 
 @media (max-width: 719px) {
@@ -26,8 +23,12 @@
     }
 }
 
-.cagov-scrollable-card-grid {
-    /* margin-top: 48px; */
+.cagov-scrollable-card-grid .glider-slide {
+    margin-right: 1.5rem;
+}
+
+.cagov-scrollable-card-grid.glider.cagov-block {
+    margin-bottom: 0;
 }
 
 .cagov-scrollable-card {

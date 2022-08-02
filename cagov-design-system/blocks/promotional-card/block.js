@@ -29,7 +29,7 @@
     save: function (props) {
       return el(
         'div',
-        { className: 'cagov-grid cagov-stack cagov-block' },
+        { className: 'cagov-grid cagov-promotional-card-grid cagov-stack cagov-block' },
         el(InnerBlocks.Content)
       );
     }
@@ -212,6 +212,7 @@
             { className: "cagov-card-content" },
             el(RichText, {
               tagName: "h2",
+              className: "card-title",
               inline: true,
               placeholder: __("Write title…", "cagov-design-system"),
               value: attributes.title,
@@ -247,7 +248,7 @@
               "div",
               { className: "cagov-card-body" },
               el(editor.InnerBlocks, {
-                allowedBlocks: ["core/paragraph", "core/button"],
+                allowedBlocks: ["core/paragraph", "core/button", "core/list"],
                 onChange: function (value) {
                   console.log(value);
                 },

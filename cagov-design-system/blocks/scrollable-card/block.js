@@ -45,11 +45,11 @@
 
           el('button',{
             className: "glider-prev",
-            ariaLabel: "Previous", // @TODO This should come from component interface
+            ariaLabel: "Previous",
           }),
           el('button',{
             className: "glider-next",
-            ariaLabel: "Next", // @TODO  This should come from component interface
+            ariaLabel: "Next",
           }),
           el('div',{
             role: "tablist",
@@ -164,8 +164,8 @@
         src: attributes.previewMediaUrl,
         className: "cagov-card-image",
         alt: "Alt placeholder",
-        width: 366,
-        height: 260,
+        width: 376,
+        height: 376,
       });
       MediaImage = MediaImageElement(mediaObject); // async, a little slow
       const onSelectImage = function (media) {

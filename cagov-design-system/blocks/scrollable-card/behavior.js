@@ -8,7 +8,7 @@
         })
 
         var createGlider = () => {
-            let countToAddGlider = 3;
+            let countToAddGlider = 2;
 
             if (window.innerWidth <= 770) {
                 countToAddGlider = 1;

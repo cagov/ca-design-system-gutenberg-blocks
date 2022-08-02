@@ -6,7 +6,7 @@
  * Description: Create content with the California Design System.
  * Author: Office of Digital Innovation
  * Author URI: https://digital.ca.gov
- * Version: 1.1.5
+ * Version: 1.1.7
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin Constants.
-define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION', '1.1.5');
+define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION', '1.1.7');
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH', plugin_dir_path(__FILE__));
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL', plugin_dir_url(__FILE__));
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__FILE', __FILE__);
@@ -81,26 +81,7 @@ require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-s
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-events/plugin.php'; // @TODO NEW Fix event api sorting
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-posts/plugin.php';
 
-
-// Future campaign toolkits may require more, but currently we are including the components in the design system, so disabling this interface for now.
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-campaigns/plugin.php';
-
-// Add design system proposals
-// include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/design-system-proposals/plugin.php';
-
-// An agency could also create a new plugin similar to this one & include agency specific blocks, services and patterns as needed.
-
-// @PLACEHOLDER for connecting agency specific site settings without CAWeb theme.
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-agency-content/plugin.php';
-// @PLACEHOLDER Statewide integrations
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-statewide/plugin.php';
-// @SUGGESTION: Services integrations
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-services-feedback/plugin.php';
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-services-translations/plugin.php';
-// require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/_proposed/cagov-services-search/plugin.php';
-
 // We host this plugin on multiple platforms and WordPress base installs. Accomodate the differences in themes, and support monolithic WordPress as well as ODI Publishing headless wordpress.
-
 include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/roles.php';
 
 $theme = wp_get_theme();

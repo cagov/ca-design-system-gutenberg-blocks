@@ -66,7 +66,7 @@
               { className: 'accordion-body' },
               el(editor.InnerBlocks,
                 {
-                  allowedBlocks: ['core/heading', 'core/paragraph', 'core/button', 'core/list'],
+                  allowedBlocks: ['core/heading', 'core/paragraph', 'core/button', 'core/list,', 'core/table'],
                   onChange: function (value) {
                     // console.log(value);
                   }
