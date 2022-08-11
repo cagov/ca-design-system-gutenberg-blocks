@@ -40,7 +40,7 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 
 ## Compatible WordPress themes
 - Compatible themes that implement the CA Design System
-    - [CAWeb theme](https://github.com/CA-CODE-Works/CAWeb) Version (1.6.3a) - For production sites (Requires Divi, a third party plugin, not free.)
+    - [CAWeb theme](https://github.com/CA-CODE-Works/CAWeb) Version (1.6.2) - For production sites (Requires Divi, a third party plugin, not free.)
     - DEVELOPMENT: [Design System WordPress theme](https://github.com/cagov/design-system-wordpress-theme) - *In development* Intended for decoupled WordPress instances only. Note that the editor layout doesn't have visual parity with production because WordPress is only used as a CMS backend with the REST API endpoint, and all previews take place in build code on GitHub.
     A performant, monolithic + headless compatible theme is being discussed, but requires that the Design System matures a little more before this would be something that could be adopted more widely.
 
