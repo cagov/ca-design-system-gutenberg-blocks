@@ -25,6 +25,9 @@
       );
     },
     save: function (props) {
+      // return '<div class="glider-container"><div class="glider cagov-grid cagov-block cagov-scrollable-card-grid">' + InnerBlocks.Content + '<button aria-label="Previous" class="glider-prev">«</button><button aria-label="Next" class="glider-next">»</button><div role="tablist" class="dots"></div></div></div>';
+
+      // Deprecate this confusing UI - we can switch to pure components in next version. 
       return el(
         "div",
         {
@@ -39,6 +42,15 @@
             },
             el(InnerBlocks.Content),
           ),
+
+          el('button',{
+            className: "glider-prev",
+            ariaLabel: "Previous",
+          }),
+          el('button',{
+            className: "glider-next",
+            ariaLabel: "Next",
+          }),
           el('div',{
             role: "tablist",
             className: "dots"
@@ -152,8 +164,8 @@
         src: attributes.previewMediaUrl,
         className: "cagov-card-image",
         alt: "Alt placeholder",
-        width: 366,
-        height: 260,
+        width: 376,
+        height: 376,
       });
       MediaImage = MediaImageElement(mediaObject); // async, a little slow
       const onSelectImage = function (media) {

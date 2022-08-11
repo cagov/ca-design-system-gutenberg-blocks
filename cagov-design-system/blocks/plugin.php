@@ -117,39 +117,6 @@ function cagov_design_system_load_block_category()
             );
         }, 10, 2);
     }
-
-    // add_filter('allowed_block_types', 'cagov_design_system_allowed_block_types');
-}
-
-function cagov_design_system_allowed_block_types($allowed_blocks)
-{
-
-    // remove_theme_support('core-block-patterns');
-    // return array(
-    //     'core/image',
-    //     'core/paragraph',
-    //     'core/heading',
-    //     'core/list',
-    //     // 'core/custom-html',
-    //     'core/classic',      
-    //     'ca-design-system/accordion',
-    //     'ca-design-system/card',
-    //     'ca-design-system/card-grid',
-    //     'ca-design-system/content-navigation',
-    //     'ca-design-system/feature-card',
-    //     'ca-design-system/page-alert',
-    //     'ca-design-system/promotional-card',
-    //     'ca-design-system/regulatory-outline',
-    //     'ca-design-system/scrollable-card',
-    //     'ca-design-system/step-list',
-    //     'ca-design-system/table',
-    //     // @TODO move to patterns
-    //     'ca-design-system/post-list',
-    //     'ca-design-system/event-detail',
-    //     'ca-design-system/event-materials',
-    //     'ca-design-system/event-list',
-    //     'ca-design-system/event-pattern'
-    // );
 }
 
 /**

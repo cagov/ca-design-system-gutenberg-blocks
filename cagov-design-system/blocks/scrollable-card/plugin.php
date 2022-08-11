@@ -5,7 +5,7 @@
  * Plugin URI: TBD
  * Description: Card that highlights content. Designed for page content. Provides image asset, name, description and hyperlink.
  * Version: 1.0.0
- * Author: California Office of Digital Innovation
+ * Author: California Office of Data and Innovation
  * @package cagov-design-system
  */
 
@@ -47,7 +47,6 @@ function cagov_design_system_register_scrollable_card()
     // $glider_style_css = file_get_contents(plugin_dir_path(__FILE__) . '/glider.js/glider.css', __FILE__);
     // wp_add_inline_style('ca-design-system-behavior-glider-css', $glider_style_css);
 
-
     wp_register_style(
 		'ca-design-system-behavior-glider-css',
 		plugins_url('glider.min.css', __FILE__),
@@ -73,9 +72,6 @@ function cagov_design_system_register_scrollable_card()
     wp_register_style('ca-design-system-scrollable-card-style', false);
     $style_css = file_get_contents(plugin_dir_path(__FILE__) . '/index.css', __FILE__);
     wp_add_inline_style('ca-design-system-scrollable-card-style', $style_css);
-
-
-
 
     wp_register_script(
         'ca-design-system-scrollable-card-behavior',
@@ -148,10 +144,15 @@ function cagov_scrollable_card_dynamic_render_callback( $block_attributes, $cont
     $body = isset( $block_attributes['body'] ) ? $block_attributes['body'] : '';
     $inner_blocks = do_blocks( $content );
     
+    $title_link = $title;
+    if ( isset( $block_attributes['cardLink'] )) {
+        $title_link =  '<a href="' . $card_link . '">' . $title . '</a>';
+    }
+    
     return '<div class="wp-block-ca-design-system-scrollable-card cagov-scrollable-card cagov-stack">' .
           $card_image .
           '<div class="cagov-card-content">' .
-          '<h2>' . $title . '</h2>' .
+          '<h3>' . $title_link . '</h3>' .
           $inner_blocks .
       '</div></div>';
 }

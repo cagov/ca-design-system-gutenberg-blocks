@@ -5,7 +5,7 @@
  * Plugin URI: TBD
  * Description: TBD
  * Version: 1.1.0
- * Author: California Office of Digital Innovation
+ * Author: California Office of Data and Innovation
  * @package ca-design-system
  */
 

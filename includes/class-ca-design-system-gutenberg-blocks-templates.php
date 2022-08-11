@@ -8,7 +8,7 @@
  * 
  * @category CADesignSystem
  * @package  CADesignSystem
- * @author   Office of Digital Innovation <info@digital.ca.gov>
+ * @author   Office of Data and Innovation <info@innovation.ca.gov>
  * @license  https://opensource.org/licenses/MIT MIT
  * @link     https://github.com/cagov/ca-design-system-gutenberg-blocks#readme
  */

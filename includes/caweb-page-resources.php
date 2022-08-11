@@ -62,6 +62,7 @@ function cagov_breadcrumb()
         "<a class=\"crumb\" href=\"/\" title=\"" . get_bloginfo('name') . "\">" . get_bloginfo('name') . "</a>"
     );
 
+    // Regular menu breadcrumbs
     foreach ($items as $item) {
         if ($item->current_item_ancestor) {
             if ($linkOff == true) {
@@ -74,6 +75,7 @@ function cagov_breadcrumb()
         }
     }
 
+    // Category breadcrumbs
     if (is_category()) {
         global $wp_query;
         $category = get_category(get_query_var('cat'), false);
@@ -100,7 +102,34 @@ function cagov_breadcrumb()
         if (isset($category[0]) && $category[0] && $category_menu_item_found == false) {
             $crumbs[] = "<span class=\"crumb current\">" . $category[0]->name . "</span>";
         }
+
+        // If items are outside the menu structure, but registered with page parents that are in the menu tree
+        if (!isset($category[0])) {
+            $ancestor_items = get_ancestors($post->ID, "page");
+            $ancestor_count = 0;
+            foreach (array_reverse($ancestor_items) as $ancestor_item) {
+                $ancestor_title = get_the_title($ancestor_item);
+                $ancestor_url = get_the_permalink($ancestor_item);
+                $ancestor_count = $ancestor_count + 1;
+                $ancestor_length = count($ancestor_items);
+
+                if($ancestor_count === $ancestor_length) {
+                    $linkOff = false;
+                }
+
+                if ($ancestor_title && $ancestor_url) {
+                    if (false == $linkOff) {
+                        $crumbs[] = "<a class=\"crumb\" href=\"{$ancestor_url}\" title=\"{$ancestor_title}\">{$ancestor_title}</a>";                   
+                    } else {
+                        $crumbs[] = "<span class=\"crumb\">{$ancestor_title}</span>";
+                    }
+                } else if ($item->current) {
+                    $crumbs[] = "<span class=\"crumb current\">{$ancestor_title}</span>";
+                }
+            }
+        }
     }
+
 
     echo '<div class="breadcrumb" aria-label="Breadcrumb" role="region">' . implode($separator, $crumbs) . '</div>';
 }

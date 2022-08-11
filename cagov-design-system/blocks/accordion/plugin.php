@@ -5,7 +5,7 @@
  * Plugin URI: TBD
  * Description: An expandable section of content. Can be used on any standard content page. Allows information that is not applicable to the majority of readers to be initially hidden, and opened on demand. Includes accordion label, button, and body content. The label can be a question or a title.
  * Version: 1.1.0
- * Author: California Office of Digital Innovation
+ * Author: California Office of Data and Innovation
  * @package ca-design-system
  * @depends https://github.com/cagov/design-system/tree/main/components/accordion
  */
@@ -26,22 +26,12 @@ function cagov_accordion_dynamic_render_callback($block_attributes, $content)
 {
 	$title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
 	return <<<EOT
-		<cagov-accordion>
-			<div class="cagov-accordion-card">
-			<button class="accordion-card-header accordion-alpha" type="button" aria-expanded="false">
-				<div class="accordion-title">$title</div>
-				<div class="plus-minus">
-				<cagov-plus></cagov-plus>
-				<cagov-minus></cagov-minus>
-				</div>
-			</button>
-			<div class="accordion-card-container">
-				<div class="card-body">
-					$content
-				</div>
-			</div>
-			</div>
-		</cagov-accordion>
+	<cagov-accordion>
+		<details>
+			<summary>$title</summary>
+			<div class="accordion-body">$content</div>
+		</details>
+	</cagov-accordion>
 	EOT;
 }
 
