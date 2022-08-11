@@ -4,7 +4,6 @@
 August 11, 2022
 - Added references to partial header file to be compatible with CAWeb ^1.6.3.
 - Update layouts for scrollable card and promotional card.
-- Update paginator code for post-list and variants.
 - Update the README, ROADMAP and CHANGELOG (including with future plans)
 - Add ADR (Architectural Decision Records) folder so we can start to include architectural decisions on this project long term
 - Rename DEVELOPMENT.md to MAINTENANCE.md
@@ -31,7 +30,6 @@ November 23, 2021
 ### 1.1.2
 November 15, 2021
 Changes made from support of drought.ca.gov. Mostly adding API support for headless rendering & keeping packages updated with design system components.
->>>>>>> main
 
 - Check for CAWeb theme & deliver CAWeb specific page templates, otherwise default to Pantheon cagov theme option.
 - Clean up folder structure
@@ -88,7 +86,7 @@ Working with CAWeb publishing and ca.gov, we began weaving knowledge from the CO
 We started with a monolithic WordPress instance for the Department of Cannabis Control, and created a plugin that could provide design system elements, specially tailored for State communication officers, interagency communication, and agency support.
 
 Using the same REST API, we built a headless clone off of the original WordPress site and began repackaging the initial plugin code for installation in a variety of WordPress environments and future collaboration, and separating out some of the special adaptations that were necessary to work with the CAWeb theme.
-
+git
 ### Prior work
 This modular approach to a design system uses the accumulated knowledge of the Office of Data and Innovation team's static-site, headless WordPress implementation for https://covid19.ca.gov and combining it with the CAWeb theme that implements the State Template.
 
