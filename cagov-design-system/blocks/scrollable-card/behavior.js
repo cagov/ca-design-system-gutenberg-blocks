@@ -8,8 +8,7 @@
         })
 
         var createGlider = () => {
-            // console.log('creating glider');
-            let countToAddGlider = 3;
+            let countToAddGlider = 2;
 
             if (window.innerWidth <= 770) {
                 countToAddGlider = 1;
@@ -32,9 +31,9 @@
                                 // slidesToScroll: 1,
                                 slidesToShow: 'auto',
                                 slidesToScroll: 'auto',
-                                itemWidth: 336,
-                                dots: '.dots',
-                                draggable: true,
+                                itemWidth: 376,
+                                dots: glider.parentNode.querySelector('.dots'),
+                                draggable: false,
                                 responsive: [
                                     {
                                       // screens greater than >= 775px
@@ -43,16 +42,16 @@
                                         // Set to `auto` and provide item width to adjust to viewport
                                         slidesToShow: 'auto',
                                         slidesToScroll: 'auto',
-                                        itemWidth: 336,
+                                        itemWidth: 376,
                                         duration: 0.25
                                       }
                                     },{
                                       // screens greater than >= 1024px
                                       breakpoint: 1024,
                                       settings: {
-                                        slidesToShow: 3,
+                                        slidesToShow: 2,
                                         slidesToScroll: 1,
-                                        itemWidth: 336,
+                                        itemWidth: 376,
                                         duration: 0.25
                                       }
                                     }
@@ -65,8 +64,6 @@
         }
 
         createGlider();
-
-        // @TODO Remove glider
       })
 })();
 

@@ -3,7 +3,7 @@
  * Supported endpoints: Wordpress v2
  * Wordpress Dependencies: window.wp.moment, cagov-pagination
  */
- class CAGovPostList extends window.HTMLElement {
+class CAGovPostList extends window.HTMLElement {
   connectedCallback() {
     let siteUrl = window.location.origin;
     this.endpoint = this.dataset.endpoint || `${siteUrl}/wp-json/wp/v2`;
@@ -45,9 +45,9 @@
               return this.renderNoPosts();
             }
             let itemCount = 0;
-            data.map(item => {
+            data.map((item) => {
               itemCount += item.count;
-            })
+            });
 
             let categoryIds = data.map((item) => {
               this.categoryMap[item.id] = item;
@@ -66,9 +66,8 @@
               postsEndpoint += `&order=${this.order}`;
               postsEndpoint += `&orderBy=post.custom_post_date`;
               postsEndpoint += `&custom_post_date_sort=true`;
-              
             }
-            if(this.currentPage) {
+            if (this.currentPage) {
               postsEndpoint += `&page=${this.currentPage}`;
             }
 
@@ -80,12 +79,11 @@
               let today = new Date();
               today.setMonth(today.getMonth() - 2);
               postsEndpoint += `&after=${today.toISOString()}`;
-              
             } else if (this.filter === "before-yesterday") {
               // Get current date
               // Add and register metabox data & expose it to endpoint
               // Filter by this value if it's found/set compared to today.
-              // 
+              //
             }
             window
               .fetch(postsEndpoint)
@@ -94,21 +92,50 @@
                 function (posts) {
                   if (posts !== undefined) {
                     // Set posts content.
-                    if(!this.querySelector('.post-list-results')) {
+                    // Set posts content.
+                    if (!this.querySelector(".post-list-results")) {
                       this.innerHTML = `<div class="post-list-results"></div>`;
                       if (this.showPagination === true) {
-                        // console.log("Trying to show pagination");
-                        this.innerHTML = `<div class="post-list-results"></div><cagov-pagination data-current-page="${this.currentPage}" data-total-pages="${parseInt(itemCount/this.count)}"></cagov-pagination>`
+                        this.innerHTML = `<div class="post-list-results"></div><cagov-pagination data-current-page="${
+                          this.currentPage
+                        }" data-total-pages="${parseInt(
+                          itemCount / this.count
+                        )}"></cagov-pagination>`;
                       }
+                      // write the received content into the page along with parent HTML elements and the pagination under the pageable items, also apply the listener to pagination events. This version of content writing only happens on the first page load
+                      this.querySelector(".post-list-results").innerHTML =
+                        this.template(posts, "wordpress", itemCount);
+                      if (this.showPagination === true) {
+                        // this is set the first time pagination element is written
+                        this.querySelector("cagov-pagination").addEventListener(
+                          "paginationClick",
+                          function (event) {
+                            if (event.detail) {
+                              this.currentPage = event.detail;
+                              this.getWordpressPosts();
+                            }
+                          }.bind(this),
+                          false
+                        );
+                      }
+                    } else {
+                      // write the received content into the page, this happens when a visitor clicks to retrieve a subsequent paged set of items
+                      this.querySelector(".post-list-results").innerHTML =
+                        this.template(posts, "wordpress", itemCount);
                     }
-                    this.querySelector('.post-list-results').innerHTML = this.template(posts, "wordpress", itemCount);
-                    if (this.querySelector('cagov-pagination') !== null) {
-                      this.querySelector('cagov-pagination').addEventListener('paginationClick', function (event) {
-                        if(event.detail) {
-                          this.currentPage = event.detail;
-                          this.getWordpressPosts();
-                        }
-                      }.bind(this), false);
+                    this.querySelector(".post-list-results").innerHTML =
+                      this.template(posts, "wordpress", itemCount);
+                    if (this.querySelector("cagov-pagination") !== null) {
+                      this.querySelector("cagov-pagination").addEventListener(
+                        "paginationClick",
+                        function (event) {
+                          if (event.detail) {
+                            this.currentPage = event.detail;
+                            this.getWordpressPosts();
+                          }
+                        }.bind(this),
+                        false
+                      );
                     }
                   }
                 }.bind(this)
@@ -131,10 +158,11 @@
       if (type === "wordpress") {
         let renderedPosts = posts.map((post) => {
           console.log("post", post);
-          return this.renderWordpressPostTitleDate(post)
-          }
-        );
-        return `<div class="post-list-items">${renderedPosts.join("")}</div>${this.readMore}`;
+          return this.renderWordpressPostTitleDate(post);
+        });
+        return `<div class="post-list-items">${renderedPosts.join("")}</div>${
+          this.readMore
+        }`;
       }
     } else {
       return `<div class="no-results">${this.noResults}</div>`;
@@ -154,7 +182,7 @@
   renderWordpressPostTitleDate({
     title = null,
     link = null,
-    date = null, // "2021-05-23T18:19:58" 
+    date = null, // "2021-05-23T18:19:58"
     // content = null,
     excerpt = null, // @TODO shorten / optional
     // author = null, // 1
@@ -162,33 +190,42 @@
     categories = null,
     format = null,
     meta = null,
-    custom_post_date = null
+    custom_post_date = null,
   }) {
-  
     let dateFormatted;
     if (date !== null && window.moment !== undefined) {
       dateFormatted = moment(date).format("MMMM DD, YYYY");
     }
-    
+
     if (custom_post_date !== null && custom_post_date !== "") {
       try {
         dateFormatted = moment(custom_post_date).format("MMMM DD, YYYY");
-      } catch(error) {
+      } catch (error) {
         console.error(error);
       }
     }
 
-    let getExcerpt = this.showExcerpt === "true" ? `<div class="excerpt"><p>${excerpt.rendered}</p></div>` : ``;
-    let getDate = this.showPublishedDate === "true" ? `<div class="date">${dateFormatted}</div>` : ``;
+    let getExcerpt =
+      this.showExcerpt === "true"
+        ? `<div class="excerpt"><p>${excerpt.rendered}</p></div>`
+        : ``;
+    let getDate =
+      this.showPublishedDate === "true"
+        ? `<div class="date">${dateFormatted}</div>`
+        : ``;
 
     let category_type = "";
     let showCategoryType = false;
     // Disabled but can enable when we have a default style.
-    if (showCategoryType && categories !== null && Object.keys(this.categoryMap).length > 1) {
-        let categoryItem = this.categoryMap[[categories[0]]]; // Use first category. There should only be one set.
-        if (categoryItem.name !== undefined && categoryItem.name !== null) {
-          category_type = `<div class="category-type">${categoryItem.name}</div>`;
-        }
+    if (
+      showCategoryType &&
+      categories !== null &&
+      Object.keys(this.categoryMap).length > 1
+    ) {
+      let categoryItem = this.categoryMap[[categories[0]]]; // Use first category. There should only be one set.
+      if (categoryItem.name !== undefined && categoryItem.name !== null) {
+        category_type = `<div class="category-type">${categoryItem.name}</div>`;
+      }
     }
     if (format === "status") {
       return `<div class="post-list-item">
@@ -202,7 +239,6 @@
     }
 
     if (format === "link") {
-
       return `<div class="post-list-item">
           
           ${category_type}
@@ -214,7 +250,6 @@
           ${getDate}
       </div>
       `;
-
     }
     return `<div class="post-list-item">
                 ${category_type}

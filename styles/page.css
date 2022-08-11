@@ -775,3 +775,12 @@ article a {
 cagov-feedback .feedback-form {
     background: var(--primary-color);
 }
+
+
+/* Overrides */
+.everylayout figure.wp-block-image {
+  width: fit-content;
+}
+.everylayout figure.wp-block-image img {
+  width: auto;
+}

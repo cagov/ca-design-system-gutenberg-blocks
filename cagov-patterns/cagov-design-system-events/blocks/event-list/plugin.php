@@ -5,7 +5,7 @@
  * Plugin URI: TBD
  * Description: List of recent events. Block for event pages. Allows people to see the most recent events with the "Events" tag. Includes title, hyperlink to full event, date, and a view all link to see longer list.
  * Version: 1.0.0
- * Author: California Office of Digital Innovation
+ * Author: California Office of Data and Innovation
  * @package ca-design-system
  */
 

@@ -4,15 +4,15 @@
  * Plugin Name: Department of Cannabis Control WordPress customizations
  * Plugin URI: https://github.com/cagov/cagov-cannabis-headless-wordpress
  * Description: Add custom Gutenberg blocks
- * Author: Office of Digital Innovation
- * Author URI: https://digital.ca.gov
+ * Author: Office of Data and Innovation
+ * Author URI: https://innovation.ca.gov
  * Version: 1.1.0
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
  *
  * @package  CADesignSystemCannabis
- * @author   Office of Digital Innovation <info@digital.ca.gov>
+ * @author   Office of Data and Innovation <info@innovation.ca.gov>
  * @license  https://opensource.org/licenses/MIT MIT
  * @link     https://github.com/cagov/cagov-cannabis-headless-wordpress#README
  */
