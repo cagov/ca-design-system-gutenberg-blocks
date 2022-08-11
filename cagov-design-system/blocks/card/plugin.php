@@ -5,7 +5,7 @@
  * Plugin URI: TBD
  * Description: Button that highlights common user needs. Appears on the homepage. Provides a link to a webpage where people can take action with the department. Includes a text label and link.  Copy writing tip: Ideally starts with a verb.
  * Version: 1.1.0
- * Author: California Office of Digital Innovation
+ * Author: California Office of Data and Innovation
  * @package ca-design-system
  */
 

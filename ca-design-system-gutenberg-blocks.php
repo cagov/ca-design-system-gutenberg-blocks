@@ -4,15 +4,15 @@
  * Plugin Name: ca.gov Design System Headless Wordpress
  * Plugin URI: https://github.com/cagov/ca-design-system-gutenberg-blocks
  * Description: Create content with the California Design System.
- * Author: Office of Digital Innovation
- * Author URI: https://digital.ca.gov
+ * Author: Office of Data and Innovation
+ * Author URI: https://innovation.ca.gov
  * Version: 1.1.7
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  * Text Domain: ca-design-system
  *
  * @package  CAGOVDesignSystemHeadlessWordPress
- * @author   Office of Digital Innovation <info@digital.ca.gov>
+ * @author   Office of Data and Innovation <info@innovation.ca.gov>
  * @license  https://opensource.org/licenses/MIT MIT
  * @link     https://github.com/cagov/ca-design-system-gutenberg-blocks#README
  */
@@ -78,7 +78,7 @@ require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publi
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/plugin.php';
 // Connect content modules/patterns 
 // Patterns have more data & API requirements and multiple layouts.
-require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-events/plugin.php'; // @TODO NEW Fix event api sorting
+require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-events/plugin.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-posts/plugin.php';
 
 // We host this plugin on multiple platforms and WordPress base installs. Accomodate the differences in themes, and support monolithic WordPress as well as ODI Publishing headless wordpress.

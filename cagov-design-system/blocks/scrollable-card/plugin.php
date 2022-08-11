@@ -5,7 +5,7 @@
  * Plugin URI: TBD
  * Description: Card that highlights content. Designed for page content. Provides image asset, name, description and hyperlink.
  * Version: 1.0.0
- * Author: California Office of Digital Innovation
+ * Author: California Office of Data and Innovation
  * @package cagov-design-system
  */
 
