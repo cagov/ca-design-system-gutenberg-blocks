@@ -49,6 +49,7 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 ## Using with CAWeb theme
 - We are aligning with the [CAWeb](https://github.com/CA-CODE-Works/CAWeb) State Template theme.
 - This is the same codebase that will be used in the CAWeb theme in the future.
+- CDT is working on a gulp bundler. ODI will sync that format with this plugin for 2.0.0 release (requires refactoring some in-production block features.)
 
 ## Design System Status Updates
 - The best way to stay up to date is to join the Digital Web Services Network (DWSN). This quarterly meeting is open to all State employees and topics on the Design System are presented there. 
