@@ -20,14 +20,16 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 - Keep the plugin up-to-date for important security and design updates.
 - Check our CHANGELOG for notifications of major upgrades, or to keep content in sync with design system changes.
 
-* DEPRECATION NOTICE: Version 2.0.0 will be a major plugin refactor. Check [ROADMAP](./ROADMAP.md) for more information
-
 ## Content design and using Gutenberg Blocks
 
 - Review guidance for content editors
     - Please also check the [principles](https://designsystem.webstandards.ca.gov/principles/) and [content principles](https://designsystem.webstandards.ca.gov/style/content/) of the design system for more information on improving content for State of California website users.
 - The Office of Data and Innovation has drafted content guidance for content editors on our systems. 
     - If needed please [reach out](https://designsystem.webstandards.ca.gov/contact-us/) to the Design System team until we are able to publish the full version for any site using these Gutenberg Blocks.
+
+## Roadmap
+* DEPRECATION NOTICE: Version 2.0.0 will be a major plugin refactor. 
+* Check [ROADMAP](./ROADMAP.md) for more information
 
 ## Dependencies
 - Requires WordPress 5.9 or later. (Testing for WordPress 6.0 for 1.1.8).
