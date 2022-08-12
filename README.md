@@ -52,7 +52,7 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 - CDT is working on a gulp bundler. ODI will sync that format with this plugin for 2.0.0 release (requires refactoring some in-production block features.)
 
 ## Design System Status Updates
-- The best way to stay up to date is to join the Digital Web Services Network (DWSN). This quarterly meeting is open to all State employees and topics on the Design System are presented there. 
+- The best way to stay up to date (and meet other State technologists) is to join the [Digital Web Services Network](https://cdt.ca.gov/dwsn/) (DWSN). This quarterly meeting is open to all State employees and topics on the Design System are presented there. 
 - The State Template is still being converted to the Design System, and this work will continue throughout 2022. Watch this repo for updates, we will try to do our best to notify you until there is public documentation through main channels such as the Design System website or DWSN. 
 - Documentation is one of our top priorities, and many deep plans are underway as we transition to the Design System.
 
