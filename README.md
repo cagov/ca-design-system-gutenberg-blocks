@@ -53,8 +53,7 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 
 ## Design System Status Updates
 - The best way to stay up to date (and meet other State technologists) is to join the [Digital Web Services Network](https://cdt.ca.gov/dwsn/) (DWSN). This quarterly meeting is open to all State employees and topics on the Design System are presented there. 
-- The State Template is still being converted to the Design System, and this work will continue throughout 2022. Watch this repo for updates, we will try to do our best to notify you until there is public documentation through main channels such as the Design System website or DWSN. 
-- Documentation is one of our top priorities, and many deep plans are underway as we transition to the Design System.
+- The State Template is still being converted to the Design System, and this work will continue throughout 2022.
 
 ## Using with self-hosted WordPress
 - The Office of Data and Innovation maintains several Pantheon instances that seamlessly and securely run our Content Management System (CMS). The cost is generally low, and we have been able to procure it for our own use. However, we are creating "headless", "decoupled" sites, which differ from traditional monolithic use of WordPress. We hope to share more information about this system in the future. 
