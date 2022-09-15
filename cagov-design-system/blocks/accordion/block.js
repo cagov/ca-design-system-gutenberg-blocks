@@ -41,8 +41,12 @@
           <div class="accordion-body">$content</div>
         </details>
         */
-        return el('cagov-accordion', { },
-          el('details', { }, 
+        return el('cagov-accordion', {
+          value: attributes.className,
+          onChange: function (value) {
+            props.setAttributes({ className: value });
+          }},
+          el('details', { },
             el('summary', { },
               el(RichText, {
                 tagName: 'div',
@@ -60,7 +64,7 @@
                 'div',
                 { className: 'cagov-open-indicator', 'aria-hidden': "true" }
               )
-            ),            
+            ),
             el(
               'div',
               { className: 'accordion-body' },
@@ -90,5 +94,3 @@
   window.wp.components,
   window._
 );
-
-
