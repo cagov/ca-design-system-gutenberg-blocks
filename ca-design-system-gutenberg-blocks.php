@@ -97,7 +97,7 @@ if ( 'CAWeb' == $theme->name) {
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-page-resources.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-filters.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-functions.php';
-} elseif ( isset($_ENV['PANTHEON_ENVIRONMENT'])) || apply_filters( 'cagov_gb_is_pantheon', true ) ) {
+} elseif ( isset($_ENV['PANTHEON_ENVIRONMENT']) || apply_filters( 'cagov_gb_is_pantheon', true ) ) {
 	// @NOTE: if there is a third theme option or version number of the theme, we can handle that around here.
 	// Add page templates for "Pantheon version" of theme (currently: @cagov/cagov-wp-theme-generate-press)
 	if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon')) {
