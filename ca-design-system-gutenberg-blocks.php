@@ -86,7 +86,7 @@ include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/roles
 
 $theme = wp_get_theme();
 
-// If we are using the CAWeb theme (hosted on Flywheel)
+// @todo Instead of testing for CAWeb theme, allow users the option to include/exclude this plugin's helper files. .
 if ( 'CAWeb' == $theme->name) {
 	// Add page templates
 	if (!class_exists('CAGOVDesignSystemHeadlessWordPress_Plugin_Templates_Loader')) {
