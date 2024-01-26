@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin Constants.
-define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION', '1.1.7');
+define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__VERSION', '1.1.8');
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH', plugin_dir_path(__FILE__));
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__ADMIN_URL', plugin_dir_url(__FILE__));
 define('CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__FILE', __FILE__);
@@ -97,14 +97,16 @@ if ( 'CAWeb' == $theme->name) {
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-page-resources.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-filters.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-functions.php';
-} elseif ( isset($_ENV['PANTHEON_ENVIRONMENT']) || apply_filters( 'cagov_gb_is_pantheon', true ) ) {
-	// @NOTE: if there is a third theme option or version number of the theme, we can handle that around here.
-	// Add page templates for "Pantheon version" of theme (currently: @cagov/cagov-wp-theme-generate-press)
-	if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon')) {
-		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates-pantheon.php';
-	}
+} else {
+ 	if (apply_filters( 'ca_design_system_gutenberg_blocks_include_page_templates', true ) ) {
+		// @NOTE: if there is a third theme option or version number of the theme, we can handle that around here.
+		// Add page templates for "Pantheon version" of theme (currently: @cagov/cagov-wp-theme-generate-press)
+		if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon')) {
+			include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates-pantheon.php';
+		}
 
-	CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon::get_instance();
-	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-filters.php';
-	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-functions.php';
+		CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon::get_instance();
+		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-filters.php';
+		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-functions.php';
+	}
 }

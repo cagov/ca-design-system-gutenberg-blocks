@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 1.1.8
+January 25, 2024
+- Change the logic for how non-CAWeb, Design System page templates are applied. An `apply_filters` hook `ca_design_system_gutenberg_blocks_include_page_templates` can be set to `true` to include some page templates for backwards compatibility on some CA Design System WordPress sites with CA Design System layouts.
+
 ### 1.1.7
 August 11, 2022
 - Added references to partial header file to be compatible with CAWeb ^1.6.3.
