@@ -41,10 +41,10 @@ add_action('admin_init', 'cagov_design_system_headless_wordpress_admin_init');
  * Triggered before any other hook when a user accesses the admin area.
  * Note, this does not just run on user-facing admin screens.
  * It runs on admin-ajax.php and admin-post.php as well.
- * 
+ *
  * This pings the latest GitHub release and makes it available to plugin users to pull down changes.
- * For scheduling updates, please refer to GitHub. 
- * https://github.com/cagov/ca-design-system-gutenberg-blocks#README 
+ * For scheduling updates, please refer to GitHub.
+ * https://github.com/cagov/ca-design-system-gutenberg-blocks#README
  * @NOTE will rename to https://github.com/cagov/cagov-design-system-headless-wordpress
  *
  * @category add_action( 'init', 'cagov_design_system_headless_wordpress_admin_init' );
@@ -76,7 +76,7 @@ require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/publi
 /* Include Gutenberg blocks and patterns. */
 // Core design system blocks (periodically synced with design system changes)
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-design-system/blocks/plugin.php';
-// Connect content modules/patterns 
+// Connect content modules/patterns
 // Patterns have more data & API requirements and multiple layouts.
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-events/plugin.php';
 require_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/cagov-patterns/cagov-design-system-posts/plugin.php';
@@ -97,14 +97,4 @@ if ( 'CAWeb' == $theme->name) {
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-page-resources.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-filters.php';
 	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/caweb-functions.php';
-} else {
-	// @NOTE: if there is a third theme option or version number of the theme, we can handle that around here.
-	// Add page templates for "Pantheon version" of theme (currently: @cagov/cagov-wp-theme-generate-press)
-	if (!class_exists('CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon')) {
-		include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/class-ca-design-system-gutenberg-blocks-templates-pantheon.php';
-	}
-
-	CADesignSystemGutenbergBlocks_Plugin_Templates_Loader_Pantheon::get_instance();
-	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-filters.php';
-	include_once CAGOV_DESIGN_SYSTEM_HEADLESS_WORDPRESS__DIR_PATH . '/includes/pantheon-functions.php';
 }
