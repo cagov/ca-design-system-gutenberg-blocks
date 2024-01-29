@@ -25,8 +25,9 @@ function cagov_accordion()
 function cagov_accordion_dynamic_render_callback($block_attributes, $content)
 {
 	$title = isset($block_attributes["title"]) ? $block_attributes["title"] : "";
+	$class = isset($block_attributes["className"]) ? 'class="' . esc_attr( $block_attributes["className"] ) . '"' : "";
 	return <<<EOT
-	<cagov-accordion>
+	<cagov-accordion $class>
 		<details>
 			<summary>$title</summary>
 			<div class="accordion-body">$content</div>
