@@ -12,9 +12,6 @@
     icon: "format-aside",
     category: "ca-design-system",
     description: __("DESCRIPTION", "ca-design-system"),
-		supports: {
-			align: ['wide']
-		},
     edit: function (props) {
       return el(
           "div",
@@ -30,14 +27,14 @@
     save: function (props) {
       // return '<div class="glider-container"><div class="glider cagov-grid cagov-block cagov-scrollable-card-grid">' + InnerBlocks.Content + '<button aria-label="Previous" class="glider-prev">«</button><button aria-label="Next" class="glider-next">»</button><div role="tablist" class="dots"></div></div></div>';
 
-      // Deprecate this confusing UI - we can switch to pure components in next version.
+      // Deprecate this confusing UI - we can switch to pure components in next version. 
       return el(
         "div",
         {
           className: "glider-contain",
         },
         // https://nickpiscitelli.github.io/Glider.js/index.html#demos
-
+          
           el(
             "div",
             {
@@ -58,7 +55,7 @@
             role: "tablist",
             className: "dots"
           })
-
+        
       );
     },
   });
@@ -152,98 +149,102 @@
         "div",
         {
           className:
-            "wp-block-ca-design-system-scrollable-card cagov-scrollable-card cagov-block cagov-stack",
+            "wp-block-ca-design-system-scrollable-card cagov-scrollable-card cagov-block",
         },
-				el(
-					"div",
-					{ className: "cagov-card-image" },
-					el(MediaUpload, {
-						onSelect: onSelectImage,
-						allowedTypes: "image",
-						value: attributes.mediaID,
-						render: function (obj) {
-						// If mediaObject exists, render the image directly
-						if (
-							mediaObject &&
-							mediaObject.media_details.sizes &&
-							mediaObject.media_details.sizes.medium
-						) {
-							const mediaURL = mediaObject.media_details.sizes.medium.source_url;
-							const mediaAlt = mediaObject.alt_text;
-							const mediaWidth = mediaObject.media_details.sizes.medium.width;
-							const mediaHeight = mediaObject.media_details.sizes.medium.height;
-							return el(
-								"img",
-								{
-									src: mediaURL,
-									className: "cagov-card-image w-100 h-auto d-block",
-									alt: mediaAlt,
-									width: mediaWidth,
-									height: mediaHeight,
-								}
-							);
+        el(
+          "div",
+          { className: "cagov-stack" },
+          el(
+            "div",
+            { className: "cagov-card-image" },
+            el(MediaUpload, {
+				onSelect: onSelectImage,
+				allowedTypes: "image",
+				value: attributes.mediaID,
+				render: function (obj) {
+				// If mediaObject exists, render the image directly
+				if (
+					mediaObject &&
+					mediaObject.media_details.sizes &&
+					mediaObject.media_details.sizes.medium
+				) {
+					const mediaURL = mediaObject.media_details.sizes.medium.source_url;
+					const mediaAlt = mediaObject.alt_text;
+					const mediaWidth = mediaObject.media_details.sizes.medium.width;
+					const mediaHeight = mediaObject.media_details.sizes.medium.height;
+					return el(
+						"img",
+						{
+							src: mediaURL,
+							className: "cagov-card-image w-100 h-auto d-block",
+							alt: mediaAlt,
+							width: mediaWidth,
+							height: mediaHeight,
 						}
+					);
+				}
 
-						// Render upload button if no image selected
-						return el(
-							components.Button,
-							{
-							className: attributes.mediaID ? "image-button" : "button button-large",
-							onClick: obj.open,
-							},
-							!attributes.mediaID
-							? __("Upload Image", "cagov-design-system")
-							: null
-						);
-						},
-					}),
+				// Render upload button if no image selected
+				return el(
+					components.Button,
+					{
+					className: attributes.mediaID ? "image-button" : "button button-large",
+					onClick: obj.open,
+					},
 					!attributes.mediaID
-						? el("span", {
-								className: "ui-label",
-								value: __(
-									"Image uploaded must be at least 366px x 260px",
-									"cagov-design-system"
-								),
-							})
-						: el(TextControl, {
-								className: "cagov-card-image-set-link",
-								tagName: "a",
-								inline: true,
-								placeholder: __(
-									"example: /path-to-page, or a hyperlink",
-									"cagov-design-system"
-								),
-								label: __("Image link (optional)", "cagov-design-system"),
-								value: attributes.cardLink,
-								onChange: function (value) {
-									props.setAttributes({ cardLink: value });
-								},
-							})
-				),
-				el(
-					"div",
-					{ className: "cagov-card-content" },
-					el(RichText, {
-						tagName: "h3",
-						className: "card-title",
-						inline: true,
-						placeholder: __("Card title", "cagov-design-system"),
-						value: attributes.title,
-						onChange: function (value) {
-							props.setAttributes({ title: value });
-						},
-					}),
-					el(
-						"div",
-						{ className: "cagov-card-body" },
-						el(editor.InnerBlocks, {
-							allowedBlocks: ["core/paragraph", "core/button"],
-							onChange: function (value) {
-								console.log(value);
-							},
-						})
-					)
-				)
+					? __("Upload Image", "cagov-design-system")
+					: null
+				);
+				},
+			}),
+            !attributes.mediaID
+              ? el("span", {
+                  className: "ui-label",
+                  value: __(
+                    "Image uploaded must be at least 366px x 260px",
+                    "cagov-design-system"
+                  ),
+                })
+              : el(TextControl, {
+                  className: "cagov-card-image-set-link",
+                  tagName: "a",
+                  inline: true,
+                  placeholder: __(
+                    "example: /path-to-page, or a hyperlink",
+                    "cagov-design-system"
+                  ),
+                  label: __("Image link (optional)", "cagov-design-system"),
+                  value: attributes.cardLink,
+                  onChange: function (value) {
+                    props.setAttributes({ cardLink: value });
+                  },
+                })
+          ),
+          el(
+            "div",
+            { className: "cagov-card-content" },
+            el(RichText, {
+              tagName: "div",
+              className: "card-title",
+              inline: true,
+              placeholder: __("Card title", "cagov-design-system"),
+              value: attributes.title,
+              onChange: function (value) {
+                props.setAttributes({ title: value });
+              },
+            }),
+            el(
+              "div",
+              { className: "cagov-card-body" },
+              el(editor.InnerBlocks, {
+                allowedBlocks: ["core/paragraph", "core/button"],
+                onChange: function (value) {
+                  console.log(value);
+                },
+              })
+            )
+          )
+        )
       );
     },
     save: function (props) {
