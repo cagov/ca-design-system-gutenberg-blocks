@@ -136,38 +136,6 @@
         },
         [id]
       );
-      const MediaImageElement = () => {
-        // console.log("media", mediaObject);
-        if (
-          mediaObject !== undefined &&
-          mediaObject.media_details.sizes !== undefined
-        ) {
-          const mediaURL = mediaObject.media_details.sizes.thumbnail.source_url;
-          const mediaAlt = mediaObject.alt_text;
-          // const mediaCaption = mediaObject.caption.raw;
-          // const mediaTitle = mediaObject.title.raw;
-          // const mediaDescription = mediaObject.description.raw;
-          const mediaWidth = mediaObject.media_details.sizes.thumbnail.width;
-          const mediaHeight = mediaObject.media_details.sizes.thumbnail.height;
-          return el("img", {
-            src: mediaURL,
-            className: "cagov-card-image",
-            alt: mediaAlt,
-            width: mediaWidth,
-            height: mediaHeight,
-          });
-        }
-        return null;
-      };
-      // Trying to get a quicker preview - may be slow image or local cache issue
-      var MediaImage = el("img", {
-        src: attributes.previewMediaUrl,
-        className: "cagov-card-image",
-        alt: "Alt placeholder",
-        width: 376,
-        height: 376,
-      });
-      MediaImage = MediaImageElement(mediaObject); // async, a little slow
       const onSelectImage = function (media) {
         // Raw media object, not formatted
         // Store data for local use in preview (of alt tags and responsive image sizes) (may deprecate, but not sure yet)
@@ -190,24 +158,45 @@
             "div",
             { className: "cagov-card-image" },
             el(MediaUpload, {
-              onSelect: onSelectImage,
-              allowedTypes: "image",
-              value: attributes.mediaID,
-              render: function (obj) {
-                return el(
-                  components.Button,
-                  {
-                    className: attributes.mediaID
-                      ? "image-button"
-                      : "button button-large",
-                    onClick: obj.open,
-                  },
-                  !attributes.mediaID
-                    ? __("Upload Image", "cagov-design-system")
-                    : MediaImage
-                );
-              },
-            }),
+				onSelect: onSelectImage,
+				allowedTypes: "image",
+				value: attributes.mediaID,
+				render: function (obj) {
+				// If mediaObject exists, render the image directly
+				if (
+					mediaObject &&
+					mediaObject.media_details.sizes &&
+					mediaObject.media_details.sizes.medium
+				) {
+					const mediaURL = mediaObject.media_details.sizes.medium.source_url;
+					const mediaAlt = mediaObject.alt_text;
+					const mediaWidth = mediaObject.media_details.sizes.medium.width;
+					const mediaHeight = mediaObject.media_details.sizes.medium.height;
+					return el(
+						"img",
+						{
+							src: mediaURL,
+							className: "cagov-card-image w-100 h-auto d-block",
+							alt: mediaAlt,
+							width: mediaWidth,
+							height: mediaHeight,
+						}
+					);
+				}
+
+				// Render upload button if no image selected
+				return el(
+					components.Button,
+					{
+					className: attributes.mediaID ? "image-button" : "button button-large",
+					onClick: obj.open,
+					},
+					!attributes.mediaID
+					? __("Upload Image", "cagov-design-system")
+					: null
+				);
+				},
+			}),
             !attributes.mediaID
               ? el("span", {
                   className: "ui-label",
