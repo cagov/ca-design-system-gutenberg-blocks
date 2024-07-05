@@ -1,4 +1,6 @@
-# CA.gov Design System Gutenberg Blocks
+# DEPRECATED
+This is project is no longer supported. Use at your own risk.
+
 - For WordPress 5.9 or later
 - Tested on Pantheon, Flywheel
 - Github [`@cagov/ca-design-system-gutenberg-blocks`](https://github.com/cagov/ca-design-system-gutenberg-blocks)
@@ -27,18 +29,11 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 - The Office of Data and Innovation has drafted content guidance for content editors on our systems. 
     - If needed please [reach out](https://designsystem.webstandards.ca.gov/contact-us/) to the Design System team until we are able to publish the full version for any site using these Gutenberg Blocks.
 
-## Roadmap
-* DEPRECATION NOTICE: Version 2.0.0 will be a major plugin refactor. 
-* Check [ROADMAP](./ROADMAP.md) for more information
 
 ## Dependencies
 - Requires WordPress 5.9 or later. (Testing for WordPress 6.0 for 1.1.8).
 - Requires core Gutenberg feature to be enabled and not blocked.
 
-## Maintenance
-- Since the Design System is in continuous development, components are continuously improved.
-- All Design System components are versioned. This means you can coordinate your update on your own schedule and test your update to make sure that everything is working well.
-- Check the [maintenance](./MAINTENANCE.md) docs on how to perform a code update.
 
 ## Compatible WordPress themes
 - Compatible themes that implement the CA Design System
@@ -51,19 +46,7 @@ Content components are structured markup, with CSS and/or JavaScript as custom e
 - This is the same codebase that will be used in the CAWeb theme in the future.
 - CDT is working on a gulp bundler. ODI will sync that format with this plugin for 2.0.0 release (requires refactoring some in-production block features.)
 
-## Design System Status Updates
-- The best way to stay up to date (and meet other State technologists) is to join the [Digital Web Services Network](https://cdt.ca.gov/dwsn/) (DWSN). This quarterly meeting is open to all State employees and topics on the Design System are presented there. 
-- The State Template is still being converted to the Design System, and this work will continue throughout 2022.
 
 ## Using with self-hosted WordPress
 - The Office of Data and Innovation maintains several Pantheon instances that seamlessly and securely run our Content Management System (CMS). The cost is generally low, and we have been able to procure it for our own use. However, we are creating "headless", "decoupled" sites, which differ from traditional monolithic use of WordPress. We hope to share more information about this system in the future. 
-- Multiple departments are currently prototyping aspects of the Design System and coordinating with each other on pilot sites.
-- ODI works with CDT and various State control agencies to make sure that we are following security best practices.
-
-
-## Contributions
-Your help is important and will help us deliver services to Californians while maintaining our committments to accessibility, performance and equity. 
-
-**To contribute**
-* Please submit a pull request to this repository and the Design System team will review it.
 
